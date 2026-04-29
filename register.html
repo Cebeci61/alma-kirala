@@ -1,0 +1,890 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Hesap Aç | Alma Kirala</title>
+
+  <style>
+    :root{
+      --dark:#07142f;
+      --blue:#064db5;
+      --yellow:#ffcc00;
+      --orange:#ff9f1c;
+      --bg:#f4f6fb;
+      --line:#e5e7eb;
+      --muted:#64748b;
+      --green:#16a34a;
+      --red:#dc2626;
+      --shadow:0 18px 45px rgba(15,23,42,.12);
+    }
+
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family:Inter,Arial,sans-serif;
+      background:
+        radial-gradient(circle at 100% 0%,rgba(255,204,0,.18),transparent 32%),
+        radial-gradient(circle at 0 100%,rgba(6,77,181,.10),transparent 35%),
+        var(--bg);
+      color:var(--dark);
+      min-height:100vh;
+    }
+    a{text-decoration:none;color:inherit}
+    button,input,select,textarea{font-family:inherit}
+    button{cursor:pointer}
+
+    .page{
+      min-height:100vh;
+      display:grid;
+      grid-template-columns:.92fr 1.08fr;
+    }
+
+    .brand-side{
+      background:
+        radial-gradient(circle at 85% 10%,rgba(255,204,0,.35),transparent 32%),
+        linear-gradient(135deg,#07142f,#14396f);
+      color:#fff;
+      padding:44px;
+      display:flex;
+      flex-direction:column;
+      justify-content:space-between;
+      overflow:hidden;
+      position:relative;
+    }
+
+    .brand-side:after{
+      content:"";
+      position:absolute;
+      right:-120px;
+      bottom:-130px;
+      width:380px;
+      height:380px;
+      border-radius:50%;
+      background:rgba(255,255,255,.08);
+    }
+
+    .logo{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      font-size:30px;
+      font-weight:1000;
+      position:relative;
+      z-index:2;
+    }
+
+    .logo-icon{
+      width:54px;
+      height:54px;
+      border-radius:18px;
+      background:linear-gradient(135deg,#ffcc00,#ff9f1c);
+      position:relative;
+      box-shadow:0 18px 34px rgba(255,204,0,.25);
+    }
+
+    .logo-icon:before{
+      content:"";
+      position:absolute;
+      width:22px;
+      height:58px;
+      background:#07142f;
+      transform:rotate(28deg);
+      left:16px;
+      top:5px;
+      border-radius:999px;
+    }
+
+    .logo-icon:after{
+      content:"";
+      position:absolute;
+      width:18px;
+      height:18px;
+      background:#fff;
+      border-radius:50%;
+      right:8px;
+      bottom:8px;
+    }
+
+    .hero-copy{
+      position:relative;
+      z-index:2;
+      max-width:560px;
+    }
+
+    .hero-copy span{
+      display:inline-flex;
+      background:#fff3bf;
+      color:#8a5b00;
+      padding:8px 12px;
+      border-radius:999px;
+      font-weight:1000;
+      font-size:13px;
+      margin-bottom:14px;
+    }
+
+    .hero-copy h1{
+      font-family:Georgia,"Times New Roman",serif;
+      font-size:46px;
+      line-height:1.04;
+      letter-spacing:-1.6px;
+      margin:0;
+    }
+
+    .hero-copy p{
+      color:#dbe7ff;
+      line-height:1.7;
+      font-size:16px;
+      font-weight:750;
+    }
+
+    .steps{
+      display:grid;
+      gap:12px;
+      position:relative;
+      z-index:2;
+    }
+
+    .step{
+      background:rgba(255,255,255,.08);
+      border:1px solid rgba(255,255,255,.13);
+      border-radius:20px;
+      padding:16px;
+      backdrop-filter:blur(12px);
+    }
+
+    .step strong{
+      display:block;
+      color:#ffcc00;
+      font-size:18px;
+    }
+
+    .step span{
+      color:#cbd5e1;
+      font-size:13px;
+      font-weight:850;
+      line-height:1.5;
+    }
+
+    .form-side{
+      padding:28px;
+      display:grid;
+      place-items:center;
+    }
+
+    .auth-card{
+      width:min(720px,100%);
+      background:#fff;
+      border:1px solid var(--line);
+      border-radius:30px;
+      box-shadow:var(--shadow);
+      padding:24px;
+      animation:show .28s ease both;
+    }
+
+    .card-head{
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap:16px;
+      margin-bottom:18px;
+    }
+
+    .card-head h2{
+      margin:0;
+      font-family:Georgia,"Times New Roman",serif;
+      font-size:32px;
+      letter-spacing:-.6px;
+    }
+
+    .card-head p{
+      margin:6px 0 0;
+      color:var(--muted);
+      font-weight:750;
+      line-height:1.5;
+    }
+
+    .home-link{
+      background:#f1f5f9;
+      border-radius:14px;
+      padding:11px 13px;
+      font-weight:1000;
+      white-space:nowrap;
+    }
+
+    .role-tabs{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:7px;
+      background:#f1f5f9;
+      padding:6px;
+      border-radius:18px;
+      margin-bottom:16px;
+    }
+
+    .role-tab{
+      border:0;
+      background:transparent;
+      border-radius:14px;
+      padding:13px 8px;
+      font-weight:1000;
+      color:#334155;
+    }
+
+    .role-tab.active{
+      background:#07142f;
+      color:#fff;
+      box-shadow:0 10px 24px rgba(7,20,47,.16);
+    }
+
+    .register-method{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:8px;
+      margin-bottom:14px;
+    }
+
+    .method-btn{
+      border:1px solid #dbe3ef;
+      background:#fff;
+      border-radius:15px;
+      padding:11px;
+      font-weight:1000;
+    }
+
+    .method-btn.active{
+      background:#fff8db;
+      border-color:#ffcc00;
+    }
+
+    .form-grid{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:12px;
+    }
+
+    .field.full{
+      grid-column:1/-1;
+    }
+
+    .field label{
+      display:block;
+      font-size:13px;
+      font-weight:1000;
+      margin-bottom:7px;
+      color:#1e293b;
+    }
+
+    .field input,
+    .field select,
+    .field textarea{
+      width:100%;
+      border:1px solid #dbe3ef;
+      background:#fff;
+      border-radius:16px;
+      padding:14px;
+      outline:0;
+      font-size:15px;
+      font-weight:850;
+    }
+
+    .field textarea{
+      min-height:90px;
+      resize:vertical;
+    }
+
+    .field input:focus,
+    .field select:focus,
+    .field textarea:focus{
+      border-color:#ffcc00;
+      box-shadow:0 0 0 4px rgba(255,204,0,.16);
+    }
+
+    .seller-fields{
+      display:none;
+      grid-column:1/-1;
+      grid-template-columns:1fr 1fr;
+      gap:12px;
+      background:#f8fafc;
+      border:1px solid #e2e8f0;
+      border-radius:20px;
+      padding:14px;
+    }
+
+    .seller-fields.show{
+      display:grid;
+    }
+
+    .password-row{
+      position:relative;
+    }
+
+    .show-pass{
+      position:absolute;
+      right:8px;
+      top:50%;
+      transform:translateY(-50%);
+      border:0;
+      background:#f1f5f9;
+      border-radius:12px;
+      padding:8px 10px;
+      font-weight:1000;
+    }
+
+    .terms{
+      background:#f8fafc;
+      border:1px solid #e2e8f0;
+      border-radius:18px;
+      padding:13px;
+      margin:14px 0;
+      color:#334155;
+      font-size:13px;
+      font-weight:850;
+      line-height:1.55;
+    }
+
+    .terms a{
+      color:var(--blue);
+      font-weight:1000;
+    }
+
+    .submit-btn{
+      width:100%;
+      border:0;
+      background:linear-gradient(135deg,#ffcc00,#ff9f1c);
+      color:#07142f;
+      border-radius:17px;
+      padding:15px;
+      font-weight:1000;
+      font-size:16px;
+      box-shadow:0 14px 30px rgba(255,204,0,.24);
+    }
+
+    .login-box{
+      margin-top:16px;
+      background:#f8fafc;
+      border:1px solid #e2e8f0;
+      border-radius:18px;
+      padding:14px;
+      text-align:center;
+      font-weight:850;
+      color:#334155;
+      line-height:1.5;
+    }
+
+    .login-box a{
+      color:var(--blue);
+      font-weight:1000;
+    }
+
+    .verify-box{
+      display:none;
+      background:#fff8db;
+      border:1px solid #ffe08a;
+      border-radius:18px;
+      padding:13px;
+      color:#7c4a11;
+      font-size:13px;
+      font-weight:850;
+      line-height:1.5;
+      margin-top:14px;
+    }
+
+    .verify-box.show{
+      display:block;
+    }
+
+    .verify-grid{
+      display:grid;
+      grid-template-columns:1fr auto;
+      gap:8px;
+      margin-top:10px;
+    }
+
+    .verify-grid input{
+      border:1px solid #dbe3ef;
+      border-radius:14px;
+      padding:12px;
+      font-weight:900;
+      outline:0;
+    }
+
+    .verify-grid button{
+      border:0;
+      background:#07142f;
+      color:#fff;
+      border-radius:14px;
+      padding:0 12px;
+      font-weight:1000;
+    }
+
+    .toast{
+      position:fixed;
+      right:18px;
+      bottom:18px;
+      background:#07142f;
+      color:#fff;
+      padding:14px 16px;
+      border-radius:18px;
+      box-shadow:var(--shadow);
+      font-weight:900;
+      display:none;
+      z-index:20;
+      max-width:360px;
+      line-height:1.45;
+    }
+
+    .toast.show{display:block}
+
+    @keyframes show{
+      from{opacity:0;transform:translateY(12px)}
+      to{opacity:1;transform:translateY(0)}
+    }
+
+    @media(max-width:980px){
+      .page{
+        grid-template-columns:1fr;
+      }
+      .brand-side{
+        padding:28px;
+      }
+      .hero-copy h1{
+        font-size:36px;
+      }
+    }
+
+    @media(max-width:620px){
+      .form-side{
+        padding:14px;
+      }
+      .brand-side{
+        padding:22px 18px;
+      }
+      .logo{
+        font-size:24px;
+      }
+      .hero-copy h1{
+        font-size:30px;
+      }
+      .auth-card{
+        border-radius:24px;
+        padding:18px;
+      }
+      .card-head{
+        flex-direction:column;
+      }
+      .home-link{
+        width:100%;
+        text-align:center;
+      }
+      .form-grid,
+      .seller-fields,
+      .role-tabs,
+      .register-method{
+        grid-template-columns:1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<main class="page">
+
+  <section class="brand-side">
+    <a href="index.html" class="logo">
+      <span class="logo-icon"></span>
+      Alma Kirala
+    </a>
+
+    <div class="hero-copy">
+      <span>Kayıt + doğrulama zorunlu</span>
+      <h1>Güvenilir kiralama için önce hesabını doğrula.</h1>
+      <p>Müşteri hesabı için kimlik bilgileri ve iletişim alınır. Mağaza hesabı için şirket, vergi ve iletişim bilgileri zorunludur.</p>
+    </div>
+
+    <div class="steps">
+      <div class="step"><strong>1. Bilgilerini gir</strong><span>Ad soyad, doğum tarihi, mail veya telefon ve şifre.</span></div>
+      <div class="step"><strong>2. Doğrula</strong><span>Mail veya telefon doğrulama kodu ile hesabını aktif et.</span></div>
+      <div class="step"><strong>3. Güvenli kullan</strong><span>Kirala, mesajlaş, takip et veya mağaza yönet.</span></div>
+    </div>
+  </section>
+
+  <section class="form-side">
+    <div class="auth-card">
+      <div class="card-head">
+        <div>
+          <h2>Hesap Aç</h2>
+          <p id="roleDescription">Müşteri hesabı oluştur. Kiralama ve mesajlaşma için doğrulama gerekir.</p>
+        </div>
+        <a class="home-link" href="index.html">Ana Sayfa</a>
+      </div>
+
+      <div class="role-tabs">
+        <button class="role-tab active" data-role="customer" type="button">Müşteri Hesabı</button>
+        <button class="role-tab" data-role="seller" type="button">Mağaza Hesabı</button>
+      </div>
+
+      <div class="register-method">
+        <button class="method-btn active" data-method="email" type="button">E-mail ile kayıt</button>
+        <button class="method-btn" data-method="phone" type="button">Telefon ile kayıt</button>
+      </div>
+
+      <form id="registerForm">
+        <div class="form-grid">
+          <div class="field">
+            <label for="firstName">Ad</label>
+            <input id="firstName" type="text" placeholder="Adın">
+          </div>
+
+          <div class="field">
+            <label for="lastName">Soyad</label>
+            <input id="lastName" type="text" placeholder="Soyadın">
+          </div>
+
+          <div class="field">
+            <label for="birthDate">Doğum tarihi</label>
+            <input id="birthDate" type="date">
+          </div>
+
+          <div class="field">
+            <label for="city">Şehir</label>
+            <input id="city" type="text" placeholder="İstanbul">
+          </div>
+
+          <div class="field" id="emailField">
+            <label for="email">E-mail adresi</label>
+            <input id="email" type="email" placeholder="ornek@mail.com">
+          </div>
+
+          <div class="field" id="phoneField" style="display:none">
+            <label for="phone">Telefon numarası</label>
+            <input id="phone" type="tel" placeholder="05xx xxx xx xx">
+          </div>
+
+          <div class="field">
+            <label for="password">Şifre belirle</label>
+            <div class="password-row">
+              <input id="password" type="password" placeholder="En az 6 karakter">
+              <button class="show-pass" type="button" data-target="password">Göster</button>
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="password2">Şifre tekrar</label>
+            <div class="password-row">
+              <input id="password2" type="password" placeholder="Şifreni tekrar gir">
+              <button class="show-pass" type="button" data-target="password2">Göster</button>
+            </div>
+          </div>
+
+          <div class="seller-fields" id="sellerFields">
+            <div class="field">
+              <label for="companyName">Şirket / mağaza ismi</label>
+              <input id="companyName" type="text" placeholder="Örn: Kamera Dünyam">
+            </div>
+
+            <div class="field">
+              <label for="taxOffice">Vergi dairesi</label>
+              <input id="taxOffice" type="text" placeholder="Vergi dairesi">
+            </div>
+
+            <div class="field">
+              <label for="taxNumber">Vergi numarası</label>
+              <input id="taxNumber" type="text" placeholder="Vergi / TCKN numarası">
+            </div>
+
+            <div class="field">
+              <label for="businessPhone">İşletme telefonu</label>
+              <input id="businessPhone" type="tel" placeholder="05xx xxx xx xx">
+            </div>
+
+            <div class="field">
+              <label for="businessEmail">İşletme e-mail</label>
+              <input id="businessEmail" type="email" placeholder="magaza@mail.com">
+            </div>
+
+            <div class="field">
+              <label for="website">Web sitesi</label>
+              <input id="website" type="url" placeholder="https://...">
+            </div>
+
+            <div class="field full">
+              <label for="storeDescription">Mağaza açıklaması</label>
+              <textarea id="storeDescription" placeholder="Mağazan ne kiralıyor, hangi şehirde hizmet veriyor?"></textarea>
+            </div>
+          </div>
+        </div>
+
+        <div class="terms">
+          <label>
+            <input id="terms" type="checkbox">
+            Kullanım şartlarını, gizlilik politikasını ve doğrulama sürecini kabul ediyorum.
+          </label>
+        </div>
+
+        <button class="submit-btn" type="submit">Kayıt Ol ve Doğrula</button>
+
+        <div class="verify-box" id="verifyBox">
+          Doğrulama kodu gönderildi. Demo kod: <b>123456</b>
+          <div class="verify-grid">
+            <input id="verifyCode" type="text" placeholder="Doğrulama kodu">
+            <button id="verifyBtn" type="button">Doğrula</button>
+          </div>
+        </div>
+      </form>
+
+      <div class="login-box">
+        Zaten hesabın var mı?
+        <a href="login.html">Giriş yap</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const DEMO_CODE = "123456";
+const API_BASE = localStorage.getItem("AK_API_BASE") || "http://localhost:5000";
+
+let currentRole = "customer";
+let currentMethod = "email";
+let pendingAccount = null;
+
+function $(id){return document.getElementById(id)}
+
+function toast(message){
+  $("toast").textContent = message;
+  $("toast").classList.add("show");
+  setTimeout(()=>$("toast").classList.remove("show"),3500);
+}
+
+function setRole(role){
+  currentRole = role;
+
+  document.querySelectorAll(".role-tab").forEach(btn=>{
+    btn.classList.toggle("active",btn.dataset.role === role);
+  });
+
+  $("sellerFields").classList.toggle("show",role === "seller");
+
+  $("roleDescription").textContent = role === "seller"
+    ? "Mağaza hesabı oluştur. Şirket, vergi, iletişim ve mağaza bilgileri zorunludur."
+    : "Müşteri hesabı oluştur. Kiralama ve mesajlaşma için doğrulama gerekir.";
+}
+
+function setMethod(method){
+  currentMethod = method;
+
+  document.querySelectorAll(".method-btn").forEach(btn=>{
+    btn.classList.toggle("active",btn.dataset.method === method);
+  });
+
+  $("emailField").style.display = method === "email" ? "block" : "none";
+  $("phoneField").style.display = method === "phone" ? "block" : "none";
+}
+
+function requireValue(value,message){
+  if(!String(value || "").trim()){
+    toast(message);
+    return false;
+  }
+  return true;
+}
+
+function collectPayload(){
+  const payload = {
+      role: currentRole,
+    method: currentMethod,
+    firstName: $("firstName").value.trim(),
+    lastName: $("lastName").value.trim(),
+    birthDate: $("birthDate").value,
+    city: $("city").value.trim(),
+    email: $("email").value.trim(),
+    phone: $("phone").value.trim(),
+    password: $("password").value,
+    password2: $("password2").value,
+    companyName: $("companyName").value.trim(),
+    taxOffice: $("taxOffice").value.trim(),
+    taxNumber: $("taxNumber").value.trim(),
+    businessPhone: $("businessPhone").value.trim(),
+    businessEmail: $("businessEmail").value.trim(),
+    website: $("website").value.trim(),
+    storeDescription: $("storeDescription").value.trim()
+  };
+
+  return payload;
+}
+
+function validatePayload(payload){
+  if(!requireValue(payload.firstName,"Ad zorunlu.")) return false;
+  if(!requireValue(payload.lastName,"Soyad zorunlu.")) return false;
+  if(!requireValue(payload.birthDate,"Doğum tarihi zorunlu.")) return false;
+  if(!requireValue(payload.city,"Şehir zorunlu.")) return false;
+
+  if(payload.method === "email"){
+    if(!requireValue(payload.email,"E-mail adresi zorunlu.")) return false;
+  }
+
+  if(payload.method === "phone"){
+    if(!requireValue(payload.phone,"Telefon numarası zorunlu.")) return false;
+  }
+
+  if(!requireValue(payload.password,"Şifre zorunlu.")) return false;
+  if(payload.password.length < 6){
+    toast("Şifre en az 6 karakter olmalı.");
+    return false;
+  }
+
+  if(payload.password !== payload.password2){
+    toast("Şifreler eşleşmiyor.");
+    return false;
+  }
+
+  if(payload.role === "seller"){
+    if(!requireValue(payload.companyName,"Şirket / mağaza ismi zorunlu.")) return false;
+    if(!requireValue(payload.taxOffice,"Vergi dairesi zorunlu.")) return false;
+    if(!requireValue(payload.taxNumber,"Vergi numarası zorunlu.")) return false;
+    if(!requireValue(payload.businessPhone,"İşletme telefonu zorunlu.")) return false;
+    if(!requireValue(payload.businessEmail,"İşletme e-mail adresi zorunlu.")) return false;
+    if(!requireValue(payload.storeDescription,"Mağaza açıklaması zorunlu.")) return false;
+  }
+
+  if(!$("terms").checked){
+    toast("Kullanım şartlarını kabul etmelisin.");
+    return false;
+  }
+
+  return true;
+}
+
+async function tryBackendRegister(payload){
+  try{
+    const res = await fetch(`${API_BASE}/api/auth/register`,{
+      method:"POST",
+      headers:{"Content-Type":"application/json"},
+      body:JSON.stringify(payload)
+    });
+
+    if(!res.ok) return null;
+    return await res.json();
+  }catch(err){
+    return null;
+  }
+}
+
+function saveDemoAccount(payload){
+  const key = payload.role === "seller" ? "akDemoSellerAccounts" : "akDemoCustomerAccounts";
+  const accounts = JSON.parse(localStorage.getItem(key) || "[]");
+
+  const exists = accounts.some(acc =>
+    (payload.email && acc.email === payload.email) ||
+    (payload.phone && acc.phone === payload.phone)
+  );
+
+  if(exists){
+    toast("Bu mail veya telefon ile kayıt zaten var.");
+    return false;
+  }
+
+  const account = {
+    ...payload,
+    verified:false,
+    createdAt:new Date().toISOString()
+  };
+
+  accounts.push(account);
+  localStorage.setItem(key,JSON.stringify(accounts));
+
+  return true;
+}
+
+function finishRegister(){
+  if(!pendingAccount){
+    toast("Bekleyen kayıt bulunamadı.");
+    return;
+  }
+
+  pendingAccount.verified = true;
+
+  const key = pendingAccount.role === "seller" ? "akDemoSellerAccounts" : "akDemoCustomerAccounts";
+  const accounts = JSON.parse(localStorage.getItem(key) || "[]");
+
+  const updated = accounts.map(acc=>{
+    const sameEmail = pendingAccount.email && acc.email === pendingAccount.email;
+    const samePhone = pendingAccount.phone && acc.phone === pendingAccount.phone;
+    return sameEmail || samePhone ? pendingAccount : acc;
+  });
+
+  localStorage.setItem(key,JSON.stringify(updated));
+
+  toast("Hesabın doğrulandı. Şimdi giriş sayfasına yönlendiriliyorsun...");
+
+  setTimeout(()=>{
+    window.location.href = "login.html";
+  },900);
+}
+
+document.querySelectorAll(".role-tab").forEach(btn=>{
+  btn.addEventListener("click",()=>setRole(btn.dataset.role));
+});
+
+document.querySelectorAll(".method-btn").forEach(btn=>{
+  btn.addEventListener("click",()=>setMethod(btn.dataset.method));
+});
+
+document.querySelectorAll(".show-pass").forEach(btn=>{
+  btn.addEventListener("click",()=>{
+    const input = $(btn.dataset.target);
+    input.type = input.type === "password" ? "text" : "password";
+    btn.textContent = input.type === "password" ? "Göster" : "Gizle";
+  });
+});
+
+$("registerForm").addEventListener("submit",async(e)=>{
+  e.preventDefault();
+
+  const payload = collectPayload();
+  if(!validatePayload(payload)) return;
+
+  const backendResult = await tryBackendRegister(payload);
+
+  if(backendResult){
+    pendingAccount = {
+      ...payload,
+      id:backendResult.user?.id || backendResult.id || Date.now(),
+      verified:false
+    };
+  }else{
+    const saved = saveDemoAccount(payload);
+    if(!saved) return;
+
+    pendingAccount = {
+      ...payload,
+      id:Date.now(),
+      verified:false
+    };
+  }
+
+  $("verifyBox").classList.add("show");
+  toast("Doğrulama kodu gönderildi. Demo kod: 123456");
+});
+
+$("verifyBtn").addEventListener("click",()=>{
+  if($("verifyCode").value.trim() !== DEMO_CODE){
+    toast("Doğrulama kodu hatalı.");
+    return;
+  }
+
+  finishRegister();
+});
+
+setRole("customer");
+setMethod("email");
+</script>
+
+</body>
+</html>

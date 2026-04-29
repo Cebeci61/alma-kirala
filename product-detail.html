@@ -1,0 +1,1967 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Ürün Detayı | Alma Kirala</title>
+  <meta name="description" content="Alma Kirala ürün detay sayfası. Ürünü incele, mağaza bilgilerini gör, tarih seç ve kiralama talebi oluştur." />
+
+  <style>
+    :root{
+      --dark:#07142f;
+      --dark2:#10264d;
+      --blue:#064db5;
+      --yellow:#ffcc00;
+      --orange:#ff9f1c;
+      --bg:#f4f6fb;
+      --card:#fff;
+      --text:#07142f;
+      --muted:#64748b;
+      --line:#e5e7eb;
+      --soft:#eef4ff;
+      --red:#dc2626;
+      --green:#16a34a;
+      --shadow:0 18px 45px rgba(15,23,42,.10);
+      --shadow2:0 10px 28px rgba(15,23,42,.07);
+    }
+
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      font-family:Inter, Arial, sans-serif;
+      background:
+        radial-gradient(circle at 100% 0%, rgba(255,204,0,.16), transparent 30%),
+        radial-gradient(circle at 0% 22%, rgba(6,77,181,.08), transparent 30%),
+        var(--bg);
+      color:var(--text);
+    }
+    body.no-scroll{overflow:hidden}
+    a{text-decoration:none;color:inherit}
+    button,input,select,textarea{font-family:inherit}
+    button{cursor:pointer}
+    img{max-width:100%;display:block}
+    .ak-container{width:min(1240px,calc(100% - 32px));margin:auto}
+
+    .topbar{background:var(--dark);color:#fff;font-size:13px}
+    .topbar-inner{
+      min-height:36px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      font-weight:850;
+    }
+    .topbar b{color:var(--yellow)}
+
+    .header{
+      position:sticky;
+      top:0;
+      z-index:90;
+      background:
+        linear-gradient(135deg,rgba(255,255,255,.98),rgba(248,251,255,.96)),
+        radial-gradient(circle at 92% 0%,rgba(255,204,0,.18),transparent 28%);
+      backdrop-filter:blur(16px);
+      border-bottom:1px solid rgba(226,232,240,.9);
+      box-shadow:0 8px 26px rgba(15,23,42,.045);
+    }
+    .header-inner{
+      min-height:72px;
+      display:grid;
+      grid-template-columns:auto minmax(420px,1fr) auto;
+      align-items:center;
+      gap:14px;
+    }
+    .brand{display:flex;align-items:center;gap:11px;white-space:nowrap}
+    .brand-mark{
+      width:50px;height:50px;border-radius:17px;
+      background:linear-gradient(135deg,#ffcc00,#ff9f1c);
+      box-shadow:0 12px 30px rgba(255,204,0,.30);
+      position:relative;overflow:hidden;
+    }
+    .brand-mark:before{
+      content:"";position:absolute;width:22px;height:58px;
+      background:var(--dark);transform:rotate(28deg);
+      left:13px;top:5px;border-radius:999px;opacity:.95;
+    }
+    .brand-mark:after{
+      content:"";position:absolute;width:18px;height:18px;
+      background:#fff;border-radius:50%;right:8px;bottom:8px;opacity:.9;
+    }
+    .brand-text strong{display:block;font-size:26px;line-height:1;letter-spacing:-1.1px;font-weight:1000}
+    .brand-text span{display:block;margin-top:4px;color:#8a5b00;font-size:12px;font-weight:950}
+    .search{
+      width:100%;
+      max-width:760px;
+      justify-self:stretch;
+      min-height:50px;
+      display:grid;
+      grid-template-columns:1fr auto;
+      background:#f1f5f9;
+      border:1px solid #dbe3ef;
+      border-radius:18px;
+      overflow:hidden;
+      transition:.2s;
+    }
+    .search:focus-within{background:#fff;border-color:var(--yellow);box-shadow:0 0 0 4px rgba(255,204,0,.18)}
+    .search input{border:0;outline:0;background:transparent;padding:14px 16px;font-size:15px;min-width:0}
+    .search button{border:0;background:var(--yellow);color:var(--dark);font-weight:1000;padding:0 24px;min-width:86px}
+    .header-actions{display:flex;align-items:center;gap:10px;font-weight:950;white-space:nowrap}
+    .header-actions a,.header-actions button{
+      border:1px solid #dbe3ef;background:#fff;padding:12px 14px;
+      border-radius:15px;font-weight:950;color:var(--dark);transition:.2s;
+      box-shadow:0 8px 18px rgba(15,23,42,.04);
+    }
+    .header-actions a:hover,.header-actions button:hover{transform:translateY(-2px);box-shadow:var(--shadow2)}
+    .store-open{background:var(--yellow)!important;border-color:var(--yellow)!important}
+    .store-list{background:var(--dark)!important;color:#fff!important;border-color:var(--dark)!important}
+    .more-menu-wrap{position:relative}
+    .more-menu{
+      display:none;position:absolute;right:0;top:52px;min-width:220px;
+      background:#fff;border:1px solid var(--line);border-radius:18px;
+      box-shadow:var(--shadow);padding:8px;
+    }
+    .more-menu.open{display:block}
+    .more-menu a{display:block;border:0;box-shadow:none;padding:12px;border-radius:12px}
+
+    .product-page{padding:20px 0 56px}
+    .breadcrumb{
+      display:flex;gap:8px;align-items:center;flex-wrap:wrap;
+      color:var(--muted);font-size:13px;font-weight:900;margin:0 0 14px;
+    }
+    .breadcrumb a{color:var(--blue)}
+    .product-shell{
+      display:grid;
+      grid-template-columns:minmax(0,1.05fr) minmax(360px,.85fr) 300px;
+      gap:18px;
+      align-items:start;
+    }
+
+    .gallery-card,.info-card,.seller-card,.panel-card{
+      background:#fff;
+      border:1px solid var(--line);
+      border-radius:28px;
+      box-shadow:var(--shadow2);
+    }
+
+    .gallery-card{
+      padding:14px;
+      position:sticky;
+      top:92px;
+    }
+    .main-image{
+      height:460px;
+      border-radius:24px;
+      overflow:hidden;
+      position:relative;
+      background:
+        radial-gradient(circle at 82% 14%,rgba(255,204,0,.42),transparent 28%),
+        linear-gradient(135deg,#eef4ff,#ffd633);
+      display:grid;
+      place-items:center;
+      isolation:isolate;
+    }
+    .main-image img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      position:relative;
+      z-index:1;
+    }
+    .image-placeholder{
+      font-size:96px;
+      filter:drop-shadow(0 22px 30px rgba(15,23,42,.18));
+    }
+    .floating-badge{
+      position:absolute;
+      left:14px;top:14px;
+      background:rgba(7,20,47,.95);
+      color:var(--yellow);
+      padding:8px 11px;
+      border-radius:999px;
+      font-size:12px;
+      font-weight:1000;
+      z-index:3;
+      box-shadow:0 8px 20px rgba(7,20,47,.18);
+    }
+    .gallery-counter{
+      position:absolute;
+      right:14px;bottom:14px;
+      background:rgba(255,255,255,.92);
+      color:var(--dark);
+      border:1px solid rgba(226,232,240,.8);
+      padding:8px 11px;
+      border-radius:999px;
+      font-size:12px;
+      font-weight:1000;
+      z-index:3;
+    }
+    .thumb-row{
+      display:grid;
+      grid-template-columns:repeat(5,1fr);
+      gap:9px;
+      margin-top:10px;
+    }
+    .thumb{
+      height:76px;
+      border:2px solid transparent;
+      border-radius:17px;
+      overflow:hidden;
+      background:#f1f5f9;
+      display:grid;
+      place-items:center;
+      font-size:28px;
+      transition:.2s;
+    }
+    .thumb.active,.thumb:hover{
+      border-color:var(--yellow);
+      transform:translateY(-2px);
+    }
+    .thumb img{width:100%;height:100%;object-fit:cover}
+
+    .info-card{
+      padding:22px;
+      animation:fadeUp .35s ease both;
+    }
+    .top-line{
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap:12px;
+    }
+    .category-pill{
+      display:inline-flex;
+      background:#fff3bf;
+      color:#8a5b00;
+      padding:8px 11px;
+      border-radius:999px;
+      font-size:12px;
+      font-weight:1000;
+      margin-bottom:10px;
+    }
+    .info-card h1{
+      margin:0;
+      font-family:Georgia,"Times New Roman",serif;
+      font-size:34px;
+      line-height:1.08;
+      letter-spacing:-1.1px;
+      text-wrap:balance;
+    }
+    .fav-btn{
+      width:46px;
+      height:46px;
+      border:1px solid #dbe3ef;
+      background:#fff;
+      border-radius:50%;
+      font-size:24px;
+      color:var(--dark);
+      box-shadow:var(--shadow2);
+      transition:.2s;
+      flex:0 0 auto;
+    }
+    .fav-btn.active{background:var(--yellow);border-color:var(--yellow)}
+    .rating-line{
+      margin-top:13px;
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+      align-items:center;
+      color:var(--muted);
+      font-size:14px;
+      font-weight:850;
+    }
+    .stars{color:#f59e0b;letter-spacing:1px}
+    .price-line{
+      margin-top:18px;
+      display:flex;
+      align-items:flex-end;
+      gap:6px;
+    }
+    .price-line strong{
+      font-size:36px;
+      line-height:1;
+      font-weight:1000;
+      letter-spacing:-1px;
+    }
+    .price-line span{color:var(--muted);font-weight:900}
+    .trust-badges{
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+      margin-top:14px;
+    }
+    .trust-badges span{
+      background:#eef4ff;
+      border:1px solid #d8e7ff;
+      color:var(--blue);
+      padding:8px 10px;
+      border-radius:999px;
+      font-size:12px;
+      font-weight:1000;
+    }
+    .mini-stats{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:8px;
+      margin-top:18px;
+    }
+    .mini-stat{
+      background:#f8fafc;
+      border:1px solid #e2e8f0;
+      border-radius:18px;
+      padding:12px;
+    }
+    .mini-stat strong{
+      display:block;
+      font-size:18px;
+      font-weight:1000;
+    }
+    .mini-stat span{
+      display:block;
+      color:var(--muted);
+      font-size:12px;
+      font-weight:850;
+      margin-top:3px;
+    }
+
+    .reservation-box{
+      margin-top:18px;
+      background:
+        radial-gradient(circle at 90% 0%,rgba(255,204,0,.18),transparent 30%),
+        #fbfdff;
+      border:1px solid #e2e8f0;
+      border-radius:24px;
+      padding:16px;
+    }
+    .reservation-box h3{
+      margin:0 0 12px;
+      font-family:Georgia,"Times New Roman",serif;
+      font-size:22px;
+    }
+    .reservation-grid{
+      display:grid;
+      grid-template-columns:1fr 1fr .7fr;
+      gap:9px;
+    }
+    .field label,.reservation-grid label{
+      display:block;
+      font-size:12px;
+      color:#334155;
+      font-weight:1000;
+      margin-bottom:6px;
+    }
+    .reservation-grid input,.reservation-grid select,.field input,.field textarea{
+      width:100%;
+      border:1px solid #dbe3ef;
+      border-radius:15px;
+      background:#fff;
+      outline:0;
+      padding:12px;
+      font-weight:850;
+    }
+    .price-summary{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:9px;
+      margin-top:12px;
+    }
+    .summary-item{
+      background:#fff;
+      border:1px solid #e2e8f0;
+      border-radius:16px;
+      padding:12px;
+    }
+    .summary-item span{
+      display:block;
+      color:var(--muted);
+      font-size:12px;
+      font-weight:850;
+    }
+    .summary-item strong{
+      display:block;
+      margin-top:3px;
+      font-size:18px;
+      font-weight:1000;
+    }
+    .reserve-btn{
+      width:100%;
+      border:0;
+      border-radius:17px;
+      background:linear-gradient(135deg,#ffcc00,#ff9f1c);
+      color:var(--dark);
+      padding:15px;
+      font-size:16px;
+      font-weight:1000;
+      margin-top:12px;
+      box-shadow:0 12px 28px rgba(255,204,0,.24);
+      transition:.2s;
+    }
+    .reserve-btn:hover{transform:translateY(-2px)}
+    .reservation-note{
+      margin:10px 0 0;
+      color:var(--muted);
+      font-size:12px;
+      font-weight:850;
+      line-height:1.45;
+      text-align:center;
+    }
+    .contact-actions{
+      display:grid;
+      grid-template-columns:1fr 1fr 1fr;
+      gap:8px;
+      margin-top:12px;
+    }
+    .contact-actions a,.contact-actions button{
+      border:1px solid #dbe3ef;
+      background:#fff;
+      border-radius:15px;
+      padding:12px 9px;
+      font-weight:1000;
+      color:var(--dark);
+      text-align:center;
+      transition:.2s;
+    }
+    .contact-actions .whatsapp{background:#dcfce7;color:#166534;border-color:#bbf7d0}
+    .contact-actions .call{background:#eef4ff;color:var(--blue);border-color:#d8e7ff}
+    .contact-actions a:hover,.contact-actions button:hover{transform:translateY(-2px)}
+
+    .seller-card{
+      padding:18px;
+      position:sticky;
+      top:92px;
+      animation:fadeUp .4s ease both;
+    }
+    .seller-head{display:flex;gap:12px;align-items:center}
+    .seller-logo{
+      width:58px;height:58px;border-radius:18px;
+      background:var(--dark);color:var(--yellow);
+      display:grid;place-items:center;
+      font-size:20px;font-weight:1000;
+      flex:0 0 auto;
+    }
+    .seller-head h2{margin:0;font-size:19px}
+    .seller-head p{margin:4px 0 0;color:var(--muted);font-size:13px;font-weight:850}
+    .seller-score{
+      margin-top:14px;
+      background:linear-gradient(135deg,#fff3bf,#ffcc00);
+      border-radius:18px;
+      padding:14px;
+    }
+    .seller-score strong{font-size:28px;font-weight:1000}
+    .seller-score span{display:block;color:#7c4a11;font-size:12px;font-weight:950}
+    .seller-stats{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:8px;
+      margin-top:10px;
+    }
+    .seller-stats div{
+      background:#f8fafc;
+      border:1px solid #e2e8f0;
+      border-radius:16px;
+      padding:11px;
+    }
+    .seller-stats strong{display:block;font-size:18px}
+    .seller-stats span{color:var(--muted);font-size:12px;font-weight:850}
+    .seller-badges{
+      display:flex;
+      flex-wrap:wrap;
+      gap:7px;
+      margin-top:12px;
+    }
+    .seller-badges span{
+      background:#eef4ff;
+      color:var(--blue);
+      border:1px solid #d8e7ff;
+      border-radius:999px;
+      padding:7px 9px;
+      font-size:11px;
+      font-weight:1000;
+    }
+    .seller-links{
+      display:grid;
+      gap:8px;
+      margin-top:14px;
+    }
+    .seller-links a{
+      text-align:center;
+      border-radius:15px;
+      padding:12px;
+      font-weight:1000;
+    }
+    .store-link{background:var(--dark);color:#fff}
+    .all-link{background:#f1f5f9;color:var(--dark);border:1px solid #dbe3ef}
+
+    .sticky-mobile-cta{
+      display:none;
+      position:fixed;
+      left:12px;
+      right:12px;
+      bottom:12px;
+      z-index:120;
+      background:rgba(7,20,47,.96);
+      color:#fff;
+      border-radius:22px;
+      box-shadow:0 18px 45px rgba(7,20,47,.35);
+      padding:10px;
+      grid-template-columns:1fr 1fr;
+      gap:8px;
+    }
+    .sticky-mobile-cta a,.sticky-mobile-cta button{
+      border:0;
+      border-radius:16px;
+      padding:13px 10px;
+      font-weight:1000;
+      text-align:center;
+    }
+    .sticky-mobile-cta a{background:#fff;color:var(--dark)}
+    .sticky-mobile-cta button{background:var(--yellow);color:var(--dark)}
+
+    .tabs{
+      margin-top:20px;
+      display:flex;
+      gap:10px;
+      overflow-x:auto;
+      position:sticky;
+      top:72px;
+      z-index:60;
+      background:rgba(244,246,251,.92);
+      backdrop-filter:blur(12px);
+      padding:10px 0;
+    }
+    .tab-btn{
+      border:1px solid #dbe3ef;
+      background:#fff;
+      color:var(--dark);
+      border-radius:999px;
+      padding:12px 16px;
+      font-weight:1000;
+      white-space:nowrap;
+    }
+    .tab-btn.active{background:var(--dark);color:#fff;border-color:var(--dark)}
+    .tab-content{
+      display:none;
+      margin-top:12px;
+      background:#fff;
+      border:1px solid var(--line);
+      border-radius:26px;
+      padding:22px;
+      box-shadow:var(--shadow2);
+      animation:fadeUp .25s ease both;
+    }
+    .tab-content.active{display:block}
+    .tab-content h2{
+      margin:0 0 12px;
+      font-family:Georgia,"Times New Roman",serif;
+      font-size:27px;
+    }
+    .desc-text{
+      color:#334155;
+      line-height:1.75;
+      font-weight:750;
+      margin:0;
+    }
+    .feature-grid{
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      gap:10px;
+    }
+    .feature{
+      background:#f8fafc;
+      border:1px solid #e2e8f0;
+      border-radius:18px;
+      padding:14px;
+    }
+    .feature span{display:block;color:var(--muted);font-size:12px;font-weight:850}
+    .feature strong{display:block;margin-top:5px;font-weight:1000}
+    .rules-grid{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:10px;
+      margin-top:16px;
+    }
+    .rule{
+      background:#fff8db;
+      border:1px solid #ffe08a;
+      color:#7c4a11;
+      border-radius:18px;
+      padding:14px;
+      font-weight:900;
+      line-height:1.45;
+    }
+    .comment-list{
+      display:grid;
+      gap:10px;
+    }
+    .comment{
+      background:#f8fafc;
+      border:1px solid #e2e8f0;
+      border-radius:18px;
+      padding:14px;
+    }
+    .comment-head{
+      display:flex;
+      justify-content:space-between;
+      gap:10px;
+      align-items:center;
+      margin-bottom:6px;
+    }
+    .comment-head strong{font-weight:1000}
+    .comment p{margin:0;color:#334155;line-height:1.55;font-weight:750}
+    .location-box{
+      display:grid;
+      grid-template-columns:1fr 1.2fr;
+      gap:14px;
+      align-items:stretch;
+    }
+    .map{
+      min-height:220px;
+      border-radius:22px;
+      background:
+        radial-gradient(circle at 80% 20%,rgba(255,204,0,.25),transparent 28%),
+        linear-gradient(135deg,#e2e8f0,#cbd5e1);
+      display:grid;
+      place-items:center;
+      color:#334155;
+      font-weight:1000;
+    }
+
+    .similar-section{
+      margin-top:24px;
+    }
+    .section-head{
+      display:flex;
+      justify-content:space-between;
+      align-items:flex-end;
+      gap:16px;
+      margin-bottom:14px;
+    }
+    .section-head h2{
+      margin:0;
+      font-family:Georgia,"Times New Roman",serif;
+      font-size:30px;
+      letter-spacing:-.6px;
+    }
+    .section-head p{margin:5px 0 0;color:var(--muted);font-weight:750}
+    .section-head a{color:var(--blue);font-weight:1000}
+    .similar-grid{
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      gap:14px;
+    }
+    .product-card{
+      background:#fff;
+      border:1px solid var(--line);
+      border-radius:22px;
+      overflow:hidden;
+      box-shadow:var(--shadow2);
+      transition:.25s;
+      position:relative;
+    }
+    .product-card:hover{transform:translateY(-6px);box-shadow:var(--shadow)}
+    .product-card-img{
+      height:130px;
+      background:
+        radial-gradient(circle at 80% 18%,rgba(255,204,0,.42),transparent 28%),
+        linear-gradient(135deg,#eef4ff,#ffd633);
+      display:grid;
+      place-items:center;
+      font-size:46px;
+      overflow:hidden;
+    }
+    .product-card-img img{width:100%;height:100%;object-fit:cover}
+    .product-card-body{padding:12px}
+    .product-card h3{
+      margin:0 0 6px;
+      font-size:14px;
+      line-height:1.25;
+    }
+    .product-card .meta{font-size:12px;color:var(--muted);font-weight:850}
+    .product-card .price{font-size:18px;font-weight:1000;margin-top:8px}
+
+    .modal{
+      display:none;
+      position:fixed;
+      inset:0;
+      background:rgba(7,20,47,.48);
+      z-index:200;
+      align-items:center;
+      justify-content:center;
+      padding:16px;
+    }
+    .modal.open{display:flex}
+    .modal-card{
+      width:min(520px,100%);
+      background:#fff;
+      border-radius:26px;
+      box-shadow:var(--shadow);
+      padding:22px;
+      animation:modalIn .22s ease both;
+    }
+    .modal-head{
+      display:flex;
+      justify-content:space-between;
+      gap:12px;
+      align-items:center;
+      margin-bottom:14px;
+    }
+    .modal-head h2{margin:0;font-family:Georgia,"Times New Roman",serif}
+    .modal-close{
+      border:0;background:#eef2f7;border-radius:50%;
+      width:38px;height:38px;font-size:20px;font-weight:1000;
+    }
+    .modal-actions{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:9px;
+      margin-top:14px;
+    }
+    .modal-actions a,.modal-actions button{
+      border:0;
+      border-radius:15px;
+      padding:13px;
+      font-weight:1000;
+      text-align:center;
+    }
+    .modal-actions a{background:var(--yellow);color:var(--dark)}
+    .modal-actions button{background:#f1f5f9;color:var(--dark)}
+
+    .skeleton{
+      background:linear-gradient(90deg,#eef2f7,#f8fafc,#eef2f7);
+      background-size:200% 100%;
+      animation:skeleton 1.2s infinite;
+      border-radius:18px;
+    }
+
+    @keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+    @keyframes modalIn{from{opacity:0;transform:translateY(18px) scale(.98)}to{opacity:1;transform:translateY(0) scale(1)}}
+    @keyframes skeleton{from{background-position:200% 0}to{background-position:-200% 0}}
+
+    @media(max-width:1180px){
+      .product-shell{grid-template-columns:1fr 360px}
+      .seller-card{grid-column:1/-1;position:static}
+      .gallery-card{position:static}
+      .seller-card{
+        display:grid;
+        grid-template-columns:1.2fr .8fr .8fr;
+        gap:12px;
+        align-items:center;
+      }
+      .seller-score,.seller-stats,.seller-badges,.seller-links{margin-top:0}
+    }
+
+    @media(max-width:900px){
+      body{padding-bottom:78px}
+      .topbar{display:none}
+      .header-inner{grid-template-columns:1fr;min-height:auto;padding:12px 0}
+      .brand-mark{width:44px;height:44px}
+      .brand-text strong{font-size:23px}
+      .search{max-width:none}
+      .header-actions{display:none}
+      .product-page{padding-top:14px}
+      .product-shell{grid-template-columns:1fr}
+      .gallery-card,.seller-card{position:static}
+      .main-image{height:360px}
+      .info-card h1{font-size:30px}
+      .seller-card{display:block}
+      .reservation-grid{grid-template-columns:1fr 1fr}
+      .reservation-grid label:last-child{grid-column:1/-1}
+      .price-summary{grid-template-columns:1fr 1fr}
+      .summary-item:last-child{grid-column:1/-1}
+      .contact-actions{grid-template-columns:1fr}
+      .feature-grid{grid-template-columns:repeat(2,1fr)}
+      .rules-grid{grid-template-columns:1fr}
+      .location-box{grid-template-columns:1fr}
+      .similar-grid{grid-template-columns:repeat(2,1fr)}
+      .sticky-mobile-cta{display:grid}
+      .tabs{top:0}
+    }
+
+    @media(max-width:520px){
+      .ak-container{width:min(100% - 22px,1240px)}
+      .main-image{height:300px}
+      .thumb-row{grid-template-columns:repeat(4,1fr)}
+      .thumb{height:64px}
+      .info-card,.gallery-card,.seller-card,.tab-content{border-radius:22px}
+      .info-card h1{font-size:26px}
+      .price-line strong{font-size:32px}
+      .mini-stats{grid-template-columns:1fr 1fr}
+      .mini-stats .mini-stat:last-child{grid-column:1/-1}
+      .reservation-grid,.price-summary{grid-template-columns:1fr}
+      .feature-grid{grid-template-columns:1fr}
+      .similar-grid{grid-template-columns:1fr}
+    }
+  
+/* PRODUCT DETAIL APP FINAL POLISH */
+body{
+  -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
+}
+.detail-ad{
+  margin:0 0 16px;
+  border-radius:26px;
+  padding:20px 24px;
+  color:#fff;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:16px;
+  box-shadow:var(--shadow);
+  overflow:hidden;
+  position:relative;
+  animation:fadeUp .35s ease both;
+}
+.detail-ad-top{
+  background:
+    radial-gradient(circle at 90% 0%,rgba(255,204,0,.42),transparent 30%),
+    linear-gradient(135deg,#07142f,#7c4a11);
+}
+.detail-ad-bottom{
+  margin-top:22px;
+  background:
+    radial-gradient(circle at 90% 10%,rgba(255,204,0,.32),transparent 30%),
+    linear-gradient(135deg,#172554,#064db5);
+}
+.detail-ad small{
+  display:inline-flex;
+  background:rgba(255,255,255,.16);
+  border:1px solid rgba(255,255,255,.18);
+  border-radius:999px;
+  padding:7px 10px;
+  font-weight:1000;
+  margin-bottom:8px;
+}
+.detail-ad strong{
+  display:block;
+  font-family:Georgia,"Times New Roman",serif;
+  font-size:24px;
+  letter-spacing:-.4px;
+}
+.detail-ad span{
+  display:block;
+  color:#e5e7eb;
+  font-weight:800;
+  margin-top:5px;
+}
+.detail-ad a{
+  background:var(--yellow);
+  color:var(--dark);
+  border-radius:15px;
+  padding:13px 17px;
+  font-weight:1000;
+  white-space:nowrap;
+}
+.product-shell{
+  animation:fadeUp .35s ease both;
+}
+.gallery-card,
+.info-card,
+.seller-card,
+.tab-content,
+.product-card{
+  transition:transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+}
+.gallery-card:hover,
+.info-card:hover,
+.seller-card:hover{
+  box-shadow:0 20px 52px rgba(15,23,42,.12);
+}
+.main-image{
+  transition:transform .25s ease;
+}
+.main-image:hover{
+  transform:scale(1.006);
+}
+.thumb{
+  cursor:pointer;
+}
+.category-pill,
+.trust-badges span,
+.seller-badges span{
+  letter-spacing:.1px;
+}
+.seller-contact-mini{
+  display:grid;
+  grid-template-columns:1fr 1fr 1fr;
+  gap:7px;
+  margin-top:12px;
+}
+.seller-contact-mini a,
+.seller-contact-mini button{
+  border:1px solid #dbe3ef;
+  border-radius:14px;
+  padding:10px 8px;
+  font-size:12px;
+  font-weight:1000;
+  text-align:center;
+  background:#fff;
+  color:var(--dark);
+}
+.seller-contact-mini a:first-child{
+  background:#dcfce7;
+  color:#166534;
+  border-color:#bbf7d0;
+}
+.seller-contact-mini a:nth-child(2){
+  background:#eef4ff;
+  color:var(--blue);
+  border-color:#d8e7ff;
+}
+.detail-footer{
+  background:var(--dark);
+  color:#fff;
+  margin-top:48px;
+  padding:40px 0 30px;
+}
+.footer-grid{
+  display:grid;
+  grid-template-columns:2fr 1fr 1fr 1fr;
+  gap:26px;
+}
+.detail-footer h3,
+.detail-footer h4{
+  margin:0 0 12px;
+}
+.detail-footer p,
+.detail-footer a{
+  display:block;
+  color:#cbd5e1;
+  margin:8px 0;
+  line-height:1.55;
+  font-weight:750;
+}
+.sticky-mobile-cta{
+  backdrop-filter:blur(14px);
+}
+.sticky-mobile-cta a,
+.sticky-mobile-cta button{
+  transition:.2s;
+}
+.sticky-mobile-cta a:active,
+.sticky-mobile-cta button:active{
+  transform:scale(.97);
+}
+.reserve-btn,
+.contact-actions a,
+.contact-actions button,
+.seller-links a,
+.seller-contact-mini a,
+.seller-contact-mini button{
+  transition:.2s ease;
+}
+.contact-actions a:hover,
+.contact-actions button:hover,
+.seller-links a:hover,
+.seller-contact-mini a:hover,
+.seller-contact-mini button:hover{
+  transform:translateY(-2px);
+  box-shadow:var(--shadow2);
+}
+
+/* Better app-like mobile layout */
+@media(max-width:900px){
+  body{
+    padding-bottom:86px;
+    background:#f5f7fb;
+  }
+  .product-page{
+    padding-top:10px;
+  }
+  .breadcrumb{
+    font-size:12px;
+    margin-bottom:10px;
+    overflow-x:auto;
+    white-space:nowrap;
+    flex-wrap:nowrap;
+  }
+  .detail-ad{
+    padding:16px;
+    border-radius:22px;
+    align-items:flex-start;
+    flex-direction:column;
+    margin-bottom:12px;
+  }
+  .detail-ad strong{
+    font-size:21px;
+  }
+  .detail-ad a{
+    width:100%;
+    text-align:center;
+  }
+  .product-shell{
+    gap:12px;
+  }
+  .gallery-card{
+    padding:10px;
+    border-radius:24px;
+  }
+  .main-image{
+    height:330px;
+    border-radius:21px;
+  }
+  .thumb-row{
+    display:flex;
+    overflow-x:auto;
+    gap:8px;
+    padding-bottom:2px;
+  }
+  .thumb{
+    min-width:70px;
+    height:66px;
+  }
+  .info-card{
+    padding:17px;
+    border-radius:24px;
+  }
+  .top-line{
+    gap:8px;
+  }
+  .info-card h1{
+    font-size:27px;
+    line-height:1.12;
+  }
+  .fav-btn{
+    width:42px;
+    height:42px;
+    font-size:21px;
+  }
+  .rating-line{
+    font-size:12px;
+    gap:6px;
+  }
+  .price-line{
+    margin-top:14px;
+  }
+  .price-line strong{
+    font-size:34px;
+  }
+  .trust-badges span{
+    font-size:11px;
+    padding:7px 9px;
+  }
+  .mini-stats{
+    grid-template-columns:repeat(3,1fr);
+  }
+  .mini-stat{
+    padding:10px;
+    border-radius:16px;
+  }
+  .mini-stat strong{
+    font-size:16px;
+  }
+  .mini-stat span{
+    font-size:11px;
+  }
+  .reservation-box{
+    padding:14px;
+    border-radius:22px;
+  }
+  .reservation-box h3{
+    font-size:21px;
+  }
+  .contact-actions{
+    grid-template-columns:1fr 1fr 1fr;
+  }
+  .contact-actions a,
+  .contact-actions button{
+    padding:11px 7px;
+    font-size:12px;
+  }
+  .seller-card{
+    padding:15px;
+    border-radius:24px;
+  }
+  .seller-head{
+    align-items:flex-start;
+  }
+  .seller-logo{
+    width:52px;
+    height:52px;
+    border-radius:16px;
+  }
+  .seller-contact-mini{
+    grid-template-columns:1fr 1fr 1fr;
+  }
+  .seller-links{
+    grid-template-columns:1fr 1fr;
+  }
+  .tabs{
+    top:0;
+    margin-left:-11px;
+    margin-right:-11px;
+    padding:10px 11px;
+  }
+  .tab-btn{
+    padding:11px 14px;
+    font-size:13px;
+  }
+  .tab-content{
+    padding:17px;
+    border-radius:23px;
+  }
+  .tab-content h2{
+    font-size:23px;
+  }
+  .similar-section{
+    margin-top:20px;
+  }
+  .section-head h2{
+    font-size:25px;
+  }
+  .detail-footer{
+    display:none;
+  }
+  .sticky-mobile-cta{
+    display:grid;
+    grid-template-columns:.9fr 1.1fr;
+    left:10px;
+    right:10px;
+    bottom:10px;
+    border-radius:21px;
+  }
+}
+@media(max-width:520px){
+  .ak-container{
+    width:calc(100% - 18px);
+  }
+  .main-image{
+    height:285px;
+  }
+  .image-placeholder{
+    font-size:76px;
+  }
+  .floating-badge,
+  .gallery-counter{
+    font-size:11px;
+    padding:7px 9px;
+  }
+  .info-card h1{
+    font-size:24px;
+  }
+  .price-line strong{
+    font-size:31px;
+  }
+  .mini-stats{
+    grid-template-columns:1fr 1fr 1fr;
+    gap:6px;
+  }
+  .mini-stat{
+    padding:9px 7px;
+  }
+  .reservation-grid{
+    grid-template-columns:1fr 1fr;
+  }
+  .reservation-grid div:last-child{
+    grid-column:1/-1;
+  }
+  .price-summary{
+    grid-template-columns:1fr 1fr;
+  }
+  .price-summary .summary-item:last-child{
+    grid-column:1/-1;
+  }
+  .contact-actions{
+    grid-template-columns:1fr 1fr;
+  }
+  .contact-actions button{
+    grid-column:1/-1;
+  }
+  .seller-links{
+    grid-template-columns:1fr;
+  }
+  .similar-grid{
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+  }
+  .product-card-img{
+    height:112px;
+    font-size:38px;
+  }
+  .product-card h3{
+    font-size:13px;
+  }
+  .product-card .price{
+    font-size:16px;
+  }
+}
+@media(max-width:390px){
+  .main-image{
+    height:250px;
+  }
+  .reservation-grid,
+  .price-summary,
+  .similar-grid{
+    grid-template-columns:1fr;
+  }
+  .mini-stats{
+    grid-template-columns:1fr;
+  }
+}
+
+</style>
+</head>
+
+<body>
+  <div class="topbar">
+    <div class="ak-container topbar-inner">
+      <span><b>Alma Kirala</b> • Güvenli ürün detayı</span>
+      <span>Kayıtsız incele • Kiralama onayında giriş yap</span>
+    </div>
+  </div>
+
+  <header class="header">
+    <div class="ak-container header-inner">
+      <a class="brand" href="index.html" aria-label="Alma Kirala Anasayfa">
+        <span class="brand-mark" aria-hidden="true"></span>
+        <span class="brand-text">
+          <strong>Alma Kirala</strong>
+          <span>Satın alma, kirala.</span>
+        </span>
+      </a>
+
+      <div class="search">
+        <input id="topSearchInput" type="text" placeholder="Ürün, marka, kategori veya mağaza ara">
+        <button id="topSearchBtn" type="button">Ara</button>
+      </div>
+
+      <div class="header-actions">
+        <a href="index.html">Ana Sayfa</a>
+        <a class="store-list" href="stores.html">Mağazalar</a>
+        <a href="login.html">Giriş</a>
+        <a href="register.html">Hesap Aç</a>
+        <a class="store-open" href="seller-login.html">Mağaza Aç</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="product-page">
+    <div class="ak-container">
+      <nav class="breadcrumb">
+        <a href="index.html">Ana Sayfa</a>
+        <span>/</span>
+        <a href="listing.html">Kiralık Ürünler</a>
+        <span>/</span>
+        <b id="breadcrumbTitle">Ürün Detayı</b>
+      </nav>
+
+      <section class="detail-ad detail-ad-top">
+        <div>
+          <small>Üst Reklam Alanı</small>
+          <strong>Mağazanı ürün detay sayfasında öne çıkar.</strong>
+          <span>Admin panelinden ürün, mağaza veya kampanya reklamına bağlanabilir.</span>
+        </div>
+        <a href="seller-login.html">Reklam Ver</a>
+      </section>
+
+      <section class="product-shell">
+        <div class="gallery-card">
+          <div class="main-image" id="mainImageBox">
+            <div class="image-placeholder" id="mainPlaceholder">📦</div>
+            <img id="mainProductImage" src="" alt="Ürün görseli" style="display:none">
+            <span id="sponsoredBadge" class="floating-badge">Sponsorlu</span>
+            <span class="gallery-counter" id="galleryCounter">1/1</span>
+          </div>
+          <div class="thumb-row" id="thumbnailRow"></div>
+        </div>
+
+        <section class="info-card">
+          <div class="top-line">
+            <div>
+              <span class="category-pill" id="productCategory">Kategori</span>
+              <h1 id="productTitle">Ürün adı yükleniyor...</h1>
+            </div>
+            <button class="fav-btn" id="favoriteBtn" type="button" aria-label="Favoriye ekle">♡</button>
+          </div>
+
+          <div class="rating-line">
+            <span class="stars">★★★★★</span>
+            <strong id="productRating">4.8</strong>
+            <span id="reviewCount">0 yorum</span>
+            <span>•</span>
+            <span id="viewCount">0 görüntülenme</span>
+          </div>
+
+          <div class="price-line">
+            <strong id="productPrice">₺0</strong>
+            <span>/ gün</span>
+          </div>
+
+          <div class="trust-badges">
+            <span id="verifiedBadge">Doğrulanmış mağaza</span>
+            <span id="depositBadge">Depozito bilgisi</span>
+            <span id="stockBadge">Stok bilgisi</span>
+          </div>
+
+          <div class="mini-stats">
+            <div class="mini-stat">
+              <strong id="requestCount">0</strong>
+              <span>talep gönderdi</span>
+            </div>
+            <div class="mini-stat">
+              <strong id="contactCount">0</strong>
+              <span>satıcıya ulaştı</span>
+            </div>
+            <div class="mini-stat">
+              <strong id="favoriteCount">0</strong>
+              <span>favoriye aldı</span>
+            </div>
+          </div>
+
+          <div class="reservation-box" id="reservationBox">
+            <h3>Rezervasyon Oluştur</h3>
+            <div class="reservation-grid">
+              <div>
+                <label for="startDate">Başlangıç</label>
+                <input id="startDate" type="date">
+              </div>
+              <div>
+                <label for="endDate">Bitiş</label>
+                <input id="endDate" type="date">
+              </div>
+              <div>
+                <label for="quantitySelect">Adet</label>
+                <select id="quantitySelect"></select>
+              </div>
+            </div>
+
+            <div class="price-summary">
+              <div class="summary-item">
+                <span>Toplam gün</span>
+                <strong id="totalDays">1 gün</strong>
+              </div>
+              <div class="summary-item">
+                <span>Günlük fiyat</span>
+                <strong id="dailyPrice">₺0</strong>
+              </div>
+              <div class="summary-item">
+                <span>Tahmini toplam</span>
+                <strong id="totalPrice">₺0</strong>
+              </div>
+            </div>
+
+            <button class="reserve-btn" id="reserveBtn" type="button">Kiralamayı Başlat</button>
+            <p class="reservation-note">Kiralama talebini tamamlamak için giriş gerekebilir. Ürünü incelemek için hesap açmana gerek yok.</p>
+          </div>
+
+          <div class="contact-actions">
+            <a id="whatsappBtn" class="whatsapp" target="_blank" rel="noopener">WhatsApp</a>
+            <a id="callBtn" class="call">Ara</a>
+            <button id="askSellerBtn" type="button">Satıcıya Sor</button>
+          </div>
+        </section>
+
+        <aside class="seller-card">
+          <div class="seller-head">
+            <div class="seller-logo" id="sellerLogo">AK</div>
+            <div>
+              <h2 id="sellerName">Mağaza Adı</h2>
+              <p id="sellerLocation">Konum</p>
+            </div>
+          </div>
+
+          <div class="seller-score">
+            <strong id="sellerRating">4.9</strong>
+            <span>Mağaza puanı</span>
+          </div>
+
+          <div class="seller-stats">
+            <div>
+              <strong id="sellerProducts">0</strong>
+              <span>ilan</span>
+            </div>
+            <div>
+              <strong id="sellerRentals">0</strong>
+              <span>kiralama</span>
+            </div>
+          </div>
+
+          <div class="seller-badges" id="sellerBadges"></div>
+
+          <div class="seller-contact-mini">
+            <a id="sellerWhatsappMini" href="#" target="_blank" rel="noopener">WhatsApp</a>
+            <a id="sellerCallMini" href="#">Ara</a>
+            <button id="sellerAskMini" type="button">Mesaj</button>
+          </div>
+
+          <div class="seller-links">
+            <a id="storeLink" href="store-detail.html" class="store-link">Mağazaya Git</a>
+            <a id="sellerProductsLink" href="listing.html" class="all-link">Mağazanın Tüm İlanları</a>
+          </div>
+        </aside>
+      </section>
+
+      <section class="tabs">
+        <button class="tab-btn active" data-tab="desc">Açıklama</button>
+        <button class="tab-btn" data-tab="features">Özellikler</button>
+        <button class="tab-btn" data-tab="rules">Kiralama Kuralları</button>
+        <button class="tab-btn" data-tab="comments">Yorumlar</button>
+        <button class="tab-btn" data-tab="location">Konum</button>
+      </section>
+
+      <section class="tab-content active" id="desc">
+        <h2>Ürün Açıklaması</h2>
+        <p class="desc-text" id="productDescription"></p>
+      </section>
+
+      <section class="tab-content" id="features">
+        <h2>Ürün Özellikleri</h2>
+        <div class="feature-grid" id="featureGrid"></div>
+      </section>
+
+      <section class="tab-content" id="rules">
+        <h2>Kiralama Kuralları</h2>
+        <p class="desc-text">Bu bilgiler mağaza tarafından girilir. Kiralama onayından önce müşteri bütün şartları görebilir.</p>
+        <div class="rules-grid" id="rulesGrid"></div>
+      </section>
+
+      <section class="tab-content" id="comments">
+        <h2>Kullanıcı Yorumları</h2>
+        <div class="comment-list" id="commentList"></div>
+      </section>
+
+      <section class="tab-content" id="location">
+        <h2>Konum</h2>
+        <div class="location-box">
+          <div>
+            <h3 id="locationTitle">Konum</h3>
+            <p class="desc-text" id="locationText"></p>
+          </div>
+          <div class="map">Harita Alanı</div>
+        </div>
+      </section>
+
+
+      <section class="detail-ad detail-ad-bottom">
+        <div>
+          <small>Alt Reklam Alanı</small>
+          <strong>Benzer ürünleri inceleyen müşteriye kampanyanı göster.</strong>
+          <span>Bu alan kampanya, mağaza paketi veya sponsorlu ürün tanıtımı için hazır.</span>
+        </div>
+        <a href="pricing.html">Paketleri Gör</a>
+      </section>
+
+      <section class="similar-section">
+        <div class="section-head">
+          <div>
+            <h2>Benzer İlanlar</h2>
+            <p>Aynı kategori ve şehirden kiralık ürün önerileri</p>
+          </div>
+          <a id="similarAllLink" href="listing.html">Tümünü Gör</a>
+        </div>
+        <div class="similar-grid" id="similarProducts"></div>
+      </section>
+    </div>
+  </main>
+
+
+  <footer class="detail-footer">
+    <div class="ak-container footer-grid">
+      <div>
+        <h3>Alma Kirala</h3>
+        <p>Ürünleri kayıt olmadan incele, kiralama talebini güvenli akışla tamamla.</p>
+      </div>
+      <div>
+        <h4>Müşteri</h4>
+        <a href="listing.html">Ürün keşfet</a>
+        <a href="stores.html">Mağazalar</a>
+        <a href="login.html">Giriş yap</a>
+      </div>
+      <div>
+        <h4>Mağaza</h4>
+        <a href="seller-login.html">Mağaza aç</a>
+        <a href="pricing.html">Reklam paketleri</a>
+        <a href="help.html">Yardım</a>
+      </div>
+      <div>
+        <h4>Destek</h4>
+        <a href="help.html">Yardım merkezi</a>
+        <a href="how-it-works.html">Nasıl çalışır</a>
+      </div>
+    </div>
+  </footer>
+
+  <div class="sticky-mobile-cta">
+    <a href="#reservationBox">Tarih Seç</a>
+    <button id="mobileReserveBtn" type="button">Kiralamayı Başlat</button>
+  </div>
+
+  <div class="modal" id="loginModal">
+    <div class="modal-card">
+      <div class="modal-head">
+        <h2>Devam etmek için giriş yap</h2>
+        <button class="modal-close" id="closeLoginModal" type="button">×</button>
+      </div>
+      <p class="desc-text">Ürünü incelemek ücretsiz. Kiralama talebi, favori ve mesajlaşma için hesabına giriş yapman gerekir.</p>
+      <div class="modal-actions">
+        <a id="loginRedirect" href="login.html">Giriş Yap</a>
+        <button id="modalCancel" type="button">Vazgeç</button>
+      </div>
+    </div>
+  </div>
+
+<script>
+const API_BASE = localStorage.getItem("AK_API_BASE") || "http://localhost:5000";
+const PRODUCTS_ENDPOINT = `${API_BASE}/api/products`;
+const RESERVATION_ENDPOINT = `${API_BASE}/api/reservations`;
+const MESSAGE_ENDPOINT = `${API_BASE}/api/messages`;
+
+const params = new URLSearchParams(window.location.search);
+const productId = params.get("id") || "1";
+let currentProduct = null;
+let similarProducts = [];
+let currentImageIndex = 0;
+
+const favorites = JSON.parse(localStorage.getItem("akFavorites") || "[]");
+
+const demoProducts = [
+  {
+    id:1,
+    title:"Sony A7 IV Kamera Seti",
+    category:"kamera",
+    city:"Trabzon",
+    district:"Ortahisar",
+    price:450,
+    deposit:1500,
+    stock:2,
+    available:true,
+    sponsored:true,
+    verified:true,
+    rating:4.9,
+    reviewCount:18,
+    views:2410,
+    requestCount:47,
+    contactCount:32,
+    favoriteCount:128,
+    description:"Profesyonel video ve fotoğraf çekimleri için Sony A7 IV kamera seti. Düğün, reklam, sosyal medya, etkinlik ve marka çekimleri için uygundur. Ürün tesliminde temel kullanım bilgisi mağaza tarafından paylaşılır.",
+    icon:"📷",
+    images:[],
+    features:{Marka:"Sony", Model:"A7 IV", Lens:"28-70mm", Teslimat:"Mağazadan teslim", Depozito:"Var", Kullanım:"Profesyonel"},
+    rules:["Kimlik doğrulaması istenebilir.","Ürün tesliminde kontrol yapılır.","Geç teslimde ek günlük ücret uygulanabilir."],
+    seller:{id:1,name:"Kamera Dünyam",logo:"KD",city:"Trabzon",district:"Ortahisar",rating:4.9,products:86,rentals:214,phone:"+905551112233",whatsapp:"+905551112233",badges:["Hızlı Yanıt","Doğrulanmış","Belgeli Satıcı"]},
+    comments:[
+      {name:"Ahmet Y.",rating:5,text:"Ürün çok temizdi, teslimat hızlıydı. Çekim için sorunsuz kullandım."},
+      {name:"Elif K.",rating:5,text:"Mağaza çok ilgiliydi. Kamera seti eksiksiz teslim edildi."}
+    ]
+  },
+  {
+    id:2,title:"Canon EOS R6 Profesyonel",category:"kamera",city:"İstanbul",district:"Kadıköy",price:600,deposit:2000,stock:1,available:true,sponsored:false,verified:true,rating:4.8,reviewCount:12,views:1840,requestCount:31,contactCount:22,favoriteCount:97,description:"Canon EOS R6 profesyonel kamera. Etkinlik, portre ve video çekimleri için idealdir.",icon:"📷",images:[],features:{Marka:"Canon",Model:"EOS R6",Teslimat:"Kadıköy",Depozito:"Var"},rules:["Teslimde kontrol yapılır.","Gecikmede ek ücret alınır."],seller:{id:2,name:"FotoKöşk",logo:"FK",city:"İstanbul",district:"Kadıköy",rating:4.8,products:42,rentals:119,phone:"+905552223344",whatsapp:"+905552223344",badges:["Doğrulanmış","Premium"]},comments:[{name:"Mert A.",rating:5,text:"Gayet temiz ürün, tavsiye ederim."}]
+  },
+  {
+    id:3,title:"DJI Mini 4 Pro Drone",category:"drone",city:"Ankara",district:"Çankaya",price:750,deposit:2500,stock:1,available:false,sponsored:true,verified:true,rating:4.9,reviewCount:25,views:3140,requestCount:62,contactCount:44,favoriteCount:142,description:"DJI Mini 4 Pro drone. Tanıtım, emlak, etkinlik ve açık alan çekimleri için uygundur.",icon:"🚁",images:[],features:{Marka:"DJI",Model:"Mini 4 Pro",Batarya:"3 adet",Teslimat:"Çankaya"},rules:["Uçuş sorumluluğu kiracıya aittir.","Hasar durumunda depozito değerlendirilir."],seller:{id:3,name:"Drone Market",logo:"DM",city:"Ankara",district:"Çankaya",rating:4.9,products:38,rentals:156,phone:"+905553334455",whatsapp:"+905553334455",badges:["Belgeli","Hızlı Yanıt"]},comments:[{name:"Can D.",rating:5,text:"Çekim kalitesi çok iyiydi."}]
+  },
+  {
+    id:5,title:"Premium Gelinlik Kiralama",category:"moda",city:"İzmir",district:"Konak",price:900,deposit:3000,stock:3,available:true,sponsored:true,verified:true,rating:4.7,reviewCount:9,views:1190,requestCount:21,contactCount:17,favoriteCount:76,description:"Özel günler için premium gelinlik kiralama. Prova ve teslim detayları mağaza tarafından planlanır.",icon:"👗",images:[],features:{Kategori:"Gelinlik",Beden:"S/M/L",Prova:"Var",Teslimat:"Mağaza"},rules:["Prova randevusu alınmalıdır.","Temizlik bedeli mağaza şartına bağlıdır."],seller:{id:4,name:"Özel Gün",logo:"ÖG",city:"İzmir",district:"Konak",rating:4.7,products:24,rentals:88,phone:"+905554445566",whatsapp:"+905554445566",badges:["Premium","Doğrulanmış"]},comments:[{name:"Derya S.",rating:5,text:"Çok zarif ve temizdi."}]
+  }
+];
+
+function safeText(value, fallback=""){
+  return String(value ?? fallback).replace(/[&<>"']/g, m=>({
+    "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"
+  }[m]));
+}
+
+function normalizeProduct(item){
+  const store = item.store || item.seller || {};
+  const imagesRaw = item.images || item.photos || [];
+  const images = Array.isArray(imagesRaw)
+    ? imagesRaw.map(x=>typeof x === "string" ? x : (x.url || x.src)).filter(Boolean)
+    : [];
+
+  return {
+    id:item.id || item._id,
+    title:item.title || item.name || "Kiralık Ürün",
+    category:(item.category || item.categorySlug || "genel").toString().toLowerCase(),
+    city:item.city || store.city || "Türkiye",
+    district:item.district || store.district || "",
+    price:Number(item.price || item.dailyPrice || item.rentPrice || 0),
+    deposit:Number(item.deposit || item.depositAmount || 0),
+    stock:Number(item.stock || item.quantity || 1),
+    available:item.available ?? item.isAvailable ?? true,
+    sponsored:item.sponsored ?? item.isSponsored ?? false,
+    verified:item.verified ?? store.verified ?? true,
+    rating:Number(item.rating || item.averageRating || store.rating || 4.8),
+    reviewCount:Number(item.reviewCount || item.reviewsCount || 0),
+    views:Number(item.views || item.viewCount || 0),
+    requestCount:Number(item.requestCount || 0),
+    contactCount:Number(item.contactCount || 0),
+    favoriteCount:Number(item.favoriteCount || item.likes || 0),
+    description:item.description || "Mağaza tarafından ürün açıklaması henüz girilmedi.",
+    icon:item.icon || categoryIcon(item.category),
+    images,
+    features:item.features || item.specs || {},
+    rules:item.rules || ["Ürün tesliminde kontrol yapılır.","Kiralama süresi bitince ürün aynı durumda teslim edilmelidir.","Gecikme durumunda ek ücret uygulanabilir."],
+    seller:{
+      id:store.id || store._id || item.storeId || "",
+      name:store.name || item.storeName || "Alma Kirala Mağazası",
+      logo:store.logoText || store.logo || (store.name || "AK").slice(0,2).toUpperCase(),
+      city:store.city || item.city || "Türkiye",
+      district:store.district || item.district || "",
+      rating:Number(store.rating || store.averageRating || 4.8),
+      products:Number(store.productCount || store.products || 0),
+      rentals:Number(store.rentalCount || store.rentals || 0),
+      phone:store.phone || item.phone || "",
+      whatsapp:store.whatsapp || store.phone || item.whatsapp || "",
+      badges:store.badges || ["Hızlı Yanıt","Güvenilir Mağaza"]
+    },
+    comments:item.comments || item.reviews || []
+  };
+}
+
+function categoryIcon(category){
+  const c = String(category || "").toLowerCase();
+  if(c.includes("kamera")) return "📷";
+  if(c.includes("drone")) return "🚁";
+  if(c.includes("moda")) return "👗";
+  if(c.includes("etkinlik")) return "🎉";
+  if(c.includes("tamir")) return "🛠️";
+  return "📦";
+}
+
+async function fetchProduct(){
+  try{
+    const res = await fetch(`${PRODUCTS_ENDPOINT}/${encodeURIComponent(productId)}`);
+    if(!res.ok) throw new Error("product endpoint error");
+    const data = await res.json();
+    currentProduct = normalizeProduct(data.product || data.data || data);
+  }catch(err){
+    currentProduct = normalizeProduct(demoProducts.find(p=>String(p.id) === String(productId)) || demoProducts[0]);
+  }
+}
+
+async function fetchSimilar(){
+  try{
+    const params = new URLSearchParams();
+    params.set("category", currentProduct.category);
+    params.set("limit", "8");
+    const res = await fetch(`${PRODUCTS_ENDPOINT}?${params.toString()}`);
+    if(!res.ok) throw new Error("similar endpoint error");
+    const data = await res.json();
+    const raw = data.products || data.items || data.data || data.results || data;
+    similarProducts = Array.isArray(raw)
+      ? raw.map(normalizeProduct).filter(p=>String(p.id)!==String(currentProduct.id)).slice(0,4)
+      : [];
+    if(!similarProducts.length) throw new Error("empty similar");
+  }catch(err){
+    similarProducts = demoProducts.map(normalizeProduct).filter(p=>String(p.id)!==String(currentProduct.id) && p.category===currentProduct.category).slice(0,4);
+    if(!similarProducts.length) similarProducts = demoProducts.map(normalizeProduct).filter(p=>String(p.id)!==String(currentProduct.id)).slice(0,4);
+  }
+}
+
+function money(value){
+  return "₺" + Number(value || 0).toLocaleString("tr-TR");
+}
+
+function imageOrIcon(product, className=""){
+  if(product.images?.[0]){
+    return `<img class="${className}" src="${safeText(product.images[0])}" alt="${safeText(product.title)}" loading="lazy">`;
+  }
+  return `<span>${safeText(product.icon || "📦")}</span>`;
+}
+
+function renderGallery(){
+  const images = currentProduct.images || [];
+  const mainImg = document.getElementById("mainProductImage");
+  const placeholder = document.getElementById("mainPlaceholder");
+
+  if(images.length){
+    mainImg.src = images[currentImageIndex];
+    mainImg.style.display = "block";
+    placeholder.style.display = "none";
+  }else{
+    mainImg.style.display = "none";
+    placeholder.style.display = "block";
+    placeholder.textContent = currentProduct.icon || "📦";
+  }
+
+  document.getElementById("galleryCounter").textContent = `${Math.min(currentImageIndex+1, Math.max(images.length,1))}/${Math.max(images.length,1)}`;
+  document.getElementById("thumbnailRow").innerHTML = (images.length ? images : ["icon","icon","icon","icon"]).slice(0,5).map((img,index)=>`
+    <button class="thumb ${index===currentImageIndex ? "active" : ""}" type="button" data-index="${index}">
+      ${images.length ? `<img src="${safeText(img)}" alt="Ürün görseli ${index+1}">` : safeText(currentProduct.icon || "📦")}
+    </button>
+  `).join("");
+
+  document.querySelectorAll(".thumb").forEach(btn=>{
+    btn.addEventListener("click",()=>{
+      currentImageIndex = Number(btn.dataset.index || 0);
+      renderGallery();
+    });
+  });
+
+  document.getElementById("sponsoredBadge").style.display = currentProduct.sponsored ? "inline-flex" : "none";
+}
+
+function renderProduct(){
+  document.title = `${currentProduct.title} | Alma Kirala`;
+  document.getElementById("breadcrumbTitle").textContent = currentProduct.title;
+  document.getElementById("productCategory").textContent = currentProduct.category;
+  document.getElementById("productTitle").textContent = currentProduct.title;
+  document.getElementById("productRating").textContent = currentProduct.rating.toFixed(1);
+  document.getElementById("reviewCount").textContent = `${currentProduct.reviewCount || currentProduct.comments.length || 0} yorum`;
+  document.getElementById("viewCount").textContent = `${currentProduct.views.toLocaleString("tr-TR")} görüntülenme`;
+  document.getElementById("productPrice").textContent = money(currentProduct.price);
+  document.getElementById("dailyPrice").textContent = money(currentProduct.price);
+  document.getElementById("verifiedBadge").textContent = currentProduct.verified ? "Doğrulanmış mağaza" : "Mağaza doğrulaması bekliyor";
+  document.getElementById("depositBadge").textContent = currentProduct.deposit ? `${money(currentProduct.deposit)} depozito` : "Depozitosuz";
+  document.getElementById("stockBadge").textContent = currentProduct.available ? `${currentProduct.stock} adet müsait` : "Müsaitlik sor";
+  document.getElementById("requestCount").textContent = currentProduct.requestCount;
+  document.getElementById("contactCount").textContent = currentProduct.contactCount;
+  document.getElementById("favoriteCount").textContent = currentProduct.favoriteCount;
+  document.getElementById("productDescription").textContent = currentProduct.description;
+
+  const seller = currentProduct.seller;
+  document.getElementById("sellerLogo").textContent = safeText(seller.logo).slice(0,3);
+  document.getElementById("sellerName").textContent = seller.name;
+  document.getElementById("sellerLocation").textContent = `${seller.city}${seller.district ? " / " + seller.district : ""}`;
+  document.getElementById("sellerRating").textContent = seller.rating.toFixed(1);
+  document.getElementById("sellerProducts").textContent = seller.products || 0;
+  document.getElementById("sellerRentals").textContent = seller.rentals || 0;
+  document.getElementById("sellerBadges").innerHTML = (seller.badges || []).map(b=>`<span>${safeText(b)}</span>`).join("");
+  document.getElementById("storeLink").href = `store-detail.html?id=${encodeURIComponent(seller.id || "")}`;
+  document.getElementById("sellerProductsLink").href = `listing.html?storeId=${encodeURIComponent(seller.id || "")}`;
+  const whatsappUrl = seller.whatsapp ? `https://wa.me/${seller.whatsapp.replace(/\D/g,"")}?text=${encodeURIComponent("Merhaba, " + currentProduct.title + " ilanı hakkında bilgi almak istiyorum.")}` : "#";
+  const callUrl = seller.phone ? `tel:${seller.phone}` : "#";
+  document.getElementById("whatsappBtn").href = whatsappUrl;
+  document.getElementById("callBtn").href = callUrl;
+  document.getElementById("sellerWhatsappMini").href = whatsappUrl;
+  document.getElementById("sellerCallMini").href = callUrl;
+
+  document.getElementById("locationTitle").textContent = `${currentProduct.city}${currentProduct.district ? " / " + currentProduct.district : ""}`;
+  document.getElementById("locationText").textContent = `Ürün konumu: ${currentProduct.city}${currentProduct.district ? " / " + currentProduct.district : ""}. Tam teslimat noktası rezervasyon sürecinde mağaza tarafından paylaşılır.`;
+
+  renderFeatures();
+  renderRules();
+  renderComments();
+  renderGallery();
+  renderQuantity();
+  updateFavoriteButton();
+  updatePrice();
+}
+
+function renderFeatures(){
+  const entries = Object.entries(currentProduct.features || {});
+  const fallback = [
+    ["Kategori", currentProduct.category],
+    ["Şehir", currentProduct.city],
+    ["Stok", currentProduct.stock + " adet"],
+    ["Günlük fiyat", money(currentProduct.price)]
+  ];
+  const list = entries.length ? entries : fallback;
+  document.getElementById("featureGrid").innerHTML = list.map(([key,value])=>`
+    <div class="feature">
+      <span>${safeText(key)}</span>
+      <strong>${safeText(value)}</strong>
+    </div>
+  `).join("");
+}
+
+function renderRules(){
+  document.getElementById("rulesGrid").innerHTML = (currentProduct.rules || []).map(rule=>`
+    <div class="rule">${safeText(rule)}</div>
+  `).join("");
+}
+
+function renderComments(){
+  const comments = currentProduct.comments || [];
+  document.getElementById("commentList").innerHTML = comments.length ? comments.map(c=>`
+    <div class="comment">
+      <div class="comment-head">
+        <strong>${safeText(c.name || c.user?.name || "Kullanıcı")}</strong>
+        <span class="stars">${"★".repeat(Math.round(c.rating || 5))}</span>
+      </div>
+      <p>${safeText(c.text || c.comment || "")}</p>
+    </div>
+  `).join("") : `<div class="comment"><p>Bu ürün için henüz yorum yok. İlk kiralama deneyimi senden gelebilir.</p></div>`;
+}
+
+function renderQuantity(){
+  const stock = Math.max(1, Math.min(Number(currentProduct.stock || 1), 10));
+  document.getElementById("quantitySelect").innerHTML = Array.from({length:stock},(_,i)=>`<option value="${i+1}">${i+1}</option>`).join("");
+}
+
+function renderSimilar(){
+  document.getElementById("similarAllLink").href = `listing.html?category=${encodeURIComponent(currentProduct.category)}`;
+  document.getElementById("similarProducts").innerHTML = similarProducts.map(p=>`
+    <a class="product-card" href="product-detail.html?id=${encodeURIComponent(p.id)}">
+      <div class="product-card-img">${imageOrIcon(p)}</div>
+      <div class="product-card-body">
+        <h3>${safeText(p.title)}</h3>
+        <div class="meta">${safeText(p.city)} ${p.district ? "/ " + safeText(p.district) : ""} • ★ ${p.rating}</div>
+        <div class="price">${money(p.price)} <span>/ gün</span></div>
+      </div>
+    </a>
+  `).join("");
+}
+
+function updatePrice(){
+  const start = document.getElementById("startDate").value;
+  const end = document.getElementById("endDate").value;
+  const quantity = Number(document.getElementById("quantitySelect").value || 1);
+  let days = 1;
+  if(start && end){
+    const startDate = new Date(start);
+    const endDate = new Date(end);
+    const diff = Math.ceil((endDate - startDate) / (1000 * 60 * 60 * 24)) + 1;
+    days = Math.max(1, diff || 1);
+  }
+  const total = days * currentProduct.price * quantity;
+  document.getElementById("totalDays").textContent = `${days} gün`;
+  document.getElementById("totalPrice").textContent = money(total);
+}
+
+function updateFavoriteButton(){
+  const active = favorites.includes(Number(currentProduct.id));
+  const btn = document.getElementById("favoriteBtn");
+  btn.classList.toggle("active", active);
+  btn.textContent = active ? "♥" : "♡";
+}
+
+function ensureLogin(){
+  return Boolean(localStorage.getItem("token"));
+}
+
+function openLoginModal(){
+  const redirect = encodeURIComponent(location.pathname.split("/").pop() + location.search);
+  document.getElementById("loginRedirect").href = `login.html?redirect=${redirect}`;
+  document.getElementById("loginModal").classList.add("open");
+  document.body.classList.add("no-scroll");
+}
+
+function closeLoginModal(){
+  document.getElementById("loginModal").classList.remove("open");
+  document.body.classList.remove("no-scroll");
+}
+
+async function createReservation(){
+  if(!ensureLogin()){
+    openLoginModal();
+    return;
+  }
+
+  const payload = {
+    productId: currentProduct.id,
+    startDate: document.getElementById("startDate").value,
+    endDate: document.getElementById("endDate").value,
+    quantity: Number(document.getElementById("quantitySelect").value || 1)
+  };
+
+  if(!payload.startDate || !payload.endDate){
+    alert("Lütfen başlangıç ve bitiş tarihi seç.");
+    return;
+  }
+
+  try{
+    const res = await fetch(RESERVATION_ENDPOINT, {
+      method:"POST",
+      headers:{
+        "Content-Type":"application/json",
+        "Authorization":`Bearer ${localStorage.getItem("token")}`
+      },
+      body:JSON.stringify(payload)
+    });
+    if(!res.ok) throw new Error("reservation failed");
+    alert("Rezervasyon talebin gönderildi.");
+    window.location.href = "customer/my-reservations.html";
+  }catch(err){
+    alert("Rezervasyon gönderilemedi. Backend endpointini kontrol edelim.");
+  }
+}
+
+async function askSeller(){
+  if(!ensureLogin()){
+    openLoginModal();
+    return;
+  }
+
+  try{
+    const res = await fetch(MESSAGE_ENDPOINT, {
+      method:"POST",
+      headers:{
+        "Content-Type":"application/json",
+        "Authorization":`Bearer ${localStorage.getItem("token")}`
+      },
+      body:JSON.stringify({
+        productId:currentProduct.id,
+        storeId:currentProduct.seller.id,
+        message:`Merhaba, ${currentProduct.title} ilanı hakkında bilgi almak istiyorum.`
+      })
+    });
+    if(!res.ok) throw new Error("message failed");
+    alert("Mesaj satıcıya gönderildi.");
+  }catch(err){
+    alert("Mesaj gönderilemedi. Backend message endpointini kontrol edelim.");
+  }
+}
+
+function initDates(){
+  const today = new Date();
+  const tomorrow = new Date();
+  tomorrow.setDate(today.getDate()+1);
+  const fmt = d => d.toISOString().slice(0,10);
+  document.getElementById("startDate").min = fmt(today);
+  document.getElementById("endDate").min = fmt(today);
+  if(!document.getElementById("startDate").value) document.getElementById("startDate").value = fmt(today);
+  if(!document.getElementById("endDate").value) document.getElementById("endDate").value = fmt(tomorrow);
+}
+
+function bindEvents(){
+  document.getElementById("topSearchBtn").addEventListener("click",()=>{
+    const q = document.getElementById("topSearchInput").value.trim();
+    window.location.href = "listing.html" + (q ? `?q=${encodeURIComponent(q)}` : "");
+  });
+  document.getElementById("topSearchInput").addEventListener("keydown",e=>{
+    if(e.key === "Enter") document.getElementById("topSearchBtn").click();
+  });
+
+  document.querySelectorAll(".tab-btn").forEach(btn=>{
+    btn.addEventListener("click",()=>{
+      document.querySelectorAll(".tab-btn").forEach(b=>b.classList.remove("active"));
+      document.querySelectorAll(".tab-content").forEach(c=>c.classList.remove("active"));
+      btn.classList.add("active");
+      document.getElementById(btn.dataset.tab).classList.add("active");
+    });
+  });
+
+  ["startDate","endDate","quantitySelect"].forEach(id=>{
+    document.getElementById(id).addEventListener("change",updatePrice);
+  });
+
+  document.getElementById("favoriteBtn").addEventListener("click",()=>{
+    if(!ensureLogin()){
+      openLoginModal();
+      return;
+    }
+    const id = Number(currentProduct.id);
+    const index = favorites.indexOf(id);
+    if(index >= 0) favorites.splice(index,1);
+    else favorites.push(id);
+    localStorage.setItem("akFavorites", JSON.stringify(favorites));
+    updateFavoriteButton();
+  });
+
+  document.getElementById("reserveBtn").addEventListener("click",createReservation);
+  document.getElementById("mobileReserveBtn").addEventListener("click",createReservation);
+  document.getElementById("askSellerBtn").addEventListener("click",askSeller);
+  document.getElementById("sellerAskMini").addEventListener("click",askSeller);
+  document.getElementById("closeLoginModal").addEventListener("click",closeLoginModal);
+  document.getElementById("modalCancel").addEventListener("click",closeLoginModal);
+  document.getElementById("loginModal").addEventListener("click",e=>{
+    if(e.target.id === "loginModal") closeLoginModal();
+  });
+}
+
+(async function init(){
+  bindEvents();
+  initDates();
+  await fetchProduct();
+  renderProduct();
+  await fetchSimilar();
+  renderSimilar();
+
+  const viewed = JSON.parse(localStorage.getItem("akViewed") || "[]");
+  const next = [Number(currentProduct.id), ...viewed.filter(id=>Number(id)!==Number(currentProduct.id))].slice(0,8);
+  localStorage.setItem("akViewed", JSON.stringify(next));
+})();
+</script>
+</body>
+</html>

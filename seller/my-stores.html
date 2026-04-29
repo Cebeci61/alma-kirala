@@ -1,0 +1,420 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Mağazalarım | Alma Kirala</title>
+
+  <style>
+    :root{
+      --dark:#07142f;--blue:#064db5;--yellow:#ffcc00;--orange:#ff9f1c;--bg:#f4f6fb;
+      --text:#07142f;--muted:#64748b;--line:#e5e7eb;--soft:#eef4ff;--green:#16a34a;
+      --red:#dc2626;--shadow:0 18px 45px rgba(15,23,42,.10);--shadow2:0 10px 28px rgba(15,23,42,.07)
+    }
+    *{box-sizing:border-box}
+    body{margin:0;font-family:Inter,Arial,sans-serif;background:radial-gradient(circle at 100% 0%,rgba(255,204,0,.14),transparent 30%),var(--bg);color:var(--text)}
+    a{text-decoration:none;color:inherit}button,input,select{font-family:inherit}button{cursor:pointer}
+    .app{display:grid;grid-template-columns:292px minmax(0,1fr);min-height:100vh}
+    .side{background:radial-gradient(circle at 88% 0%,rgba(255,204,0,.18),transparent 30%),linear-gradient(180deg,#07142f,#081226);color:#fff;padding:18px 14px;position:sticky;top:0;height:100vh;overflow:auto;z-index:80;box-shadow:12px 0 32px rgba(7,20,47,.13)}
+    .logo{display:flex;align-items:center;gap:10px;font-size:26px;font-weight:1000;letter-spacing:-.8px;padding:0 6px 16px}
+    .mark{width:42px;height:42px;border-radius:15px;background:linear-gradient(135deg,#ffcc00,#ff9f1c);position:relative;overflow:hidden;flex:0 0 auto;box-shadow:0 12px 26px rgba(255,204,0,.25)}
+    .mark:before{content:"";position:absolute;width:18px;height:48px;background:#07142f;transform:rotate(28deg);left:12px;top:2px;border-radius:999px}
+    .mark:after{content:"";position:absolute;width:14px;height:14px;border-radius:50%;background:#fff;right:7px;bottom:7px}
+    .rolelabel{color:#cbd5e1;text-transform:uppercase;font-size:12px;font-weight:1000;letter-spacing:.8px;padding:4px 12px 14px}
+    .store-mini{margin:0 6px 14px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.10);border-radius:22px;padding:12px;display:flex;gap:10px;align-items:center}
+    .store-avatar{width:46px;height:46px;border-radius:16px;background:#ffcc00;color:#07142f;display:grid;place-items:center;font-weight:1000;flex:0 0 auto}
+    .store-mini strong{display:block;font-size:14px}.store-mini span{display:block;color:#cbd5e1;font-size:12px;font-weight:800;margin-top:3px}
+    .snav{display:grid;gap:5px;padding-bottom:12px}
+    .snav a{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:11px 12px;border-radius:15px;color:#e5e7eb;font-weight:900;font-size:14px;transition:.18s}
+    .snav a:hover{background:rgba(255,255,255,.08);transform:translateX(2px)}.snav a.act{background:linear-gradient(135deg,#ffcc00,#ff9f1c);color:#07142f;box-shadow:0 12px 26px rgba(255,204,0,.22)}
+    .snav small{background:rgba(255,255,255,.10);color:#fff;border-radius:999px;min-width:24px;padding:3px 7px;text-align:center;font-size:11px;font-weight:1000}
+    .side-bottom{margin:14px 6px 0;border-top:1px solid rgba(255,255,255,.1);padding-top:12px;display:grid;gap:8px}
+    .side-bottom button,.side-bottom a{border:0;border-radius:14px;padding:11px 12px;font-weight:1000;text-align:center}.logout{background:rgba(220,38,38,.18);color:#fecaca}.site-link{background:rgba(255,255,255,.08);color:#fff}
+
+    .main{min-width:0;padding:22px}
+    .topbar{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:14px;align-items:stretch;margin-bottom:16px}
+    .mobile-menu{display:none;border:0;background:#07142f;color:#fff;border-radius:14px;padding:12px 14px;font-weight:1000}
+    .welcome{background:radial-gradient(circle at 92% 0%,rgba(255,204,0,.24),transparent 32%),linear-gradient(135deg,#fff,#fbfdff);border:1px solid var(--line);border-radius:30px;padding:22px;box-shadow:var(--shadow2);min-width:0}
+    .welcome span{display:inline-flex;background:#fff3bf;color:#8a5b00;border-radius:999px;padding:7px 10px;font-size:12px;font-weight:1000;margin-bottom:9px}
+    .welcome h1{margin:0;font-size:34px;line-height:1.05;letter-spacing:-1px;font-family:Georgia,"Times New Roman",serif}.welcome p{margin:8px 0 0;color:var(--muted);font-weight:750;line-height:1.55}
+    .top-actions{min-width:300px;background:#fff;border:1px solid var(--line);border-radius:30px;box-shadow:var(--shadow2);padding:14px;display:grid;gap:10px;align-content:center}
+    .btn{border:0;border-radius:16px;padding:13px 15px;font-weight:1000;display:inline-flex;align-items:center;justify-content:center;gap:8px;transition:.2s;white-space:nowrap}
+    .btn:hover{transform:translateY(-2px);box-shadow:var(--shadow2)}.btn.y{background:linear-gradient(135deg,#ffcc00,#ff9f1c);color:#07142f}.btn.dark{background:#07142f;color:#fff}.btn.light{background:#f1f5f9;color:#07142f;border:1px solid #dbe3ef}.btn.green{background:#dcfce7;color:#166534;border:1px solid #bbf7d0}.btn.red{background:#fee2e2;color:#991b1b;border:1px solid #fecaca}
+    .action-row{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+
+    .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:16px}
+    .stat{background:#fff;border:1px solid var(--line);border-radius:24px;padding:16px;box-shadow:var(--shadow2);position:relative;overflow:hidden;transition:.25s}
+    .stat:hover{transform:translateY(-4px);box-shadow:var(--shadow)}.stat:after{content:"";position:absolute;width:94px;height:94px;border-radius:50%;background:rgba(255,204,0,.13);right:-34px;top:-34px}
+    .stat span{display:block;color:var(--muted);font-size:12px;font-weight:900;margin-bottom:8px}.stat b{display:block;font-size:27px;line-height:1;letter-spacing:-.7px;font-weight:1000;position:relative;z-index:1}.stat small{display:inline-flex;margin-top:9px;background:#f8fafc;border:1px solid #edf1f7;border-radius:999px;padding:5px 8px;color:#334155;font-size:11px;font-weight:900}
+
+    .command{background:#07142f;color:#fff;border-radius:28px;padding:16px;display:grid;grid-template-columns:minmax(0,1fr) 180px 170px auto;gap:10px;align-items:center;box-shadow:var(--shadow);margin-bottom:16px}
+    .command input,.command select{height:48px;border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.08);color:#fff;border-radius:16px;padding:0 13px;font-weight:850;outline:0;min-width:0}
+    .command input::placeholder{color:#cbd5e1}.command select option{color:#07142f}
+
+    .content-grid{display:grid;grid-template-columns:minmax(0,1fr) 360px;gap:16px;align-items:start}
+    .store-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+    .store-card{background:#fff;border:1px solid var(--line);border-radius:28px;box-shadow:var(--shadow2);overflow:hidden;transition:.25s;position:relative}
+    .store-card:hover{transform:translateY(-5px);box-shadow:var(--shadow)}.store-card.active{border:2px solid var(--yellow)}
+    .cover{height:142px;background:radial-gradient(circle at 88% 0%,rgba(255,204,0,.38),transparent 32%),linear-gradient(135deg,#07142f,#17427e);position:relative;color:#fff}
+    .cover .plan{position:absolute;left:14px;top:14px;background:#ffcc00;color:#07142f;border-radius:999px;padding:8px 11px;font-size:12px;font-weight:1000}
+    .cover .status{position:absolute;right:14px;top:14px;background:rgba(255,255,255,.13);border:1px solid rgba(255,255,255,.16);border-radius:999px;padding:8px 11px;font-size:12px;font-weight:1000}
+    .logo-big{position:absolute;left:18px;bottom:-35px;width:76px;height:76px;border-radius:24px;background:#ffcc00;color:#07142f;border:6px solid #fff;display:grid;place-items:center;font-size:24px;font-weight:1000;box-shadow:0 12px 30px rgba(15,23,42,.18)}
+    .store-body{padding:48px 18px 18px}
+    .store-body h2{margin:0;font-size:24px;font-family:Georgia,"Times New Roman",serif;letter-spacing:-.4px}.store-body p{margin:7px 0 0;color:#64748b;font-weight:750;line-height:1.5}
+    .badges{display:flex;flex-wrap:wrap;gap:7px;margin:13px 0}.badge{background:#eef4ff;color:#064db5;border:1px solid #d8e7ff;border-radius:999px;padding:7px 9px;font-size:12px;font-weight:1000}.badge.green{background:#dcfce7;color:#166534;border-color:#bbf7d0}.badge.yellow{background:#fff8db;color:#8a5b00;border-color:#ffe08a}
+    .store-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:14px 0}.store-stats div{background:#f8fafc;border:1px solid #edf1f7;border-radius:14px;padding:9px;text-align:center}.store-stats strong{display:block;font-size:17px}.store-stats span{display:block;color:#64748b;font-size:10px;font-weight:850;margin-top:3px}
+    .store-actions{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}.store-actions a,.store-actions button{border:0;background:#f1f5f9;color:#07142f;border-radius:14px;padding:11px 8px;font-weight:1000;text-align:center}.store-actions .yellow{background:#ffcc00}.store-actions .dark{background:#07142f;color:#fff}
+
+    .side-panel{display:grid;gap:16px}
+    .card{background:#fff;border:1px solid var(--line);border-radius:28px;box-shadow:var(--shadow2);padding:18px}
+    .card h3{margin:0;font-size:22px;font-family:Georgia,"Times New Roman",serif}.card p{margin:7px 0 0;color:#64748b;font-weight:750;line-height:1.55}
+    .health{background:radial-gradient(circle at 90% 0%,rgba(255,204,0,.24),transparent 32%),linear-gradient(135deg,#07142f,#10264d);color:#fff}.health p{color:#cbd5e1}
+    .health-score{display:flex;align-items:end;gap:8px;margin:12px 0}.health-score strong{font-size:44px;color:#ffcc00;line-height:1}.health-score span{color:#cbd5e1;font-weight:850;margin-bottom:6px}
+    .progress{height:10px;background:rgba(255,255,255,.16);border-radius:999px;overflow:hidden}.progress i{height:100%;display:block;background:linear-gradient(135deg,#ffcc00,#ff9f1c);border-radius:999px;width:0%;transition:.5s}
+    .todo-list{display:grid;gap:10px;margin-top:12px}.todo{background:#f8fafc;border:1px solid #edf1f7;border-radius:16px;padding:12px}.todo strong{display:block}.todo span{display:block;color:#64748b;font-size:12px;font-weight:850;margin-top:4px}
+    .empty{display:none;text-align:center;background:#fff;border:1px dashed #cbd5e1;border-radius:26px;padding:34px}.empty.show{display:block}
+
+    .mobile-bottom-nav{display:none}
+    .toast{position:fixed;right:18px;bottom:18px;background:#07142f;color:#fff;padding:14px 16px;border-radius:18px;box-shadow:var(--shadow);font-weight:900;display:none;z-index:220;max-width:360px;line-height:1.45}.toast.show{display:block}
+    .modal{display:none;position:fixed;inset:0;background:rgba(7,20,47,.58);z-index:200;align-items:center;justify-content:center;padding:16px;backdrop-filter:blur(6px)}.modal.open{display:flex}.modal-card{width:min(560px,100%);background:#fff;border-radius:28px;padding:22px;box-shadow:var(--shadow)}.modal-head{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:14px}.modal-head h2{margin:0;font-family:Georgia,"Times New Roman",serif}.modal-close{border:0;background:#f1f5f9;width:40px;height:40px;border-radius:50%;font-size:20px;font-weight:1000}
+    .confirm-actions{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:16px}
+
+    @media(max-width:1220px){.stats{grid-template-columns:repeat(2,1fr)}.content-grid{grid-template-columns:1fr}.store-grid{grid-template-columns:1fr 1fr}}
+    @media(max-width:900px){
+      body{padding-bottom:82px}.app{display:block}.side{position:fixed;left:-310px;top:0;bottom:0;width:292px;height:100vh;transition:.25s}.side.open{left:0}.main{padding:14px}.mobile-menu{display:inline-flex}.topbar{grid-template-columns:1fr}.top-actions{min-width:0}.command{grid-template-columns:1fr}.store-grid{grid-template-columns:1fr}.mobile-bottom-nav{position:fixed;left:10px;right:10px;bottom:10px;background:rgba(7,20,47,.96);border-radius:22px;padding:9px;display:grid;grid-template-columns:repeat(5,1fr);gap:6px;z-index:120;box-shadow:0 18px 45px rgba(7,20,47,.35);backdrop-filter:blur(14px)}.mobile-bottom-nav a{color:#fff;text-align:center;border-radius:15px;padding:9px 4px;font-size:11px;font-weight:900}.mobile-bottom-nav a.active{background:#ffcc00;color:#07142f}
+    }
+    @media(max-width:520px){.welcome{border-radius:24px;padding:17px}.welcome h1{font-size:28px}.action-row,.stats,.store-stats,.store-actions{grid-template-columns:1fr}.cover{height:128px}.store-body h2{font-size:22px}}
+  </style>
+</head>
+
+<body>
+
+<div class="app">
+  <aside class="side" id="sidebar">
+    <a class="logo" href="../index.html"><span class="mark"></span>Alma Kirala</a>
+    <div class="rolelabel">Mağaza Sahibi Paneli</div>
+
+    <div class="store-mini">
+      <div class="store-avatar" id="sideStoreLogo">AK</div>
+      <div>
+        <strong id="sideStoreName">Mağazalarım</strong>
+        <span id="sideStorePlan">Portföy yönetimi</span>
+      </div>
+    </div>
+
+    <nav class="snav">
+      <a href="dashboard.html">Panel</a>
+      <a class="act" href="my-stores.html">Mağazalarım <small id="navStoreCount">0</small></a>
+      <a href="create-store.html">Mağaza Aç</a>
+      <a href="store-settings.html">Mağaza Ayarları</a>
+      <a href="store-theme.html">Tema</a>
+      <a href="products.html">Ürünler</a>
+      <a href="add-product.html">Ürün Ekle</a>
+      <a href="edit-product.html">Ürün Düzenle</a>
+      <a href="product-performance.html">Ürün Performansı</a>
+      <a href="rental-requests.html">Kiralama Talepleri</a>
+      <a href="messages.html">Mesajlar</a>
+      <a href="reviews.html">Yorumlar</a>
+      <a href="ads.html">Reklamlar</a>
+      <a href="ad-performance.html">Reklam Performansı</a>
+      <a href="finance.html">Muhasebe</a>
+      <a href="subscription.html">Abonelik</a>
+      <a href="notifications.html">Bildirimler</a>
+      <a href="support.html">Destek</a>
+      <a href="policies.html">Politikalar</a>
+      <a href="close-store.html">Mağaza Kapat</a>
+    </nav>
+
+    <div class="side-bottom">
+      <a class="site-link" href="../index.html">Ana Siteye Dön</a>
+      <button class="logout" id="logoutBtn" type="button">Çıkış Yap</button>
+    </div>
+  </aside>
+
+  <main class="main">
+    <section class="topbar">
+      <div class="welcome">
+        <button class="mobile-menu" id="mobileMenu" type="button">☰ Menü</button>
+        <br>
+        <span>Satıcı mağaza portföyü</span>
+        <h1>Mağazalarını tek merkezden yönet.</h1>
+        <p>Mağaza durumlarını, paketlerini, ürün sayılarını, puanlarını, reklam ve gelir performansını buradan takip et.</p>
+      </div>
+
+      <div class="top-actions">
+        <div class="action-row">
+          <a class="btn y" href="create-store.html">+ Mağaza Aç</a>
+          <a class="btn dark" href="dashboard.html">Panele Dön</a>
+        </div>
+        <button class="btn light" id="refreshBtn" type="button">Verileri Yenile</button>
+      </div>
+    </section>
+
+    <section class="stats">
+      <div class="stat"><span>Toplam Mağaza</span><b id="totalStores">0</b><small>Hesabına bağlı</small></div>
+      <div class="stat"><span>Aktif Mağaza</span><b id="activeStores">0</b><small>Yayında</small></div>
+      <div class="stat"><span>Toplam Ürün</span><b id="totalProducts">0</b><small>Tüm mağazalar</small></div>
+      <div class="stat"><span>Ortalama Puan</span><b id="avgRating">0.0</b><small>Mağaza puanı</small></div>
+    </section>
+
+    <section class="command">
+      <input id="searchInput" type="text" placeholder="Mağaza adı, şehir veya kategori ara">
+      <select id="statusFilter">
+        <option value="all">Tüm durumlar</option>
+        <option value="active">Aktif</option>
+        <option value="pending">Onay bekliyor</option>
+        <option value="paused">Pasif</option>
+      </select>
+      <select id="planFilter">
+        <option value="all">Tüm paketler</option>
+        <option value="Standart">Standart</option>
+        <option value="Plus">Plus</option>
+        <option value="Premium">Premium</option>
+      </select>
+      <button class="btn y" id="clearBtn" type="button">Temizle</button>
+    </section>
+
+    <section class="content-grid">
+      <div>
+        <section class="store-grid" id="storeGrid"></section>
+        <section class="empty" id="emptyState">
+          <h2>Mağaza bulunamadı</h2>
+          <p>Filtreleri temizleyip tekrar dene veya yeni mağaza aç.</p>
+        </section>
+      </div>
+
+      <aside class="side-panel">
+        <div class="card health">
+          <h3>Portföy Sağlığı</h3>
+          <p>Mağaza doğrulama, ürün doluluğu, puan ve reklam kullanımına göre hesaplanır.</p>
+          <div class="health-score"><strong id="healthScore">0%</strong><span id="healthText">Yükleniyor</span></div>
+          <div class="progress"><i id="healthProgress"></i></div>
+        </div>
+
+        <div class="card">
+          <h3>Akıllı Öneriler</h3>
+          <p>Satış ve görünürlük için yapılacaklar.</p>
+          <div class="todo-list" id="todoList"></div>
+        </div>
+
+        <div class="card">
+          <h3>Gelir Fırsatı</h3>
+          <p>Premium mağaza ve reklam paketleri daha çok görünürlük sağlar.</p>
+          <br>
+          <a class="btn y" href="subscription.html" style="width:100%">Paketleri İncele</a>
+        </div>
+      </aside>
+    </section>
+  </main>
+</div>
+
+<nav class="mobile-bottom-nav">
+  <a href="dashboard.html">Panel</a>
+  <a class="active" href="my-stores.html">Mağaza</a>
+  <a href="products.html">Ürün</a>
+  <a href="rental-requests.html">Talep</a>
+  <a href="ads.html">Reklam</a>
+</nav>
+
+<div class="modal" id="confirmModal">
+  <div class="modal-card">
+    <div class="modal-head">
+      <h2 id="confirmTitle">İşlem Onayı</h2>
+      <button class="modal-close" data-close="confirmModal" type="button">×</button>
+    </div>
+    <p id="confirmText">Bu işlemi yapmak istiyor musun?</p>
+    <div class="confirm-actions">
+      <button class="btn light" data-close="confirmModal" type="button">Vazgeç</button>
+      <button class="btn y" id="confirmAction" type="button">Onayla</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const API_BASE = localStorage.getItem("AK_API_BASE") || "http://localhost:5000";
+const STORE_ENDPOINT = `${API_BASE}/api/stores`;
+const PRODUCT_ENDPOINT = `${API_BASE}/api/products`;
+
+const token = localStorage.getItem("token");
+const akRole = localStorage.getItem("akRole");
+
+let stores = [];
+let products = [];
+let pendingAction = null;
+
+const demoStores = [
+  {id:1,name:"Kamera Dünyam",logo:"KD",city:"İstanbul",district:"Kadıköy",category:"Kamera",plan:"Plus",status:"active",verified:true,products:8,productLimit:10,rating:4.9,reviews:312,requests:90,revenue:12450,adActive:true},
+  {id:2,name:"Event Pro",logo:"EP",city:"Antalya",district:"Muratpaşa",category:"Etkinlik",plan:"Premium",status:"active",verified:true,products:18,productLimit:30,rating:4.8,reviews:240,requests:74,revenue:22100,adActive:true},
+  {id:3,name:"Moda Vitrini",logo:"MV",city:"İzmir",district:"Konak",category:"Özel Gün",plan:"Standart",status:"pending",verified:false,products:3,productLimit:5,rating:4.5,reviews:24,requests:12,revenue:3200,adActive:false}
+];
+
+const demoProducts = [
+  {id:1,storeId:1},{id:2,storeId:1},{id:3,storeId:1},{id:4,storeId:1},{id:5,storeId:1},{id:6,storeId:1},{id:7,storeId:1},{id:8,storeId:1},
+  {id:9,storeId:2},{id:10,storeId:2},{id:11,storeId:2},{id:12,storeId:2},{id:13,storeId:2},
+  {id:14,storeId:3},{id:15,storeId:3},{id:16,storeId:3}
+];
+
+function $(id){return document.getElementById(id)}
+function toast(msg){$("toast").textContent=msg;$("toast").classList.add("show");setTimeout(()=>$("toast").classList.remove("show"),3000)}
+function money(v){return "₺"+Number(v||0).toLocaleString("tr-TR")}
+function authGuard(){if(!token||akRole!=="seller"){toast("Mağazalarım için mağaza hesabıyla giriş yapmalısın.");setTimeout(()=>location.href="../seller-login.html",700);return false}return true}
+function authHeader(){return token?{"Authorization":`Bearer ${token}`}:{}} 
+async function fetchJson(url){try{const r=await fetch(url,{headers:{...authHeader()}});if(!r.ok)throw new Error();return await r.json()}catch{return null}}
+
+async function loadStores(){
+  const data = await fetchJson(`${STORE_ENDPOINT}/my`);
+  const raw = data?.stores || data?.data || data?.items || data;
+  stores = Array.isArray(raw) && raw.length ? raw.map(normalizeStore) : demoStores;
+}
+async function loadProducts(){
+  const data = await fetchJson(`${PRODUCT_ENDPOINT}`);
+  const raw = data?.products || data?.data || data?.items || data?.results || data;
+  products = Array.isArray(raw) && raw.length ? raw : demoProducts;
+}
+function normalizeStore(s){
+  return {
+    id:s.id||s._id,
+    name:s.name||s.storeName||"Mağaza",
+    logo:s.logoText||s.logo||(s.name||"AK").slice(0,2).toUpperCase(),
+    city:s.city||"",
+    district:s.district||"",
+    category:s.category||"Kiralama",
+    plan:s.plan||s.packageName||"Standart",
+    status:s.status||"active",
+    verified:s.verified??true,
+    products:Number(s.products||s.productCount||0),
+    productLimit:Number(s.productLimit||s.planLimit||10),
+    rating:Number(s.rating||s.averageRating||4.7),
+    reviews:Number(s.reviews||s.reviewCount||0),
+    requests:Number(s.requests||s.requestCount||0),
+    revenue:Number(s.revenue||s.monthlyRevenue||0),
+    adActive:s.adActive??false
+  }
+}
+function filteredStores(){
+  const q=$("searchInput").value.trim().toLowerCase();
+  const status=$("statusFilter").value;
+  const plan=$("planFilter").value;
+  return stores.filter(s=>{
+    const matchText = `${s.name} ${s.city} ${s.district} ${s.category}`.toLowerCase().includes(q);
+    const matchStatus = status==="all" || s.status===status;
+    const matchPlan = plan==="all" || s.plan===plan;
+    return matchText && matchStatus && matchPlan;
+  });
+}
+function statusText(status){
+  if(status==="active") return ["Aktif","green"];
+  if(status==="pending") return ["Onay bekliyor","yellow"];
+  return ["Pasif",""];
+}
+function renderStores(){
+  const list=filteredStores();
+  $("emptyState").classList.toggle("show",list.length===0);
+  $("storeGrid").innerHTML=list.map(store=>{
+    const [st,cls]=statusText(store.status);
+    const isActive=String(localStorage.getItem("akActiveStoreId"))===String(store.id);
+    const health = storeHealth(store);
+    return `
+      <article class="store-card ${isActive?"active":""}">
+        <div class="cover">
+          <span class="plan">${store.plan} Paket</span>
+          <span class="status">${st}</span>
+          <div class="logo-big">${store.logo}</div>
+        </div>
+        <div class="store-body">
+          <h2>${store.name}</h2>
+          <p>${store.city}${store.district?" / "+store.district:""} • ${store.category} • ★ ${store.rating.toFixed(1)} (${store.reviews} yorum)</p>
+          <div class="badges">
+            <span class="badge ${store.verified?"green":"yellow"}">${store.verified?"Doğrulanmış":"Doğrulama bekliyor"}</span>
+            <span class="badge">${store.products}/${store.productLimit} ürün</span>
+            <span class="badge ${store.adActive?"green":"yellow"}">${store.adActive?"Reklam aktif":"Reklam yok"}</span>
+          </div>
+          <div class="store-stats">
+            <div><strong>${store.products}</strong><span>Ürün</span></div>
+            <div><strong>${store.requests}</strong><span>Talep</span></div>
+            <div><strong>${health}%</strong><span>Sağlık</span></div>
+            <div><strong>${money(store.revenue)}</strong><span>Gelir</span></div>
+          </div>
+          <div class="store-actions">
+            <button class="yellow" data-active="${store.id}" type="button">${isActive?"Aktif":"Aktif Yap"}</button>
+            <a class="dark" href="store-settings.html?id=${store.id}">Ayarlar</a>
+            <a href="../store-detail.html?id=${store.id}" target="_blank">Görüntüle</a>
+          </div>
+        </div>
+      </article>
+    `;
+  }).join("");
+
+  document.querySelectorAll("[data-active]").forEach(btn=>{
+    btn.addEventListener("click",()=>{
+      localStorage.setItem("akActiveStoreId",btn.dataset.active);
+      toast("Aktif mağaza değiştirildi.");
+      renderAll();
+    });
+  });
+}
+function storeHealth(s){
+  const productScore=Math.min(100,Math.round((s.products/s.productLimit)*100));
+  const trust=s.verified?100:55;
+  const rating=Math.round((s.rating/5)*100);
+  const ad=s.adActive?90:40;
+  return Math.round((productScore+trust+rating+ad)/4);
+}
+function renderStats(){
+  const active=stores.filter(s=>s.status==="active").length;
+  const totalProducts=stores.reduce((a,s)=>a+s.products,0);
+  const avg=stores.length?stores.reduce((a,s)=>a+s.rating,0)/stores.length:0;
+  $("totalStores").textContent=stores.length;
+  $("activeStores").textContent=active;
+  $("totalProducts").textContent=totalProducts;
+  $("avgRating").textContent=avg.toFixed(1);
+  $("navStoreCount").textContent=stores.length;
+  const activeStore=stores.find(s=>String(s.id)===String(localStorage.getItem("akActiveStoreId")))||stores[0];
+  if(activeStore){
+    $("sideStoreLogo").textContent=activeStore.logo;
+    $("sideStoreName").textContent=activeStore.name;
+    $("sideStorePlan").textContent=`${activeStore.plan} Paket`;
+  }
+}
+function renderHealth(){
+  const score=stores.length?Math.round(stores.reduce((a,s)=>a+storeHealth(s),0)/stores.length):0;
+  $("healthScore").textContent=score+"%";
+  $("healthText").textContent=score>=80?"Güçlü portföy":score>=60?"Geliştirilebilir":"Dikkat gerekli";
+  $("healthProgress").style.width=score+"%";
+}
+function renderTodos(){
+  const todos=[];
+  const pending=stores.filter(s=>s.status==="pending").length;
+  const noAds=stores.filter(s=>!s.adActive).length;
+  const lowProducts=stores.filter(s=>s.products<s.productLimit).length;
+  if(pending) todos.push(["Onay bekleyen mağazaları tamamla",`${pending} mağazada doğrulama / onay bekliyor`]);
+  if(noAds) todos.push(["Reklam aktif et",`${noAds} mağazada reklam yok, görünürlük artırılabilir`]);
+  if(lowProducts) todos.push(["Ürün kapasitesini doldur",`${lowProducts} mağazada boş ürün hakkı var`]);
+  todos.push(["Mağaza sayfasını kontrol et","Müşterinin gördüğü mağaza profilini düzenli incele"]);
+  $("todoList").innerHTML=todos.map(t=>`<div class="todo"><strong>${t[0]}</strong><span>${t[1]}</span></div>`).join("");
+}
+function renderAll(){renderStats();renderStores();renderHealth();renderTodos()}
+function bindEvents(){
+  $("mobileMenu").addEventListener("click",()=>$("sidebar").classList.toggle("open"));
+  document.addEventListener("click",(e)=>{if(innerWidth<=900){const s=$("sidebar"),m=$("mobileMenu");if(s.classList.contains("open")&&!s.contains(e.target)&&e.target!==m)s.classList.remove("open")}});
+  ["searchInput","statusFilter","planFilter"].forEach(id=>$(id).addEventListener("input",renderStores));
+  $("clearBtn").addEventListener("click",()=>{$("searchInput").value="";$("statusFilter").value="all";$("planFilter").value="all";renderStores()});
+  $("refreshBtn").addEventListener("click",async()=>{await loadStores();await loadProducts();renderAll();toast("Mağazalar yenilendi.")});
+  $("logoutBtn").addEventListener("click",()=>{localStorage.removeItem("token");localStorage.removeItem("akRole");localStorage.removeItem("akUser");toast("Çıkış yapıldı.");setTimeout(()=>location.href="../seller-login.html",600)});
+  document.querySelectorAll("[data-close]").forEach(b=>b.addEventListener("click",()=>$(b.dataset.close).classList.remove("open")));
+}
+async function init(){
+  if(!authGuard())return;
+  bindEvents();
+  await loadStores();
+  await loadProducts();
+  if(!localStorage.getItem("akActiveStoreId") && stores[0]) localStorage.setItem("akActiveStoreId",stores[0].id);
+  renderAll();
+}
+init();
+</script>
+
+</body>
+</html>

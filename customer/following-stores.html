@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Takip Mağazalar | Alma Kirala</title>
+  <style>
+    :root{--navy:#06122b;--navy2:#0b1f49;--yellow:#ffcc00;--bg:#f3f6fb;--card:#fff;--text:#07142f;--muted:#64748b;--line:#e5eaf2;--green:#16a34a;--red:#dc2626;--shadow:0 20px 55px rgba(7,20,47,.10);--r:26px}
+    *{box-sizing:border-box}body{margin:0;font-family:Inter,Arial,sans-serif;background:radial-gradient(circle at top right,#fff0a6 0,#f3f6fb 34%,#eef3fb 100%);color:var(--text)}a{text-decoration:none;color:inherit}button,input,select{font-family:inherit}button{cursor:pointer}.app{display:grid;grid-template-columns:292px 1fr;min-height:100vh}.side{position:sticky;top:0;height:100vh;background:linear-gradient(180deg,#06122b,#091a3d);color:#fff;padding:24px 20px;display:flex;flex-direction:column;gap:18px;z-index:10}.logo{display:flex;align-items:center;gap:12px;font-size:27px;font-weight:1000;line-height:1.05}.mark{width:54px;height:54px;border-radius:18px;background:var(--yellow);color:var(--navy);display:grid;place-items:center;font-weight:1000}.rolelabel{font-size:12px;font-weight:1000;color:#9fb2d4;letter-spacing:.08em;text-transform:uppercase}.snav{display:grid;gap:7px;overflow:auto;padding-right:4px}.snav a{color:#dbe7ff;border-radius:16px;padding:13px 14px;font-weight:900;font-size:14px;display:flex;align-items:center;justify-content:space-between}.snav a:hover,.snav .act{background:var(--yellow);color:var(--navy)}.main{padding:26px 34px 46px;min-width:0}.topbar{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:20px}.search{flex:1;max-width:760px;background:rgba(255,255,255,.9);border:1px solid var(--line);border-radius:22px;padding:13px 16px;display:flex;gap:12px;box-shadow:0 12px 35px rgba(7,20,47,.05)}.search input{border:0;outline:0;background:transparent;width:100%;font-weight:800}.mini-user{background:#fff;border:1px solid var(--line);border-radius:18px;padding:8px 12px;display:flex;align-items:center;gap:10px;box-shadow:0 12px 35px rgba(7,20,47,.05)}.avatar{width:38px;height:38px;border-radius:14px;background:var(--navy);color:var(--yellow);display:grid;place-items:center;font-weight:1000}.hero{background:linear-gradient(135deg,#07142f 0,#12306a 58%,#ffcc00 59%,#ffe27a 100%);border-radius:34px;padding:30px;color:#fff;display:grid;grid-template-columns:1.2fr .8fr;gap:20px;box-shadow:var(--shadow);overflow:hidden}.hero h1{margin:0;font-size:38px;letter-spacing:-.04em}.hero p{margin:10px 0 0;color:#dce8ff;line-height:1.6}.hero-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px}.btn{border:0;border-radius:16px;padding:13px 17px;font-weight:1000;display:inline-flex;align-items:center;justify-content:center;gap:8px}.btn.y{background:var(--yellow);color:var(--navy)}.btn.light{background:rgba(255,255,255,.15);color:#fff;border:1px solid rgba(255,255,255,.18)}.hero-box{background:rgba(255,255,255,.94);color:var(--text);border-radius:26px;padding:20px;align-self:end}.hero-box b{display:block;font-size:34px}.hero-box span{color:var(--muted);font-weight:800}.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin:22px 0}.stat{background:rgba(255,255,255,.94);border:1px solid var(--line);border-radius:24px;padding:18px;box-shadow:0 14px 35px rgba(7,20,47,.06)}.stat span{color:var(--muted);font-size:13px;font-weight:900}.stat strong{display:block;font-size:31px;margin-top:8px}.stat em{font-style:normal;color:var(--green);font-size:12px;font-weight:900}.layout{display:grid;grid-template-columns:300px minmax(0,1fr);gap:22px}.card{background:rgba(255,255,255,.94);border:1px solid var(--line);border-radius:var(--r);padding:22px;box-shadow:0 16px 42px rgba(7,20,47,.07);backdrop-filter:blur(10px)}.head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:16px}.head h2{margin:0;font-size:23px}.filters{display:grid;gap:12px}.filters label{font-size:12px;color:var(--muted);font-weight:1000}.filters input,.filters select{width:100%;border:1px solid var(--line);background:#fff;border-radius:16px;padding:13px 14px;font-weight:850;outline:0}.chips{display:flex;gap:8px;flex-wrap:wrap}.chip{border:1px solid var(--line);background:#fff;border-radius:999px;padding:9px 12px;font-weight:1000}.chip.act{background:var(--navy);color:#fff;border-color:var(--navy)}.stores{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}.store{background:#fff;border:1px solid var(--line);border-radius:26px;overflow:hidden;box-shadow:0 14px 35px rgba(7,20,47,.06);transition:.2s}.store:hover{transform:translateY(-3px);box-shadow:0 22px 50px rgba(7,20,47,.12)}.cover{height:120px;background:linear-gradient(135deg,#fff2a3,#ffcc00);position:relative}.badge{position:absolute;top:14px;left:14px;background:#fff7d6;color:#8a5b00;border-radius:999px;padding:8px 11px;font-size:12px;font-weight:1000}.unfollow{position:absolute;right:14px;top:14px;border:0;background:#fff;border-radius:50%;width:42px;height:42px;font-size:18px}.store-body{padding:18px}.initial{width:56px;height:56px;border-radius:18px;background:#fff;color:var(--navy);display:grid;place-items:center;font-weight:1000;margin-top:-46px;position:relative;box-shadow:0 10px 26px rgba(7,20,47,.12)}.store h3{margin:15px 0 8px;font-size:20px}.meta{color:var(--muted);font-size:13px;line-height:1.55}.score{display:grid;grid-template-columns:1fr 1fr 1fr;gap:9px;margin:15px 0}.mini{background:#f8fafc;border:1px solid var(--line);border-radius:16px;padding:10px}.mini b{display:block}.mini span{font-size:11px;color:var(--muted);font-weight:900}.actions{display:flex;gap:8px;flex-wrap:wrap}.small{border:1px solid var(--line);background:#fff;border-radius:999px;padding:9px 12px;font-size:12px;font-weight:1000}.small.y{background:var(--yellow);border-color:var(--yellow)}.empty{display:none;text-align:center;padding:36px;border:1px dashed #cbd5e1;border-radius:24px;background:#fbfdff;color:var(--muted);font-weight:900}.mobile-head,.bottom-nav{display:none}.toast{position:fixed;right:22px;bottom:22px;background:var(--navy);color:#fff;padding:14px 16px;border-radius:18px;font-weight:900;display:none;z-index:120}
+    @media(max-width:1180px){.app{grid-template-columns:88px 1fr}.logo strong,.rolelabel,.snav a span{display:none}.side{padding:20px 12px}.snav a{justify-content:center}.layout{grid-template-columns:1fr}.stores{grid-template-columns:repeat(2,1fr)}.stats{grid-template-columns:repeat(2,1fr)}}
+    @media(max-width:760px){body{padding-bottom:82px}.app{display:block}.side,.topbar{display:none}.mobile-head{display:flex;align-items:center;justify-content:space-between;padding:14px 16px;background:#06122b;color:#fff;position:sticky;top:0;z-index:30}.main{padding:14px}.hero{grid-template-columns:1fr;padding:23px;border-radius:28px}.hero h1{font-size:29px}.stats,.stores{grid-template-columns:1fr}.card{padding:18px;border-radius:24px}.bottom-nav{position:fixed;left:12px;right:12px;bottom:12px;height:64px;background:#06122b;color:#fff;border-radius:24px;display:grid;grid-template-columns:repeat(4,1fr);box-shadow:0 18px 50px rgba(7,20,47,.35);z-index:40;overflow:hidden}.bottom-nav a{display:grid;place-items:center;color:#fff;font-weight:1000}.bottom-nav .act{background:var(--yellow);color:var(--navy)}}
+  </style>
+</head>
+<body>
+<div class="mobile-head"><b>AK Alma Kirala</b><a class="btn y" href="explore.html">Keşfet</a></div>
+<div class="app">
+  <aside class="side">
+    <a class="logo" href="../index.html"><span class="mark">AK</span><strong>Alma<br>Kirala</strong></a>
+    <div class="rolelabel">Müşteri Alanı</div>
+    <nav class="snav">
+      <a href="dashboard.html">🏠 <span>Akıllı Panel</span></a>
+      <a href="rentals-active.html">📦 <span>Kiralamalar</span></a>
+      <a href="requests.html">📝 <span>Talepler</span></a>
+      <a href="messages.html">💬 <span>Mesajlar</span></a>
+      <a href="favorites.html">💛 <span>Favoriler</span></a>
+      <a href="wallet.html">💳 <span>Cüzdan</span></a>
+      <a href="reviews.html">⭐ <span>Yorumlar</span></a>
+      <a class="act" href="following-stores.html">🏪 <span>Takip Mağazalar</span></a>
+      <a href="notifications.html">🔔 <span>Bildirimler</span></a>
+      <a href="profile.html">👤 <span>Profil & Güven</span></a>
+      <a href="addresses.html">📍 <span>Adresler</span></a>
+      <a href="support.html">🛟 <span>Destek</span></a>
+      <a href="../index.html">↩ <span>Ana Site</span></a>
+    </nav>
+  </aside>
+
+  <main class="main">
+    <div class="topbar">
+      <div class="search">🔎 <input id="topSearch" placeholder="Mağaza adı, ürün, il, ilçe veya kategori ara..."></div>
+      <div class="mini-user"><div class="avatar" id="avatar">M</div><div><b id="userName">Müşteri</b><span style="color:#64748b;font-size:12px">Takip mağazalar</span></div></div>
+    </div>
+
+    <section class="hero">
+      <div>
+        <h1>Takip Mağazalar</h1>
+        <p>Takip ettiğin mağazaları isim, il, ilçe, kategori ve puana göre filtrele; mağazaya gir, ürünlerini incele veya takipten çıkar.</p>
+        <div class="hero-actions">
+          <a class="btn y" href="explore.html">Yeni Mağaza Keşfet</a>
+          <button class="btn light" id="resetBtn">Filtreleri Temizle</button>
+        </div>
+      </div>
+      <div class="hero-box"><span>Takip edilen mağaza</span><b id="totalStores">0</b><span id="bestStore">En yüksek puanlı mağaza hazırlanıyor</span></div>
+    </section>
+
+    <section class="stats">
+      <div class="stat"><span>Toplam Mağaza</span><strong id="statTotal">0</strong><em>takipte</em></div>
+      <div class="stat"><span>Şehir Sayısı</span><strong id="statCity">0</strong><em>aktif bölge</em></div>
+      <div class="stat"><span>Ortalama Puan</span><strong id="statRating">0</strong><em>güven skoru</em></div>
+      <div class="stat"><span>Yeni Ürün</span><strong id="statNew">0</strong><em>bu hafta</em></div>
+    </section>
+
+    <section class="layout">
+      <aside class="card">
+        <div class="head"><h2>Filtreler</h2></div>
+        <div class="filters">
+          <div><label>Arama</label><input id="searchInput" placeholder="Kamera Dünyam, drone, İstanbul..."></div>
+          <div><label>İl</label><select id="cityInput"><option value="">Tüm iller</option></select></div>
+          <div><label>İlçe</label><select id="districtInput"><option value="">Tüm ilçeler</option></select></div>
+          <div><label>Kategori</label><select id="categoryInput"><option value="">Tüm kategoriler</option></select></div>
+          <div><label>Sıralama</label><select id="sortInput"><option value="new">Yeni takip edilen</option><option value="rating">Puana göre</option><option value="products">Ürün sayısına göre</option><option value="name">İsme göre</option></select></div>
+          <div><label>Hızlı seçim</label><div class="chips"><button class="chip act" data-type="all">Tümü</button><button class="chip" data-type="premium">Premium</button><button class="chip" data-type="verified">Doğrulanmış</button><button class="chip" data-type="near">Yakınımda</button></div></div>
+        </div>
+      </aside>
+
+      <section class="card">
+        <div class="head"><h2>Mağaza Listesi</h2><span class="meta" id="resultText">0 sonuç</span></div>
+        <div class="stores" id="storeList"></div>
+        <div class="empty" id="emptyBox">Bu filtreye uygun takip edilen mağaza bulunamadı.</div>
+      </section>
+    </section>
+  </main>
+</div>
+
+<nav class="bottom-nav">
+  <a href="dashboard.html">Ana</a>
+  <a href="rentals-active.html">Kira</a>
+  <a href="messages.html">Mesaj</a>
+  <a class="act" href="following-stores.html">Mağaza</a>
+</nav>
+<div class="toast" id="toast"></div>
+
+<script>
+const API_BASE="http://localhost:3000/api";
+const token=localStorage.getItem("token")||localStorage.getItem("akToken");
+const user=JSON.parse(localStorage.getItem("user")||localStorage.getItem("akUser")||"null")||{name:"Demo Müşteri"};
+let followedStores=[
+  {id:1,name:"Kamera Dünyam",initial:"KD",city:"İstanbul",district:"Kadıköy",category:"Kamera",rating:4.9,products:42,newProducts:6,type:"premium",verified:true,followedAt:"2026-04-20"},
+  {id:2,name:"Drone Market",initial:"DM",city:"Ankara",district:"Çankaya",category:"Drone",rating:4.8,products:27,newProducts:3,type:"verified",verified:true,followedAt:"2026-04-18"},
+  {id:3,name:"Event Pro",initial:"EP",city:"Antalya",district:"Muratpaşa",category:"Etkinlik",rating:4.8,products:55,newProducts:9,type:"premium",verified:true,followedAt:"2026-04-15"},
+  {id:4,name:"Moda Vitrini",initial:"MV",city:"İzmir",district:"Konak",category:"Özel Gün",rating:4.7,products:31,newProducts:4,type:"standard",verified:false,followedAt:"2026-04-12"},
+  {id:5,name:"Tamir Market",initial:"TM",city:"Trabzon",district:"Ortahisar",category:"Yapı & Tamir",rating:4.8,products:64,newProducts:8,type:"verified",verified:true,followedAt:"2026-04-09"},
+  {id:6,name:"Outdoor Plus",initial:"OP",city:"Muğla",district:"Bodrum",category:"Outdoor",rating:4.6,products:38,newProducts:2,type:"premium",verified:true,followedAt:"2026-04-05"},
+  {id:7,name:"Ofis Kirala",initial:"OK",city:"Bursa",district:"Nilüfer",category:"Ofis",rating:4.6,products:23,newProducts:1,type:"standard",verified:false,followedAt:"2026-04-01"}
+];
+let activeType="all";
+const $=id=>document.getElementById(id);
+$("userName").textContent=user.name||"Müşteri";$("avatar").textContent=(user.name||"M").trim()[0].toUpperCase();
+function fillSelects(){const cities=[...new Set(followedStores.map(s=>s.city))].sort();const cats=[...new Set(followedStores.map(s=>s.category))].sort();$("cityInput").innerHTML='<option value="">Tüm iller</option>'+cities.map(x=>`<option>${x}</option>`).join('');$("categoryInput").innerHTML='<option value="">Tüm kategoriler</option>'+cats.map(x=>`<option>${x}</option>`).join('');updateDistricts();}
+function updateDistricts(){const city=$("cityInput").value;const list=followedStores.filter(s=>!city||s.city===city);const districts=[...new Set(list.map(s=>s.district))].sort();$("districtInput").innerHTML='<option value="">Tüm ilçeler</option>'+districts.map(x=>`<option>${x}</option>`).join('');}
+function storeCard(s){const tag=s.type==="premium"?"Premium":s.verified?"Doğrulanmış":"Standart";return `<article class="store"><div class="cover"><span class="badge">${tag}</span><button class="unfollow" data-unfollow="${s.id}" title="Takipten çıkar">♥</button></div><div class="store-body"><div class="initial">${s.initial}</div><h3>${s.name}</h3><div class="meta">${s.city} / ${s.district} • ${s.category} • ⭐ ${s.rating}<br>${s.followedAt} tarihinde takip edildi</div><div class="score"><div class="mini"><b>${s.products}</b><span>ürün</span></div><div class="mini"><b>${s.newProducts}</b><span>yeni</span></div><div class="mini"><b>${s.verified?'Var':'Yok'}</b><span>doğrulama</span></div></div><div class="actions"><a class="small y" href="../store-detail.html?id=${s.id}">Mağazaya Git</a><a class="small" href="../listing.html?storeId=${s.id}">Ürünleri Gör</a><button class="small" data-toast="${s.name} mağazasına mesaj hazırlanıyor.">Mesaj Yaz</button></div></div></article>`}
+function apply(){const q=($("searchInput").value||$("topSearch").value||"").toLowerCase();const city=$("cityInput").value;const district=$("districtInput").value;const cat=$("categoryInput").value;const sort=$("sortInput").value;let list=followedStores.filter(s=>{const txt=`${s.name} ${s.city} ${s.district} ${s.category}`.toLowerCase();const typeOk=activeType==="all"||(activeType==="premium"&&s.type==="premium")||(activeType==="verified"&&s.verified)||(activeType==="near"&&["İstanbul","Trabzon"].includes(s.city));return txt.includes(q)&&(!city||s.city===city)&&(!district||s.district===district)&&(!cat||s.category===cat)&&typeOk;});if(sort==="rating")list.sort((a,b)=>b.rating-a.rating);if(sort==="products")list.sort((a,b)=>b.products-a.products);if(sort==="name")list.sort((a,b)=>a.name.localeCompare(b.name,"tr"));if(sort==="new")list.sort((a,b)=>new Date(b.followedAt)-new Date(a.followedAt));$("storeList").innerHTML=list.map(storeCard).join('');$("emptyBox").style.display=list.length?"none":"block";$("resultText").textContent=list.length+" sonuç";bindActions();updateStats();}
+function updateStats(){const total=followedStores.length;const cities=new Set(followedStores.map(s=>s.city)).size;const avg=total?(followedStores.reduce((a,s)=>a+s.rating,0)/total).toFixed(1):0;const newest=followedStores.reduce((a,s)=>a+s.newProducts,0);$("totalStores").textContent=total;$("statTotal").textContent=total;$("statCity").textContent=cities;$("statRating").textContent=avg;$("statNew").textContent=newest;const best=[...followedStores].sort((a,b)=>b.rating-a.rating)[0];$("bestStore").textContent=best?`En yüksek puan: ${best.name} • ${best.rating}`:"Mağaza yok";}
+function bindActions(){document.querySelectorAll('[data-unfollow]').forEach(b=>b.onclick=e=>{e.preventDefault();const id=Number(b.dataset.unfollow);const s=followedStores.find(x=>x.id===id);followedStores=followedStores.filter(x=>x.id!==id);toast((s?.name||'Mağaza')+' takipten çıkarıldı');fillSelects();apply();});document.querySelectorAll('[data-toast]').forEach(b=>b.onclick=()=>toast(b.dataset.toast));}
+function toast(msg){$("toast").textContent=msg;$("toast").style.display="block";setTimeout(()=>$("toast").style.display="none",2200)}
+["searchInput","topSearch","cityInput","districtInput","categoryInput","sortInput"].forEach(id=>$(id).addEventListener("input",()=>{if(id==="cityInput")updateDistricts();if(id==="topSearch")$("searchInput").value=$("topSearch").value;apply();}));
+document.querySelectorAll('.chip').forEach(c=>c.onclick=()=>{document.querySelectorAll('.chip').forEach(x=>x.classList.remove('act'));c.classList.add('act');activeType=c.dataset.type;apply();});
+$("resetBtn").onclick=()=>{$("topSearch").value="";$("searchInput").value="";$("cityInput").value="";updateDistricts();$("districtInput").value="";$("categoryInput").value="";$("sortInput").value="new";activeType="all";document.querySelectorAll('.chip').forEach(x=>x.classList.toggle('act',x.dataset.type==='all'));apply();toast('Filtreler temizlendi');};
+async function loadBackend(){if(!token){fillSelects();apply();return;}try{const res=await fetch(`${API_BASE}/stores/following`,{headers:{Authorization:`Bearer ${token}`}});if(!res.ok)throw new Error('api');const data=await res.json();const list=Array.isArray(data)?data:(data.stores||[]);if(list.length){followedStores=list.map(s=>({id:s.id,name:s.name||'Mağaza',initial:(s.name||'M').split(' ').map(x=>x[0]).join('').slice(0,2).toUpperCase(),city:s.city||'Türkiye',district:s.district||'Merkez',category:s.category||'Genel',rating:s.rating||4.8,products:s.productCount||s.products?.length||0,newProducts:s.newProducts||0,type:s.isPremium?'premium':s.isVerified?'verified':'standard',verified:!!s.isVerified,followedAt:s.followedAt||new Date().toISOString().slice(0,10)}));}}catch(e){console.log('Backend bekleniyor',e.message)}fillSelects();apply();}
+loadBackend();
+</script>
+</body>
+</html>

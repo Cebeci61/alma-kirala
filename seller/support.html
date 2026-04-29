@@ -1,0 +1,251 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Destek | Alma Kirala</title>
+<style>
+:root{--dark:#07142f;--yellow:#ffcc00;--orange:#ff9f1c;--bg:#f4f6fb;--line:#e5e7eb;--muted:#64748b;--red:#ef4444;--green:#16a34a;--shadow:0 18px 45px rgba(15,23,42,.10);--shadow2:0 10px 28px rgba(15,23,42,.07)}
+*{box-sizing:border-box}body{margin:0;font-family:Inter,Arial,sans-serif;background:radial-gradient(circle at 100% 0%,rgba(255,204,0,.14),transparent 30%),var(--bg);color:var(--dark)}a{text-decoration:none;color:inherit}button,input,select,textarea{font-family:inherit}button{cursor:pointer}
+.app{display:grid;grid-template-columns:292px minmax(0,1fr);min-height:100vh}
+.side{background:linear-gradient(180deg,#07142f,#081226);color:#fff;padding:18px 14px;position:sticky;top:0;height:100vh;overflow:auto;z-index:80}
+.logo{display:flex;align-items:center;gap:10px;font-size:26px;font-weight:1000;padding:0 6px 16px}.mark{width:42px;height:42px;border-radius:15px;background:linear-gradient(135deg,#ffcc00,#ff9f1c);position:relative;overflow:hidden}.mark:before{content:"";position:absolute;width:18px;height:48px;background:#07142f;transform:rotate(28deg);left:12px;top:2px;border-radius:999px}.mark:after{content:"";position:absolute;width:14px;height:14px;border-radius:50%;background:#fff;right:7px;bottom:7px}
+.rolelabel{color:#cbd5e1;text-transform:uppercase;font-size:12px;font-weight:1000;padding:4px 12px 14px}.store-mini{margin:0 6px 14px;background:rgba(255,255,255,.08);border-radius:22px;padding:12px;display:flex;gap:10px;align-items:center}.store-avatar{width:46px;height:46px;border-radius:16px;background:#ffcc00;color:#07142f;display:grid;place-items:center;font-weight:1000}.store-mini strong{display:block;font-size:14px}.store-mini span{display:block;color:#cbd5e1;font-size:12px;font-weight:800;margin-top:3px}
+.snav{display:grid;gap:5px}.snav a{display:flex;align-items:center;justify-content:space-between;padding:11px 12px;border-radius:15px;color:#e5e7eb;font-weight:900;font-size:14px}.snav a:hover{background:rgba(255,255,255,.08)}.snav a.act{background:linear-gradient(135deg,#ffcc00,#ff9f1c);color:#07142f}.snav small{background:#ef4444;color:#fff;border-radius:999px;padding:3px 7px;font-size:11px;font-weight:1000}.side-bottom{margin:14px 6px 0;border-top:1px solid rgba(255,255,255,.1);padding-top:12px;display:grid;gap:8px}.side-bottom button,.side-bottom a{border:0;border-radius:14px;padding:11px 12px;font-weight:1000;text-align:center}.logout{background:rgba(220,38,38,.18);color:#fecaca}.site-link{background:rgba(255,255,255,.08);color:#fff}
+.main{min-width:0;padding:22px}.hero{background:radial-gradient(circle at 92% 0%,rgba(255,204,0,.26),transparent 32%),linear-gradient(135deg,#fff,#fbfdff);border:1px solid var(--line);border-radius:32px;padding:24px;box-shadow:var(--shadow2);margin-bottom:16px;display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:18px;align-items:center}.mobile-menu{display:none;border:0;background:#07142f;color:#fff;border-radius:14px;padding:12px 14px;font-weight:1000}.hero span{display:inline-flex;background:#fff3bf;color:#8a5b00;border-radius:999px;padding:8px 11px;font-size:12px;font-weight:1000;margin-bottom:10px}.hero h1{margin:0;font-size:38px;line-height:1.04;font-family:Georgia,serif}.hero p{margin:9px 0 0;color:var(--muted);font-weight:750;line-height:1.6}.hero-panel{background:#07142f;color:#fff;border-radius:24px;padding:18px}.hero-panel strong{display:block;color:#ffcc00;font-size:24px;font-family:Georgia,serif}.hero-panel p{color:#cbd5e1}
+.btn{border:0;border-radius:16px;padding:13px 15px;font-weight:1000;display:inline-flex;align-items:center;justify-content:center;gap:8px;white-space:nowrap}.btn.y{background:linear-gradient(135deg,#ffcc00,#ff9f1c);color:#07142f}.btn.light{background:#f1f5f9;color:#07142f;border:1px solid #dbe3ef}.btn.dark{background:#07142f;color:#fff}.btn.green{background:#dcfce7;color:#166534;border:1px solid #bbf7d0}.btn.red{background:#fee2e2;color:#991b1b;border:1px solid #fecaca}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:16px}.stat{background:#fff;border:1px solid var(--line);border-radius:24px;padding:16px;box-shadow:var(--shadow2);position:relative;overflow:hidden}.stat:after{content:"";position:absolute;width:90px;height:90px;border-radius:50%;background:rgba(255,204,0,.13);right:-32px;top:-32px}.stat span{display:block;color:#64748b;font-size:12px;font-weight:900;margin-bottom:8px}.stat b{display:block;font-size:24px;line-height:1;font-weight:1000;position:relative;z-index:1}.stat small{display:block;margin-top:7px;color:#64748b;font-weight:850;font-size:11px}
+.command{background:#07142f;color:#fff;border-radius:28px;padding:16px;display:grid;grid-template-columns:minmax(0,1fr) 170px 160px auto;gap:10px;align-items:center;box-shadow:var(--shadow);margin-bottom:16px}.command input,.command select{height:48px;border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.08);color:#fff;border-radius:16px;padding:0 13px;font-weight:850;outline:0}.command input::placeholder{color:#cbd5e1}.command select option{color:#07142f}
+.layout{display:grid;grid-template-columns:minmax(0,1fr) 390px;gap:16px;align-items:start}.card{background:#fff;border:1px solid var(--line);border-radius:28px;box-shadow:var(--shadow2);padding:18px;margin-bottom:16px}.card h2,.card h3{margin:0;font-family:Georgia,serif}.card p{margin:7px 0 0;color:#64748b;font-weight:750;line-height:1.55}.card-head{display:flex;justify-content:space-between;gap:12px;align-items:flex-start;margin-bottom:16px}
+.quick-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:16px}.quick{background:#fff;border:1px solid var(--line);border-radius:24px;padding:16px;box-shadow:var(--shadow2);transition:.18s;cursor:pointer}.quick:hover{transform:translateY(-3px);box-shadow:var(--shadow)}.quick .ico{width:50px;height:50px;border-radius:18px;background:#fff8db;display:grid;place-items:center;font-size:25px;margin-bottom:10px}.quick b{display:block}.quick span{display:block;color:#64748b;font-size:12px;font-weight:850;margin-top:5px;line-height:1.45}
+.ticket-list{display:grid;gap:10px}.ticket{background:#fff;border:1px solid #e5e7eb;border-radius:24px;padding:14px;box-shadow:var(--shadow2);display:grid;grid-template-columns:1fr auto;gap:12px;transition:.18s}.ticket:hover{transform:translateY(-2px);box-shadow:var(--shadow)}.ticket h3{margin:0;font-size:18px}.ticket p{margin:6px 0 0;color:#475569;font-weight:800;line-height:1.45}.meta{display:flex;flex-wrap:wrap;gap:7px;margin-top:10px}.pill{border-radius:999px;background:#f8fafc;border:1px solid #edf1f7;padding:6px 8px;font-size:11px;font-weight:1000;color:#334155}.open{background:#fff8db;color:#8a5b00;border-color:#ffe08a}.answered{background:#dcfce7;color:#166534;border-color:#bbf7d0}.urgent{background:#fee2e2;color:#991b1b;border-color:#fecaca}.ticket-actions{display:grid;gap:8px}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.field.full{grid-column:1/-1}label{display:block;font-size:13px;font-weight:1000;color:#1e293b;margin-bottom:7px}input,select,textarea{width:100%;border:1px solid #dbe3ef;background:#fff;border-radius:16px;padding:14px;outline:0;font-size:15px;font-weight:850}textarea{min-height:140px;resize:vertical}input:focus,select:focus,textarea:focus{border-color:#ffcc00;box-shadow:0 0 0 4px rgba(255,204,0,.16)}
+.chat-box{background:radial-gradient(circle at 90% 0%,rgba(255,204,0,.26),transparent 32%),linear-gradient(135deg,#07142f,#10264d);color:#fff}.chat-box p{color:#cbd5e1}.chat{height:300px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);border-radius:22px;padding:12px;overflow:auto;margin:14px 0}.bubble{max-width:86%;padding:11px 13px;border-radius:16px;margin-bottom:10px;font-weight:850;line-height:1.45}.agent{background:#fff;color:#07142f;border-bottom-left-radius:5px}.seller{background:#ffcc00;color:#07142f;margin-left:auto;border-bottom-right-radius:5px}.chat-input{display:grid;grid-template-columns:1fr auto;gap:8px}.chat-input input{background:#fff;color:#07142f}
+.faq{display:grid;gap:10px}.faq details{background:#f8fafc;border:1px solid #edf1f7;border-radius:18px;padding:14px}.faq summary{font-weight:1000;cursor:pointer}.faq p{margin:10px 0 0}
+.modal{display:none;position:fixed;inset:0;background:rgba(7,20,47,.58);z-index:200;align-items:center;justify-content:center;padding:16px;backdrop-filter:blur(6px)}.modal.open{display:flex}.modal-card{width:min(760px,100%);max-height:90vh;overflow:auto;background:#fff;border-radius:28px;padding:22px;box-shadow:var(--shadow)}.modal-head{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:14px}.modal-head h2{margin:0;font-family:Georgia,serif}.modal-close{border:0;background:#f1f5f9;width:40px;height:40px;border-radius:50%;font-size:20px;font-weight:1000}
+.empty{display:none;text-align:center;background:#fff;border:1px dashed #cbd5e1;border-radius:26px;padding:34px}.empty.show{display:block}.toast{position:fixed;right:18px;bottom:18px;background:#07142f;color:#fff;padding:14px 16px;border-radius:18px;box-shadow:var(--shadow);font-weight:900;display:none;z-index:220}.toast.show{display:block}.mobile-bottom-nav{display:none}
+@media(max-width:1380px){.quick-grid{grid-template-columns:repeat(2,1fr)}.layout{grid-template-columns:1fr}}
+@media(max-width:900px){body{padding-bottom:82px}.app{display:block}.side{position:fixed;left:-310px;top:0;bottom:0;width:292px;height:100vh;transition:.25s}.side.open{left:0}.main{padding:14px}.mobile-menu{display:inline-flex}.hero,.command{grid-template-columns:1fr;border-radius:24px}.hero h1{font-size:30px}.stats{grid-template-columns:repeat(2,1fr)}.form-grid,.chat-input{grid-template-columns:1fr}.mobile-bottom-nav{position:fixed;left:10px;right:10px;bottom:10px;background:rgba(7,20,47,.96);border-radius:22px;padding:9px;display:grid;grid-template-columns:repeat(5,1fr);gap:6px;z-index:120}.mobile-bottom-nav a{color:#fff;text-align:center;border-radius:15px;padding:9px 4px;font-size:11px;font-weight:900}.mobile-bottom-nav a.active{background:#ffcc00;color:#07142f}}
+@media(max-width:560px){.stats,.quick-grid{grid-template-columns:1fr}.card,.hero{padding:16px}.hero-panel{display:none}.ticket{grid-template-columns:1fr}.ticket-actions{display:flex;flex-wrap:wrap}.ticket-actions .btn{width:100%}}
+</style>
+</head>
+<body>
+<div class="app">
+<aside class="side" id="sidebar">
+<a class="logo" href="../index.html"><span class="mark"></span>Alma Kirala</a>
+<div class="rolelabel">Mağaza Sahibi Paneli</div>
+<div class="store-mini"><div class="store-avatar">AK</div><div><strong>Destek</strong><span>Satıcı yardım merkezi</span></div></div>
+<nav class="snav">
+<a href="dashboard.html">Panel</a><a href="my-stores.html">Mağazalarım</a><a href="create-store.html">Mağaza Aç</a><a href="store-settings.html">Mağaza Ayarları</a><a href="store-theme.html">Tema</a><a href="products.html">Ürünler</a><a href="add-product.html">Ürün Ekle</a><a href="edit-product.html">Ürün Düzenle</a><a href="product-performance.html">Ürün Performansı</a><a href="rental-requests.html">Kiralama Talepleri</a><a href="messages.html">Mesajlar</a><a href="reviews.html">Yorumlar</a><a href="ads.html">Reklamlar</a><a href="ad-performance.html">Reklam Performansı</a><a href="finance.html">Muhasebe</a><a href="subscription.html">Abonelik</a><a href="notifications.html">Bildirimler</a><a class="act" href="support.html">Destek <small id="navOpen">0</small></a><a href="policies.html">Politikalar</a><a href="close-store.html">Mağaza Kapat</a>
+</nav>
+<div class="side-bottom"><a class="site-link" href="../index.html">Ana Siteye Dön</a><button class="logout" id="logoutBtn" type="button">Çıkış Yap</button></div>
+</aside>
+
+<main class="main">
+<section class="hero">
+<div><button class="mobile-menu" id="mobileMenu" type="button">☰ Menü</button><br><span>Satıcı destek ve çözüm merkezi</span><h1>Satıcı sorununu hızlı çöz, mağazanın çalışması durmasın.</h1><p>Ürün yükleme, ödeme, abonelik, reklam, kiralama talebi, müşteri sorunu ve teknik hata için destek talebi aç. Geçmiş talepler, cevaplar ve hızlı çözüm önerileri tek sayfada.</p></div>
+<div class="hero-panel"><strong>Öncelik: satış kaybını durdurmak</strong><p>Destek sayfası satıcının işini aksatmadan çözüm bulacağı merkez olacak.</p></div>
+</section>
+
+<section class="stats">
+<div class="stat"><span>Açık Talep</span><b id="openCount">0</b><small>Cevap bekleyen</small></div>
+<div class="stat"><span>Yanıtlanan</span><b id="answeredCount">0</b><small>Çözüm gönderildi</small></div>
+<div class="stat"><span>Acil</span><b id="urgentCount">0</b><small>Öncelikli kayıt</small></div>
+<div class="stat"><span>Ortalama Yanıt</span><b>18 dk</b><small>Premium destek</small></div>
+</section>
+
+<section class="quick-grid">
+<div class="quick" data-quick="Ürün yükleme sorunu"><div class="ico">📦</div><b>Ürün yükleyemiyorum</b><span>Fotoğraf, fiyat, kategori, onay sorunu.</span></div>
+<div class="quick" data-quick="Ödeme ve muhasebe"><div class="ico">💳</div><b>Ödeme / Muhasebe</b><span>Tahsilat, fatura, ödeme aktarımı.</span></div>
+<div class="quick" data-quick="Reklam performansı"><div class="ico">📢</div><b>Reklam desteği</b><span>Reklam aktif, görünürlük, performans.</span></div>
+<div class="quick" data-quick="Kiralama talebi"><div class="ico">📅</div><b>Kiralama talebi</b><span>Onay, iptal, müşteri iletişimi.</span></div>
+</section>
+
+<section class="command">
+<input id="searchInput" placeholder="Talep no, konu, kategori veya mesaj ara">
+<select id="statusFilter"><option value="all">Tüm durumlar</option><option value="open">Açık</option><option value="answered">Yanıtlandı</option><option value="closed">Kapandı</option></select>
+<select id="categoryFilter"><option value="all">Tüm kategoriler</option><option>Ürün</option><option>Ödeme</option><option>Abonelik</option><option>Reklam</option><option>Kiralama</option><option>Teknik</option></select>
+<button class="btn y" data-modal="ticketModal" type="button">Yeni Talep Aç</button>
+</section>
+
+<section class="layout">
+<section>
+<div class="card">
+<div class="card-head"><div><h2>Destek Taleplerim</h2><p>Açılan tüm destek kayıtları ve durumları.</p></div><button class="btn light" id="refreshBtn" type="button">Yenile</button></div>
+<div class="ticket-list" id="ticketList"></div>
+<section class="empty" id="emptyState"><h2>Destek talebi bulunamadı</h2><p>Yeni talep açabilir veya filtreleri temizleyebilirsin.</p></section>
+</div>
+
+<div class="card">
+<div class="card-head"><div><h2>Sık Sorulan Sorular</h2><p>Satıcıların en çok ihtiyaç duyduğu hızlı çözümler.</p></div></div>
+<div class="faq">
+<details open><summary>Ürünüm neden yayına alınmadı?</summary><p>Eksik görsel, fiyat, açıklama veya kategori bilgisi varsa ürün admin onayında bekleyebilir.</p></details>
+<details><summary>Ödeme ne zaman hesabıma geçer?</summary><p>Onaylanan kiralamaların net tutarı haftalık ödeme gününde satıcı hesabına aktarılır.</p></details>
+<details><summary>Reklam satın aldım ama görünmüyor.</summary><p>Reklam başlangıç tarihi, seçilen konum ve ürün/mağaza eşleşmesi kontrol edilmelidir.</p></details>
+<details><summary>Paket değiştirince ürünlerim silinir mi?</summary><p>Hayır. Limit üstü ürünler pasif hale alınır, silinmez.</p></details>
+</div>
+</div>
+</section>
+
+<aside>
+<div class="card chat-box">
+<h3>Canlı Destek</h3>
+<p>Demo canlı destek. Gerçek backend/socket yapısına hazır.</p>
+<div class="chat" id="chatBox">
+<div class="bubble agent">Merhaba, Alma Kirala satıcı destek ekibine hoş geldin. Nasıl yardımcı olalım?</div>
+</div>
+<div class="chat-input"><input id="chatInput" placeholder="Mesaj yaz..."><button class="btn y" id="chatSend" type="button">Gönder</button></div>
+</div>
+
+<div class="card">
+<h3>Destek Kanalları</h3>
+<p>Satıcının ulaşabileceği hızlı destek yolları.</p><br>
+<a class="btn light" style="width:100%;margin-bottom:8px" href="mailto:destek@almakirala.com">E-posta Gönder</a>
+<a class="btn green" style="width:100%;margin-bottom:8px" href="https://wa.me/905551112233" target="_blank">WhatsApp Destek</a>
+<a class="btn dark" style="width:100%" href="tel:08500000000">0850 Destek Hattı</a>
+</div>
+</aside>
+</section>
+</main>
+</div>
+
+<nav class="mobile-bottom-nav"><a href="dashboard.html">Panel</a><a href="products.html">Ürün</a><a href="finance.html">Muhasebe</a><a href="notifications.html">Bildirim</a><a class="active" href="support.html">Destek</a></nav>
+
+<div class="modal" id="ticketModal"><div class="modal-card"><div class="modal-head"><h2>Yeni Destek Talebi</h2><button class="modal-close" data-close="ticketModal" type="button">×</button></div>
+<div class="form-grid">
+<div><label>Kategori</label><select id="ticketCategory"><option>Ürün</option><option>Ödeme</option><option>Abonelik</option><option>Reklam</option><option>Kiralama</option><option>Teknik</option></select></div>
+<div><label>Öncelik</label><select id="ticketPriority"><option>Normal</option><option>Acil</option><option>Kritik</option></select></div>
+<div class="field full"><label>Konu</label><input id="ticketSubject" placeholder="Kısaca sorunu yaz"></div>
+<div class="field full"><label>Açıklama</label><textarea id="ticketMessage" placeholder="Sorunu, mağaza/ürün adını ve ne yapmak istediğini detaylı yaz..."></textarea></div>
+</div><br><button class="btn y" id="createTicketBtn" type="button">Talebi Oluştur</button>
+</div></div>
+
+<div class="modal" id="detailModal"><div class="modal-card"><div class="modal-head"><h2 id="detailTitle">Talep Detayı</h2><button class="modal-close" data-close="detailModal" type="button">×</button></div><div id="detailBody"></div></div></div>
+<div class="toast" id="toast"></div>
+
+<script>
+const API_BASE=localStorage.getItem("AK_API_BASE")||"http://localhost:5000";
+const SUPPORT_ENDPOINT=`${API_BASE}/api/support`;
+const token=localStorage.getItem("token");
+const akRole=localStorage.getItem("akRole");
+
+let tickets=[];
+
+const demoTickets=[
+{id:1001,category:"Ürün",priority:"Acil",subject:"Ürün fotoğrafları yüklenmiyor",message:"Sony A7 IV ürününde 5 fotoğraf eklemeye çalışıyorum ama 3. görselden sonra takılıyor.",status:"open",createdAt:"Bugün 13:20",answer:""},
+{id:1002,category:"Ödeme",priority:"Normal",subject:"Haftalık ödeme hesabıma gelmedi",message:"Geçen haftaki kiralama ödemesinin durumunu kontrol eder misiniz?",status:"answered",createdAt:"Dün 10:05",answer:"Ödemeniz cuma günü işleme alınmış. Banka sürecine göre gün içinde hesabınıza geçecektir."},
+{id:1003,category:"Reklam",priority:"Normal",subject:"Orta banner reklamımı göremiyorum",message:"Reklam aldım ancak listeleme sayfasında görünmüyor.",status:"open",createdAt:"26.04.2026",answer:""},
+{id:1004,category:"Abonelik",priority:"Normal",subject:"Paket değiştirince limitler ne olur?",message:"Plus paketten Pro pakete geçmek istiyorum.",status:"closed",createdAt:"24.04.2026",answer:"Paket yükselttiğinizde yeni limitler anında aktif olur."}
+];
+
+function $(id){return document.getElementById(id)}
+function toast(msg){$("toast").textContent=msg;$("toast").classList.add("show");setTimeout(()=>$("toast").classList.remove("show"),3000)}
+function authGuard(){if(!token||akRole!=="seller"){toast("Destek için mağaza hesabıyla giriş yapmalısın.");setTimeout(()=>location.href="../seller-login.html",700);return false}return true}
+function authHeader(){return token?{"Authorization":`Bearer ${token}`}:{}} 
+async function fetchJson(url){try{const r=await fetch(url,{headers:{...authHeader()}});if(!r.ok)throw new Error();return await r.json()}catch{return null}}
+
+async function loadTickets(){
+ const data=await fetchJson(`${SUPPORT_ENDPOINT}/seller`);
+ const raw=data?.tickets||data?.data||data?.items||data;
+ const local=JSON.parse(localStorage.getItem("akSupportTickets")||"[]");
+ tickets=Array.isArray(raw)&&raw.length?raw.map(normalizeTicket):[...local.map(normalizeTicket),...demoTickets];
+}
+function normalizeTicket(t){
+ return {id:t.id||t._id||Date.now(),category:t.category||t.topic||"Teknik",priority:t.priority||"Normal",subject:t.subject||t.topic||"Destek talebi",message:t.message||t.text||"",status:t.status||"open",createdAt:t.createdAt||new Date().toISOString(),answer:t.answer||""}
+}
+function filtered(){
+ const q=$("searchInput").value.trim().toLowerCase(), s=$("statusFilter").value, c=$("categoryFilter").value;
+ return tickets.filter(t=>{
+  const text=`${t.id} ${t.category} ${t.subject} ${t.message} ${t.answer}`.toLowerCase().includes(q);
+  const st=s==="all"||t.status===s;
+  const cat=c==="all"||t.category===c;
+  return text&&st&&cat;
+ });
+}
+function statusBadge(t){return t.status==="open"?'<span class="pill open">Açık</span>':t.status==="answered"?'<span class="pill answered">Yanıtlandı</span>':'<span class="pill">Kapandı</span>'}
+function priorityBadge(t){return t.priority==="Acil"||t.priority==="Kritik"?`<span class="pill urgent">${t.priority}</span>`:`<span class="pill">${t.priority}</span>`}
+function renderStats(){
+ $("openCount").textContent=tickets.filter(t=>t.status==="open").length;
+ $("answeredCount").textContent=tickets.filter(t=>t.status==="answered").length;
+ $("urgentCount").textContent=tickets.filter(t=>t.priority==="Acil"||t.priority==="Kritik").length;
+ $("navOpen").textContent=tickets.filter(t=>t.status==="open").length;
+}
+function renderTickets(){
+ const list=filtered();
+ $("emptyState").classList.toggle("show",list.length===0);
+ $("ticketList").innerHTML=list.map(t=>`
+ <article class="ticket">
+  <div>
+   <h3>#${t.id} • ${t.subject}</h3>
+   <p>${t.message}</p>
+   ${t.answer?`<p><b>Destek cevabı:</b> ${t.answer}</p>`:""}
+   <div class="meta">${statusBadge(t)}${priorityBadge(t)}<span class="pill">${t.category}</span><span class="pill">${t.createdAt}</span></div>
+  </div>
+  <div class="ticket-actions">
+   <button class="btn light" data-detail="${t.id}" type="button">İncele</button>
+   ${t.status!=="closed"?`<button class="btn dark" data-close-ticket="${t.id}" type="button">Kapat</button>`:""}
+  </div>
+ </article>`).join("");
+ document.querySelectorAll("[data-detail]").forEach(b=>b.onclick=()=>openDetail(b.dataset.detail));
+ document.querySelectorAll("[data-close-ticket]").forEach(b=>b.onclick=()=>closeTicket(b.dataset.closeTicket));
+}
+function openDetail(id){
+ const t=tickets.find(x=>String(x.id)===String(id)); if(!t)return;
+ $("detailTitle").textContent=`#${t.id} • ${t.subject}`;
+ $("detailBody").innerHTML=`<p><b>Kategori:</b> ${t.category}</p><p><b>Öncelik:</b> ${t.priority}</p><p><b>Durum:</b> ${t.status}</p><hr><p><b>Mesaj:</b><br>${t.message}</p>${t.answer?`<p><b>Destek cevabı:</b><br>${t.answer}</p>`:"<p>Henüz cevap verilmedi.</p>"}<br><button class="btn y" onclick="document.getElementById('detailModal').classList.remove('open')">Tamam</button>`;
+ $("detailModal").classList.add("open");
+}
+async function closeTicket(id){
+ const t=tickets.find(x=>String(x.id)===String(id)); if(!t)return;
+ t.status="closed";
+ try{await fetch(`${SUPPORT_ENDPOINT}/${id}/close`,{method:"PATCH",headers:{...authHeader()}})}catch{}
+ saveLocal();
+ toast("Destek talebi kapatıldı.");
+ renderAll();
+}
+async function createTicket(){
+ const category=$("ticketCategory").value, priority=$("ticketPriority").value, subject=$("ticketSubject").value.trim(), message=$("ticketMessage").value.trim();
+ if(!subject||!message)return toast("Konu ve açıklama zorunlu.");
+ const ticket={id:Date.now(),category,priority,subject,message,status:"open",createdAt:"Şimdi",answer:""};
+ try{await fetch(SUPPORT_ENDPOINT,{method:"POST",headers:{"Content-Type":"application/json",...authHeader()},body:JSON.stringify(ticket)})}catch{}
+ tickets.unshift(ticket);
+ saveLocal();
+ $("ticketModal").classList.remove("open");
+ $("ticketSubject").value="";$("ticketMessage").value="";
+ toast("Destek talebi oluşturuldu.");
+ renderAll();
+}
+function saveLocal(){
+ const local=tickets.filter(t=>String(t.id).length>=10);
+ localStorage.setItem("akSupportTickets",JSON.stringify(local));
+}
+function sendChat(){
+ const text=$("chatInput").value.trim();
+ if(!text)return;
+ $("chatBox").insertAdjacentHTML("beforeend",`<div class="bubble seller">${text}</div>`);
+ $("chatInput").value="";
+ setTimeout(()=>{
+  $("chatBox").insertAdjacentHTML("beforeend",`<div class="bubble agent">Mesajınızı aldık. Gerekirse bunu destek talebine dönüştürebilirsiniz.</div>`);
+  $("chatBox").scrollTop=$("chatBox").scrollHeight;
+ },500);
+ $("chatBox").scrollTop=$("chatBox").scrollHeight;
+}
+function renderAll(){renderStats();renderTickets()}
+function bindEvents(){
+ $("mobileMenu").addEventListener("click",()=>$("sidebar").classList.toggle("open"));
+ document.addEventListener("click",e=>{if(innerWidth<=900){const s=$("sidebar"),m=$("mobileMenu");if(s.classList.contains("open")&&!s.contains(e.target)&&e.target!==m)s.classList.remove("open")}});
+ document.querySelectorAll("[data-modal]").forEach(b=>b.onclick=()=>$(b.dataset.modal).classList.add("open"));
+ document.querySelectorAll("[data-close]").forEach(b=>b.onclick=()=>$(b.dataset.close).classList.remove("open"));
+ document.querySelectorAll(".modal").forEach(m=>m.addEventListener("click",e=>{if(e.target.classList.contains("modal"))m.classList.remove("open")}));
+ document.querySelectorAll("[data-quick]").forEach(q=>q.onclick=()=>{$("ticketSubject").value=q.dataset.quick;$("ticketCategory").value=q.dataset.quick.includes("Reklam")?"Reklam":q.dataset.quick.includes("Ödeme")?"Ödeme":q.dataset.quick.includes("Kiralama")?"Kiralama":"Ürün";$("ticketModal").classList.add("open")});
+ ["searchInput","statusFilter","categoryFilter"].forEach(id=>$(id).addEventListener("input",renderAll));
+ $("refreshBtn").addEventListener("click",async()=>{await loadTickets();renderAll();toast("Destek talepleri yenilendi.")});
+ $("createTicketBtn").addEventListener("click",createTicket);
+ $("chatSend").addEventListener("click",sendChat);
+ $("chatInput").addEventListener("keydown",e=>{if(e.key==="Enter"){sendChat()}});
+ $("logoutBtn").addEventListener("click",()=>{localStorage.removeItem("token");localStorage.removeItem("akRole");localStorage.removeItem("akUser");toast("Çıkış yapıldı.");setTimeout(()=>location.href="../seller-login.html",600)});
+}
+async function init(){if(!authGuard())return;await loadTickets();bindEvents();renderAll()}init();
+</script>
+</body>
+</html>

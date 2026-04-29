@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Müşteri Paneli | Alma Kirala</title>
+  <style>
+    :root{--navy:#06122b;--navy2:#0b1d46;--yellow:#ffcc00;--bg:#f3f6fb;--card:#fff;--text:#07142f;--muted:#64748b;--line:#e5eaf2;--green:#16a34a;--red:#dc2626;--orange:#d97706;--blue:#2563eb;--shadow:0 18px 45px rgba(7,20,47,.08);--radius:28px}
+    *{box-sizing:border-box} html{scroll-behavior:smooth} body{margin:0;font-family:Arial,Helvetica,sans-serif;background:radial-gradient(circle at top right,#fff4b8 0,#f3f6fb 34%,#eef3fb 100%);color:var(--text)}
+    a{text-decoration:none;color:inherit} button,input{font-family:inherit} button{cursor:pointer}
+    .app{display:grid;grid-template-columns:292px 1fr;min-height:100vh}
+
+    /* SOL MENÜ - rentals-active ile aynı yapı */
+    .side{position:sticky;top:0;height:100vh;background:linear-gradient(180deg,#06122b,#091a3d);color:#fff;padding:24px 20px;display:flex;flex-direction:column;gap:18px;box-shadow:16px 0 40px rgba(7,20,47,.14);z-index:20;overflow:auto}
+    .logo{display:flex;align-items:center;gap:12px;font-size:29px;font-weight:1000;line-height:1.05;color:#fff;margin-bottom:4px}
+    .mark{width:54px;height:54px;border-radius:18px;background:var(--yellow);color:var(--navy);display:grid;place-items:center;font-weight:1000;flex:0 0 auto}
+    .rolelabel{font-size:12px;font-weight:1000;color:#9fb2d4;letter-spacing:.08em;text-transform:uppercase;margin-top:2px}
+    .snav{display:grid;gap:7px;overflow:auto;padding-right:3px}
+    .snav a{border:0;background:transparent;color:#dbe7ff;text-align:left;border-radius:16px;padding:13px 14px;font-weight:950;font-size:14px;display:grid;grid-template-columns:28px 1fr;align-items:center;gap:10px}
+    .snav a:hover,.snav a.act{background:var(--yellow);color:var(--navy)}
+    .snav .ico{width:22px;text-align:center;font-size:14px}
+    .side-card{margin-top:auto;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);border-radius:22px;padding:16px}
+    .side-card strong{display:block;margin-bottom:6px;font-size:15px}.side-card p{margin:0;color:#bfd0ec;font-size:13px;line-height:1.45}
+
+    .main{padding:26px 34px 46px;min-width:0;max-width:1540px;width:100%;margin:0 auto}
+    .topbar{display:flex;align-items:center;justify-content:space-between;gap:18px;margin-bottom:22px}
+    .search{flex:1;max-width:680px;background:rgba(255,255,255,.88);border:1px solid var(--line);border-radius:22px;padding:12px 16px;display:flex;gap:12px;align-items:center;box-shadow:0 14px 35px rgba(7,20,47,.05)}
+    .search input{border:0;outline:0;background:transparent;width:100%;font-weight:850;color:var(--text)}
+    .user-mini{display:flex;align-items:center;gap:10px;background:#fff;border:1px solid var(--line);border-radius:18px;padding:8px 12px;box-shadow:0 10px 25px rgba(7,20,47,.06)}
+    .avatar{width:38px;height:38px;border-radius:14px;background:var(--navy);color:var(--yellow);display:grid;place-items:center;font-weight:1000}.user-mini b{display:block}.user-mini span{display:block;color:var(--muted);font-size:12px}
+    .hero{background:linear-gradient(135deg,#07142f 0%,#102a5c 55%,#ffcc00 56%,#ffe680 100%);border-radius:34px;padding:32px;color:#fff;display:grid;grid-template-columns:1.2fr .8fr;gap:24px;box-shadow:var(--shadow);position:relative;overflow:hidden}
+    .hero h1{margin:0;font-size:40px;letter-spacing:-.04em}.hero p{margin:10px 0 0;color:#dce8ff;max-width:700px;font-size:16px;line-height:1.6}.hero-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:22px}
+    .btn{border:0;border-radius:17px;padding:14px 18px;font-weight:1000;display:inline-flex;align-items:center;justify-content:center;gap:8px}.btn.primary{background:var(--yellow);color:var(--navy)}.btn.light{background:rgba(255,255,255,.14);color:#fff;border:1px solid rgba(255,255,255,.18)}.btn.soft{background:#eef2f7;color:var(--navy)}
+    .trust{align-self:end;background:rgba(255,255,255,.93);color:var(--text);border-radius:26px;padding:20px;position:relative;z-index:1}.trust .score{font-size:42px;font-weight:1000}.trust p{color:var(--muted);margin:4px 0 0}.progress{height:10px;border-radius:999px;background:#e9eef7;overflow:hidden;margin-top:14px}.progress i{display:block;height:100%;width:76%;background:linear-gradient(90deg,var(--yellow),#16a34a)}
+    .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin:22px 0}.stat{background:rgba(255,255,255,.94);border:1px solid var(--line);border-radius:24px;padding:18px;box-shadow:0 14px 35px rgba(7,20,47,.06)}.stat span{font-size:13px;color:var(--muted);font-weight:900}.stat strong{display:block;font-size:32px;margin-top:8px}.stat em{font-style:normal;font-size:12px;font-weight:900;color:var(--green)}
+    .grid{display:grid;grid-template-columns:minmax(0,1fr) 390px;gap:22px}.stack{display:grid;gap:22px}.card{background:rgba(255,255,255,.94);border:1px solid var(--line);border-radius:var(--radius);padding:22px;box-shadow:0 16px 42px rgba(7,20,47,.07)}.card-head{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-bottom:16px}.card h2{margin:0;font-size:22px}.link{font-weight:1000;color:#0f3b86}
+    .list{display:grid;gap:12px}.item{display:grid;grid-template-columns:44px 1fr auto;gap:12px;align-items:center;border:1px solid #edf1f7;background:#fbfdff;border-radius:20px;padding:14px}.ico{width:44px;height:44px;border-radius:15px;background:#fff4bf;display:grid;place-items:center;font-size:20px}.item h3{margin:0 0 4px;font-size:16px}.item p{margin:0;color:var(--muted);font-size:13px}.status{padding:8px 10px;border-radius:999px;font-size:12px;font-weight:1000;white-space:nowrap}.wait{background:#fff7d6;color:#8a5b00}.ok{background:#dcfce7;color:#166534}.blue{background:#dbeafe;color:#1d4ed8}.bad{background:#fee2e2;color:#991b1b}
+    .active-products{display:grid;gap:14px}.active-rent{border:1px solid var(--line);background:linear-gradient(180deg,#fff,#fbfdff);border-radius:24px;padding:16px;display:grid;grid-template-columns:62px 1fr auto;gap:14px;align-items:center}.thumb{width:62px;height:62px;border-radius:20px;background:linear-gradient(135deg,#fff0a3,#ffcc00);display:grid;place-items:center;font-size:26px}.active-rent h3{margin:0 0 6px;font-size:17px}.active-rent p{margin:0;color:var(--muted);font-size:13px;line-height:1.55}.store-link{font-weight:1000;color:#0f3b86}.countdown{min-width:132px;text-align:center;background:#07142f;color:#fff;border-radius:20px;padding:12px}.countdown b{display:block;font-size:22px}.countdown span{font-size:12px;color:#dbe7ff;font-weight:900}.rent-actions{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}.small-btn{border:1px solid var(--line);background:#fff;border-radius:999px;padding:8px 11px;font-size:12px;font-weight:1000}.small-btn.yellow{background:var(--yellow);border-color:var(--yellow);color:var(--navy)}
+    .quick{display:grid;grid-template-columns:1fr 1fr;gap:12px}.quick a,.quick button{border:0;border-radius:18px;background:#f1f5f9;padding:15px;font-weight:1000;text-align:center}.quick .yellow{background:var(--yellow)}.profile-box{display:flex;align-items:center;gap:14px}.big-avatar{width:62px;height:62px;border-radius:19px;background:var(--navy);color:var(--yellow);display:grid;place-items:center;font-size:24px;font-weight:1000}.profile-box h3{margin:0}.profile-box p{margin:4px 0 0;color:var(--muted);font-size:13px}
+    .products{display:grid;gap:14px}.product{border:1px solid var(--line);border-radius:24px;overflow:hidden;background:#fff;min-width:0}.photo{height:150px;background:linear-gradient(135deg,#fff3a3,#ffcc00);position:relative}.pill{position:absolute;top:12px;left:12px;background:#fff;border-radius:999px;padding:7px 10px;font-size:12px;font-weight:1000}.heart{position:absolute;right:12px;top:12px;width:38px;height:38px;border:0;border-radius:50%;background:#fff;font-size:19px}.pbody{padding:15px}.pbody h3{margin:0 0 8px;font-size:16px}.meta{font-size:13px;color:var(--muted);line-height:1.45}.price{font-size:24px;font-weight:1000;margin-top:10px}.price span{font-size:13px;color:var(--muted)}
+    .mobile-head,.bottom-nav{display:none}
+    @media(max-width:1180px){.app{grid-template-columns:88px 1fr}.logo span:last-child,.rolelabel,.snav a span.txt,.side-card{display:none}.side{padding:20px 12px}.snav a{grid-template-columns:1fr;justify-items:center}.mark{width:52px;height:52px}.grid{grid-template-columns:1fr}.products{grid-template-columns:repeat(2,1fr)}}
+    @media(max-width:760px){body{padding-bottom:82px}.app{display:block}.side{display:none}.mobile-head{display:flex;align-items:center;justify-content:space-between;padding:14px 16px;background:#06122b;color:#fff;position:sticky;top:0;z-index:30}.main{padding:14px}.topbar{display:none}.hero{grid-template-columns:1fr;padding:24px;border-radius:28px}.hero h1{font-size:30px}.trust{align-self:auto}.stats{grid-template-columns:repeat(2,1fr);gap:12px}.grid{gap:16px}.card{padding:18px;border-radius:24px}.item{grid-template-columns:40px 1fr}.item .status{grid-column:2;justify-self:start}.active-rent{grid-template-columns:52px 1fr}.thumb{width:52px;height:52px}.countdown{grid-column:1 / -1;text-align:left}.bottom-nav{position:fixed;left:12px;right:12px;bottom:12px;height:64px;background:#06122b;color:#fff;border-radius:24px;display:grid;grid-template-columns:repeat(4,1fr);box-shadow:0 18px 50px rgba(7,20,47,.35);z-index:40;overflow:hidden}.bottom-nav a{display:grid;place-items:center;color:#fff;font-weight:1000;font-size:12px}.bottom-nav .act{background:var(--yellow);color:var(--navy)}}
+  </style>
+</head>
+<body>
+<div class="mobile-head"><b>AK Alma Kirala</b><a class="btn primary" href="rentals-active.html">Kiralamalar</a></div>
+<div class="app">
+  <aside class="side">
+    <a class="logo" href="../index.html"><span class="mark">AK</span><span>Alma<br>Kirala</span></a>
+    <div class="rolelabel">MÜŞTERİ ALANI</div>
+    <nav class="snav">
+      <a class="act" href="dashboard.html"><span class="ico">🏠</span><span class="txt">Akıllı Panel</span></a>
+      <a href="rentals-active.html"><span class="ico">📦</span><span class="txt">Kiralamalar</span></a>
+      <a href="requests.html"><span class="ico">📝</span><span class="txt">Talepler</span></a>
+      <a href="messages.html"><span class="ico">💬</span><span class="txt">Mesajlar</span></a>
+      <a href="favorites.html"><span class="ico">💛</span><span class="txt">Favoriler</span></a>
+      <a href="wallet.html"><span class="ico">💳</span><span class="txt">Cüzdan</span></a>
+      <a href="reviews.html"><span class="ico">⭐</span><span class="txt">Yorumlar</span></a>
+      <a href="following-stores.html"><span class="ico">🏪</span><span class="txt">Takip Mağazalar</span></a>
+      <a href="notifications.html"><span class="ico">🔔</span><span class="txt">Bildirimler</span></a>
+      <a href="profile.html"><span class="ico">👤</span><span class="txt">Profil & Güven</span></a>
+      <a href="addresses.html"><span class="ico">📍</span><span class="txt">Adresler</span></a>
+      <a href="support.html"><span class="ico">🛟</span><span class="txt">Destek</span></a>
+      <a href="../index.html"><span class="ico">↩</span><span class="txt">Ana Site</span></a>
+    </nav>
+    <div class="side-card"><strong>Akıllı müşteri merkezi</strong><p>Bu sayfa sadece özet ekrandır. Her detay kendi sayfasında açılır.</p></div>
+  </aside>
+
+  <main class="main">
+    <div class="topbar">
+      <div class="search">🔎 <input placeholder="Talep, kiralama, ürün veya mağaza ara..."></div>
+      <div class="user-mini"><div class="avatar" id="miniAvatar">D</div><div><b id="miniName">Demo Müşteri</b><span>Akıllı panel</span></div></div>
+    </div>
+
+    <section class="hero">
+      <div><h1 id="welcome">Hoş geldin, Demo Müşteri 👋</h1><p>Müşteri hesabının beyin ekranı: aktif talepler, elindeki kiralık ürünler, teslim süreleri, mesajlar, favoriler ve öneriler tek yerde.</p><div class="hero-actions"><a class="btn primary" href="../listing.html">Ürün Keşfet</a><a class="btn light" href="rentals-active.html">Kiralamalarım</a><a class="btn light" href="messages.html">Mesajlara Git</a></div></div>
+      <div class="trust"><div>Güven Skoru</div><div class="score">76%</div><p>Profil, ödeme, adres ve değerlendirme geçmişine göre hesaplanır.</p><div class="progress"><i></i></div></div>
+    </section>
+
+    <section class="stats">
+      <div class="stat"><span>Favori Ürün</span><strong id="favCount">2</strong><em>3 ürün müsait</em></div>
+      <div class="stat"><span>Aktif Talep</span><strong>3</strong><em>2 satıcı cevapladı</em></div>
+      <div class="stat"><span>Okunmamış Mesaj</span><strong>2</strong><em>öncelikli</em></div>
+      <div class="stat"><span>Takip Mağaza</span><strong>3</strong><em>güvenilir satıcı</em></div>
+    </section>
+
+    <section class="grid">
+      <div class="stack">
+        <section class="card"><div class="card-head"><h2>Aktif Talepler</h2><a class="link" href="requests.html">Tümünü Gör</a></div><div class="list" id="requestList"></div></section>
+        <section class="card"><div class="card-head"><h2>Elimdeki Kiralık Ürünler</h2><a class="link" href="rentals-active.html">Teslim planı</a></div><div class="active-products" id="activeProductList"></div></section>
+        <section class="card"><div class="card-head"><h2>Yaklaşan Teslimatlar</h2><a class="link" href="rentals-active.html">Detay</a></div><div class="list" id="deliveryList"></div></section>
+      </div>
+      <aside class="stack">
+        <section class="card"><div class="profile-box"><div class="big-avatar" id="avatarBox">D</div><div><h3 id="profileName">Demo Müşteri</h3><p>Doğrulanmış kullanıcı • Türkiye</p></div></div><div class="quick" style="margin-top:16px"><a class="yellow" href="../listing.html">Yeni Kirala</a><a href="messages.html">Mesajlar</a><a href="addresses.html">Adresler</a><a href="profile.html">Profil</a></div></section>
+        <section class="card"><div class="card-head"><h2>Önerilen Ürünler</h2><a class="link" href="../listing.html">Keşfet</a></div><div class="products" id="products"></div></section>
+      </aside>
+    </section>
+  </main>
+</div>
+<nav class="bottom-nav"><a class="act" href="dashboard.html">Ana</a><a href="rentals-active.html">Kira</a><a href="messages.html">Mesaj</a><a href="profile.html">Profil</a></nav>
+
+<script>
+  const user = JSON.parse(localStorage.getItem('akUser') || localStorage.getItem('user') || 'null') || {name:'Demo Müşteri'};
+  const requests=[['Sony A7 IV Kamera Seti','24 Nisan - 27 Nisan • Kamera Dünyam','Yanıt Bekliyor','wait','🎥'],['DJI Mini 4 Pro Drone','25 Nisan - 26 Nisan • Drone Market','Onaylandı','ok','🚁'],['Etkinlik Ses Sistemi','30 Nisan • Organizasyon Plus','Teklif Bekliyor','wait','🔊']];
+  const active=[{title:'Canon EOS R6 Profesyonel Kamera',store:'Kamera Dünyam',storeId:2,taken:'29 Nisan 2026, 10:30',returnDate:'30 Nisan 2026, 16:00',left:'2',icon:'📷'},{title:'DJI Mini 4 Pro Drone',store:'Drone Market',storeId:3,taken:'28 Nisan 2026, 14:00',returnDate:'01 Mayıs 2026, 12:00',left:'3',icon:'🚁'}];
+  const products=[['Sony A7 IV Kamera Seti','Trabzon / Ortahisar • 4.8 ★','₺450','Kamera',1],['DJI Mini 4 Pro Drone','Ankara / Çankaya • 4.8 ★','₺750','Drone',3]];
+  function item(x){return `<div class="item"><div class="ico">${x[4]}</div><div><h3>${x[0]}</h3><p>${x[1]}</p></div><span class="status ${x[3]}">${x[2]}</span></div>`}
+  function rent(r){return `<article class="active-rent"><div class="thumb">${r.icon}</div><div><h3>${r.title}</h3><p>Alındı: <b>${r.taken}</b><br>İade/Teslim: <b>${r.returnDate}</b><br>Mağaza: <a class="store-link" href="../store-detail.html?id=${r.storeId}">${r.store}</a></p><div class="rent-actions"><a class="small-btn yellow" href="../store-detail.html?id=${r.storeId}">Mağazaya Git</a><a class="small-btn" href="messages.html">Mesaj Gönder</a><a class="small-btn" href="rentals-active.html">Teslimat Detayı</a></div></div><div class="countdown"><b>${r.left}</b><span>gün kaldı</span></div></article>`}
+  function product(p){return `<a class="product" href="../product-detail.html?id=${p[4]}"><div class="photo"><span class="pill">${p[3]}</span><button class="heart" type="button">♡</button></div><div class="pbody"><h3>${p[0]}</h3><div class="meta">${p[1]}</div><div class="price">${p[2]} <span>/ gün</span></div></div></a>`}
+  document.getElementById('welcome').textContent=`Hoş geldin, ${user.name||'Demo Müşteri'} 👋`;
+  document.getElementById('miniName').textContent=user.name||'Demo Müşteri';
+  document.getElementById('profileName').textContent=user.name||'Demo Müşteri';
+  document.getElementById('miniAvatar').textContent=(user.name||'D')[0].toUpperCase();
+  document.getElementById('avatarBox').textContent=(user.name||'D')[0].toUpperCase();
+  document.getElementById('requestList').innerHTML=requests.map(item).join('');
+  document.getElementById('activeProductList').innerHTML=active.map(rent).join('');
+  document.getElementById('deliveryList').innerHTML=[['Bugün teslim alma','Canon EOS R6 bugün 16:00 teslim alınacak','Hazır','ok','✅'],['Yarın iade hazırlığı','Drone Market teslim planı kontrol edilecek','Planlı','blue','📦']].map(item).join('');
+  document.getElementById('products').innerHTML=products.map(product).join('');
+</script>
+</body>
+</html>

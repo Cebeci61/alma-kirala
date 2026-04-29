@@ -1,0 +1,227 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Mesajlar | Alma Kirala</title>
+<style>
+:root{--dark:#07142f;--yellow:#ffcc00;--orange:#ff9f1c;--bg:#f4f6fb;--line:#e5e7eb;--muted:#64748b;--shadow:0 18px 45px rgba(15,23,42,.10);--shadow2:0 10px 28px rgba(15,23,42,.07)}
+*{box-sizing:border-box}body{margin:0;font-family:Inter,Arial,sans-serif;background:radial-gradient(circle at 100% 0%,rgba(255,204,0,.14),transparent 30%),var(--bg);color:var(--dark)}a{text-decoration:none;color:inherit}button,input,select,textarea{font-family:inherit}button{cursor:pointer}
+.app{display:grid;grid-template-columns:292px minmax(0,1fr);min-height:100vh}
+.side{background:linear-gradient(180deg,#07142f,#081226);color:#fff;padding:18px 14px;position:sticky;top:0;height:100vh;overflow:auto;z-index:80}
+.logo{display:flex;align-items:center;gap:10px;font-size:26px;font-weight:1000;padding:0 6px 16px}.mark{width:42px;height:42px;border-radius:15px;background:linear-gradient(135deg,#ffcc00,#ff9f1c);position:relative;overflow:hidden}.mark:before{content:"";position:absolute;width:18px;height:48px;background:#07142f;transform:rotate(28deg);left:12px;top:2px;border-radius:999px}.mark:after{content:"";position:absolute;width:14px;height:14px;border-radius:50%;background:#fff;right:7px;bottom:7px}
+.rolelabel{color:#cbd5e1;text-transform:uppercase;font-size:12px;font-weight:1000;padding:4px 12px 14px}.store-mini{margin:0 6px 14px;background:rgba(255,255,255,.08);border-radius:22px;padding:12px;display:flex;gap:10px;align-items:center}.store-avatar{width:46px;height:46px;border-radius:16px;background:#ffcc00;color:#07142f;display:grid;place-items:center;font-weight:1000}.store-mini strong{display:block;font-size:14px}.store-mini span{display:block;color:#cbd5e1;font-size:12px;font-weight:800;margin-top:3px}
+.snav{display:grid;gap:5px}.snav a{display:flex;align-items:center;justify-content:space-between;padding:11px 12px;border-radius:15px;color:#e5e7eb;font-weight:900;font-size:14px}.snav a:hover{background:rgba(255,255,255,.08)}.snav a.act{background:linear-gradient(135deg,#ffcc00,#ff9f1c);color:#07142f}.snav small{background:rgba(255,255,255,.10);color:#fff;border-radius:999px;padding:3px 7px;font-size:11px;font-weight:1000}.side-bottom{margin:14px 6px 0;border-top:1px solid rgba(255,255,255,.1);padding-top:12px;display:grid;gap:8px}.side-bottom button,.side-bottom a{border:0;border-radius:14px;padding:11px 12px;font-weight:1000;text-align:center}.logout{background:rgba(220,38,38,.18);color:#fecaca}.site-link{background:rgba(255,255,255,.08);color:#fff}
+.main{min-width:0;padding:22px}.hero{background:radial-gradient(circle at 92% 0%,rgba(255,204,0,.26),transparent 32%),linear-gradient(135deg,#fff,#fbfdff);border:1px solid var(--line);border-radius:32px;padding:24px;box-shadow:var(--shadow2);margin-bottom:16px;display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:18px;align-items:center}.mobile-menu{display:none;border:0;background:#07142f;color:#fff;border-radius:14px;padding:12px 14px;font-weight:1000}.hero span{display:inline-flex;background:#fff3bf;color:#8a5b00;border-radius:999px;padding:8px 11px;font-size:12px;font-weight:1000;margin-bottom:10px}.hero h1{margin:0;font-size:38px;line-height:1.04;font-family:Georgia,serif}.hero p{margin:9px 0 0;color:var(--muted);font-weight:750;line-height:1.6}.hero-panel{background:#07142f;color:#fff;border-radius:24px;padding:18px}.hero-panel strong{display:block;color:#ffcc00;font-size:24px;font-family:Georgia,serif}.hero-panel p{color:#cbd5e1}
+.btn{border:0;border-radius:16px;padding:13px 15px;font-weight:1000;display:inline-flex;align-items:center;justify-content:center;gap:8px;white-space:nowrap}.btn.y{background:linear-gradient(135deg,#ffcc00,#ff9f1c);color:#07142f}.btn.light{background:#f1f5f9;color:#07142f;border:1px solid #dbe3ef}.btn.dark{background:#07142f;color:#fff}.btn.green{background:#dcfce7;color:#166534;border:1px solid #bbf7d0}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:16px}.stat{background:#fff;border:1px solid var(--line);border-radius:24px;padding:16px;box-shadow:var(--shadow2);position:relative;overflow:hidden}.stat:after{content:"";position:absolute;width:90px;height:90px;border-radius:50%;background:rgba(255,204,0,.13);right:-32px;top:-32px}.stat span{display:block;color:#64748b;font-size:12px;font-weight:900;margin-bottom:8px}.stat b{display:block;font-size:25px;line-height:1;font-weight:1000;position:relative;z-index:1}
+.command{background:#07142f;color:#fff;border-radius:28px;padding:16px;display:grid;grid-template-columns:minmax(0,1fr) 180px 160px auto;gap:10px;align-items:center;box-shadow:var(--shadow);margin-bottom:16px}.command input,.command select{height:48px;border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.08);color:#fff;border-radius:16px;padding:0 13px;font-weight:850;outline:0}.command input::placeholder{color:#cbd5e1}.command select option{color:#07142f}
+.inbox{display:grid;grid-template-columns:390px minmax(0,1fr) 320px;gap:16px;align-items:stretch;min-height:680px}.card{background:#fff;border:1px solid var(--line);border-radius:28px;box-shadow:var(--shadow2);overflow:hidden}.list-head{padding:16px;border-bottom:1px solid #edf1f7;display:flex;justify-content:space-between;align-items:center;gap:12px}.list-head h2,.chat-title h2,.info h3{margin:0;font-family:Georgia,serif}.thread-list{height:610px;overflow:auto;padding:10px}.thread{border:1px solid #edf1f7;background:#f8fafc;border-radius:20px;padding:12px;margin-bottom:10px;cursor:pointer;transition:.18s;position:relative}.thread:hover{transform:translateY(-2px);box-shadow:var(--shadow2)}.thread.active{background:#07142f;color:#fff;border-color:#07142f}.thread.unread:before{content:"";position:absolute;width:10px;height:10px;background:#ffcc00;border-radius:50%;right:12px;top:12px}.thread-top{display:flex;gap:10px;align-items:center}.avatar{width:44px;height:44px;border-radius:15px;background:#ffcc00;color:#07142f;display:grid;place-items:center;font-weight:1000;flex:0 0 auto}.thread b{display:block}.thread small{display:block;color:#64748b;font-weight:850;margin-top:2px}.thread.active small{color:#cbd5e1}.last{margin:10px 0 0;color:#334155;font-size:13px;font-weight:850;line-height:1.4}.thread.active .last{color:#e5e7eb}.thread-tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:9px}.tag{border-radius:999px;background:#fff;border:1px solid #edf1f7;padding:5px 8px;font-size:11px;font-weight:1000;color:#334155}.thread.active .tag{background:rgba(255,255,255,.12);border-color:rgba(255,255,255,.12);color:#fff}
+.chat{display:grid;grid-template-rows:auto 1fr auto}.chat-title{padding:16px;border-bottom:1px solid #edf1f7;display:flex;justify-content:space-between;gap:12px;align-items:center}.chat-title p{margin:5px 0 0;color:#64748b;font-weight:850}.chat-actions{display:flex;gap:8px;flex-wrap:wrap}.messages{padding:18px;background:linear-gradient(180deg,#f8fafc,#fff);overflow:auto}.bubble{max-width:78%;padding:12px 14px;border-radius:18px;margin-bottom:12px;font-weight:850;line-height:1.5;position:relative}.bubble small{display:block;margin-top:6px;font-size:11px;opacity:.75}.customer-b{background:#fff;border:1px solid #e2e8f0;border-bottom-left-radius:6px}.seller-b{background:#07142f;color:#fff;margin-left:auto;border-bottom-right-radius:6px}.quick{padding:10px 14px;border-top:1px solid #edf1f7;display:flex;gap:8px;overflow:auto}.quick button{border:1px solid #e2e8f0;background:#f8fafc;border-radius:999px;padding:9px 11px;font-weight:1000;white-space:nowrap}.composer{padding:14px;border-top:1px solid #edf1f7;display:grid;grid-template-columns:1fr auto;gap:10px}.composer textarea{min-height:52px;max-height:130px;resize:vertical;border:1px solid #dbe3ef;border-radius:18px;padding:14px;font-weight:850;outline:0}.composer textarea:focus{border-color:#ffcc00;box-shadow:0 0 0 4px rgba(255,204,0,.16)}
+.info{padding:16px}.info p{color:#64748b;font-weight:750;line-height:1.55}.info-box{background:#f8fafc;border:1px solid #edf1f7;border-radius:18px;padding:13px;margin-bottom:10px}.info-row{display:flex;justify-content:space-between;gap:10px;border-bottom:1px dashed #dbe3ef;padding:8px 0;font-weight:850}.info-row:last-child{border-bottom:0}.info-row span{color:#64748b}.product-card{background:linear-gradient(135deg,#fff8db,#fff);border:1px solid #ffe08a;border-radius:20px;padding:14px;margin-bottom:12px}.product-card strong{display:block;font-family:Georgia,serif;font-size:20px}.product-card p{margin:5px 0 0}.empty{display:none;text-align:center;background:#fff;border:1px dashed #cbd5e1;border-radius:26px;padding:34px}.empty.show{display:block}
+.toast{position:fixed;right:18px;bottom:18px;background:#07142f;color:#fff;padding:14px 16px;border-radius:18px;box-shadow:var(--shadow);font-weight:900;display:none;z-index:220}.toast.show{display:block}.mobile-bottom-nav{display:none}
+@media(max-width:1280px){.inbox{grid-template-columns:340px minmax(0,1fr)}.info{display:none}.stats{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:900px){body{padding-bottom:82px}.app{display:block}.side{position:fixed;left:-310px;top:0;bottom:0;width:292px;height:100vh;transition:.25s}.side.open{left:0}.main{padding:14px}.mobile-menu{display:inline-flex}.hero,.command{grid-template-columns:1fr;border-radius:24px}.hero h1{font-size:30px}.inbox{grid-template-columns:1fr;min-height:auto}.thread-list{height:300px}.messages{height:420px}.hero-panel{display:none}.mobile-bottom-nav{position:fixed;left:10px;right:10px;bottom:10px;background:rgba(7,20,47,.96);border-radius:22px;padding:9px;display:grid;grid-template-columns:repeat(5,1fr);gap:6px;z-index:120}.mobile-bottom-nav a{color:#fff;text-align:center;border-radius:15px;padding:9px 4px;font-size:11px;font-weight:900}.mobile-bottom-nav a.active{background:#ffcc00;color:#07142f}}
+@media(max-width:560px){.stats{grid-template-columns:1fr}.chat-title{display:block}.chat-actions{margin-top:10px}.composer{grid-template-columns:1fr}.bubble{max-width:92%}.card,.hero{border-radius:24px}}
+</style>
+</head>
+<body>
+<div class="app">
+<aside class="side" id="sidebar">
+<a class="logo" href="../index.html"><span class="mark"></span>Alma Kirala</a>
+<div class="rolelabel">Mağaza Sahibi Paneli</div>
+<div class="store-mini"><div class="store-avatar" id="sideStoreLogo">AK</div><div><strong id="sideStoreName">Mesajlar</strong><span id="sideStorePlan">İletişim merkezi</span></div></div>
+<nav class="snav">
+<a href="dashboard.html">Panel</a><a href="my-stores.html">Mağazalarım</a><a href="create-store.html">Mağaza Aç</a><a href="store-settings.html">Mağaza Ayarları</a><a href="store-theme.html">Tema</a><a href="products.html">Ürünler</a><a href="add-product.html">Ürün Ekle</a><a href="edit-product.html">Ürün Düzenle</a><a href="product-performance.html">Ürün Performansı</a><a href="rental-requests.html">Kiralama Talepleri</a><a class="act" href="messages.html">Mesajlar <small id="navUnread">0</small></a><a href="reviews.html">Yorumlar</a><a href="ads.html">Reklamlar</a><a href="ad-performance.html">Reklam Performansı</a><a href="finance.html">Muhasebe</a><a href="subscription.html">Abonelik</a><a href="notifications.html">Bildirimler</a><a href="support.html">Destek</a><a href="policies.html">Politikalar</a><a href="close-store.html">Mağaza Kapat</a>
+</nav>
+<div class="side-bottom"><a class="site-link" href="../index.html">Ana Siteye Dön</a><button class="logout" id="logoutBtn" type="button">Çıkış Yap</button></div>
+</aside>
+
+<main class="main">
+<section class="hero">
+<div><button class="mobile-menu" id="mobileMenu" type="button">☰ Menü</button><br><span>Satıcı müşteri mesaj merkezi</span><h1>Hangi mağazana, hangi ürün için mesaj geldiğini anında gör.</h1><p>Mesajlar kiralamaya dönüşen ilk temas noktasıdır. Müşteri adı, telefon, mağaza, ürün, son mesaj, okunma durumu ve hızlı cevaplar bu ekranda yönetilir.</p></div>
+<div class="hero-panel"><strong>Hızlı cevap = daha çok kiralama</strong><p>Müşteri beklerse başka mağazaya gider. Ürün, tarih, depozito ve teslimat bilgilerini hızlıca yanıtla.</p></div>
+</section>
+
+<section class="stats">
+<div class="stat"><span>Toplam Konuşma</span><b id="totalThreads">0</b></div>
+<div class="stat"><span>Okunmamış</span><b id="unreadCount">0</b></div>
+<div class="stat"><span>Bugünkü Mesaj</span><b id="todayCount">0</b></div>
+<div class="stat"><span>Talebe Yakın</span><b id="hotCount">0</b></div>
+</section>
+
+<section class="command">
+<input id="searchInput" type="text" placeholder="Müşteri, telefon, ürün veya mağaza ara">
+<select id="storeSwitch"></select>
+<select id="filterSwitch"><option value="all">Tüm mesajlar</option><option value="unread">Okunmamış</option><option value="hot">Talebe yakın</option><option value="product">Ürün sorusu</option></select>
+<button class="btn y" id="clearBtn" type="button">Temizle</button>
+</section>
+
+<section class="inbox">
+<div class="card">
+<div class="list-head"><h2>Konuşmalar</h2><button class="btn light" id="refreshBtn" type="button">Yenile</button></div>
+<div class="thread-list" id="threadList"></div>
+</div>
+
+<div class="card chat">
+<div class="chat-title">
+<div><h2 id="chatName">Konuşma seç</h2><p id="chatSub">Müşteri ve ürün bilgisi burada görünecek.</p></div>
+<div class="chat-actions"><a class="btn light" id="callBtn" href="#">Ara</a><a class="btn green" id="waBtn" href="#" target="_blank">WhatsApp</a><a class="btn dark" id="requestBtn" href="rental-requests.html">Talep</a></div>
+</div>
+<div class="messages" id="messagesBox"></div>
+<div class="quick" id="quickReplies">
+<button data-reply="Merhaba, ürün şu anda müsait. Hangi tarihler için düşünüyorsunuz?">Müsaitlik sor</button>
+<button data-reply="Depozito ve teslimat bilgilerini hemen paylaşabilirim. Kiralama tarih aralığınız nedir?">Depozito sor</button>
+<button data-reply="Ürünü mağazadan teslim alabilir veya uygun bölgeye kurye ile gönderebiliriz.">Teslimat bilgisi</button>
+<button data-reply="Talebinizi onaylamak için kiralama günü ve teslimat saatini netleştirelim.">Onaya götür</button>
+</div>
+<div class="composer"><textarea id="replyText" placeholder="Müşteriye cevap yaz..."></textarea><button class="btn y" id="sendBtn" type="button">Gönder</button></div>
+</div>
+
+<aside class="card info">
+<h3>Müşteri ve Ürün Bilgisi</h3>
+<p>Seçili konuşmanın satışa dönüşmesini sağlayacak bilgiler.</p>
+<div id="infoBox"></div>
+</aside>
+</section>
+<section class="empty" id="emptyState"><h2>Mesaj bulunamadı</h2><p>Filtreleri temizleyip tekrar dene.</p></section>
+</main>
+</div>
+
+<nav class="mobile-bottom-nav"><a href="dashboard.html">Panel</a><a href="products.html">Ürün</a><a href="rental-requests.html">Talep</a><a class="active" href="messages.html">Mesaj</a><a href="finance.html">Gelir</a></nav>
+<div class="toast" id="toast"></div>
+
+<script>
+const API_BASE=localStorage.getItem("AK_API_BASE")||"http://localhost:5000";
+const STORE_ENDPOINT=`${API_BASE}/api/stores`;
+const MESSAGE_ENDPOINT=`${API_BASE}/api/messages`;
+const token=localStorage.getItem("token");
+const akRole=localStorage.getItem("akRole");
+
+let stores=[],threads=[],activeStore=null,activeThread=null;
+
+const demoStores=[{id:1,name:"Kamera Dünyam",logoText:"KD",plan:"Plus"},{id:2,name:"Event Pro",logoText:"EP",plan:"Premium"}];
+const demoThreads=[
+{id:1,storeId:1,storeName:"Kamera Dünyam",productId:1,productTitle:"Sony A7 IV Kamera Seti",productIcon:"📷",customerName:"Ahmet Yılmaz",customerPhone:"0555 123 45 67",customerEmail:"ahmet@mail.com",unread:true,hot:true,type:"product",lastAt:"Bugün 14:20",messages:[
+{from:"customer",text:"Merhaba, Sony A7 IV kamera seti 2-5 Mayıs arası müsait mi?",time:"14:12"},
+{from:"seller",text:"Merhaba, kontrol ediyorum. Hangi teslimat bölgesi olacak?",time:"14:14"},
+{from:"customer",text:"Kadıköy teslim alabilirim. Depozito ne kadar?",time:"14:20"}]},
+{id:2,storeId:1,storeName:"Kamera Dünyam",productId:2,productTitle:"Canon EOS R6",productIcon:"📷",customerName:"Zeynep Kaya",customerPhone:"0532 444 22 11",customerEmail:"zeynep@mail.com",unread:false,hot:true,type:"product",lastAt:"Bugün 11:05",messages:[
+{from:"customer",text:"Canon EOS R6 için kurye teslimat var mı?",time:"10:58"},
+{from:"seller",text:"Evet, bulunduğunuz bölgeye göre kurye ayarlayabiliriz.",time:"11:05"}]},
+{id:3,storeId:1,storeName:"Kamera Dünyam",productId:3,productTitle:"Işık Seti Kiralama",productIcon:"💡",customerName:"Mert Demir",customerPhone:"0541 222 10 90",customerEmail:"mert@mail.com",unread:true,hot:false,type:"product",lastAt:"Dün 18:30",messages:[
+{from:"customer",text:"Işık setinde kaç adet led panel var?",time:"Dün 18:30"}]},
+{id:4,storeId:2,storeName:"Event Pro",productId:9,productTitle:"Sahne Işık Paketi",productIcon:"🎭",customerName:"Can Öztürk",customerPhone:"0530 111 22 33",customerEmail:"can@mail.com",unread:true,hot:true,type:"product",lastAt:"Bugün 15:10",messages:[
+{from:"customer",text:"Festival için sahne ışık paketi istiyoruz. Kurulum dahil mi?",time:"15:10"}]}
+];
+
+function $(id){return document.getElementById(id)}
+function toast(msg){$("toast").textContent=msg;$("toast").classList.add("show");setTimeout(()=>$("toast").classList.remove("show"),3000)}
+function authGuard(){if(!token||akRole!=="seller"){toast("Mesajlar için mağaza hesabıyla giriş yapmalısın.");setTimeout(()=>location.href="../seller-login.html",700);return false}return true}
+function authHeader(){return token?{"Authorization":`Bearer ${token}`}:{}} 
+async function fetchJson(url){try{const r=await fetch(url,{headers:{...authHeader()}});if(!r.ok)throw new Error();return await r.json()}catch{return null}}
+function waLink(phone){const n=String(phone||"").replace(/\D/g,"").replace(/^0/,"");return `https://wa.me/90${n}`}
+
+async function loadStores(){
+ const data=await fetchJson(`${STORE_ENDPOINT}/my`);
+ const raw=data?.stores||data?.data||data?.items||data;
+ stores=Array.isArray(raw)&&raw.length?raw.map(s=>({id:s.id||s._id,name:s.name||s.storeName||"Mağaza",logoText:s.logoText||s.logo||(s.name||"AK").slice(0,2).toUpperCase(),plan:s.plan||s.packageName||"Standart"})):demoStores;
+ const saved=localStorage.getItem("akActiveStoreId");
+ activeStore=stores.find(s=>String(s.id)===String(saved))||stores[0];
+ localStorage.setItem("akActiveStoreId",activeStore.id);
+ renderStoreInfo();
+}
+async function loadThreads(){
+ const data=await fetchJson(`${MESSAGE_ENDPOINT}/store?storeId=${encodeURIComponent(activeStore.id)}`);
+ const raw=data?.threads||data?.messages||data?.data||data?.items||data;
+ threads=Array.isArray(raw)&&raw.length?raw.map(normalizeThread):demoThreads.filter(t=>String(t.storeId)===String(activeStore.id));
+ const customerQuery=new URLSearchParams(location.search).get("customer");
+ activeThread=(customerQuery&&threads.find(t=>t.customerName.toLowerCase().includes(customerQuery.toLowerCase())))||threads[0]||null;
+}
+function normalizeThread(t){
+ return {id:t.id||t._id,storeId:t.storeId||t.store?.id||activeStore.id,storeName:t.storeName||t.store?.name||activeStore.name,productId:t.productId||t.product?.id,productTitle:t.productTitle||t.product?.title||"Ürün",productIcon:t.productIcon||"📦",customerName:t.customerName||t.user?.name||"Müşteri",customerPhone:t.customerPhone||t.user?.phone||"",customerEmail:t.customerEmail||t.user?.email||"",unread:!!t.unread,hot:!!t.hot,type:t.type||"product",lastAt:t.lastAt||"",messages:t.messages||[]}
+}
+function renderStoreInfo(){
+ $("storeSwitch").innerHTML=stores.map(s=>`<option value="${s.id}" ${String(s.id)===String(activeStore.id)?"selected":""}>${s.name}</option>`).join("");
+ $("sideStoreLogo").textContent=activeStore.logoText||"AK";$("sideStoreName").textContent=activeStore.name;$("sideStorePlan").textContent=activeStore.plan+" Paket";
+}
+function filtered(){
+ const q=$("searchInput").value.trim().toLowerCase(), f=$("filterSwitch").value;
+ return threads.filter(t=>{
+  const text=`${t.customerName} ${t.customerPhone} ${t.customerEmail} ${t.productTitle} ${t.storeName}`.toLowerCase().includes(q);
+  const filter=f==="all"||(f==="unread"&&t.unread)||(f==="hot"&&t.hot)||(f==="product"&&t.type==="product");
+  return text&&filter;
+ });
+}
+function renderStats(){
+ $("totalThreads").textContent=threads.length;
+ $("unreadCount").textContent=threads.filter(t=>t.unread).length;
+ $("todayCount").textContent=threads.filter(t=>String(t.lastAt).includes("Bugün")).length;
+ $("hotCount").textContent=threads.filter(t=>t.hot).length;
+ $("navUnread").textContent=threads.filter(t=>t.unread).length;
+}
+function renderThreads(){
+ const list=filtered();
+ $("emptyState").classList.toggle("show",list.length===0);
+ $("threadList").innerHTML=list.map(t=>`
+  <article class="thread ${activeThread&&String(activeThread.id)===String(t.id)?"active":""} ${t.unread?"unread":""}" data-thread="${t.id}">
+    <div class="thread-top"><div class="avatar">${t.customerName.slice(0,1).toUpperCase()}</div><div><b>${t.customerName}</b><small>${t.lastAt} • ${t.storeName}</small></div></div>
+    <p class="last">${t.messages[t.messages.length-1]?.text||"Mesaj yok"}</p>
+    <div class="thread-tags"><span class="tag">${t.productIcon} ${t.productTitle}</span>${t.hot?'<span class="tag">Talebe yakın</span>':''}${t.unread?'<span class="tag">Okunmadı</span>':''}</div>
+  </article>`).join("");
+ document.querySelectorAll("[data-thread]").forEach(el=>el.addEventListener("click",()=>{activeThread=threads.find(t=>String(t.id)===String(el.dataset.thread));if(activeThread)activeThread.unread=false;renderAll()}));
+}
+function renderChat(){
+ if(!activeThread){
+  $("chatName").textContent="Konuşma yok";$("chatSub").textContent="Filtreleri temizleyebilir veya yeni mesaj bekleyebilirsin.";$("messagesBox").innerHTML="";$("infoBox").innerHTML="";return;
+ }
+ $("chatName").textContent=activeThread.customerName;
+ $("chatSub").textContent=`${activeThread.storeName} • ${activeThread.productTitle}`;
+ $("callBtn").href=`tel:${activeThread.customerPhone.replaceAll(" ","")}`;
+ $("waBtn").href=waLink(activeThread.customerPhone);
+ $("requestBtn").href=`rental-requests.html?customer=${encodeURIComponent(activeThread.customerName)}`;
+ $("messagesBox").innerHTML=activeThread.messages.map(m=>`<div class="bubble ${m.from==="seller"?"seller-b":"customer-b"}">${m.text}<small>${m.time||""}</small></div>`).join("");
+ $("messagesBox").scrollTop=$("messagesBox").scrollHeight;
+ $("infoBox").innerHTML=`
+ <div class="product-card"><strong>${activeThread.productIcon} ${activeThread.productTitle}</strong><p>Bu konuşma bu ürün için açılmış.</p></div>
+ <div class="info-box">
+  <div class="info-row"><span>Mağaza</span><b>${activeThread.storeName}</b></div>
+  <div class="info-row"><span>Müşteri</span><b>${activeThread.customerName}</b></div>
+  <div class="info-row"><span>Telefon</span><b>${activeThread.customerPhone||"-"}</b></div>
+  <div class="info-row"><span>E-mail</span><b>${activeThread.customerEmail||"-"}</b></div>
+  <div class="info-row"><span>Durum</span><b>${activeThread.hot?"Talebe yakın":"Bilgi sorusu"}</b></div>
+ </div>
+ <a class="btn y" style="width:100%;margin-bottom:8px" href="rental-requests.html?customer=${encodeURIComponent(activeThread.customerName)}">Kiralama Talebine Git</a>
+ <a class="btn light" style="width:100%" href="edit-product.html?id=${activeThread.productId}">Ürünü Kontrol Et</a>`;
+}
+async function sendMessage(){
+ if(!activeThread)return toast("Önce konuşma seç.");
+ const text=$("replyText").value.trim();
+ if(!text)return toast("Mesaj boş olamaz.");
+ try{
+  await fetch(MESSAGE_ENDPOINT,{method:"POST",headers:{"Content-Type":"application/json",...authHeader()},body:JSON.stringify({threadId:activeThread.id,storeId:activeThread.storeId,customerName:activeThread.customerName,message:text})});
+ }catch{}
+ activeThread.messages.push({from:"seller",text,time:new Date().toLocaleTimeString("tr-TR",{hour:"2-digit",minute:"2-digit"})});
+ activeThread.lastAt="Şimdi";
+ activeThread.hot=true;
+ $("replyText").value="";
+ toast("Mesaj gönderildi.");
+ renderAll();
+}
+function renderAll(){renderStats();renderThreads();renderChat()}
+function bindEvents(){
+ $("mobileMenu").addEventListener("click",()=>$("sidebar").classList.toggle("open"));
+ document.addEventListener("click",e=>{if(innerWidth<=900){const s=$("sidebar"),m=$("mobileMenu");if(s.classList.contains("open")&&!s.contains(e.target)&&e.target!==m)s.classList.remove("open")}});
+ $("storeSwitch").addEventListener("change",async()=>{activeStore=stores.find(s=>String(s.id)===$("storeSwitch").value)||activeStore;localStorage.setItem("akActiveStoreId",activeStore.id);renderStoreInfo();await loadThreads();renderAll();toast("Mağaza mesajları yüklendi.")});
+ ["searchInput","filterSwitch"].forEach(id=>$(id).addEventListener("input",renderAll));
+ $("clearBtn").addEventListener("click",()=>{$("searchInput").value="";$("filterSwitch").value="all";renderAll()});
+ $("refreshBtn").addEventListener("click",async()=>{await loadThreads();renderAll();toast("Mesajlar yenilendi.")});
+ $("sendBtn").addEventListener("click",sendMessage);
+ $("replyText").addEventListener("keydown",e=>{if(e.key==="Enter"&&!e.shiftKey){e.preventDefault();sendMessage()}});
+ document.querySelectorAll("[data-reply]").forEach(btn=>btn.addEventListener("click",()=>{$("replyText").value=btn.dataset.reply;$("replyText").focus()}));
+ $("logoutBtn").addEventListener("click",()=>{localStorage.removeItem("token");localStorage.removeItem("akRole");localStorage.removeItem("akUser");toast("Çıkış yapıldı.");setTimeout(()=>location.href="../seller-login.html",600)});
+}
+async function init(){if(!authGuard())return;await loadStores();await loadThreads();bindEvents();renderAll()}init();
+</script>
+</body>
+</html>

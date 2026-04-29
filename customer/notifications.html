@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Bildirimler | Alma Kirala</title>
+  <style>
+    :root{--navy:#06122b;--navy2:#0b1f49;--yellow:#ffcc00;--bg:#f3f6fb;--card:#fff;--text:#07142f;--muted:#64748b;--line:#e5eaf2;--green:#16a34a;--red:#ef4444;--orange:#d97706;--blue:#2563eb;--shadow:0 20px 55px rgba(7,20,47,.10);--r:26px}
+    *{box-sizing:border-box}body{margin:0;font-family:Inter,Arial,sans-serif;background:radial-gradient(circle at top right,#fff0a6 0,#f3f6fb 34%,#eef3fb 100%);color:var(--text)}a{text-decoration:none;color:inherit}button,input,select{font-family:inherit}button{cursor:pointer}.app{display:grid;grid-template-columns:292px 1fr;min-height:100vh}.side{position:sticky;top:0;height:100vh;background:linear-gradient(180deg,#06122b,#091a3d);color:#fff;padding:24px 20px;display:flex;flex-direction:column;gap:18px;z-index:10}.logo{display:flex;align-items:center;gap:12px;font-size:27px;font-weight:1000;line-height:1.05}.mark{width:54px;height:54px;border-radius:18px;background:var(--yellow);color:var(--navy);display:grid;place-items:center;font-weight:1000}.rolelabel{font-size:12px;font-weight:1000;color:#9fb2d4;letter-spacing:.08em;text-transform:uppercase}.snav{display:grid;gap:7px;overflow:auto;padding-right:4px}.snav a{color:#dbe7ff;border-radius:16px;padding:13px 14px;font-weight:900;font-size:14px;display:flex;align-items:center;justify-content:space-between;gap:10px}.snav a:hover,.snav .act{background:var(--yellow);color:var(--navy)}.nav-left{display:flex;align-items:center;gap:8px}.badge{background:var(--red);color:#fff;border-radius:999px;padding:4px 8px;min-width:22px;text-align:center;font-size:11px;font-weight:1000;box-shadow:0 8px 18px rgba(239,68,68,.35)}.main{padding:26px 34px 46px;min-width:0}.topbar{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:20px}.search{flex:1;max-width:720px;background:rgba(255,255,255,.9);border:1px solid var(--line);border-radius:22px;padding:13px 16px;display:flex;gap:12px;box-shadow:0 12px 35px rgba(7,20,47,.05)}.search input{border:0;outline:0;background:transparent;width:100%;font-weight:800}.mini-user{background:#fff;border:1px solid var(--line);border-radius:18px;padding:8px 12px;display:flex;align-items:center;gap:10px;box-shadow:0 12px 35px rgba(7,20,47,.05)}.avatar{width:38px;height:38px;border-radius:14px;background:var(--navy);color:var(--yellow);display:grid;place-items:center;font-weight:1000}.bell{position:relative;width:48px;height:48px;border:1px solid var(--line);border-radius:16px;background:#fff;font-size:20px;box-shadow:0 12px 35px rgba(7,20,47,.05)}.bell .badge{position:absolute;right:-7px;top:-7px}.hero{background:linear-gradient(135deg,#07142f 0,#12306a 58%,#ffcc00 59%,#ffe27a 100%);border-radius:34px;padding:30px;color:#fff;display:grid;grid-template-columns:1.2fr .8fr;gap:20px;box-shadow:var(--shadow);overflow:hidden}.hero h1{margin:0;font-size:38px;letter-spacing:-.04em}.hero p{margin:10px 0 0;color:#dce8ff;line-height:1.6}.hero-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px}.btn{border:0;border-radius:16px;padding:13px 17px;font-weight:1000}.btn.y{background:var(--yellow);color:var(--navy)}.btn.dark{background:var(--navy);color:#fff}.btn.light{background:rgba(255,255,255,.15);color:#fff;border:1px solid rgba(255,255,255,.18)}.notify-score{background:rgba(255,255,255,.94);color:var(--text);border-radius:26px;padding:20px;align-self:end}.notify-score b{display:block;font-size:42px}.notify-score span{color:var(--muted);font-weight:800}.progress{height:10px;background:#e9eef7;border-radius:999px;overflow:hidden;margin-top:14px}.progress i{display:block;height:100%;width:72%;background:linear-gradient(90deg,var(--red),var(--yellow),var(--green))}.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin:22px 0}.stat{background:rgba(255,255,255,.94);border:1px solid var(--line);border-radius:24px;padding:18px;box-shadow:0 14px 35px rgba(7,20,47,.06)}.stat span{color:var(--muted);font-size:13px;font-weight:900}.stat strong{display:block;font-size:31px;margin-top:8px}.stat em{font-style:normal;color:var(--green);font-size:12px;font-weight:900}.layout{display:grid;grid-template-columns:minmax(0,1fr) 380px;gap:22px}.card{background:rgba(255,255,255,.94);border:1px solid var(--line);border-radius:var(--r);padding:22px;box-shadow:0 16px 42px rgba(7,20,47,.07);backdrop-filter:blur(10px)}.head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:16px}.head h2{margin:0;font-size:23px}.filters{display:flex;gap:10px;flex-wrap:wrap}.chip{border:1px solid var(--line);background:#fff;border-radius:999px;padding:10px 13px;font-weight:1000}.chip.act{background:var(--navy);color:#fff;border-color:var(--navy)}.notif-list{display:grid;gap:13px}.notif{border:1px solid var(--line);background:#fff;border-radius:24px;padding:16px;display:grid;grid-template-columns:54px 1fr auto;gap:14px;align-items:center;transition:.2s}.notif.unread{border-color:#fecaca;background:linear-gradient(90deg,#fff7f7,#fff)}.notif:hover{transform:translateY(-2px);box-shadow:0 16px 35px rgba(7,20,47,.08)}.ico{width:54px;height:54px;border-radius:18px;display:grid;place-items:center;font-size:24px;background:#eef2ff}.notif.unread .ico{background:#fee2e2}.notif h3{margin:0 0 5px;font-size:17px}.notif p{margin:0;color:var(--muted);font-size:13px;line-height:1.5}.meta{display:flex;gap:8px;flex-wrap:wrap;margin-top:9px}.pill{border-radius:999px;padding:7px 10px;font-size:12px;font-weight:1000;background:#f1f5f9}.pill.red{background:#fee2e2;color:#991b1b}.pill.green{background:#dcfce7;color:#166534}.pill.blue{background:#dbeafe;color:#1d4ed8}.pill.yellow{background:#fff7d6;color:#8a5b00}.actions{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}.small{border:1px solid var(--line);background:#fff;border-radius:999px;padding:9px 12px;font-size:12px;font-weight:1000}.small.y{background:var(--yellow);border-color:var(--yellow)}.empty{display:none;text-align:center;padding:38px;border:1px dashed #cbd5e1;border-radius:24px;color:var(--muted);font-weight:900;background:#fbfdff}.timeline{display:grid;gap:12px}.tl{display:grid;grid-template-columns:34px 1fr;gap:11px;align-items:start}.dot{width:34px;height:34px;border-radius:50%;background:#edf2fb;display:grid;place-items:center;font-weight:1000}.tl.hot .dot{background:#fee2e2;color:#991b1b}.tl.ok .dot{background:#dcfce7;color:#166534}.tl b{display:block}.tl span{color:var(--muted);font-size:13px}.note{padding:14px;border-radius:18px;background:#f8fafc;border:1px solid var(--line);margin-bottom:10px}.note b{display:block;margin-bottom:4px}.note span{font-size:13px;color:var(--muted)}.mobile-head,.bottom-nav{display:none}.toast{position:fixed;right:22px;bottom:22px;background:var(--navy);color:#fff;padding:14px 16px;border-radius:18px;font-weight:900;display:none;z-index:120}
+    @media(max-width:1180px){.app{grid-template-columns:88px 1fr}.logo strong,.rolelabel,.snav a span{display:none}.side{padding:20px 12px}.snav a{justify-content:center}.layout{grid-template-columns:1fr}.stats{grid-template-columns:repeat(2,1fr)}}
+    @media(max-width:760px){body{padding-bottom:82px}.app{display:block}.side,.topbar{display:none}.mobile-head{display:flex;align-items:center;justify-content:space-between;padding:14px 16px;background:#06122b;color:#fff;position:sticky;top:0;z-index:30}.main{padding:14px}.hero{grid-template-columns:1fr;padding:23px;border-radius:28px}.hero h1{font-size:29px}.stats{grid-template-columns:repeat(2,1fr);gap:12px}.card{padding:18px;border-radius:24px}.notif{grid-template-columns:48px 1fr}.ico{width:48px;height:48px}.actions{grid-column:1 / -1;justify-content:flex-start}.bottom-nav{position:fixed;left:12px;right:12px;bottom:12px;height:64px;background:#06122b;color:#fff;border-radius:24px;display:grid;grid-template-columns:repeat(4,1fr);box-shadow:0 18px 50px rgba(7,20,47,.35);z-index:40;overflow:hidden}.bottom-nav a{display:grid;place-items:center;color:#fff;font-weight:1000}.bottom-nav .act{background:var(--yellow);color:var(--navy)}}
+  </style>
+</head>
+<body>
+<div class="mobile-head"><b>AK Alma Kirala</b><button class="bell">🔔 <span class="badge" id="mobileBadge">0</span></button></div>
+<div class="app">
+  <aside class="side">
+    <a class="logo" href="../index.html"><span class="mark">AK</span><strong>Alma<br>Kirala</strong></a>
+    <div class="rolelabel">Müşteri Alanı</div>
+    <nav class="snav">
+      <a href="dashboard.html"><span class="nav-left">🏠 <span>Akıllı Panel</span></span></a>
+      <a href="rentals-active.html"><span class="nav-left">📦 <span>Kiralamalar</span></span></a>
+      <a href="requests.html"><span class="nav-left">📝 <span>Talepler</span></span></a>
+      <a href="messages.html"><span class="nav-left">💬 <span>Mesajlar</span></span></a>
+      <a href="favorites.html"><span class="nav-left">💛 <span>Favoriler</span></span></a>
+      <a href="wallet.html"><span class="nav-left">💳 <span>Cüzdan</span></span></a>
+      <a href="reviews.html"><span class="nav-left">⭐ <span>Yorumlar</span></span></a>
+      <a href="following-stores.html"><span class="nav-left">🏪 <span>Takip Mağazalar</span></span></a>
+      <a class="act" href="notifications.html"><span class="nav-left">🔔 <span>Bildirimler</span></span><span class="badge" id="sideBadge">0</span></a>
+      <a href="profile.html"><span class="nav-left">👤 <span>Profil & Güven</span></span></a>
+      <a href="addresses.html"><span class="nav-left">📍 <span>Adresler</span></span></a>
+      <a href="support.html"><span class="nav-left">🛟 <span>Destek</span></span></a>
+      <a href="../index.html"><span class="nav-left">↩ <span>Ana Site</span></span></a>
+    </nav>
+  </aside>
+
+  <main class="main">
+    <div class="topbar">
+      <div class="search">🔎 <input id="searchInput" placeholder="Bildirim, mağaza, ürün, mesaj veya durum ara..."></div>
+      <button class="bell">🔔 <span class="badge" id="topBadge">0</span></button>
+      <div class="mini-user"><div class="avatar" id="avatar">M</div><div><b id="userName">Müşteri</b><span style="color:#64748b;font-size:12px">Bildirim merkezi</span></div></div>
+    </div>
+
+    <section class="hero">
+      <div>
+        <h1>Bildirim Merkezi</h1>
+        <p>Mesaj cevapları, kiralama onayları, reddedilen talepler, takip ettiğin mağazaların yeni ürünleri, ödeme ve teslimat hatırlatmaları burada toplanır.</p>
+        <div class="hero-actions">
+          <button class="btn y" id="markAllBtn">Tümünü Okundu Yap</button>
+          <button class="btn light" id="refreshBtn">Yenile</button>
+          <a class="btn light" href="messages.html">Mesajlara Git</a>
+        </div>
+      </div>
+      <div class="notify-score">
+        <span>Okunmamış Bildirim</span>
+        <b id="unreadHero">0</b>
+        <span>Öncelikli uyarılar kırmızıyla gösterilir.</span>
+        <div class="progress"><i></i></div>
+      </div>
+    </section>
+
+    <section class="stats">
+      <div class="stat"><span>Okunmamış</span><strong id="statUnread">0</strong><em>öncelikli</em></div>
+      <div class="stat"><span>Mesaj / Cevap</span><strong id="statMessage">0</strong><em>mağaza iletişimi</em></div>
+      <div class="stat"><span>Kiralama</span><strong id="statRental">0</strong><em>onay / ret</em></div>
+      <div class="stat"><span>Mağaza Güncellemesi</span><strong id="statStore">0</strong><em>yeni ürünler</em></div>
+    </section>
+
+    <section class="layout">
+      <div class="card">
+        <div class="head">
+          <h2>Bildirimler</h2>
+          <div class="filters">
+            <button class="chip act" data-filter="all">Tümü</button>
+            <button class="chip" data-filter="unread">Okunmamış</button>
+            <button class="chip" data-filter="message">Mesaj</button>
+            <button class="chip" data-filter="rental">Kiralama</button>
+            <button class="chip" data-filter="store">Mağaza</button>
+            <button class="chip" data-filter="payment">Ödeme</button>
+            <button class="chip" data-filter="system">Sistem</button>
+          </div>
+        </div>
+        <div class="notif-list" id="notifList"></div>
+        <div class="empty" id="emptyBox">Bu filtreye uygun bildirim bulunamadı.</div>
+      </div>
+
+      <aside>
+        <section class="card">
+          <div class="head"><h2>Öncelik Akışı</h2></div>
+          <div class="timeline" id="priorityList"></div>
+        </section>
+        <section class="card" style="margin-top:22px">
+          <div class="head"><h2>Bildirim Ayarları</h2></div>
+          <div class="note"><b>Mesaj ve satıcı cevapları</b><span>Açık: mağaza mesajları anında bildirilir.</span></div>
+          <div class="note"><b>Kiralama durumu</b><span>Açık: onay, ret, teslim ve gecikme bildirimleri gelir.</span></div>
+          <div class="note"><b>Takip mağaza ürünleri</b><span>Açık: takip ettiğin mağaza ürün eklediğinde haber verilir.</span></div>
+        </section>
+      </aside>
+    </section>
+  </main>
+</div>
+
+<nav class="bottom-nav">
+  <a href="dashboard.html">Ana</a>
+  <a href="rentals-active.html">Kira</a>
+  <a href="messages.html">Mesaj</a>
+  <a class="act" href="notifications.html">Bildirim</a>
+</nav>
+<div class="toast" id="toast"></div>
+
+<script>
+  const API_BASE="http://localhost:3000/api";
+  const token=localStorage.getItem("token")||localStorage.getItem("akToken");
+  const user=JSON.parse(localStorage.getItem("user")||localStorage.getItem("akUser")||"null")||{name:"Demo Müşteri"};
+  const fallbackNotifications=[
+    {id:1,type:"message",title:"Yeni mesaj geldi",text:"Kamera Dünyam, Sony A7 IV talebin için cevap verdi.",date:"Bugün 10:42",read:false,priority:"high",link:"messages.html",icon:"💬"},
+    {id:2,type:"rental",title:"Kiralama onaylandı",text:"DJI Mini 4 Pro Drone rezervasyonun satıcı tarafından onaylandı.",date:"Bugün 09:15",read:false,priority:"high",link:"rentals-active.html",icon:"✅"},
+    {id:3,type:"store",title:"Takip ettiğin mağaza ürün ekledi",text:"Drone Market yeni bir DJI Avata 2 ürünü ekledi.",date:"Dün 18:20",read:false,priority:"normal",link:"following-stores.html",icon:"🏪"},
+    {id:4,type:"rental",title:"Talep reddedildi",text:"Etkinlik ses sistemi talebin tarih uygunluğu nedeniyle reddedildi.",date:"Dün 14:05",read:false,priority:"high",link:"requests.html",icon:"⚠️"},
+    {id:5,type:"payment",title:"Depozito iadesi hazır",text:"GoPro kiralamanın depozito iadesi cüzdanına yansıtıldı.",date:"27 Nisan",read:true,priority:"normal",link:"wallet.html",icon:"💳"},
+    {id:6,type:"system",title:"Profil güven skorun arttı",text:"Adres ve telefon doğrulaman tamamlandığı için güven skorun yükseldi.",date:"26 Nisan",read:true,priority:"normal",link:"profile.html",icon:"🛡️"}
+  ];
+  let notifications=JSON.parse(localStorage.getItem("akNotifications")||"null")||fallbackNotifications;
+  let currentFilter="all";
+  const $=id=>document.getElementById(id);
+  $("userName").textContent=user.name||"Müşteri";$("avatar").textContent=(user.name||"M").trim()[0].toUpperCase();
+
+  function save(){localStorage.setItem("akNotifications",JSON.stringify(notifications));}
+  function count(type){return notifications.filter(n=>type==="unread"?!n.read:n.type===type).length;}
+  function unread(){return notifications.filter(n=>!n.read).length;}
+  function setBadge(id,n){const el=$(id);if(!el)return;el.textContent=n;el.style.display=n?"inline-block":"none";}
+  function updateStats(){const u=unread();["sideBadge","topBadge","mobileBadge"].forEach(id=>setBadge(id,u));$("unreadHero").textContent=u;$("statUnread").textContent=u;$("statMessage").textContent=count("message");$("statRental").textContent=count("rental");$("statStore").textContent=count("store");}
+  function typeLabel(t){return {message:"Mesaj",rental:"Kiralama",store:"Mağaza",payment:"Ödeme",system:"Sistem"}[t]||"Bildirim";}
+  function pillClass(n){if(!n.read)return"red";if(n.type==="rental")return"green";if(n.type==="message")return"blue";if(n.type==="store")return"yellow";return"";}
+  function card(n){return `<article class="notif ${n.read?'':'unread'}" data-search="${(n.title+' '+n.text+' '+typeLabel(n.type)).toLowerCase()}"><div class="ico">${n.icon||'🔔'}</div><div><h3>${n.title}</h3><p>${n.text}</p><div class="meta"><span class="pill ${pillClass(n)}">${n.read?'Okundu':'Okunmamış'}</span><span class="pill">${typeLabel(n.type)}</span><span class="pill">${n.date}</span></div></div><div class="actions"><button class="small y" onclick="openNotif(${n.id})">Aç</button>${n.read?'':`<button class="small" onclick="markRead(${n.id})">Okundu</button>`}<button class="small" onclick="removeNotif(${n.id})">Sil</button></div></article>`;}
+  function filtered(){const q=($("searchInput")?.value||"").toLowerCase();return notifications.filter(n=>{const f=currentFilter==="all"||currentFilter===n.type||(currentFilter==="unread"&&!n.read);const s=(n.title+" "+n.text+" "+typeLabel(n.type)).toLowerCase().includes(q);return f&&s;});}
+  function render(){const list=filtered();$("notifList").innerHTML=list.map(card).join("");$("emptyBox").style.display=list.length?"none":"block";$("priorityList").innerHTML=notifications.filter(n=>!n.read).slice(0,4).map(n=>`<div class="tl ${n.priority==='high'?'hot':'ok'}"><div class="dot">${n.priority==='high'?'!':'✓'}</div><div><b>${n.title}</b><span>${n.text}</span></div></div>`).join("")||`<div class="tl ok"><div class="dot">✓</div><div><b>Her şey güncel</b><span>Okunmamış bildirim bulunmuyor.</span></div></div>`;updateStats();}
+  function markRead(id){const n=notifications.find(x=>x.id===id);if(!n)return;n.read=true;save();render();toast("Bildirim okundu olarak işaretlendi.");}
+  function openNotif(id){const n=notifications.find(x=>x.id===id);if(!n)return;n.read=true;save();render();location.href=n.link||"notifications.html";}
+  function removeNotif(id){notifications=notifications.filter(n=>n.id!==id);save();render();toast("Bildirim silindi.");}
+  function toast(msg){$("toast").textContent=msg;$("toast").style.display="block";setTimeout(()=>$("toast").style.display="none",2200);}
+  document.querySelectorAll(".chip").forEach(c=>c.onclick=()=>{document.querySelectorAll(".chip").forEach(x=>x.classList.remove("act"));c.classList.add("act");currentFilter=c.dataset.filter;render();});
+  $("searchInput").addEventListener("input",render);
+  $("markAllBtn").onclick=()=>{notifications=notifications.map(n=>({...n,read:true}));save();render();toast("Tüm bildirimler okundu yapıldı.");};
+  $("refreshBtn").onclick=()=>{toast("Bildirimler yenilendi.");loadBackend();};
+  async function loadBackend(){
+    if(!token){render();return;}
+    try{
+      const res=await fetch(`${API_BASE}/notifications`,{headers:{Authorization:`Bearer ${token}`}});
+      if(!res.ok){render();return;}
+      const data=await res.json();
+      const list=Array.isArray(data)?data:(data.notifications||[]);
+      if(list.length){notifications=list.map(n=>({id:n.id,type:n.type||"system",title:n.title||"Bildirim",text:n.text||n.message||"Yeni bildirim",date:n.createdAt?new Date(n.createdAt).toLocaleString("tr-TR"):"Bugün",read:!!n.read,priority:n.priority||"normal",link:n.link||"notifications.html",icon:n.icon||"🔔"}));save();}
+      render();
+    }catch(e){console.log("Backend bildirimleri bekleniyor",e.message);render();}
+  }
+  loadBackend();
+</script>
+</body>
+</html>

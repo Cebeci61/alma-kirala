@@ -1,0 +1,1026 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Mağazalar | Alma Kirala</title>
+  <meta name="description" content="Alma Kirala mağazalarını keşfet. Doğrulanmış mağazalar, mağaza ürünleri, filtreleme ve mağaza güven profili." />
+
+  <style>
+    :root{
+      --dark:#07142f;--blue:#064db5;--yellow:#ffcc00;--bg:#f4f6fb;--text:#07142f;
+      --muted:#64748b;--line:#e5e7eb;--soft:#eef4ff;--shadow:0 18px 45px rgba(15,23,42,.10);
+      --shadow2:0 10px 28px rgba(15,23,42,.07)
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{margin:0;font-family:Inter,Arial,sans-serif;background:radial-gradient(circle at 100% 0%,rgba(255,204,0,.16),transparent 30%),var(--bg);color:var(--text)}
+    a{text-decoration:none;color:inherit}
+    button,input,select{font-family:inherit}
+    button{cursor:pointer}
+    img{max-width:100%;display:block}
+    .ak-container{width:min(1240px,calc(100% - 32px));margin:auto}
+
+    .topbar{background:var(--dark);color:#fff;font-size:13px}
+    .topbar-inner{min-height:36px;display:flex;align-items:center;justify-content:space-between;gap:12px;font-weight:850}
+    .topbar b{color:var(--yellow)}
+
+    .header{position:sticky;top:0;z-index:90;background:linear-gradient(135deg,#fff,#f8fbff);border-bottom:1px solid var(--line);box-shadow:0 8px 26px rgba(15,23,42,.05)}
+    .header-inner{min-height:74px;display:grid;grid-template-columns:auto minmax(360px,1fr) auto;align-items:center;gap:14px}
+    .brand{display:flex;align-items:center;gap:11px;white-space:nowrap}
+    .brand-mark{width:50px;height:50px;border-radius:17px;background:linear-gradient(135deg,#ffcc00,#ff9f1c);box-shadow:0 12px 30px rgba(255,204,0,.30);position:relative;overflow:hidden}
+    .brand-mark:before{content:"";position:absolute;width:22px;height:58px;background:var(--dark);transform:rotate(28deg);left:13px;top:5px;border-radius:999px}
+    .brand-mark:after{content:"";position:absolute;width:18px;height:18px;background:#fff;border-radius:50%;right:8px;bottom:8px}
+    .brand-text strong{display:block;font-size:26px;line-height:1;letter-spacing:-1px;font-weight:1000}
+    .brand-text span{display:block;margin-top:4px;color:#8a5b00;font-size:12px;font-weight:950}
+    .header-search{display:grid;grid-template-columns:1fr auto;background:#f1f5f9;border:1px solid #dbe3ef;border-radius:18px;overflow:hidden;min-height:50px}
+    .header-search input{border:0;outline:0;background:transparent;padding:14px 16px;font-size:15px;font-weight:850;min-width:0}
+    .header-search button{border:0;background:var(--yellow);padding:0 24px;font-weight:1000;color:var(--dark)}
+    .nav{display:flex;align-items:center;gap:10px;font-weight:950;white-space:nowrap}
+    .nav a{border:1px solid #dbe3ef;background:#fff;padding:11px 13px;border-radius:15px;box-shadow:0 8px 18px rgba(15,23,42,.04)}
+    .nav .yellow{background:var(--yellow);border-color:var(--yellow)}
+    .nav .dark{background:var(--dark);color:#fff;border-color:var(--dark)}
+
+    .hero{background:radial-gradient(circle at 90% 0%,rgba(255,204,0,.28),transparent 34%),linear-gradient(135deg,var(--dark),#173761);color:#fff;padding:34px 0 64px}
+    .hero-inner{display:grid;grid-template-columns:1.08fr .92fr;gap:24px;align-items:center}
+    .hero-badge{display:inline-flex;background:#fff3bf;color:#8a5b00;padding:8px 12px;border-radius:999px;font-size:13px;font-weight:1000;margin-bottom:14px}
+    .hero h1{margin:0;font-size:46px;line-height:1.04;letter-spacing:-1.6px;font-family:Georgia,"Times New Roman",serif}
+    .hero p{margin:12px 0 0;color:#dbe7ff;font-size:16px;line-height:1.65;max-width:760px;font-weight:750}
+    .hero-search{display:grid;grid-template-columns:1fr auto;background:#fff;border-radius:20px;overflow:hidden;box-shadow:0 18px 45px rgba(15,23,42,.18);margin-top:20px;max-width:720px}
+    .hero-search input{border:0;padding:16px;outline:0;font-size:15px;font-weight:850;min-width:0}
+    .hero-search button{border:0;background:var(--yellow);padding:0 24px;font-weight:1000;color:var(--dark)}
+    .hero-panel{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.14);border-radius:30px;padding:22px;box-shadow:0 24px 60px rgba(15,23,42,.22)}
+    .hero-panel h2{margin:0 0 15px;font-size:24px;font-family:Georgia,"Times New Roman",serif}
+    .trust-grid{display:grid;grid-template-columns:1fr 1fr;gap:11px}
+    .trust-item{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);border-radius:18px;padding:15px}
+    .trust-item strong{display:block;font-size:26px;color:var(--yellow);font-weight:1000}
+    .trust-item span{color:#cbd5e1;font-weight:850;font-size:12px}
+
+    .ad-banner{margin:-38px auto 22px;position:relative;z-index:6;background:radial-gradient(circle at 90% 0%,rgba(255,204,0,.38),transparent 30%),linear-gradient(135deg,#111827,#74470f 68%,#ffcc00);color:#fff;border-radius:28px;padding:24px;display:flex;justify-content:space-between;gap:18px;align-items:center;box-shadow:var(--shadow);overflow:hidden}
+    .ad-banner span{display:inline-flex;background:#fff3bf;color:#8a5b00;border-radius:999px;padding:8px 12px;font-weight:1000;font-size:12px}
+    .ad-banner h2{margin:9px 0 5px;font-size:26px;font-family:Georgia,"Times New Roman",serif}
+    .ad-banner p{margin:0;color:#e5e7eb;font-weight:800}
+    .ad-banner a{background:var(--yellow);color:var(--dark);border-radius:15px;padding:14px 18px;font-weight:1000;white-space:nowrap}
+
+    .filter-toggle-row{display:flex;justify-content:space-between;align-items:center;gap:14px;margin:12px 0}
+    .filter-toggle-row h2{margin:0;font-family:Georgia,"Times New Roman",serif;font-size:28px}
+    .filter-toggle-row p{margin:5px 0 0;color:var(--muted);font-weight:800}
+    .filter-toggle{border:0;background:var(--dark);color:#fff;border-radius:16px;padding:13px 18px;font-weight:1000;box-shadow:var(--shadow2)}
+    .filter-card{display:none;background:#fff;border:1px solid var(--line);border-radius:28px;padding:18px;box-shadow:var(--shadow2);animation:fadeUp .25s ease both}
+    .filter-card.open{display:block}
+    .filter-top{display:grid;grid-template-columns:1.25fr 1fr 1fr 1fr;gap:10px}
+    .filter-bottom{display:grid;grid-template-columns:1fr 1fr 1fr auto auto;gap:10px;margin-top:10px}
+    .filter-card input,.filter-card select{width:100%;border:1px solid #dbe3ef;border-radius:16px;padding:13px;outline:0;font-weight:850;background:#fff}
+    .filter-card button{border:0;border-radius:16px;padding:0 16px;font-weight:1000}
+    .dark-btn{background:var(--dark);color:#fff}
+    .yellow-btn{background:var(--yellow);color:var(--dark)}
+    .quick-row{display:flex;gap:9px;overflow-x:auto;margin-top:12px;padding-bottom:4px}
+    .chip{border:1px solid #dbe3ef;background:#fff;border-radius:999px;padding:10px 14px;font-weight:1000;white-space:nowrap}
+    .chip.active,.chip:hover{background:var(--yellow);border-color:var(--yellow)}
+
+    .map-section{display:grid;grid-template-columns:1fr 340px;gap:18px;margin-top:18px}
+    .map-card,.near-card{background:#fff;border:1px solid var(--line);border-radius:28px;box-shadow:var(--shadow2);overflow:hidden}
+    .map-head{padding:18px;display:flex;justify-content:space-between;gap:12px;align-items:center}
+    .map-head h2{margin:0;font-size:24px;font-family:Georgia,"Times New Roman",serif}
+    .map-head p{margin:5px 0 0;color:var(--muted);font-weight:750}
+    .map-head button{border:0;background:var(--yellow);border-radius:14px;padding:12px 16px;font-weight:1000}
+    .turkey-map{height:340px;position:relative;background:radial-gradient(circle at 80% 10%,rgba(255,204,0,.26),transparent 28%),linear-gradient(135deg,#e0f2fe,#fff7cc);border-top:1px solid #edf1f7;overflow:hidden}
+    .turkey-shape{position:absolute;left:8%;top:25%;width:84%;height:48%;background:linear-gradient(135deg,#dbeafe,#bfdbfe);clip-path:polygon(2% 52%,10% 38%,22% 40%,30% 28%,43% 35%,55% 27%,70% 35%,84% 30%,98% 43%,88% 56%,75% 54%,62% 70%,46% 63%,33% 73%,20% 62%,8% 67%);border:2px solid rgba(7,20,47,.12);filter:drop-shadow(0 16px 25px rgba(15,23,42,.12))}
+    .city-label{position:absolute;font-size:12px;font-weight:1000;color:var(--dark);background:rgba(255,255,255,.82);padding:5px 8px;border-radius:999px;border:1px solid rgba(7,20,47,.08)}
+    .pin{position:absolute;width:38px;height:38px;border:0;border-radius:50% 50% 50% 8px;background:var(--dark);color:var(--yellow);font-weight:1000;transform:rotate(-45deg);display:grid;place-items:center;box-shadow:0 12px 28px rgba(7,20,47,.25);transition:.2s;z-index:5}
+    .pin span{transform:rotate(45deg)}
+    .pin:hover{scale:1.12;background:var(--yellow);color:var(--dark)}
+    .user-pin{background:#dc2626;color:#fff}
+    .near-card{padding:18px}
+    .near-card h3{margin:0 0 12px;font-size:22px;font-family:Georgia,"Times New Roman",serif}
+    .near-list{display:grid;gap:10px}
+    .near-item{border:1px solid #edf1f7;background:#f8fafc;border-radius:18px;padding:12px;display:flex;justify-content:space-between;gap:10px;align-items:center}
+    .near-item strong{display:block}
+    .near-item span{color:var(--muted);font-size:12px;font-weight:850}
+    .near-item a{background:var(--yellow);border-radius:12px;padding:9px 11px;font-weight:1000;white-space:nowrap}
+
+    .store-detail{display:none;margin-top:18px;animation:fadeUp .25s ease both}
+    .store-detail.open{display:block}
+    .detail-hero{background:radial-gradient(circle at 90% 0%,rgba(255,204,0,.26),transparent 30%),linear-gradient(135deg,var(--dark),#173761);color:#fff;border-radius:30px;padding:24px;display:grid;grid-template-columns:1.25fr .75fr;gap:18px;box-shadow:var(--shadow)}
+    .detail-profile{display:flex;gap:18px;align-items:center}
+    .detail-logo{width:88px;height:88px;border-radius:26px;background:var(--yellow);color:var(--dark);display:grid;place-items:center;font-size:29px;font-weight:1000;box-shadow:0 18px 40px rgba(255,204,0,.22);flex:0 0 auto}
+    .detail-profile h1{margin:10px 0 7px;font-size:38px;line-height:1.08;font-family:Georgia,"Times New Roman",serif}
+    .detail-profile p{margin:0;color:#dbe7ff;line-height:1.6;font-weight:750}
+    .plan-pill{display:inline-flex;background:#fff3bf;color:#8a5b00;padding:8px 11px;border-radius:999px;font-size:12px;font-weight:1000}
+    .detail-stats{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+    .detail-stats div{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.13);border-radius:20px;padding:14px}
+    .detail-stats strong{display:block;color:var(--yellow);font-size:25px;font-weight:1000}
+    .detail-stats span{color:#dbe7ff;font-size:12px;font-weight:850}
+    .detail-actions{margin-top:14px;display:grid;grid-template-columns:repeat(5,1fr);gap:10px}
+    .detail-actions a,.detail-actions button{border:1px solid #dbe3ef;background:#fff;color:var(--dark);padding:12px 10px;border-radius:16px;font-weight:1000;text-align:center}
+    .detail-actions .yellow{background:var(--yellow);border-color:var(--yellow)}
+    .detail-actions .whatsapp{background:#dcfce7;color:#166534;border-color:#bbf7d0}
+    .detail-actions .call{background:var(--soft);color:var(--blue);border-color:#d8e7ff}
+    .detail-info-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;margin-top:16px}
+
+    .info-card{background:#fff;border:1px solid var(--line);border-radius:24px;padding:18px;box-shadow:var(--shadow2)}
+    .info-card h2{margin:0 0 10px;font-size:22px;font-family:Georgia,"Times New Roman",serif}
+    .info-card p{margin:0;color:#334155;line-height:1.65;font-weight:750}
+    .badge-list{display:flex;flex-wrap:wrap;gap:8px}
+    .badge-list span,.badge{background:var(--soft);color:var(--blue);border:1px solid #d8e7ff;border-radius:999px;padding:8px 10px;font-size:12px;font-weight:1000}
+    .map-box{margin-top:12px;height:130px;border-radius:18px;background:radial-gradient(circle at 80% 10%,rgba(255,204,0,.26),transparent 28%),linear-gradient(135deg,#e2e8f0,#ffef99);display:grid;place-items:center;font-weight:1000;color:#334155}
+
+    .product-toolbar,.view-row{display:flex;justify-content:space-between;gap:16px;align-items:flex-end;margin:24px 0 14px}
+    .product-toolbar h2,.view-row h2{margin:0;font-size:30px;font-family:Georgia,"Times New Roman",serif;letter-spacing:-.6px}
+    .product-toolbar p,.view-row p{margin:5px 0 0;color:var(--muted);font-weight:800}
+    .product-toolbar button{border:0;background:var(--dark);color:#fff;border-radius:16px;padding:13px 18px;font-weight:1000}
+    .view-switch{display:flex;background:#fff;border:1px solid #dbe3ef;border-radius:16px;padding:5px;gap:4px}
+    .view-switch button{border:0;background:transparent;border-radius:12px;padding:10px 13px;font-weight:1000}
+    .view-switch button.active{background:var(--dark);color:#fff}
+
+    .store-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+    .store-grid.folder-view{grid-template-columns:repeat(5,1fr)}
+    .store-grid.logo-view{grid-template-columns:repeat(6,1fr)}
+    .store-card{background:#fff;border:1px solid var(--line);border-radius:28px;overflow:hidden;box-shadow:var(--shadow2);transition:.25s;animation:fadeUp .35s ease both}
+    .store-card:hover{transform:translateY(-6px);box-shadow:var(--shadow)}
+    .store-card.premium{border:2px solid var(--yellow);box-shadow:0 18px 45px rgba(255,204,0,.15)}
+    .store-cover{height:150px;background:radial-gradient(circle at 80% 18%,rgba(255,204,0,.42),transparent 28%),linear-gradient(135deg,#eef4ff,#ffd633);position:relative}
+    .store-cover.drone{background:linear-gradient(135deg,#dbeafe,#60a5fa)}
+    .store-cover.event{background:linear-gradient(135deg,#fce7f3,#ffcc00)}
+    .store-cover.fashion{background:linear-gradient(135deg,#fae8ff,#f9a8d4)}
+    .store-cover.tools{background:linear-gradient(135deg,#dcfce7,#facc15)}
+    .store-plan{position:absolute;top:14px;left:14px;background:var(--dark);color:var(--yellow);padding:8px 11px;border-radius:999px;font-size:12px;font-weight:1000}
+    .store-fav{position:absolute;top:14px;right:14px;width:40px;height:40px;border:0;border-radius:50%;background:#fff;font-size:20px;box-shadow:var(--shadow2)}
+    .store-fav.active{background:var(--yellow)}
+    .store-logo{width:70px;height:70px;border-radius:22px;background:#fff;border:6px solid #fff;box-shadow:0 8px 22px rgba(15,23,42,.13);display:grid;place-items:center;font-weight:1000;font-size:22px;position:absolute;left:20px;bottom:-35px;color:var(--dark)}
+    .store-body{padding:50px 20px 20px}
+    .store-body h3{margin:0 0 8px;font-size:22px}
+    .store-meta{color:var(--muted);font-size:14px;margin-bottom:12px;line-height:1.45;font-weight:750}
+    .rating{color:#f59e0b;font-weight:1000}
+    .badges{display:flex;flex-wrap:wrap;gap:8px;margin:13px 0}
+    .store-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:16px 0}
+    .store-stats div{background:#f8fafc;border:1px solid #edf1f7;border-radius:14px;padding:10px;text-align:center}
+    .store-stats strong{display:block;font-size:16px}
+    .store-stats span{color:var(--muted);font-size:10px;font-weight:850}
+    .store-actions{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+    .store-actions a{padding:12px;border-radius:14px;text-align:center;font-weight:1000;background:#f1f5f9}
+    .store-actions .yellow{background:var(--yellow)}
+
+    .folder-card,.logo-card{background:#fff;border:1px solid var(--line);border-radius:24px;padding:18px;text-align:center;box-shadow:var(--shadow2);transition:.25s}
+    .folder-card:hover,.logo-card:hover{transform:translateY(-6px)}
+    .folder-tab{width:72px;height:48px;background:var(--yellow);border-radius:16px 16px 8px 8px;margin:0 auto 12px;display:grid;place-items:center;font-weight:1000;font-size:20px}
+    .folder-card h3,.logo-card h3{font-size:16px;margin:0 0 8px}
+    .folder-card p,.logo-card span{color:var(--muted);font-size:13px;line-height:1.5;font-weight:800}
+    .folder-card a{display:inline-flex;background:var(--dark);color:#fff;border-radius:13px;padding:10px 12px;font-weight:1000;margin-top:10px}
+    .big-logo{width:82px;height:82px;border-radius:24px;background:var(--dark);color:var(--yellow);display:grid;place-items:center;margin:0 auto 12px;font-size:25px;font-weight:1000}
+
+    .product-layout{display:grid;grid-template-columns:280px 1fr;gap:18px;align-items:start}
+    .product-layout.filters-hidden{grid-template-columns:1fr}
+    .product-layout.filters-hidden .product-filter{display:none}
+    .product-filter{background:#fff;border:1px solid var(--line);border-radius:24px;padding:18px;box-shadow:var(--shadow2);position:sticky;top:92px}
+    .filter-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+    .filter-head h3{margin:0}
+    .filter-head button{border:0;width:36px;height:36px;border-radius:50%;font-size:20px;font-weight:1000}
+    .product-filter input,.product-filter select{width:100%;border:1px solid #dbe3ef;background:#fff;border-radius:15px;padding:12px;font-weight:850;margin-bottom:9px}
+    .price-row{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+    .filter-apply,.filter-clear{width:100%;border:0;border-radius:15px;padding:12px;font-weight:1000;margin-top:8px}
+    .filter-apply{background:var(--dark);color:#fff}
+    .filter-clear{background:#f1f5f9;color:var(--dark)}
+
+    .product-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+    .product-card{background:#fff;border:1px solid var(--line);border-radius:22px;overflow:hidden;box-shadow:var(--shadow2);transition:.25s}
+    .product-card:hover{transform:translateY(-6px);box-shadow:var(--shadow)}
+    .product-img{height:130px;background:radial-gradient(circle at 80% 18%,rgba(255,204,0,.42),transparent 28%),linear-gradient(135deg,#eef4ff,#ffd633);display:grid;place-items:center;font-size:48px;overflow:hidden}
+    .product-img img{width:100%;height:100%;object-fit:cover}
+    .product-body{padding:13px}
+    .product-body h3{margin:0 0 7px;font-size:15px;line-height:1.25}
+    .product-meta{color:var(--muted);font-size:12px;font-weight:850}
+    .price{margin-top:9px;font-size:19px;font-weight:1000}
+    .product-actions{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px}
+    .product-actions span{text-align:center;border-radius:14px;padding:10px;font-size:12px;font-weight:1000;background:#f1f5f9}
+    .product-actions .yellow{background:var(--yellow)}
+
+    .pagination{display:flex;justify-content:center;gap:8px;margin:24px 0}
+    .pagination button{width:40px;height:40px;border:1px solid #dbe3ef;background:#fff;border-radius:13px;font-weight:1000}
+    .pagination button.active{background:var(--dark);color:#fff}
+    .empty{display:none;text-align:center;background:#fff;border:1px dashed #cbd5e1;border-radius:26px;padding:40px;margin-top:20px}
+    .empty.show{display:block}
+
+    .bottom-banner{margin:34px auto;background:radial-gradient(circle at 90% 0%,rgba(255,204,0,.26),transparent 30%),linear-gradient(135deg,var(--dark),#203d69);color:#fff;border-radius:30px;padding:28px;display:flex;justify-content:space-between;gap:20px;align-items:center;box-shadow:var(--shadow)}
+    .bottom-banner h2{margin:0 0 8px;font-size:29px;font-family:Georgia,"Times New Roman",serif}
+    .bottom-banner p{margin:0;color:#cbd5e1;font-weight:750}
+    .bottom-banner a{background:var(--yellow);color:var(--dark);border-radius:15px;padding:14px 20px;font-weight:1000;white-space:nowrap}
+    .footer{background:var(--dark);color:#fff;margin-top:48px;padding:40px 0}
+    .footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:26px}
+    .footer p,.footer a{color:#cbd5e1;display:block;margin:8px 0;line-height:1.5;font-weight:750}
+
+    .map-modal{position:fixed;inset:0;background:rgba(7,20,47,.65);z-index:200;display:none;align-items:center;justify-content:center;padding:20px}
+    .map-modal.show{display:flex}
+    .modal-box{width:min(1100px,100%);background:#fff;border-radius:30px;overflow:hidden;box-shadow:0 30px 90px rgba(0,0,0,.3)}
+    .modal-head{padding:18px 22px;display:flex;justify-content:space-between;align-items:center}
+    .modal-head h2{margin:0}
+    .close-map{border:0;background:#f1f5f9;border-radius:50%;width:42px;height:42px;font-size:24px}
+    .modal-map{height:640px}
+
+    @keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+    @media(max-width:1100px){
+      .header-inner,.hero-inner,.map-section,.detail-hero,.detail-info-grid,.product-layout{grid-template-columns:1fr}
+      .filter-top,.filter-bottom{grid-template-columns:1fr 1fr}
+      .store-grid,.store-grid.folder-view,.store-grid.logo-view,.product-grid{grid-template-columns:repeat(2,1fr)}
+      .product-filter{position:static}
+      .nav{display:none}
+    }
+    @media(max-width:680px){
+      .topbar{display:none}
+      .header-inner{min-height:auto;padding:12px 0}
+      .brand-mark{width:43px;height:43px}
+      .brand-text strong{font-size:23px}
+      .hero{padding:28px 0 50px}
+      .hero h1{font-size:34px}
+      .hero-search{grid-template-columns:1fr}
+      .hero-search button{padding:15px}
+      .trust-grid,.filter-top,.filter-bottom,.store-grid,.store-grid.folder-view,.store-grid.logo-view,.product-grid{grid-template-columns:1fr}
+      .ad-banner,.bottom-banner{flex-direction:column;align-items:flex-start;padding:20px}
+      .ad-banner a,.bottom-banner a{width:100%;text-align:center}
+      .filter-toggle-row{flex-direction:column;align-items:flex-start}
+      .filter-toggle{width:100%}
+      .map-section{display:none}
+      .detail-profile{align-items:flex-start}
+      .detail-logo{width:70px;height:70px;font-size:24px}
+      .detail-profile h1{font-size:29px}
+      .detail-stats,.detail-actions,.store-stats{grid-template-columns:1fr 1fr}
+      .product-toolbar,.view-row{flex-direction:column;align-items:flex-start}
+      .footer{display:none}
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="topbar">
+  <div class="ak-container topbar-inner">
+    <span><b>Alma Kirala</b> • Mağaza keşif ve güven sistemi</span>
+    <span>Mağazayı incele • Ürünleri gör • Satıcıyla iletişime geç</span>
+  </div>
+</div>
+
+<header class="header">
+  <div class="ak-container header-inner">
+    <a href="index.html" class="brand">
+      <span class="brand-mark" aria-hidden="true"></span>
+      <span class="brand-text">
+        <strong>Alma Kirala</strong>
+        <span>Satın alma, kirala.</span>
+      </span>
+    </a>
+
+    <div class="header-search">
+      <input id="topSearch" type="text" placeholder="Ürün, mağaza, şehir veya kategori ara">
+      <button id="topSearchBtn" type="button">Ara</button>
+    </div>
+
+    <nav class="nav">
+      <a href="listing.html">Ürünler</a>
+      <a class="dark" href="stores.html">Mağazalar</a>
+      <a href="login.html">Giriş</a>
+      <a class="yellow" href="seller-login.html">Mağaza Aç</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero" id="listHero">
+  <div class="ak-container hero-inner">
+    <div>
+      <span class="hero-badge">Türkiye Geneli Mağaza Rehberi</span>
+      <h1>Güvenilir kiralama mağazalarını keşfet.</h1>
+      <p>Şehir, kategori, puan, paket ve ürün aramasına göre mağazaları bul. Mağaza kartından ürünlerini görebilir, detay sayfasında satıcı bilgilerine ulaşabilirsin.</p>
+
+      <div class="hero-search">
+        <input id="searchInput" type="text" placeholder="Mağaza adı, şehir, kategori veya ürün ara">
+        <button id="searchBtn" type="button">Ara</button>
+      </div>
+    </div>
+
+    <div class="hero-panel">
+      <h2>Güven göstergeleri</h2>
+      <div class="trust-grid">
+        <div class="trust-item"><strong id="trustStores">0</strong><span>Listelenen mağaza</span></div>
+        <div class="trust-item"><strong>4.8</strong><span>Ortalama puan</span></div>
+        <div class="trust-item"><strong>8.400+</strong><span>Başarılı kiralama</span></div>
+        <div class="trust-item"><strong>%92</strong><span>Hızlı yanıt</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="ak-container ad-banner" id="topAdBanner">
+  <div>
+    <span>Mağaza Reklam Alanı</span>
+    <h2>Şehrinde üst sıraya çık, daha çok talep al.</h2>
+    <p>Premium paket, şehir vitrini ve sponsorlu mağaza reklamı için hazır alan.</p>
+  </div>
+  <a href="pricing.html">Reklam Paketi Al</a>
+</section>
+
+<main class="ak-container">
+
+  <section class="store-detail" id="storeDetail">
+    <div class="detail-hero">
+      <div class="detail-profile">
+        <div class="detail-logo" id="detailLogo">AK</div>
+        <div>
+          <span class="plan-pill" id="detailPlan">Premium Mağaza</span>
+          <h1 id="detailName">Mağaza Adı</h1>
+          <p id="detailDescription">Mağaza açıklaması</p>
+        </div>
+      </div>
+
+      <div class="detail-stats">
+        <div><strong id="detailRating">4.8</strong><span>Mağaza puanı</span></div>
+        <div><strong id="detailProducts">0</strong><span>Aktif ürün</span></div>
+        <div><strong id="detailRentals">0</strong><span>Kiralama</span></div>
+        <div><strong id="detailResponse">10 dk</strong><span>Yanıt süresi</span></div>
+      </div>
+    </div>
+
+    <div class="detail-actions">
+      <a id="detailWhatsapp" class="whatsapp" href="#" target="_blank" rel="noopener">WhatsApp</a>
+      <a id="detailCall" class="call" href="#">Ara</a>
+      <button id="messageBtn" type="button">Satıcıya Sor</button>
+      <button id="followBtn" type="button">Mağazayı Takip Et</button>
+      <a class="yellow" href="#storeProducts">Ürünleri Gör</a>
+    </div>
+
+    <div class="detail-info-grid">
+      <div class="info-card">
+        <h2>Mağaza Hakkında</h2>
+        <p id="aboutText"></p>
+      </div>
+
+      <div class="info-card">
+        <h2>Güven Bilgileri</h2>
+        <div class="badge-list" id="detailBadges"></div>
+      </div>
+
+      <div class="info-card">
+        <h2>Konum</h2>
+        <p id="locationText"></p>
+        <div class="map-box">Harita Alanı</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="filter-shell" id="listFilters">
+    <div class="filter-toggle-row">
+      <div>
+        <h2>Mağazaları Filtrele</h2>
+        <p>Ürün, şehir, kategori, paket ve puana göre doğru mağazayı bul.</p>
+      </div>
+      <button class="filter-toggle" id="toggleStoreFilter" type="button">Filtreleri Aç</button>
+    </div>
+
+    <section class="filter-card" id="storeFilterCard">
+      <div class="filter-top">
+        <input id="productSearch" type="text" placeholder="Ne arıyorsun? Kamera, drone, gelinlik, matkap...">
+        <select id="cityFilter">
+          <option value="all">Tüm Şehirler</option>
+          <option value="İstanbul">İstanbul</option>
+          <option value="Ankara">Ankara</option>
+          <option value="İzmir">İzmir</option>
+          <option value="Antalya">Antalya</option>
+          <option value="Trabzon">Trabzon</option>
+        </select>
+        <select id="categoryFilter">
+          <option value="all">Tüm Kategoriler</option>
+          <option value="Kamera">Kamera</option>
+          <option value="Etkinlik">Etkinlik</option>
+          <option value="Drone">Drone</option>
+          <option value="Özel Gün">Özel Gün</option>
+          <option value="Yapı & Tamir">Yapı & Tamir</option>
+        </select>
+        <select id="planFilter">
+          <option value="all">Tüm Paketler</option>
+          <option value="Standart">Standart</option>
+          <option value="Plus">Plus</option>
+          <option value="Premium">Premium</option>
+        </select>
+      </div>
+
+      <div class="filter-bottom">
+        <select id="ratingFilter">
+          <option value="all">Tüm Puanlar</option>
+          <option value="4">4+ Puan</option>
+          <option value="4.5">4.5+ Puan</option>
+          <option value="4.8">4.8+ Puan</option>
+        </select>
+        <select id="sortFilter">
+          <option value="recommended">Önerilen</option>
+          <option value="rating">Puana göre</option>
+          <option value="reviews">Yorum sayısına göre</option>
+          <option value="distance">Yakınlığa göre</option>
+          <option value="products">İlan sayısına göre</option>
+        </select>
+        <button class="yellow-btn" id="locationBtn" type="button">Konumumu Kullan</button>
+        <button class="dark-btn" id="clearBtn" type="button">Temizle</button>
+        <button class="dark-btn" id="applyBtn" type="button">Filtrele</button>
+      </div>
+
+      <div class="quick-row">
+        <button class="chip active" data-category="all" type="button">Tümü</button>
+        <button class="chip" data-category="Kamera" type="button">Kamera</button>
+        <button class="chip" data-category="Drone" type="button">Drone</button>
+        <button class="chip" data-category="Etkinlik" type="button">Etkinlik</button>
+        <button class="chip" data-category="Özel Gün" type="button">Özel Gün</button>
+        <button class="chip" data-category="Yapı & Tamir" type="button">Yapı & Tamir</button>
+      </div>
+    </section>
+  </section>
+
+  <section class="map-section" id="mapSection">
+    <div class="map-card">
+      <div class="map-head">
+        <div>
+          <h2>Türkiye haritasından mağaza bul</h2>
+          <p>Şehir seç, pinlere tıkla, mağazaya veya ürünlerine direkt git.</p>
+        </div>
+        <button id="openMapBtn" type="button">Haritayı Büyüt</button>
+      </div>
+
+      <div class="turkey-map" id="mapArea">
+        <div class="turkey-shape"></div>
+      </div>
+    </div>
+
+    <aside class="near-card">
+      <h3>Yakınındaki mağazalar</h3>
+      <div class="near-list" id="nearList"></div>
+    </aside>
+  </section>
+
+  <section class="view-row" id="storeViewRow">
+    <div>
+      <h2>Tüm mağazalar</h2>
+      <p id="resultText">0 mağaza listeleniyor.</p>
+    </div>
+
+    <div class="view-switch">
+      <button class="active" data-view="card" type="button">Kart</button>
+      <button data-view="folder" type="button">Klasör</button>
+      <button data-view="logo" type="button">Logo</button>
+    </div>
+  </section>
+
+  <section class="store-grid" id="storeGrid"></section>
+  <div class="pagination" id="pagination"></div>
+
+  <section class="empty" id="emptyState">
+    <h2>Sonuç bulunamadı</h2>
+    <p>Filtreleri değiştirerek tekrar deneyebilirsin.</p>
+  </section>
+
+  <section class="product-toolbar" id="storeProducts" style="display:none">
+    <div>
+      <h2>Mağazanın Ürünleri</h2>
+      <p id="productResultText">0 ürün listeleniyor.</p>
+    </div>
+    <button id="productFilterToggle" type="button">Ürün Filtresi</button>
+  </section>
+
+  <section class="product-layout filters-hidden" id="productLayout" style="display:none">
+    <aside class="product-filter">
+      <div class="filter-head">
+        <h3>Ürün Filtresi</h3>
+        <button id="closeProductFilter" type="button">×</button>
+      </div>
+
+      <input id="detailProductSearch" type="text" placeholder="Ürün ara">
+
+      <select id="detailCategoryFilter">
+        <option value="all">Tüm Kategoriler</option>
+        <option value="kamera">Kamera</option>
+        <option value="drone">Drone</option>
+        <option value="etkinlik">Etkinlik</option>
+        <option value="moda">Özel Gün</option>
+        <option value="tamir">Yapı & Tamir</option>
+      </select>
+
+      <select id="availableFilter">
+        <option value="all">Tüm ürünler</option>
+        <option value="available">Bugün müsait</option>
+        <option value="unavailable">Müsaitlik sor</option>
+      </select>
+
+      <div class="price-row">
+        <input id="minPrice" type="number" placeholder="Min ₺">
+        <input id="maxPrice" type="number" placeholder="Max ₺">
+      </div>
+
+      <select id="productSortFilter">
+        <option value="recommended">Önerilen</option>
+        <option value="low">Ucuzdan pahalıya</option>
+        <option value="high">Pahalıdan ucuza</option>
+        <option value="popular">Popüler</option>
+      </select>
+
+      <button class="filter-apply" id="applyProductFilter" type="button">Uygula</button>
+      <button class="filter-clear" id="clearProductFilter" type="button">Temizle</button>
+    </aside>
+
+    <section>
+      <div class="product-grid" id="productGrid"></div>
+      <div class="pagination" id="productPagination"></div>
+    </section>
+  </section>
+
+  <section class="bottom-banner">
+    <div>
+      <h2>Mağazanı haritada ve üst sırada göster.</h2>
+      <p>Premium paket, şehir vitrini, sponsorlu pin ve çerçeveli mağaza alanları için paket seç.</p>
+    </div>
+    <a href="pricing.html">Paketleri İncele</a>
+  </section>
+
+</main>
+
+<footer class="footer">
+  <div class="ak-container footer-grid">
+    <div>
+      <h2>Alma Kirala</h2>
+      <p>Güvenilir mağazalar ve kiralık ürünleri tek yerde buluşturan platform.</p>
+    </div>
+    <div>
+      <h4>Müşteri</h4>
+      <a href="listing.html">Ürün keşfet</a>
+      <a href="stores.html">Mağazalar</a>
+      <a href="login.html">Giriş yap</a>
+    </div>
+    <div>
+      <h4>Mağaza</h4>
+      <a href="seller-login.html">Mağaza aç</a>
+      <a href="pricing.html">Reklam paketleri</a>
+      <a href="help.html">Yardım</a>
+    </div>
+    <div>
+      <h4>Destek</h4>
+      <a href="help.html">Yardım merkezi</a>
+      <a href="how-it-works.html">Nasıl çalışır</a>
+    </div>
+  </div>
+</footer>
+
+<div class="map-modal" id="mapModal">
+  <div class="modal-box">
+    <div class="modal-head">
+      <h2>Alma Kirala Türkiye Mağaza Haritası</h2>
+      <button class="close-map" id="closeMapBtn" type="button">×</button>
+    </div>
+    <div class="turkey-map modal-map" id="modalMapArea">
+      <div class="turkey-shape"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+const API_BASE = localStorage.getItem("AK_API_BASE") || "http://localhost:5000";
+const STORE_ENDPOINT = `${API_BASE}/api/stores`;
+const PRODUCTS_ENDPOINT = `${API_BASE}/api/products`;
+const MESSAGE_ENDPOINT = `${API_BASE}/api/messages`;
+
+const urlParams = new URLSearchParams(location.search);
+const selectedStoreId = urlParams.get("id") || urlParams.get("storeId") || "";
+
+const cityPositions = {
+  "İstanbul": {x:20,y:43},
+  "Ankara": {x:46,y:48},
+  "İzmir": {x:18,y:61},
+  "Antalya": {x:37,y:75},
+  "Trabzon": {x:76,y:38}
+};
+
+const demoStores = [
+  {id:1,name:"Kamera Dünyam",logo:"KD",city:"İstanbul",district:"Kadıköy",category:"Kamera",productsText:"kamera lens ışık seti sony canon",rating:4.9,reviews:312,plan:"Plus",products:86,rentals:1240,response:"8 dk",distance:2.1,verified:true,fast:true,badge:"Belgeli Satıcı",cover:"kamera",phone:"+905551112233",whatsapp:"+905551112233",description:"Kamera, lens, ışık seti ve profesyonel çekim ekipmanları kiralayan doğrulanmış mağaza. Hızlı yanıt, temiz ürün ve güvenilir teslimat anlayışıyla çalışır.",badges:["Doğrulanmış Mağaza","Hızlı Yanıt","Belgeli Satıcı","Premium Hizmet"]},
+  {id:2,name:"Event Pro",logo:"EP",city:"Antalya",district:"Muratpaşa",category:"Etkinlik",productsText:"ses sistemi ışık masa sandalye organizasyon",rating:4.8,reviews:240,plan:"Premium",products:64,rentals:890,response:"12 dk",distance:5.4,verified:true,fast:true,badge:"Kurumsal Mağaza",cover:"event",phone:"+905552223344",whatsapp:"+905552223344",description:"Etkinlik, ses, ışık ve organizasyon ürünlerinde güçlü kiralama mağazası.",badges:["Kurumsal Mağaza","Premium","Hızlı Yanıt"]},
+  {id:3,name:"Moda Vitrini",logo:"MV",city:"İzmir",district:"Konak",category:"Özel Gün",productsText:"gelinlik nişan elbisesi takım aksesuar",rating:4.7,reviews:155,plan:"Standart",products:42,rentals:510,response:"25 dk",distance:7.8,verified:true,fast:false,badge:"Popüler",cover:"fashion",phone:"+905553334455",whatsapp:"+905553334455",description:"Özel günler için gelinlik, nişan elbisesi ve aksesuar kiralama mağazası.",badges:["Doğrulanmış","Popüler"]},
+  {id:4,name:"Drone Market",logo:"DM",city:"Ankara",district:"Çankaya",category:"Drone",productsText:"drone dji kamera havadan çekim",rating:4.9,reviews:288,plan:"Premium",products:38,rentals:760,response:"6 dk",distance:3.6,verified:true,fast:true,badge:"Hızlı Yanıt",cover:"drone",phone:"+905554445566",whatsapp:"+905554445566",description:"Drone ve havadan çekim ekipmanlarında uzman kiralama mağazası.",badges:["Belgeli","Hızlı Yanıt","Premium"]},
+  {id:5,name:"Trabzon Teknik",logo:"TT",city:"Trabzon",district:"Ortahisar",category:"Yapı & Tamir",productsText:"matkap temizlik makinesi bahçe el aleti",rating:4.6,reviews:98,plan:"Plus",products:57,rentals:430,response:"18 dk",distance:1.2,verified:false,fast:true,badge:"Uygun Fiyat",cover:"tools",phone:"+905555556677",whatsapp:"+905555556677",description:"Yapı, tamir, bahçe ve teknik ekipman kiralamada uygun fiyatlı mağaza.",badges:["Uygun Fiyat","Hızlı Yanıt"]},
+  {id:6,name:"Organizasyon Plus",logo:"OP",city:"İstanbul",district:"Şişli",category:"Etkinlik",productsText:"sahne ses ışık çadır stand",rating:4.8,reviews:201,plan:"Premium",products:91,rentals:1320,response:"10 dk",distance:4.2,verified:true,fast:true,badge:"Çok Satan",cover:"event",phone:"+905556667788",whatsapp:"+905556667788",description:"Sahne, ses, ışık ve etkinlik organizasyonu için güçlü mağaza.",badges:["Çok Satan","Kurumsal","Premium"]},
+  {id:7,name:"Lens Kirala",logo:"LK",city:"İstanbul",district:"Beşiktaş",category:"Kamera",productsText:"lens kamera canon sony gimbal",rating:4.5,reviews:77,plan:"Standart",products:24,rentals:210,response:"30 dk",distance:6.1,verified:true,fast:false,badge:"Yeni",cover:"kamera",phone:"+905557778899",whatsapp:"+905557778899",description:"Kamera, lens ve gimbal kiralama mağazası.",badges:["Yeni","Doğrulanmış"]},
+  {id:8,name:"Ankara Sahne",logo:"AS",city:"Ankara",district:"Çankaya",category:"Etkinlik",productsText:"sahne ses ışık organizasyon",rating:4.7,reviews:134,plan:"Plus",products:49,rentals:540,response:"15 dk",distance:8.6,verified:true,fast:true,badge:"Sahne",cover:"event",phone:"+905558889900",whatsapp:"+905558889900",description:"Ankara’da sahne ve etkinlik ekipmanları kiralama mağazası.",badges:["Sahne","Hızlı Yanıt"]}
+];
+
+const demoProducts = [
+  {id:1,storeId:1,title:"Sony A7 IV Kamera Seti",category:"kamera",city:"İstanbul",district:"Kadıköy",price:450,available:true,popular:true,icon:"📷"},
+  {id:2,storeId:1,title:"Canon EOS R6 Profesyonel",category:"kamera",city:"İstanbul",district:"Kadıköy",price:600,available:true,popular:true,icon:"📷"},
+  {id:3,storeId:1,title:"Işık Seti Kiralama",category:"kamera",city:"İstanbul",district:"Kadıköy",price:220,available:true,popular:false,icon:"💡"},
+  {id:4,storeId:1,title:"Gimbal Stabilizer",category:"kamera",city:"İstanbul",district:"Kadıköy",price:180,available:false,popular:false,icon:"🎥"},
+  {id:5,storeId:2,title:"Etkinlik Ses Sistemi",category:"etkinlik",city:"Antalya",district:"Muratpaşa",price:650,available:true,popular:true,icon:"🎉"},
+  {id:6,storeId:4,title:"DJI Mini 4 Pro Drone",category:"drone",city:"Ankara",district:"Çankaya",price:750,available:false,popular:true,icon:"🚁"},
+  {id:7,storeId:5,title:"Profesyonel Matkap Seti",category:"tamir",city:"Trabzon",district:"Ortahisar",price:180,available:true,popular:false,icon:"🛠️"},
+  {id:8,storeId:3,title:"Premium Gelinlik Kiralama",category:"moda",city:"İzmir",district:"Konak",price:900,available:true,popular:true,icon:"👗"}
+];
+
+let stores = [];
+let products = [];
+let activeStore = null;
+let currentPage = 1;
+let productPage = 1;
+const storePageSize = 6;
+const productPageSize = 12;
+let currentList = [];
+let currentView = "card";
+let userCity = "";
+
+const grid = document.getElementById("storeGrid");
+const resultText = document.getElementById("resultText");
+const emptyState = document.getElementById("emptyState");
+const nearList = document.getElementById("nearList");
+const mapArea = document.getElementById("mapArea");
+const modalMapArea = document.getElementById("modalMapArea");
+
+function safeText(value){
+  return String(value ?? "").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m]));
+}
+function money(value){return "₺" + Number(value || 0).toLocaleString("tr-TR")}
+
+function normalizeStore(s){
+  return {
+    id:s.id || s._id,
+    name:s.name || "Mağaza",
+    logo:s.logoText || s.logo || (s.name || "AK").slice(0,2).toUpperCase(),
+    city:s.city || "Türkiye",
+    district:s.district || "",
+    category:s.category || "Kiralama",
+    productsText:s.productsText || s.description || "",
+    rating:Number(s.rating || s.averageRating || 4.8),
+    reviews:Number(s.reviews || s.reviewCount || 0),
+    plan:s.plan || s.packageName || "Standart",
+    products:Number(s.products || s.productCount || 0),
+    rentals:Number(s.rentals || s.rentalCount || 0),
+    response:s.response || s.responseTime || "10 dk",
+    distance:Number(s.distance || 5),
+    verified:s.verified ?? true,
+    fast:s.fast ?? true,
+    badge:s.badge || "Güvenilir Mağaza",
+    cover:s.cover || "kamera",
+    phone:s.phone || "",
+    whatsapp:s.whatsapp || s.phone || "",
+    description:s.description || "Bu mağaza Alma Kirala üzerinde ürünlerini kiraya veren güvenilir bir mağazadır.",
+    badges:s.badges || ["Doğrulanmış Mağaza","Hızlı Yanıt"]
+  };
+}
+function normalizeProduct(p){
+  return {
+    id:p.id || p._id,
+    storeId:p.storeId || p.store?.id || p.store?._id,
+    title:p.title || p.name || "Kiralık Ürün",
+    category:(p.category || "genel").toLowerCase(),
+    city:p.city || p.store?.city || "",
+    district:p.district || p.store?.district || "",
+    price:Number(p.price || p.dailyPrice || p.rentPrice || 0),
+    available:p.available ?? p.isAvailable ?? true,
+    popular:p.popular ?? p.isPopular ?? false,
+    icon:p.icon || "📦",
+    image:p.image || p.imageUrl || p.coverImage || p.images?.[0]?.url || p.images?.[0] || ""
+  };
+}
+async function loadStores(){
+  try{
+    const res = await fetch(STORE_ENDPOINT);
+    if(!res.ok) throw new Error("stores endpoint error");
+    const data = await res.json();
+    const raw = data.stores || data.items || data.data || data.results || data;
+    stores = Array.isArray(raw) && raw.length ? raw.map(normalizeStore) : demoStores;
+  }catch(err){stores = demoStores}
+  document.getElementById("trustStores").textContent = stores.length + "+";
+}
+async function loadProducts(storeId=""){
+  try{
+    const url = storeId ? `${PRODUCTS_ENDPOINT}?storeId=${encodeURIComponent(storeId)}` : PRODUCTS_ENDPOINT;
+    const res = await fetch(url);
+    if(!res.ok) throw new Error("products endpoint error");
+    const data = await res.json();
+    const raw = data.products || data.items || data.data || data.results || data;
+    products = Array.isArray(raw) && raw.length ? raw.map(normalizeProduct) : demoProducts;
+  }catch(err){products = demoProducts}
+}
+function storeCard(store){
+  return `
+    <article class="store-card ${store.plan === "Premium" ? "premium" : ""}">
+      <div class="store-cover ${safeText(store.cover)}">
+        <span class="store-plan">${safeText(store.plan)}</span>
+        <button class="store-fav" type="button" aria-label="Favoriye ekle">♡</button>
+        <div class="store-logo">${safeText(store.logo)}</div>
+      </div>
+      <div class="store-body">
+        <h3>${safeText(store.name)}</h3>
+        <div class="store-meta">${safeText(store.city)} ${store.district ? "/ " + safeText(store.district) : ""} • ${safeText(store.category)} • <span class="rating">★ ${store.rating}</span><br>${store.reviews} yorum • ${store.distance} km yakında</div>
+        <div class="badges">${store.verified ? `<span class="badge">Doğrulanmış</span>` : ""}${store.fast ? `<span class="badge">Hızlı Yanıt</span>` : ""}<span class="badge">${safeText(store.badge)}</span></div>
+        <div class="store-stats">
+          <div><strong>${store.products}</strong><span>İlan</span></div>
+          <div><strong>${store.rentals}</strong><span>Kiralama</span></div>
+          <div><strong>${store.reviews}</strong><span>Yorum</span></div>
+          <div><strong>${safeText(store.response)}</strong><span>Yanıt</span></div>
+        </div>
+        <div class="store-actions">
+          <a class="yellow" href="stores.html?id=${encodeURIComponent(store.id)}">Mağazaya Git</a>
+          <a href="stores.html?id=${encodeURIComponent(store.id)}#storeProducts">Ürünlerini Gör</a>
+        </div>
+      </div>
+    </article>
+  `;
+}
+function folderCard(store){
+  return `<article class="folder-card"><div class="folder-tab">${safeText(store.logo)}</div><h3>${safeText(store.name)}</h3><p>${safeText(store.city)} • ${safeText(store.category)}<br>★ ${store.rating} • ${store.products} ilan</p><a href="stores.html?id=${encodeURIComponent(store.id)}">Aç</a></article>`;
+}
+function logoCard(store){
+  return `<article class="logo-card"><div class="big-logo">${safeText(store.logo)}</div><h3>${safeText(store.name)}</h3><span>${safeText(store.city)} • ★ ${store.rating}</span></article>`;
+}
+function renderStores(list){
+  currentList = list;
+  grid.innerHTML = "";
+  grid.className = "store-grid";
+  if(currentView === "folder") grid.classList.add("folder-view");
+  if(currentView === "logo") grid.classList.add("logo-view");
+
+  if(list.length === 0){
+    emptyState.classList.add("show");
+    resultText.textContent = "0 mağaza listeleniyor.";
+    document.getElementById("pagination").innerHTML = "";
+    return;
+  }
+  emptyState.classList.remove("show");
+  resultText.textContent = `${list.length} mağaza listeleniyor.`;
+
+  const start = (currentPage - 1) * storePageSize;
+  const pageItems = list.slice(start, start + storePageSize);
+  if(currentView === "card") grid.innerHTML = pageItems.map(storeCard).join("");
+  if(currentView === "folder") grid.innerHTML = pageItems.map(folderCard).join("");
+  if(currentView === "logo") grid.innerHTML = pageItems.map(logoCard).join("");
+
+  document.querySelectorAll(".store-fav").forEach(btn=>{
+    btn.addEventListener("click",()=>{
+      btn.classList.toggle("active");
+      btn.textContent = btn.classList.contains("active") ? "♥" : "♡";
+    });
+  });
+  renderStorePagination(list.length);
+}
+function sortStores(list){
+  const arr = [...list];
+  const rank = {Premium:3, Plus:2, Standart:1};
+  const sortFilter = document.getElementById("sortFilter").value;
+  if(sortFilter === "rating") arr.sort((a,b)=>b.rating-a.rating);
+  if(sortFilter === "reviews") arr.sort((a,b)=>b.reviews-a.reviews);
+  if(sortFilter === "distance") arr.sort((a,b)=>a.distance-b.distance);
+  if(sortFilter === "products") arr.sort((a,b)=>b.products-a.products);
+  if(sortFilter === "recommended") arr.sort((a,b)=>(rank[b.plan]-rank[a.plan]) || b.rating-a.rating);
+  return arr;
+}
+function filterStores(){
+  const q = document.getElementById("searchInput").value.trim().toLowerCase();
+  const productQ = document.getElementById("productSearch").value.trim().toLowerCase();
+  const city = document.getElementById("cityFilter").value;
+  const category = document.getElementById("categoryFilter").value;
+  const plan = document.getElementById("planFilter").value;
+  const rating = document.getElementById("ratingFilter").value;
+
+  let filtered = stores.filter(store=>{
+    const searchMatch = store.name.toLowerCase().includes(q) || store.city.toLowerCase().includes(q) || store.category.toLowerCase().includes(q) || store.badge.toLowerCase().includes(q);
+    const productMatch = productQ === "" || store.productsText.toLowerCase().includes(productQ) || store.category.toLowerCase().includes(productQ);
+    const cityMatch = city === "all" || store.city === city;
+    const categoryMatch = category === "all" || store.category === category;
+    const planMatch = plan === "all" || store.plan === plan;
+    const ratingMatch = rating === "all" || store.rating >= Number(rating);
+    return searchMatch && productMatch && cityMatch && categoryMatch && planMatch && ratingMatch;
+  });
+
+  currentPage = 1;
+  const sorted = sortStores(filtered);
+  renderStores(sorted);
+  renderNear(sorted);
+  renderPins(sorted, mapArea);
+  renderPins(sorted, modalMapArea);
+}
+function renderStorePagination(total){
+  const totalPages = Math.ceil(total / storePageSize);
+  const pagination = document.getElementById("pagination");
+  pagination.innerHTML = "";
+  if(totalPages <= 1) return;
+  for(let i=1;i<=totalPages;i++) pagination.innerHTML += `<button class="${i===currentPage ? "active" : ""}" data-page="${i}">${i}</button>`;
+  pagination.querySelectorAll("button").forEach(btn=>btn.addEventListener("click",()=>{currentPage = Number(btn.dataset.page); renderStores(currentList)}));
+}
+function renderNear(list){
+  const near = [...list].sort((a,b)=>a.distance-b.distance).slice(0,5);
+  nearList.innerHTML = near.map(store=>`
+    <div class="near-item">
+      <div><strong>${safeText(store.name)}</strong><span>${safeText(store.city)} • ${store.distance} km • ★ ${store.rating}</span></div>
+      <a href="stores.html?id=${encodeURIComponent(store.id)}">Git</a>
+    </div>
+  `).join("");
+}
+function addCityLabels(target){
+  target.querySelectorAll(".city-label").forEach(x=>x.remove());
+  Object.entries(cityPositions).forEach(([city,pos])=>{
+    const label = document.createElement("div");
+    label.className = "city-label";
+    label.style.left = pos.x + 1 + "%";
+    label.style.top = pos.y + 8 + "%";
+    label.textContent = city;
+    target.appendChild(label);
+  });
+}
+function renderPins(list,target){
+  target.querySelectorAll(".pin").forEach(pin=>pin.remove());
+  addCityLabels(target);
+  list.forEach((store,index)=>{
+    const pos = cityPositions[store.city] || {x:50,y:50};
+    const offset = (index % 3) * 2.2;
+    const pin = document.createElement("button");
+    pin.className = "pin";
+    pin.style.left = (pos.x + offset) + "%";
+    pin.style.top = (pos.y - offset) + "%";
+    pin.innerHTML = `<span>${safeText(store.logo)}</span>`;
+    pin.title = store.name;
+    pin.addEventListener("click",()=>window.location.href=`stores.html?id=${encodeURIComponent(store.id)}`);
+    target.appendChild(pin);
+  });
+  if(userCity && cityPositions[userCity]){
+    const pos = cityPositions[userCity];
+    const userPin = document.createElement("button");
+    userPin.className = "pin user-pin";
+    userPin.style.left = (pos.x - 4) + "%";
+    userPin.style.top = (pos.y - 8) + "%";
+    userPin.innerHTML = `<span>Sen</span>`;
+    target.appendChild(userPin);
+  }
+}
+function useLocation(){
+  if(!navigator.geolocation){ alert("Tarayıcın konum özelliğini desteklemiyor."); return; }
+  navigator.geolocation.getCurrentPosition(()=>{
+    userCity = "Trabzon";
+    document.getElementById("cityFilter").value = userCity;
+    document.getElementById("sortFilter").value = "distance";
+    filterStores();
+    alert("Konum alındı. Demo sistemde şehir Trabzon olarak eşleştirildi.");
+  },()=>alert("Konum izni verilmedi. Şehir seçerek devam edebilirsin."));
+}
+function setDetailMode(store){
+  activeStore = store;
+  document.getElementById("listHero").style.display = "none";
+  document.getElementById("mapSection").style.display = "none";
+  document.getElementById("storeViewRow").style.display = "none";
+  document.getElementById("storeGrid").style.display = "none";
+  document.getElementById("pagination").style.display = "none";
+  document.getElementById("listFilters").style.display = "none";
+  document.getElementById("storeDetail").classList.add("open");
+  document.getElementById("storeProducts").style.display = "flex";
+  document.getElementById("productLayout").style.display = "grid";
+  document.title = `${store.name} | Alma Kirala`;
+  document.getElementById("detailLogo").textContent = store.logo;
+  document.getElementById("detailPlan").textContent = store.plan + " Mağaza";
+  document.getElementById("detailName").textContent = store.name;
+  document.getElementById("detailDescription").textContent = store.description;
+  document.getElementById("detailRating").textContent = store.rating.toFixed(1);
+  document.getElementById("detailProducts").textContent = store.products;
+  document.getElementById("detailRentals").textContent = store.rentals;
+  document.getElementById("detailResponse").textContent = store.response;
+  document.getElementById("aboutText").textContent = store.description;
+  document.getElementById("locationText").textContent = `${store.name}, ${store.city}${store.district ? " / " + store.district : ""} bölgesinde hizmet verir. Teslimat noktası kiralama sürecinde mağaza tarafından paylaşılır.`;
+  document.getElementById("detailBadges").innerHTML = store.badges.map(b=>`<span>${safeText(b)}</span>`).join("");
+  const wp = store.whatsapp ? `https://wa.me/${store.whatsapp.replace(/\D/g,"")}?text=${encodeURIComponent("Merhaba, mağazanızdaki ürünler hakkında bilgi almak istiyorum.")}` : "#";
+  document.getElementById("detailWhatsapp").href = wp;
+  document.getElementById("detailCall").href = store.phone ? `tel:${store.phone}` : "#";
+  renderProductsForStore();
+}
+function filteredProducts(){
+  const q = document.getElementById("detailProductSearch").value.trim().toLowerCase();
+  const category = document.getElementById("detailCategoryFilter").value;
+  const available = document.getElementById("availableFilter").value;
+  const min = Number(document.getElementById("minPrice").value || 0);
+  const max = Number(document.getElementById("maxPrice").value || 0);
+  const sort = document.getElementById("productSortFilter").value;
+  let list = products.filter(p=>String(p.storeId) === String(activeStore.id));
+  if(q) list = list.filter(p=>`${p.title} ${p.category} ${p.city} ${p.district}`.toLowerCase().includes(q));
+  if(category !== "all") list = list.filter(p=>p.category === category);
+  if(available === "available") list = list.filter(p=>p.available);
+  if(available === "unavailable") list = list.filter(p=>!p.available);
+  if(min) list = list.filter(p=>p.price >= min);
+  if(max) list = list.filter(p=>p.price <= max);
+  if(sort === "low") list.sort((a,b)=>a.price-b.price);
+  if(sort === "high") list.sort((a,b)=>b.price-a.price);
+  if(sort === "popular") list.sort((a,b)=>Number(b.popular)-Number(a.popular));
+  return list;
+}
+function productCard(p){
+  const img = p.image ? `<img src="${safeText(p.image)}" alt="${safeText(p.title)}" loading="lazy">` : safeText(p.icon);
+  return `
+    <a class="product-card" href="product-detail.html?id=${encodeURIComponent(p.id)}">
+      <div class="product-img">${img}</div>
+      <div class="product-body">
+        <h3>${safeText(p.title)}</h3>
+        <div class="product-meta">${safeText(p.city)} ${p.district ? "/ " + safeText(p.district) : ""} • ${p.available ? "Bugün müsait" : "Müsaitlik sor"}</div>
+        <div class="price">${money(p.price)} <span>/ gün</span></div>
+        <div class="product-actions"><span>Detay</span><span class="yellow">Kirala</span></div>
+      </div>
+    </a>
+  `;
+}
+function renderProductsForStore(){
+  const list = filteredProducts();
+  document.getElementById("productResultText").textContent = `${list.length} ürün listeleniyor.`;
+  const totalPages = Math.max(1, Math.ceil(list.length / 12));
+  productPage = Math.min(productPage, totalPages);
+  const start = (productPage - 1) * 12;
+  const pageItems = list.slice(start, start + 12);
+  document.getElementById("productGrid").innerHTML = pageItems.length ? pageItems.map(productCard).join("") : `<div class="info-card"><h2>Ürün bulunamadı</h2><p>Filtreleri temizleyip tekrar deneyebilirsin.</p></div>`;
+  renderProductPagination(totalPages);
+}
+function renderProductPagination(totalPages){
+  const pagination = document.getElementById("productPagination");
+  pagination.innerHTML = "";
+  if(totalPages <= 1) return;
+  for(let i=1;i<=totalPages;i++) pagination.innerHTML += `<button class="${i===productPage ? "active" : ""}" data-page="${i}">${i}</button>`;
+  pagination.querySelectorAll("button").forEach(btn=>btn.addEventListener("click",()=>{productPage = Number(btn.dataset.page); renderProductsForStore()}));
+}
+function clearProductFilter(){
+  document.getElementById("detailProductSearch").value = "";
+  document.getElementById("detailCategoryFilter").value = "all";
+  document.getElementById("availableFilter").value = "all";
+  document.getElementById("minPrice").value = "";
+  document.getElementById("maxPrice").value = "";
+  document.getElementById("productSortFilter").value = "recommended";
+  productPage = 1;
+  renderProductsForStore();
+}
+function bindEvents(){
+  document.getElementById("toggleStoreFilter").addEventListener("click",()=>{
+    const card = document.getElementById("storeFilterCard");
+    card.classList.toggle("open");
+    document.getElementById("toggleStoreFilter").textContent = card.classList.contains("open") ? "Filtreleri Kapat" : "Filtreleri Aç";
+  });
+  document.getElementById("searchBtn").addEventListener("click",filterStores);
+  document.getElementById("applyBtn").addEventListener("click",filterStores);
+  document.getElementById("locationBtn").addEventListener("click",useLocation);
+  ["searchInput","productSearch"].forEach(id=>document.getElementById(id).addEventListener("input",filterStores));
+  ["cityFilter","categoryFilter","planFilter","ratingFilter","sortFilter"].forEach(id=>document.getElementById(id).addEventListener("change",filterStores));
+  document.getElementById("clearBtn").addEventListener("click",()=>{
+    document.getElementById("searchInput").value="";
+    document.getElementById("productSearch").value="";
+    document.getElementById("cityFilter").value="all";
+    document.getElementById("categoryFilter").value="all";
+    document.getElementById("planFilter").value="all";
+    document.getElementById("ratingFilter").value="all";
+    document.getElementById("sortFilter").value="recommended";
+    userCity="";
+    document.querySelectorAll(".chip").forEach(c=>c.classList.remove("active"));
+    document.querySelector('.chip[data-category="all"]').classList.add("active");
+    filterStores();
+  });
+  document.querySelectorAll(".chip").forEach(chip=>chip.addEventListener("click",()=>{
+    document.querySelectorAll(".chip").forEach(c=>c.classList.remove("active"));
+    chip.classList.add("active");
+    document.getElementById("categoryFilter").value = chip.dataset.category;
+    filterStores();
+  }));
+  document.querySelectorAll(".view-switch button").forEach(btn=>btn.addEventListener("click",()=>{
+    document.querySelectorAll(".view-switch button").forEach(b=>b.classList.remove("active"));
+    btn.classList.add("active");
+    currentView = btn.dataset.view;
+    renderStores(currentList);
+  }));
+  document.getElementById("openMapBtn").addEventListener("click",()=>{document.getElementById("mapModal").classList.add("show"); renderPins(currentList,modalMapArea)});
+  document.getElementById("closeMapBtn").addEventListener("click",()=>document.getElementById("mapModal").classList.remove("show"));
+  document.getElementById("mapModal").addEventListener("click",(e)=>{if(e.target.id === "mapModal") document.getElementById("mapModal").classList.remove("show")});
+  document.getElementById("topSearchBtn").addEventListener("click",()=>{
+    const q = document.getElementById("topSearch").value.trim();
+    window.location.href = "listing.html" + (q ? `?q=${encodeURIComponent(q)}` : "");
+  });
+  document.getElementById("productFilterToggle").addEventListener("click",()=>document.getElementById("productLayout").classList.toggle("filters-hidden"));
+  document.getElementById("closeProductFilter").addEventListener("click",()=>document.getElementById("productLayout").classList.add("filters-hidden"));
+  document.getElementById("applyProductFilter").addEventListener("click",()=>{productPage = 1; renderProductsForStore()});
+  document.getElementById("clearProductFilter").addEventListener("click",clearProductFilter);
+  ["detailProductSearch","detailCategoryFilter","availableFilter","minPrice","maxPrice","productSortFilter"].forEach(id=>document.getElementById(id).addEventListener("change",()=>{productPage=1; renderProductsForStore()}));
+  document.getElementById("messageBtn").addEventListener("click",async()=>{
+    const token = localStorage.getItem("token");
+    if(!token){window.location.href = `login.html?redirect=${encodeURIComponent(location.pathname + location.search)}`; return}
+    try{
+      await fetch(MESSAGE_ENDPOINT,{method:"POST",headers:{"Content-Type":"application/json","Authorization":`Bearer ${token}`},body:JSON.stringify({storeId:activeStore.id,message:`Merhaba, ${activeStore.name} mağazanızdaki ürünler hakkında bilgi almak istiyorum.`})});
+      alert("Mesaj mağazaya gönderildi.");
+    }catch{alert("Mesaj gönderilemedi. Backend message endpointini kontrol edelim.")}
+  });
+  document.getElementById("followBtn").addEventListener("click",()=>{
+    const btn = document.getElementById("followBtn");
+    btn.textContent = btn.textContent.includes("Takip") ? "Takip Ediliyor" : "Mağazayı Takip Et";
+  });
+}
+(async function init(){
+  bindEvents();
+  await loadStores();
+  await loadProducts(selectedStoreId);
+  if(selectedStoreId){
+    const selected = stores.find(s=>String(s.id) === String(selectedStoreId)) || demoStores.find(s=>String(s.id) === String(selectedStoreId)) || stores[0];
+    setDetailMode(selected);
+  }else{
+    filterStores();
+  }
+})();
+</script>
+
+</body>
+</html>

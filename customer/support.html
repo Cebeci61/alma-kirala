@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Destek | Alma Kirala</title>
+  <style>
+    :root{--navy:#06122b;--navy2:#0d2554;--yellow:#ffcc00;--bg:#f3f6fb;--card:#fff;--text:#07142f;--muted:#64748b;--line:#e5eaf2;--green:#16a34a;--red:#dc2626;--blue:#2563eb;--shadow:0 20px 55px rgba(7,20,47,.10);--r:26px}
+    *{box-sizing:border-box}body{margin:0;font-family:Inter,Arial,sans-serif;background:radial-gradient(circle at top right,#fff3b5 0,#f3f6fb 35%,#eef3fb 100%);color:var(--text)}a{text-decoration:none;color:inherit}button,input,select,textarea{font-family:inherit}button{cursor:pointer}.app{display:grid;grid-template-columns:292px 1fr;min-height:100vh}.side{position:sticky;top:0;height:100vh;background:linear-gradient(180deg,#06122b,#091a3d);color:#fff;padding:24px 20px;display:flex;flex-direction:column;gap:18px;z-index:10}.logo{display:flex;align-items:center;gap:12px;font-size:27px;font-weight:1000;line-height:1.05}.mark{width:54px;height:54px;border-radius:18px;background:var(--yellow);color:var(--navy);display:grid;place-items:center;font-weight:1000}.rolelabel{font-size:12px;font-weight:1000;color:#9fb2d4;letter-spacing:.08em;text-transform:uppercase}.snav{display:grid;gap:7px;overflow:auto;padding-right:4px}.snav a{color:#dbe7ff;border-radius:16px;padding:13px 14px;font-weight:900;font-size:14px;display:flex;align-items:center;justify-content:space-between}.snav a:hover,.snav .act{background:var(--yellow);color:var(--navy)}.main{padding:26px 34px 46px;min-width:0}.topbar{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:20px}.search{flex:1;max-width:720px;background:rgba(255,255,255,.9);border:1px solid var(--line);border-radius:22px;padding:13px 16px;display:flex;gap:12px;box-shadow:0 12px 35px rgba(7,20,47,.05)}.search input{border:0;outline:0;background:transparent;width:100%;font-weight:800}.mini-user{background:#fff;border:1px solid var(--line);border-radius:18px;padding:8px 12px;display:flex;align-items:center;gap:10px;box-shadow:0 12px 35px rgba(7,20,47,.05)}.avatar{width:38px;height:38px;border-radius:14px;background:var(--navy);color:var(--yellow);display:grid;place-items:center;font-weight:1000}.hero{background:linear-gradient(135deg,#07142f 0,#12306a 58%,#ffcc00 59%,#ffe27a 100%);border-radius:34px;padding:30px;color:#fff;display:grid;grid-template-columns:1.1fr .9fr;gap:20px;box-shadow:var(--shadow);overflow:hidden}.hero h1{margin:0;font-size:38px;letter-spacing:-.04em}.hero p{margin:10px 0 0;color:#dce8ff;line-height:1.6;max-width:720px}.hero-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px}.btn{border:0;border-radius:16px;padding:13px 17px;font-weight:1000;display:inline-flex;align-items:center;justify-content:center;gap:8px}.btn.y{background:var(--yellow);color:var(--navy)}.btn.dark{background:var(--navy);color:#fff}.btn.light{background:rgba(255,255,255,.15);color:#fff;border:1px solid rgba(255,255,255,.18)}.support-box{background:rgba(255,255,255,.94);color:var(--text);border-radius:26px;padding:20px;align-self:end}.support-box b{display:block;font-size:34px}.support-box span{color:var(--muted);font-weight:800}.progress{height:10px;background:#e9eef7;border-radius:999px;overflow:hidden;margin-top:14px}.progress i{display:block;height:100%;width:82%;background:linear-gradient(90deg,var(--yellow),var(--green))}.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin:22px 0}.stat{background:rgba(255,255,255,.94);border:1px solid var(--line);border-radius:24px;padding:18px;box-shadow:0 14px 35px rgba(7,20,47,.06)}.stat span{color:var(--muted);font-size:13px;font-weight:900}.stat strong{display:block;font-size:31px;margin-top:8px}.stat em{font-style:normal;color:var(--green);font-size:12px;font-weight:900}.layout{display:grid;grid-template-columns:minmax(0,1fr) 390px;gap:22px}.card{background:rgba(255,255,255,.94);border:1px solid var(--line);border-radius:var(--r);padding:22px;box-shadow:0 16px 42px rgba(7,20,47,.07);backdrop-filter:blur(10px)}.head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:16px}.head h2{margin:0;font-size:23px}.quick-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.quick-card{border:1px solid var(--line);background:linear-gradient(180deg,#fff,#fbfdff);border-radius:22px;padding:18px;transition:.2s}.quick-card:hover{transform:translateY(-3px);box-shadow:0 18px 40px rgba(7,20,47,.09)}.quick-card .ico{width:48px;height:48px;border-radius:16px;background:#fff3be;display:grid;place-items:center;font-size:24px;margin-bottom:12px}.quick-card b{display:block;font-size:17px;margin-bottom:7px}.quick-card span{display:block;color:var(--muted);font-size:13px;line-height:1.5}.faq{display:grid;gap:10px}.faq-item{border:1px solid var(--line);border-radius:18px;background:#fbfdff;overflow:hidden}.faq-q{padding:15px 16px;font-weight:1000;display:flex;justify-content:space-between;gap:12px;align-items:center;cursor:pointer}.faq-a{display:none;padding:0 16px 15px;color:var(--muted);font-size:14px;line-height:1.65}.faq-item.open .faq-a{display:block}.form{display:grid;gap:12px}.form input,.form select,.form textarea{border:1px solid var(--line);border-radius:16px;padding:14px;outline:0;background:#fff;font-weight:800}.form textarea{min-height:120px;resize:vertical}.ticket{border:1px solid var(--line);background:#fbfdff;border-radius:18px;padding:14px;margin-bottom:10px}.ticket b{display:block;margin-bottom:5px}.ticket span{font-size:13px;color:var(--muted);line-height:1.5}.badge{display:inline-flex;border-radius:999px;padding:7px 10px;font-size:12px;font-weight:1000;margin-top:8px}.open{background:#dcfce7;color:#166534}.pending{background:#fff7d6;color:#8a5b00}.closed{background:#e2e8f0;color:#334155}.contact{display:grid;gap:10px}.contact a,.contact div{border:1px solid var(--line);background:#fbfdff;border-radius:17px;padding:14px;font-weight:900}.mobile-head,.bottom-nav{display:none}.toast{position:fixed;right:22px;bottom:22px;background:var(--navy);color:#fff;padding:14px 16px;border-radius:18px;font-weight:900;display:none;z-index:120}
+    @media(max-width:1180px){.app{grid-template-columns:88px 1fr}.logo strong,.rolelabel,.snav a span{display:none}.side{padding:20px 12px}.snav a{justify-content:center}.layout{grid-template-columns:1fr}.stats{grid-template-columns:repeat(2,1fr)}.quick-grid{grid-template-columns:repeat(2,1fr)}}
+    @media(max-width:760px){body{padding-bottom:82px}.app{display:block}.side,.topbar{display:none}.mobile-head{display:flex;align-items:center;justify-content:space-between;padding:14px 16px;background:#06122b;color:#fff;position:sticky;top:0;z-index:30}.main{padding:14px}.hero{grid-template-columns:1fr;padding:23px;border-radius:28px}.hero h1{font-size:29px}.stats{grid-template-columns:repeat(2,1fr);gap:12px}.card{padding:18px;border-radius:24px}.quick-grid{grid-template-columns:1fr}.bottom-nav{position:fixed;left:12px;right:12px;bottom:12px;height:64px;background:#06122b;color:#fff;border-radius:24px;display:grid;grid-template-columns:repeat(4,1fr);box-shadow:0 18px 50px rgba(7,20,47,.35);z-index:40;overflow:hidden}.bottom-nav a{display:grid;place-items:center;color:#fff;font-weight:1000}.bottom-nav .act{background:var(--yellow);color:var(--navy)}}
+  </style>
+</head>
+<body>
+<div class="mobile-head"><b>AK Alma Kirala</b><a class="btn y" href="messages.html">Mesaj</a></div>
+<div class="app">
+  <aside class="side">
+    <a class="logo" href="../index.html"><span class="mark">AK</span><strong>Alma<br>Kirala</strong></a>
+    <div class="rolelabel">Müşteri Alanı</div>
+    <nav class="snav">
+      <a href="dashboard.html">🏠 <span>Akıllı Panel</span></a>
+      <a href="rentals-active.html">📦 <span>Kiralamalar</span></a>
+      <a href="requests.html">📝 <span>Talepler</span></a>
+      <a href="messages.html">💬 <span>Mesajlar</span></a>
+      <a href="favorites.html">💛 <span>Favoriler</span></a>
+      <a href="wallet.html">💳 <span>Cüzdan</span></a>
+      <a href="reviews.html">⭐ <span>Yorumlar</span></a>
+      <a href="following-stores.html">🏪 <span>Takip Mağazalar</span></a>
+      <a href="notifications.html">🔔 <span>Bildirimler</span></a>
+      <a href="profile.html">👤 <span>Profil & Güven</span></a>
+      <a href="addresses.html">📍 <span>Adresler</span></a>
+      <a class="act" href="support.html">🛟 <span>Destek</span></a>
+      <a href="../index.html">↩ <span>Ana Site</span></a>
+    </nav>
+  </aside>
+
+  <main class="main">
+    <div class="topbar">
+      <div class="search">🔎 <input id="searchInput" placeholder="Nasıl kiralarım, ödeme, iade, güven, teslimat ara..."></div>
+      <div class="mini-user"><div class="avatar" id="avatar">M</div><div><b id="userName">Müşteri</b><span style="color:#64748b;font-size:12px">Destek merkezi</span></div></div>
+    </div>
+
+    <section class="hero">
+      <div>
+        <h1>Destek Merkezi</h1>
+        <p>Alma Kirala’da nasıl kiralama yapılır, ödeme ve depozito nasıl işler, teslimat ve iade nasıl takip edilir? Tüm yardım, soru-cevap, destek talebi ve iletişim kanalları burada.</p>
+        <div class="hero-actions">
+          <a class="btn y" href="explore.html">Ürün Kiralamaya Başla</a>
+          <a class="btn light" href="messages.html">Mesajlarımı Aç</a>
+          <button class="btn light" id="scrollTicket">Destek Talebi Oluştur</button>
+        </div>
+      </div>
+      <div class="support-box">
+        <span>Ortalama cevap süresi</span>
+        <b>15 dk</b>
+        <span>Öncelikli konular: ödeme, teslimat, güvenlik</span>
+        <div class="progress"><i></i></div>
+      </div>
+    </section>
+
+    <section class="stats">
+      <div class="stat"><span>Açık Destek Talebi</span><strong id="openCount">2</strong><em>takipte</em></div>
+      <div class="stat"><span>Yardım Başlığı</span><strong>24</strong><em>rehber</em></div>
+      <div class="stat"><span>Canlı Destek</span><strong>09-22</strong><em>aktif</em></div>
+      <div class="stat"><span>Güven Rehberi</span><strong>100%</strong><em>kontrol</em></div>
+    </section>
+
+    <section class="layout">
+      <div>
+        <section class="card">
+          <div class="head"><h2>Hızlı Yardım Konuları</h2></div>
+          <div class="quick-grid" id="quickGrid"></div>
+        </section>
+
+        <section class="card" style="margin-top:22px">
+          <div class="head"><h2>Sık Sorulan Sorular</h2><button class="btn y" id="openAllFaq">Hepsini Aç</button></div>
+          <div class="faq" id="faqList"></div>
+        </section>
+
+        <section class="card" id="ticketForm" style="margin-top:22px">
+          <div class="head"><h2>Destek Talebi Oluştur</h2></div>
+          <div class="form">
+            <select id="topic">
+              <option>Ödeme / depozito sorunu</option>
+              <option>Kiralama ve teslimat</option>
+              <option>Mağaza veya ürün şikayeti</option>
+              <option>Hesap ve güvenlik</option>
+              <option>Genel soru</option>
+            </select>
+            <input id="subject" placeholder="Konu başlığı">
+            <textarea id="message" placeholder="Sorunu veya sorunu net şekilde yaz. Örn: Canon kamera teslim saati değişti, mağazaya ulaşamıyorum."></textarea>
+            <button class="btn y" id="sendTicket">Talep Gönder</button>
+          </div>
+        </section>
+      </div>
+
+      <aside>
+        <section class="card">
+          <div class="head"><h2>Destek Taleplerim</h2></div>
+          <div id="ticketList"></div>
+        </section>
+        <section class="card" style="margin-top:22px">
+          <div class="head"><h2>İletişim ve Sosyal Medya</h2></div>
+          <div class="contact">
+            <a href="mailto:destek@almakirala.com">📧 destek@almakirala.com</a>
+            <a href="tel:+905555555555">📞 0555 555 55 55</a>
+            <a href="#">📸 Instagram / almakirala</a>
+            <a href="#">𝕏 X / almakirala</a>
+            <a href="#">💼 LinkedIn / alma-kirala</a>
+            <div>📍 Türkiye geneli kiralama destek ağı</div>
+          </div>
+        </section>
+        <section class="card" style="margin-top:22px">
+          <div class="head"><h2>Güvenli Kullanım</h2></div>
+          <div class="ticket"><b>Ödemeyi platform dışına çıkarma</b><span>Güvenlik ve depozito koruması için ödeme işlemini sistem içinden yap.</span></div>
+          <div class="ticket"><b>Teslim tutanağını kontrol et</b><span>Ürünü teslim alırken fotoğraf, saat ve durum bilgisini kontrol et.</span></div>
+          <div class="ticket"><b>Mağaza puanını incele</b><span>Kiralama öncesi mağaza yorumları ve puanlarına bak.</span></div>
+        </section>
+      </aside>
+    </section>
+  </main>
+</div>
+
+<nav class="bottom-nav">
+  <a href="dashboard.html">Ana</a>
+  <a href="rentals-active.html">Kira</a>
+  <a href="messages.html">Mesaj</a>
+  <a class="act" href="support.html">Destek</a>
+</nav>
+<div class="toast" id="toast"></div>
+
+<script>
+const user=JSON.parse(localStorage.getItem('akUser')||localStorage.getItem('user')||'null')||{name:'Demo Müşteri'};
+document.getElementById('userName').textContent=user.name||'Müşteri';
+document.getElementById('avatar').textContent=(user.name||'M').trim()[0].toUpperCase();
+
+const quick=[
+  ['🛒','Nasıl kiralama yapılır?','Ürün seç, tarih aralığını belirle, talep gönder ve satıcı onayını bekle.'],
+  ['💳','Ödeme ve depozito','Kiralama bedeli ve depozito güvenli şekilde takip edilir.'],
+  ['📦','Teslimat ve iade','Ürünü teslim alma ve iade saatlerini panelden izleyebilirsin.'],
+  ['🏪','Mağazaya nasıl ulaşırım?','Ürün, kiralama veya mesaj sayfasından mağaza profiline gidebilirsin.'],
+  ['🔐','Güven sistemi','Profil, adres, ödeme ve yorum geçmişi güven skorunu güçlendirir.'],
+  ['💬','Satıcıyla mesajlaşma','Her kiralama ve ürün için mağazaya mesaj gönderebilirsin.']
+];
+const faqs=[
+  ['Kiralama nasıl başlar?','Ürün detay sayfasından tarih seçip talep gönderirsin. Satıcı onayladığında kiralaman aktif hale gelir.'],
+  ['Depozito ne zaman iade edilir?','Ürün iade edildikten ve mağaza teslimi onayladıktan sonra depozito cüzdan alanında iade bekleyen tutar olarak görünür.'],
+  ['Satıcı cevap vermezse ne olur?','Taleplerim veya Mesajlar sayfasından tekrar yazabilir, gerekirse destek talebi oluşturabilirsin.'],
+  ['Takip ettiğim mağaza ürün eklerse nasıl haberim olur?','Bildirimler sayfasında kırmızı sayaçla yeni ürün ve mağaza güncellemelerini görürsün.'],
+  ['Ürün tesliminde sorun yaşarsam ne yapmalıyım?','Teslimat detayı, fotoğraf ve mesaj kayıtlarıyla destek talebi oluştur. Yönetim inceleyebilir.'],
+  ['Alma Kirala nasıl çalışır?','Müşteri ürün arar, satıcı ürününü yayınlar, sistem talep, mesaj, ödeme, teslimat ve yorum sürecini tek panelden yürütür.']
+];
+let tickets=JSON.parse(localStorage.getItem('akSupportTickets')||'null')||[
+  {title:'Canon kamera teslim saati',text:'Mağaza ile teslim saatini netleştirmek istiyorum.',status:'Açık',cls:'open'},
+  {title:'Depozito iade süreci',text:'GoPro iadesinden sonra depozito bekleniyor.',status:'İncelemede',cls:'pending'}
+];
+function renderQuick(){document.getElementById('quickGrid').innerHTML=quick.map(q=>`<div class="quick-card"><div class="ico">${q[0]}</div><b>${q[1]}</b><span>${q[2]}</span></div>`).join('')}
+function renderFaq(list=faqs){document.getElementById('faqList').innerHTML=list.map((f,i)=>`<div class="faq-item"><div class="faq-q">${f[0]} <span>+</span></div><div class="faq-a">${f[1]}</div></div>`).join('');document.querySelectorAll('.faq-q').forEach(q=>q.onclick=()=>q.parentElement.classList.toggle('open'))}
+function renderTickets(){document.getElementById('ticketList').innerHTML=tickets.map(t=>`<div class="ticket"><b>${t.title}</b><span>${t.text}</span><br><span class="badge ${t.cls}">${t.status}</span></div>`).join('');document.getElementById('openCount').textContent=tickets.filter(t=>t.cls!=='closed').length}
+function toast(msg){const el=document.getElementById('toast');el.textContent=msg;el.style.display='block';setTimeout(()=>el.style.display='none',2200)}
+document.getElementById('sendTicket').onclick=()=>{const subject=document.getElementById('subject').value.trim();const msg=document.getElementById('message').value.trim();if(!subject||!msg){toast('Konu ve mesaj alanını doldur.');return;}tickets.unshift({title:subject,text:msg,status:'Açık',cls:'open'});localStorage.setItem('akSupportTickets',JSON.stringify(tickets));document.getElementById('subject').value='';document.getElementById('message').value='';renderTickets();toast('Destek talebin oluşturuldu.');};
+document.getElementById('scrollTicket').onclick=()=>document.getElementById('ticketForm').scrollIntoView({behavior:'smooth'});
+document.getElementById('openAllFaq').onclick=()=>document.querySelectorAll('.faq-item').forEach(x=>x.classList.add('open'));
+document.getElementById('searchInput').addEventListener('input',e=>{const q=e.target.value.toLowerCase();renderFaq(faqs.filter(f=>(f[0]+' '+f[1]).toLowerCase().includes(q)));});
+renderQuick();renderFaq();renderTickets();
+</script>
+</body>
+</html>

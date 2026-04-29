@@ -1,0 +1,368 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Ürün Düzenle | Alma Kirala</title>
+<style>
+:root{--dark:#07142f;--yellow:#ffcc00;--orange:#ff9f1c;--bg:#f4f6fb;--line:#e5e7eb;--muted:#64748b;--shadow:0 18px 45px rgba(15,23,42,.10);--shadow2:0 10px 28px rgba(15,23,42,.07)}
+*{box-sizing:border-box}body{margin:0;font-family:Inter,Arial,sans-serif;background:radial-gradient(circle at 100% 0%,rgba(255,204,0,.14),transparent 30%),var(--bg);color:var(--dark)}a{text-decoration:none;color:inherit}button,input,select,textarea{font-family:inherit}button{cursor:pointer}
+.app{display:grid;grid-template-columns:292px minmax(0,1fr);min-height:100vh}
+.side{background:linear-gradient(180deg,#07142f,#081226);color:#fff;padding:18px 14px;position:sticky;top:0;height:100vh;overflow:auto;z-index:80}
+.logo{display:flex;align-items:center;gap:10px;font-size:26px;font-weight:1000;padding:0 6px 16px}.mark{width:42px;height:42px;border-radius:15px;background:linear-gradient(135deg,#ffcc00,#ff9f1c);position:relative;overflow:hidden}.mark:before{content:"";position:absolute;width:18px;height:48px;background:#07142f;transform:rotate(28deg);left:12px;top:2px;border-radius:999px}.mark:after{content:"";position:absolute;width:14px;height:14px;border-radius:50%;background:#fff;right:7px;bottom:7px}
+.rolelabel{color:#cbd5e1;text-transform:uppercase;font-size:12px;font-weight:1000;padding:4px 12px 14px}.store-mini{margin:0 6px 14px;background:rgba(255,255,255,.08);border-radius:22px;padding:12px;display:flex;gap:10px;align-items:center}.store-avatar{width:46px;height:46px;border-radius:16px;background:#ffcc00;color:#07142f;display:grid;place-items:center;font-weight:1000}.store-mini strong{display:block;font-size:14px}.store-mini span{display:block;color:#cbd5e1;font-size:12px;font-weight:800;margin-top:3px}
+.snav{display:grid;gap:5px}.snav a{display:flex;align-items:center;justify-content:space-between;padding:11px 12px;border-radius:15px;color:#e5e7eb;font-weight:900;font-size:14px}.snav a:hover{background:rgba(255,255,255,.08)}.snav a.act{background:linear-gradient(135deg,#ffcc00,#ff9f1c);color:#07142f}.side-bottom{margin:14px 6px 0;border-top:1px solid rgba(255,255,255,.1);padding-top:12px;display:grid;gap:8px}.side-bottom button,.side-bottom a{border:0;border-radius:14px;padding:11px 12px;font-weight:1000;text-align:center}.logout{background:rgba(220,38,38,.18);color:#fecaca}.site-link{background:rgba(255,255,255,.08);color:#fff}
+.main{min-width:0;padding:22px}.hero{background:radial-gradient(circle at 92% 0%,rgba(255,204,0,.26),transparent 32%),linear-gradient(135deg,#fff,#fbfdff);border:1px solid var(--line);border-radius:32px;padding:24px;box-shadow:var(--shadow2);margin-bottom:16px;display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:18px;align-items:center}.mobile-menu{display:none;border:0;background:#07142f;color:#fff;border-radius:14px;padding:12px 14px;font-weight:1000}.hero span{display:inline-flex;background:#fff3bf;color:#8a5b00;border-radius:999px;padding:8px 11px;font-size:12px;font-weight:1000;margin-bottom:10px}.hero h1{margin:0;font-size:38px;line-height:1.04;font-family:Georgia,serif}.hero p{margin:9px 0 0;color:var(--muted);font-weight:750;line-height:1.6}.hero-panel{background:#07142f;color:#fff;border-radius:24px;padding:18px}.hero-panel strong{display:block;color:#ffcc00;font-size:24px;font-family:Georgia,serif}.hero-panel p{color:#cbd5e1}
+.btn{border:0;border-radius:16px;padding:13px 15px;font-weight:1000;display:inline-flex;align-items:center;justify-content:center;gap:8px;white-space:nowrap}.btn.y{background:linear-gradient(135deg,#ffcc00,#ff9f1c);color:#07142f}.btn.light{background:#f1f5f9;color:#07142f;border:1px solid #dbe3ef}.btn.dark{background:#07142f;color:#fff}.btn.red{background:#fee2e2;color:#991b1b;border:1px solid #fecaca}
+.layout{display:grid;grid-template-columns:minmax(0,1fr) 390px;gap:16px;align-items:start}.card{background:#fff;border:1px solid var(--line);border-radius:28px;box-shadow:var(--shadow2);padding:18px;margin-bottom:16px}.card h2,.card h3{margin:0;font-family:Georgia,serif}.card p{margin:7px 0 0;color:#64748b;font-weight:750;line-height:1.55}.card-head{display:flex;justify-content:space-between;gap:12px;align-items:flex-start;margin-bottom:16px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.field.full{grid-column:1/-1}label{display:block;font-size:13px;font-weight:1000;color:#1e293b;margin-bottom:7px}input,select,textarea{width:100%;border:1px solid #dbe3ef;background:#fff;border-radius:16px;padding:14px;outline:0;font-size:15px;font-weight:850}textarea{min-height:112px;resize:vertical}input:focus,select:focus,textarea:focus{border-color:#ffcc00;box-shadow:0 0 0 4px rgba(255,204,0,.16)}.hint{font-size:12px;color:#64748b;font-weight:800;margin-top:6px;line-height:1.45}
+.top-tools{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:12px}.store-switch{width:100%;border:1px solid #dbe3ef;background:#f8fafc;border-radius:16px;padding:13px;font-weight:900}
+.tag-grid{display:flex;flex-wrap:wrap;gap:8px}.tag{border:1px solid #e2e8f0;background:#f8fafc;border-radius:999px;padding:10px 12px;font-weight:1000}.tag.active{background:#07142f;color:#fff;border-color:#07142f}
+.photo-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:10px}.photo-slot{height:120px;border:1px dashed #cbd5e1;background:#f8fafc;border-radius:18px;display:grid;place-items:center;text-align:center;font-weight:1000;color:#64748b;position:relative;overflow:hidden}.photo-slot.filled{background:linear-gradient(135deg,#fff8db,#ffcc00);color:#07142f;border-style:solid}.photo-slot input{position:absolute;inset:0;opacity:0;cursor:pointer}.photo-slot small{display:block;font-size:11px;margin-top:4px;color:#64748b}.remove-photo{position:absolute;right:6px;top:6px;border:0;background:#07142f;color:#fff;border-radius:999px;width:24px;height:24px;font-weight:1000;z-index:2}
+.quality{display:grid;gap:10px}.quality-row{display:flex;justify-content:space-between;align-items:center;gap:12px;background:#f8fafc;border:1px solid #edf1f7;border-radius:16px;padding:12px}.quality-row span{color:#64748b;font-weight:850}.progress{height:10px;background:#e2e8f0;border-radius:999px;overflow:hidden}.progress i{display:block;height:100%;width:0%;background:linear-gradient(135deg,#ffcc00,#ff9f1c);border-radius:999px}
+.preview-wrap{position:sticky;top:18px}.product-preview{background:#fff;border:1px solid var(--line);border-radius:28px;box-shadow:var(--shadow2);overflow:hidden}.preview-img{height:230px;background:linear-gradient(135deg,#fff8db,#ffcc00);display:grid;place-items:center;font-size:70px;position:relative}.preview-badge{position:absolute;left:14px;top:14px;background:#07142f;color:#ffcc00;border-radius:999px;padding:8px 11px;font-size:12px;font-weight:1000}.preview-status{position:absolute;right:14px;top:14px;background:#fff;border-radius:999px;padding:8px 11px;font-size:12px;font-weight:1000}.preview-thumbs{position:absolute;left:14px;right:14px;bottom:14px;display:flex;gap:7px}.preview-thumbs span{height:30px;width:38px;border-radius:9px;background:rgba(255,255,255,.74);display:grid;place-items:center;font-size:13px;font-weight:1000}.preview-body{padding:16px}.preview-body h3{margin:0;font-size:24px;font-family:Georgia,serif}.preview-desc{color:#64748b;font-weight:750;line-height:1.5;margin:8px 0}.preview-meta{display:flex;flex-wrap:wrap;gap:7px}.preview-meta span{background:#f8fafc;border:1px solid #edf1f7;border-radius:999px;padding:7px 9px;font-size:12px;font-weight:900}.preview-price{font-size:28px;font-weight:1000;margin:13px 0}.preview-actions{display:grid;grid-template-columns:1fr 1fr;gap:8px}.preview-actions span{border-radius:15px;padding:13px;text-align:center;font-weight:1000}.primary{background:#ffcc00}.secondary{background:#07142f;color:#fff}
+.savebar{position:sticky;bottom:14px;background:rgba(7,20,47,.96);color:#fff;border-radius:22px;padding:12px;display:flex;justify-content:space-between;gap:12px;align-items:center;box-shadow:var(--shadow);z-index:30}.savebar span{font-weight:900;color:#cbd5e1}.toast{position:fixed;right:18px;bottom:18px;background:#07142f;color:#fff;padding:14px 16px;border-radius:18px;box-shadow:var(--shadow);font-weight:900;display:none;z-index:220}.toast.show{display:block}.mobile-bottom-nav{display:none}
+.empty-box{background:#fff;border:1px dashed #cbd5e1;border-radius:28px;padding:30px;text-align:center;display:none}.empty-box.show{display:block}
+@media(max-width:1180px){.hero,.layout{grid-template-columns:1fr}.preview-wrap{position:static}.photo-grid{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:900px){body{padding-bottom:82px}.app{display:block}.side{position:fixed;left:-310px;top:0;bottom:0;width:292px;height:100vh;transition:.25s}.side.open{left:0}.main{padding:14px}.mobile-menu{display:inline-flex}.hero{border-radius:24px}.hero h1{font-size:30px}.grid,.top-tools{grid-template-columns:1fr}.mobile-bottom-nav{position:fixed;left:10px;right:10px;bottom:10px;background:rgba(7,20,47,.96);border-radius:22px;padding:9px;display:grid;grid-template-columns:repeat(5,1fr);gap:6px;z-index:120}.mobile-bottom-nav a{color:#fff;text-align:center;border-radius:15px;padding:9px 4px;font-size:11px;font-weight:900}.mobile-bottom-nav a.active{background:#ffcc00;color:#07142f}}
+@media(max-width:560px){.card,.hero{border-radius:24px;padding:16px}.photo-grid{grid-template-columns:1fr 1fr}.savebar{display:grid;grid-template-columns:1fr}.savebar .btn{width:100%}.preview-img{height:190px}}
+</style>
+</head>
+<body>
+<div class="app">
+<aside class="side" id="sidebar">
+<a class="logo" href="../index.html"><span class="mark"></span>Alma Kirala</a>
+<div class="rolelabel">Mağaza Sahibi Paneli</div>
+<div class="store-mini"><div class="store-avatar" id="sideStoreLogo">AK</div><div><strong id="sideStoreName">Ürün Düzenle</strong><span id="sideStorePlan">Eksiksiz güncelle</span></div></div>
+<nav class="snav">
+<a href="dashboard.html">Panel</a><a href="my-stores.html">Mağazalarım</a><a href="create-store.html">Mağaza Aç</a><a href="store-settings.html">Mağaza Ayarları</a><a href="store-theme.html">Tema</a><a href="products.html">Ürünler</a><a href="add-product.html">Ürün Ekle</a><a class="act" href="edit-product.html">Ürün Düzenle</a><a href="product-performance.html">Ürün Performansı</a><a href="rental-requests.html">Kiralama Talepleri</a><a href="messages.html">Mesajlar</a><a href="reviews.html">Yorumlar</a><a href="ads.html">Reklamlar</a><a href="ad-performance.html">Reklam Performansı</a><a href="finance.html">Muhasebe</a><a href="subscription.html">Abonelik</a><a href="notifications.html">Bildirimler</a><a href="support.html">Destek</a><a href="policies.html">Politikalar</a><a href="close-store.html">Mağaza Kapat</a>
+</nav>
+<div class="side-bottom"><a class="site-link" href="../index.html">Ana Siteye Dön</a><button class="logout" id="logoutBtn" type="button">Çıkış Yap</button></div>
+</aside>
+
+<main class="main">
+<section class="hero">
+<div><button class="mobile-menu" id="mobileMenu" type="button">☰ Menü</button><br><span>Silmeden düzeltme merkezi</span><h1>Eklenen ürünü her yönüyle düzenle.</h1><p>Başlık, açıklama, fiyat, depozito, kategori, etiket, durum, müsaitlik, teslimat ve 5 fotoğraf alanını silmeye gerek kalmadan güncelle. Değişiklikler müşterinin gördüğü ürün kartına yansır.</p></div>
+<div class="hero-panel"><strong>Düzenleme mantığı</strong><p>Ürün yanlış yüklense bile silmek yerine burada düzelt. Böylece ürün performansı, görüntülenme ve talep geçmişi korunur.</p></div>
+</section>
+
+<section class="layout">
+<section id="editorArea">
+<div class="card">
+<div class="card-head"><div><h2>Düzenlenecek Ürün</h2><p>URL’de ürün id varsa otomatik açılır. Yoksa mağazadan ürün seç.</p></div></div>
+<div class="top-tools">
+<div class="field"><label>Mağaza seç</label><select id="storeId" class="store-switch"></select></div>
+<div class="field"><label>Ürün seç</label><select id="productId" class="store-switch"></select></div>
+</div>
+</div>
+
+<div class="empty-box" id="emptyBox">
+<h2>Ürün bulunamadı</h2>
+<p>Önce ürün ekleyebilir veya ürünler sayfasından düzenlenecek ürünü seçebilirsin.</p>
+<br>
+<a class="btn y" href="add-product.html">Ürün Ekle</a>
+</div>
+
+<form id="productForm">
+<div class="card">
+<div class="card-head"><div><h2>Temel Bilgiler</h2><p>Müşterinin ürün hakkında ilk gördüğü alanlar.</p></div></div>
+<div class="grid">
+<div class="field"><label>Ürün adı</label><input id="title" placeholder="Örn: Sony A7 IV Kamera Seti"></div>
+<div class="field"><label>Kategori</label><select id="category"><option>Kamera</option><option>Drone</option><option>Etkinlik</option><option>Özel Gün</option><option>Yapı & Tamir</option><option>Ses</option><option>Işık</option><option>Elektronik</option></select></div>
+<div class="field full"><label>Kısa açıklama</label><input id="shortDescription" maxlength="120" placeholder="Ürünü tek cümleyle anlat"></div>
+<div class="field full"><label>Detaylı açıklama</label><textarea id="description" placeholder="Ürün ne işe yarar, yanında neler gelir, kimler için uygundur, teslimat nasıl yapılır?"></textarea></div>
+</div>
+</div>
+
+<div class="card">
+<div class="card-head"><div><h2>Fiyat, Durum ve Kurallar</h2><p>Fiyat, depozito, müsaitlik ve teslimat bilgilerini güncelle.</p></div></div>
+<div class="grid">
+<div class="field"><label>Günlük fiyat</label><input id="price" type="number" min="1"></div>
+<div class="field"><label>Depozito</label><input id="deposit" type="number" min="0"></div>
+<div class="field"><label>Durum</label><select id="status"><option value="active">Aktif</option><option value="pending">Onay bekliyor</option><option value="passive">Pasif</option></select></div>
+<div class="field"><label>Müsaitlik</label><select id="availability"><option>Bugün müsait</option><option>Müsaitlik sor</option><option>Takvimle kontrol</option></select></div>
+<div class="field"><label>Minimum kiralama günü</label><input id="minRentalDay" type="number" min="1" value="1"></div>
+<div class="field"><label>Teslimat tipi</label><select id="deliveryType"><option>Mağazadan teslim</option><option>Kurye ile teslim</option><option>Mağaza + kurye</option></select></div>
+</div>
+</div>
+
+<div class="card">
+<div class="card-head"><div><h2>Etiket</h2><p>Ürün kartındaki dikkat çekici etiketi seç.</p></div></div>
+<div class="tag-grid" id="tagGrid">
+<button class="tag" data-tag="Premium" type="button">Premium</button>
+<button class="tag" data-tag="Bugün Müsait" type="button">Bugün Müsait</button>
+<button class="tag" data-tag="Kampanyalı" type="button">Kampanyalı</button>
+<button class="tag" data-tag="Sponsorlu" type="button">Sponsorlu</button>
+<button class="tag" data-tag="Yeni" type="button">Yeni</button>
+<button class="tag" data-tag="Uygun Fiyat" type="button">Uygun Fiyat</button>
+</div>
+</div>
+
+<div class="card">
+<div class="card-head"><div><h2>Ürün Fotoğrafları</h2><p>En fazla 5 fotoğraf. Değiştirmek istediğin slota yeni görsel seçebilir veya kaldırabilirsin.</p></div></div>
+<div class="photo-grid" id="photoGrid"></div>
+<div class="hint">İlk fotoğraf ürün kartında ana görsel olarak kullanılır.</div>
+</div>
+</form>
+
+<div class="savebar">
+<span id="saveStatus">Değişiklikler kaydedilmeyi bekliyor.</span>
+<div style="display:flex;gap:8px;flex-wrap:wrap">
+<a class="btn light" href="products.html">Ürünlere Dön</a>
+<button class="btn y" id="saveBtn" type="button">Değişiklikleri Kaydet</button>
+</div>
+</div>
+</section>
+
+<aside class="preview-wrap">
+<div class="product-preview">
+<div class="preview-img" id="previewImage"><span class="preview-badge" id="previewTag">Premium</span><span class="preview-status" id="previewStatus">Aktif</span><span id="previewMainIcon">📦</span><div class="preview-thumbs" id="previewThumbs"></div></div>
+<div class="preview-body">
+<h3 id="previewTitle">Ürün adı</h3>
+<p class="preview-desc" id="previewDesc">Ürün açıklaması burada görünecek.</p>
+<div class="preview-meta"><span id="previewCategory">Kategori</span><span id="previewPhotos">0/5 fotoğraf</span><span id="previewAvailability">Bugün müsait</span></div>
+<div class="preview-price" id="previewPrice">₺0 / gün</div>
+<div class="preview-actions"><span class="primary">Kiralamayı Başlat</span><span class="secondary">Detayları İncele</span></div>
+</div>
+</div>
+
+<div class="card" style="margin-top:16px">
+<h3>İlan Kalitesi</h3>
+<p>Güncelleme sonrası ürünün eksiksizliği.</p>
+<br>
+<div class="quality">
+<div class="quality-row"><b>Doluluk</b><span id="qualityText">0%</span></div>
+<div class="progress"><i id="qualityProgress"></i></div>
+<div class="quality-row"><b>Fotoğraf</b><span id="photoQuality">0/5</span></div>
+<div class="quality-row"><b>Fiyat</b><span id="priceQuality">Bekleniyor</span></div>
+</div>
+</div>
+</aside>
+</section>
+</main>
+</div>
+
+<nav class="mobile-bottom-nav"><a href="dashboard.html">Panel</a><a href="my-stores.html">Mağaza</a><a href="products.html">Ürün</a><a href="rental-requests.html">Talep</a><a class="active" href="edit-product.html">Düzenle</a></nav>
+<div class="toast" id="toast"></div>
+
+<script>
+const API_BASE=localStorage.getItem("AK_API_BASE")||"http://localhost:5000";
+const STORE_ENDPOINT=`${API_BASE}/api/stores`;
+const PRODUCT_ENDPOINT=`${API_BASE}/api/products`;
+const token=localStorage.getItem("token");
+const akRole=localStorage.getItem("akRole");
+let stores=[],products=[],activeProduct=null,selectedTag="Premium",photos=[null,null,null,null,null];
+
+const demoStores=[{id:1,name:"Kamera Dünyam",logoText:"KD",plan:"Plus"},{id:2,name:"Event Pro",logoText:"EP",plan:"Premium"}];
+const demoProducts=[
+{id:1,storeId:1,title:"Sony A7 IV Kamera Seti",shortDescription:"Profesyonel çekimler için kamera seti.",description:"Profesyonel çekimler için kamera, lens ve batarya dahil set.",tag:"Premium",price:450,deposit:1000,status:"active",availability:"Bugün müsait",category:"Kamera",minRentalDay:1,deliveryType:"Mağazadan teslim",photos:["📷","🔋","🎒","🔌","📦"],views:2410,requests:47},
+{id:2,storeId:1,title:"Canon EOS R6",shortDescription:"Düğün ve etkinlik çekimi için güçlü kamera.",description:"Düğün, etkinlik ve ürün çekimi için yüksek performanslı kamera.",tag:"Bugün Müsait",price:600,deposit:1500,status:"active",availability:"Bugün müsait",category:"Kamera",minRentalDay:1,deliveryType:"Mağaza + kurye",photos:["📷","📷","🔋"],views:1840,requests:31},
+{id:3,storeId:1,title:"Işık Seti Kiralama",shortDescription:"Softbox ve led panel seti.",description:"Softbox ve led panel içeren taşınabilir ışık seti.",tag:"Kampanyalı",price:220,deposit:500,status:"pending",availability:"Müsaitlik sor",category:"Işık",minRentalDay:1,deliveryType:"Mağazadan teslim",photos:["💡","💡"],views:890,requests:16}
+];
+
+function $(id){return document.getElementById(id)}
+function money(v){return "₺"+Number(v||0).toLocaleString("tr-TR")}
+function toast(msg){$("toast").textContent=msg;$("toast").classList.add("show");setTimeout(()=>$("toast").classList.remove("show"),3000)}
+function authGuard(){if(!token||akRole!=="seller"){toast("Ürün düzenlemek için mağaza hesabıyla giriş yapmalısın.");setTimeout(()=>location.href="../seller-login.html",700);return false}return true}
+function authHeader(){return token?{"Authorization":`Bearer ${token}`}:{}} 
+async function fetchJson(url){try{const r=await fetch(url,{headers:{...authHeader()}});if(!r.ok)throw new Error();return await r.json()}catch{return null}}
+
+async function loadStores(){
+ const data=await fetchJson(`${STORE_ENDPOINT}/my`);
+ const raw=data?.stores||data?.data||data?.items||data;
+ stores=Array.isArray(raw)&&raw.length?raw.map(s=>({id:s.id||s._id,name:s.name||s.storeName||"Mağaza",logoText:s.logoText||s.logo||(s.name||"AK").slice(0,2).toUpperCase(),plan:s.plan||s.packageName||"Standart"})):demoStores;
+ const saved=localStorage.getItem("akActiveStoreId");
+ const active=stores.find(s=>String(s.id)===String(saved))||stores[0];
+ $("storeId").innerHTML=stores.map(s=>`<option value="${s.id}" ${String(s.id)===String(active.id)?"selected":""}>${s.name}</option>`).join("");
+ updateSideStore(active);
+}
+
+async function loadProducts(){
+ const storeId=$("storeId").value;
+ const data=await fetchJson(`${PRODUCT_ENDPOINT}?storeId=${encodeURIComponent(storeId)}`);
+ const raw=data?.products||data?.data||data?.items||data?.results||data;
+ const localProducts=JSON.parse(localStorage.getItem("akDemoProducts")||"[]");
+ const merged=[...demoProducts,...localProducts];
+ products=Array.isArray(raw)&&raw.length?raw.map(normalizeProduct):merged.filter(p=>String(p.storeId)===String(storeId));
+ renderProductSelect();
+}
+
+async function loadProductById(id){
+ const data=await fetchJson(`${PRODUCT_ENDPOINT}/${id}`);
+ if(data){
+   const raw=data.product||data.data||data;
+   activeProduct=normalizeProduct(raw);
+   return;
+ }
+ activeProduct=products.find(p=>String(p.id)===String(id))||products[0]||null;
+}
+
+function normalizeProduct(p){
+ return {id:p.id||p._id,storeId:p.storeId||p.store?.id||$("storeId").value,title:p.title||p.name||"Ürün",shortDescription:p.shortDescription||p.summary||"",description:p.description||"",tag:p.tag||p.badge||"Premium",price:Number(p.price||p.dailyPrice||0),deposit:Number(p.deposit||0),status:p.status||"active",availability:p.availability||"Bugün müsait",category:p.category||"Kamera",minRentalDay:Number(p.minRentalDay||1),deliveryType:p.deliveryType||"Mağazadan teslim",photos:p.photos||p.images||[],views:Number(p.views||0),requests:Number(p.requests||0)}
+}
+
+function updateSideStore(store){
+ $("sideStoreLogo").textContent=store.logoText||"AK";$("sideStoreName").textContent=store.name;$("sideStorePlan").textContent=store.plan+" Paket";
+}
+
+function renderProductSelect(){
+ $("productId").innerHTML=products.length?products.map(p=>`<option value="${p.id}">${p.title}</option>`).join(""):`<option value="">Ürün yok</option>`;
+}
+
+function fillForm(){
+ const empty=!activeProduct;
+ $("emptyBox").classList.toggle("show",empty);
+ $("productForm").style.display=empty?"none":"block";
+ if(empty){updatePreview();return}
+ $("productId").value=activeProduct.id;
+ $("title").value=activeProduct.title||"";
+ $("category").value=activeProduct.category||"Kamera";
+ $("shortDescription").value=activeProduct.shortDescription||"";
+ $("description").value=activeProduct.description||"";
+ $("price").value=activeProduct.price||"";
+ $("deposit").value=activeProduct.deposit||0;
+ $("status").value=activeProduct.status||"active";
+ $("availability").value=activeProduct.availability||"Bugün müsait";
+ $("minRentalDay").value=activeProduct.minRentalDay||1;
+ $("deliveryType").value=activeProduct.deliveryType||"Mağazadan teslim";
+ selectedTag=activeProduct.tag||"Premium";
+ photos=[0,1,2,3,4].map(i=>{
+   const ph=(activeProduct.photos||[])[i];
+   return ph?{name:String(ph),icon:String(ph).length<=3?String(ph):"🖼️"}:null;
+ });
+ renderTags();
+ renderPhotoSlots();
+ updatePreview();
+}
+
+function renderTags(){
+ document.querySelectorAll(".tag").forEach(btn=>btn.classList.toggle("active",btn.dataset.tag===selectedTag));
+}
+
+function renderPhotoSlots(){
+ $("photoGrid").innerHTML=[0,1,2,3,4].map(i=>`
+ <label class="photo-slot ${photos[i]?"filled":""}">
+   ${photos[i]?`<button class="remove-photo" data-remove="${i}" type="button">×</button>`:""}
+   <input type="file" accept="image/*" data-photo="${i}">
+   <div>${photos[i]?.icon||"+"}<small>${i===0?"Ana görsel":(i+1)+". fotoğraf"}</small></div>
+ </label>`).join("");
+ document.querySelectorAll("[data-photo]").forEach(input=>input.addEventListener("change",e=>{
+   const i=Number(input.dataset.photo);
+   const file=e.target.files[0];
+   if(!file) return;
+   photos[i]={name:file.name,icon:"🖼️",file};
+   renderPhotoSlots();
+   updatePreview();
+ }));
+ document.querySelectorAll("[data-remove]").forEach(btn=>btn.addEventListener("click",e=>{
+   e.preventDefault();
+   photos[Number(btn.dataset.remove)]=null;
+   renderPhotoSlots();
+   updatePreview();
+ }));
+}
+
+function collectPayload(){
+ return {
+  id:activeProduct?.id,
+  storeId:$("storeId").value,
+  title:$("title").value.trim(),
+  category:$("category").value,
+  shortDescription:$("shortDescription").value.trim(),
+  description:$("description").value.trim(),
+  price:Number($("price").value||0),
+  deposit:Number($("deposit").value||0),
+  status:$("status").value,
+  availability:$("availability").value,
+  minRentalDay:Number($("minRentalDay").value||1),
+  deliveryType:$("deliveryType").value,
+  tag:selectedTag,
+  photos:photos.filter(Boolean).map(p=>p.name||p.icon)
+ };
+}
+
+function validate(d){
+ if(!d.id) return toast("Düzenlenecek ürün bulunamadı."),false;
+ if(!d.title) return toast("Ürün adı zorunlu."),false;
+ if(!d.shortDescription) return toast("Kısa açıklama zorunlu."),false;
+ if(!d.description) return toast("Detaylı açıklama zorunlu."),false;
+ if(!d.price || d.price<=0) return toast("Günlük fiyat zorunlu."),false;
+ if(d.photos.length<1) return toast("En az 1 ürün fotoğrafı olmalı."),false;
+ if(d.photos.length>5) return toast("En fazla 5 fotoğraf olabilir."),false;
+ return true;
+}
+
+function updatePreview(){
+ const d=activeProduct?collectPayload():{title:"Ürün adı",shortDescription:"Ürün açıklaması burada görünecek.",description:"",category:"Kategori",tag:"Premium",status:"active",availability:"Bugün müsait",price:0,photos:[]};
+ $("previewTitle").textContent=d.title||"Ürün adı";
+ $("previewDesc").textContent=d.shortDescription||d.description||"Ürün açıklaması burada görünecek.";
+ $("previewCategory").textContent=d.category||"Kategori";
+ $("previewTag").textContent=d.tag||"Premium";
+ $("previewStatus").textContent=d.status==="active"?"Aktif":d.status==="pending"?"Onay bekliyor":"Pasif";
+ $("previewAvailability").textContent=d.availability||"Bugün müsait";
+ $("previewPrice").textContent=money(d.price)+" / gün";
+ $("previewMainIcon").textContent=photos[0]?.icon||"📦";
+ $("previewPhotos").textContent=(d.photos||[]).length+"/5 fotoğraf";
+ $("previewThumbs").innerHTML=[0,1,2,3,4].map(i=>`<span>${photos[i]?.icon||"+"}</span>`).join("");
+ updateQuality(d);
+}
+
+function updateQuality(d){
+ const checks=[d.title,d.shortDescription,d.description,d.price>0,d.deposit>=0,d.availability,d.deliveryType,d.tag,(d.photos||[]).length>=1,(d.photos||[]).length>=3];
+ const score=Math.round((checks.filter(Boolean).length/checks.length)*100);
+ $("qualityText").textContent=score+"%";
+ $("qualityProgress").style.width=score+"%";
+ $("photoQuality").textContent=(d.photos||[]).length+"/5";
+ $("priceQuality").textContent=d.price>0?"Hazır":"Bekleniyor";
+ $("saveStatus").textContent=score<75?"Üründe eksikler var, düzelt.":"Ürün güncellemeye hazır.";
+}
+
+async function saveProduct(){
+ const payload=collectPayload();
+ if(!validate(payload)) return;
+
+ try{
+  const res=await fetch(`${PRODUCT_ENDPOINT}/${payload.id}`,{method:"PUT",headers:{"Content-Type":"application/json",...authHeader()},body:JSON.stringify(payload)});
+  if(!res.ok) throw new Error();
+ }catch{
+  const key="akDemoProducts";
+  const saved=JSON.parse(localStorage.getItem(key)||"[]");
+  const exists=saved.some(p=>String(p.id)===String(payload.id));
+  const updated=exists?saved.map(p=>String(p.id)===String(payload.id)?{...p,...payload}:p):[...saved,{...payload,views:activeProduct.views||0,requests:activeProduct.requests||0}];
+  localStorage.setItem(key,JSON.stringify(updated));
+ }
+ activeProduct={...activeProduct,...payload};
+ toast("Ürün güncellendi. Ürünler sayfasına yönlendiriliyorsun.");
+ setTimeout(()=>location.href="products.html",900);
+}
+
+function bindEvents(){
+ $("mobileMenu").addEventListener("click",()=>$("sidebar").classList.toggle("open"));
+ document.addEventListener("click",e=>{if(innerWidth<=900){const s=$("sidebar"),m=$("mobileMenu");if(s.classList.contains("open")&&!s.contains(e.target)&&e.target!==m)s.classList.remove("open")}});
+ document.querySelectorAll(".tag").forEach(btn=>btn.addEventListener("click",()=>{selectedTag=btn.dataset.tag;renderTags();updatePreview()}));
+ $("productForm").addEventListener("input",updatePreview);
+ $("storeId").addEventListener("change",async()=>{
+   const s=stores.find(x=>String(x.id)===$("storeId").value);
+   if(s){localStorage.setItem("akActiveStoreId",s.id);updateSideStore(s)}
+   await loadProducts();
+   activeProduct=products[0]||null;
+   fillForm();
+ });
+ $("productId").addEventListener("change",async()=>{await loadProductById($("productId").value);fillForm()});
+ $("saveBtn").addEventListener("click",saveProduct);
+ $("logoutBtn").addEventListener("click",()=>{localStorage.removeItem("token");localStorage.removeItem("akRole");localStorage.removeItem("akUser");toast("Çıkış yapıldı.");setTimeout(()=>location.href="../seller-login.html",600)});
+}
+
+async function init(){
+ if(!authGuard()) return;
+ await loadStores();
+ await loadProducts();
+ const urlId=new URLSearchParams(location.search).get("id");
+ await loadProductById(urlId || $("productId").value);
+ bindEvents();
+ fillForm();
+}
+init();
+</script>
+</body>
+</html>

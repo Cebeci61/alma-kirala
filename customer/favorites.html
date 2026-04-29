@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Favorilerim | Alma Kirala</title>
+  <style>
+    :root{--navy:#06122b;--navy2:#0b1f49;--yellow:#ffcc00;--bg:#f3f6fb;--card:#fff;--text:#07142f;--muted:#64748b;--line:#e5eaf2;--green:#16a34a;--orange:#d97706;--red:#dc2626;--blue:#2563eb;--shadow:0 20px 55px rgba(7,20,47,.10);--r:26px}
+    *{box-sizing:border-box}body{margin:0;font-family:Inter,Arial,sans-serif;background:radial-gradient(circle at top right,#fff0a6 0,#f3f6fb 34%,#eef3fb 100%);color:var(--text)}a{text-decoration:none;color:inherit}button,input,select{font-family:inherit}button{cursor:pointer}.app{display:grid;grid-template-columns:292px 1fr;min-height:100vh}.side{position:sticky;top:0;height:100vh;background:linear-gradient(180deg,#06122b,#091a3d);color:#fff;padding:24px 20px;display:flex;flex-direction:column;gap:18px;z-index:10}.logo{display:flex;align-items:center;gap:12px;font-size:27px;font-weight:1000;line-height:1.05}.mark{width:54px;height:54px;border-radius:18px;background:var(--yellow);color:var(--navy);display:grid;place-items:center;font-weight:1000}.rolelabel{font-size:12px;font-weight:1000;color:#9fb2d4;letter-spacing:.08em;text-transform:uppercase}.snav{display:grid;gap:7px;overflow:auto;padding-right:4px}.snav a{color:#dbe7ff;border-radius:16px;padding:13px 14px;font-weight:900;font-size:14px;display:flex;align-items:center;justify-content:space-between}.snav a:hover,.snav .act{background:var(--yellow);color:var(--navy)}.main{padding:26px 34px 46px;min-width:0}.topbar{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:20px}.search{flex:1;max-width:760px;background:rgba(255,255,255,.9);border:1px solid var(--line);border-radius:22px;padding:13px 16px;display:flex;gap:12px;box-shadow:0 12px 35px rgba(7,20,47,.05)}.search input{border:0;outline:0;background:transparent;width:100%;font-weight:800}.mini-user{background:#fff;border:1px solid var(--line);border-radius:18px;padding:8px 12px;display:flex;align-items:center;gap:10px;box-shadow:0 12px 35px rgba(7,20,47,.05)}.avatar{width:38px;height:38px;border-radius:14px;background:var(--navy);color:var(--yellow);display:grid;place-items:center;font-weight:1000}.hero{background:linear-gradient(135deg,#07142f 0,#12306a 58%,#ffcc00 59%,#ffe27a 100%);border-radius:34px;padding:30px;color:#fff;display:grid;grid-template-columns:1.15fr .85fr;gap:20px;box-shadow:var(--shadow);overflow:hidden}.hero h1{margin:0;font-size:38px;letter-spacing:-.04em}.hero p{margin:10px 0 0;color:#dce8ff;line-height:1.6}.hero-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px}.btn{border:0;border-radius:16px;padding:13px 17px;font-weight:1000;display:inline-flex;align-items:center;justify-content:center;gap:8px}.btn.y{background:var(--yellow);color:var(--navy)}.btn.dark{background:var(--navy);color:#fff}.btn.light{background:rgba(255,255,255,.15);color:#fff;border:1px solid rgba(255,255,255,.18)}.insight{background:rgba(255,255,255,.94);color:var(--text);border-radius:26px;padding:20px;align-self:end}.insight b{display:block;font-size:34px}.insight span{color:var(--muted);font-weight:800}.progress{height:10px;background:#e9eef7;border-radius:999px;overflow:hidden;margin-top:14px}.progress i{display:block;height:100%;width:72%;background:linear-gradient(90deg,var(--yellow),var(--green))}.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin:22px 0}.stat{background:rgba(255,255,255,.94);border:1px solid var(--line);border-radius:24px;padding:18px;box-shadow:0 14px 35px rgba(7,20,47,.06)}.stat span{color:var(--muted);font-size:13px;font-weight:900}.stat strong{display:block;font-size:31px;margin-top:8px}.stat em{font-style:normal;color:var(--green);font-size:12px;font-weight:900}.layout{display:grid;grid-template-columns:minmax(0,1fr) 370px;gap:22px}.card{background:rgba(255,255,255,.94);border:1px solid var(--line);border-radius:var(--r);padding:22px;box-shadow:0 16px 42px rgba(7,20,47,.07);backdrop-filter:blur(10px)}.head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:16px}.head h2{margin:0;font-size:23px}.filters{display:grid;grid-template-columns:1.4fr repeat(5, minmax(120px,1fr));gap:10px;margin-bottom:16px}.filters input,.filters select{border:1px solid var(--line);border-radius:16px;background:#fff;padding:13px 14px;font-weight:800;outline:0}.chips{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:16px}.chip{border:1px solid var(--line);background:#fff;border-radius:999px;padding:10px 13px;font-weight:1000}.chip.act{background:var(--navy);color:#fff;border-color:var(--navy)}.fav-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}.fav-card{background:#fff;border:1px solid var(--line);border-radius:26px;overflow:hidden;box-shadow:0 12px 30px rgba(7,20,47,.05);transition:.2s}.fav-card:hover{transform:translateY(-3px);box-shadow:0 20px 45px rgba(7,20,47,.10)}.photo{height:168px;background:linear-gradient(135deg,#fff1a8,#ffcc00);position:relative}.badges{position:absolute;top:12px;left:12px;right:58px;display:flex;gap:7px;flex-wrap:wrap}.badge{background:#fff8d8;border-radius:999px;padding:7px 10px;font-size:12px;font-weight:1000;color:#8a4b00}.badge.dark{background:var(--navy);color:#fff}.remove{position:absolute;right:12px;top:12px;width:42px;height:42px;border:0;border-radius:50%;background:#fff;color:var(--red);font-size:20px}.body{padding:16px}.body h3{margin:0 0 9px;font-size:18px}.meta{color:var(--muted);font-size:13px;line-height:1.55}.price{font-size:25px;font-weight:1000;margin-top:11px}.price span{font-size:13px;color:var(--muted)}.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:13px}.small{border:1px solid var(--line);background:#fff;border-radius:999px;padding:9px 12px;font-size:12px;font-weight:1000}.small.y{background:var(--yellow);border-color:var(--yellow)}.small.red{color:var(--red)}.note{padding:14px;border-radius:18px;background:#f8fafc;border:1px solid var(--line);margin-bottom:10px}.note b{display:block;margin-bottom:4px}.note span{font-size:13px;color:var(--muted)}.saved-list{display:grid;gap:10px}.saved{display:flex;align-items:center;justify-content:space-between;gap:12px;border:1px solid var(--line);border-radius:18px;padding:13px;background:#fbfdff}.saved b{display:block}.saved span{color:var(--muted);font-size:12px}.empty{text-align:center;padding:44px;border:1px dashed #cbd5e1;border-radius:24px;color:var(--muted);font-weight:900;background:#fbfdff}.mobile-head,.bottom-nav{display:none}.toast{position:fixed;right:22px;bottom:22px;background:var(--navy);color:#fff;padding:14px 16px;border-radius:18px;font-weight:900;display:none;z-index:120}.modal{position:fixed;inset:0;background:rgba(7,20,47,.55);display:none;align-items:center;justify-content:center;padding:18px;z-index:99}.modal.show{display:flex}.modal-card{background:#fff;border-radius:26px;padding:22px;max-width:560px;width:100%;box-shadow:var(--shadow)}.mh{display:flex;align-items:center;justify-content:space-between;gap:12px}.mh h2{margin:0}.compare-box{display:grid;gap:10px;margin-top:14px}.compare-row{border:1px solid var(--line);border-radius:18px;padding:13px;background:#fbfdff}
+    @media(max-width:1240px){.app{grid-template-columns:88px 1fr}.logo strong,.rolelabel,.snav a span{display:none}.side{padding:20px 12px}.snav a{justify-content:center}.layout{grid-template-columns:1fr}.fav-grid{grid-template-columns:repeat(2,1fr)}.filters{grid-template-columns:1fr 1fr 1fr}}
+    @media(max-width:760px){body{padding-bottom:82px}.app{display:block}.side,.topbar{display:none}.mobile-head{display:flex;align-items:center;justify-content:space-between;padding:14px 16px;background:#06122b;color:#fff;position:sticky;top:0;z-index:30}.main{padding:14px}.hero{grid-template-columns:1fr;padding:23px;border-radius:28px}.hero h1{font-size:29px}.stats{grid-template-columns:repeat(2,1fr);gap:12px}.card{padding:18px;border-radius:24px}.fav-grid,.filters{grid-template-columns:1fr}.layout{gap:16px}.bottom-nav{position:fixed;left:12px;right:12px;bottom:12px;height:64px;background:#06122b;color:#fff;border-radius:24px;display:grid;grid-template-columns:repeat(4,1fr);box-shadow:0 18px 50px rgba(7,20,47,.35);z-index:40;overflow:hidden}.bottom-nav a{display:grid;place-items:center;color:#fff;font-weight:1000}.bottom-nav .act{background:var(--yellow);color:var(--navy)}}
+  </style>
+</head>
+<body>
+<div class="mobile-head"><b>AK Alma Kirala</b><a class="btn y" href="explore.html">Keşfet</a></div>
+<div class="app">
+  <aside class="side">
+    <a class="logo" href="../index.html"><span class="mark">AK</span><strong>Alma<br>Kirala</strong></a>
+    <div class="rolelabel">Müşteri Alanı</div>
+    <nav class="snav">
+      <a href="dashboard.html">🏠 <span>Akıllı Panel</span></a>
+      <a href="rentals-active.html">📦 <span>Kiralamalar</span></a>
+      <a href="requests.html">📝 <span>Talepler</span></a>
+      <a href="messages.html">💬 <span>Mesajlar</span></a>
+      <a class="act" href="favorites.html">💛 <span>Favoriler</span></a>
+      <a href="wallet.html">💳 <span>Cüzdan</span></a>
+      <a href="reviews.html">⭐ <span>Yorumlar</span></a>
+      <a href="following-stores.html">🏪 <span>Takip Mağazalar</span></a>
+      <a href="notifications.html">🔔 <span>Bildirimler</span></a>
+      <a href="profile.html">👤 <span>Profil & Güven</span></a>
+      <a href="addresses.html">📍 <span>Adresler</span></a>
+      <a href="support.html">🛟 <span>Destek</span></a>
+      <a href="../index.html">↩ <span>Ana Site</span></a>
+    </nav>
+  </aside>
+  <main class="main">
+    <div class="topbar">
+      <div class="search">🔎 <input id="topSearch" placeholder="Favorilerde ürün, mağaza, il, ilçe veya not ara..."></div>
+      <div class="mini-user"><div class="avatar" id="avatar">M</div><div><b id="userName">Müşteri</b><span style="color:#64748b;font-size:12px">Favorilerim</span></div></div>
+    </div>
+    <section class="hero">
+      <div>
+        <h1>Favorilerim</h1>
+        <p>Unutmak istemediğin ürünleri burada sakla. Mağaza, ürün, il/ilçe, tarih ve müsaitlik bilgisine göre hızlıca bul.</p>
+        <div class="hero-actions"><a class="btn y" href="explore.html">Yeni Ürün Keşfet</a><button class="btn light" id="clearFilters">Filtreleri Temizle</button><button class="btn light" id="compareBtn">Seçilenleri Karşılaştır</button></div>
+      </div>
+      <div class="insight"><span>Favori hafızası</span><b id="heroCount">0 ürün</b><span id="heroHint">Arama ve filtrelerle kaybolmadan bul.</span><div class="progress"><i></i></div></div>
+    </section>
+    <section class="stats">
+      <div class="stat"><span>Toplam Favori</span><strong id="statTotal">0</strong><em>kayıtlı</em></div>
+      <div class="stat"><span>Bugün Müsait</span><strong id="statAvailable">0</strong><em>hemen kiralanabilir</em></div>
+      <div class="stat"><span>Takip Edilen Mağaza</span><strong id="statStores">0</strong><em>favorilerden</em></div>
+      <div class="stat"><span>Ortalama Günlük</span><strong id="statAvg">₺0</strong><em>fiyat</em></div>
+    </section>
+    <section class="layout">
+      <div class="card">
+        <div class="head"><h2>Favori Ürün Listesi</h2><button class="btn dark" id="refreshBtn">Yenile</button></div>
+        <div class="filters">
+          <input id="searchInput" placeholder="Ürün / mağaza ara">
+          <select id="cityInput"><option value="">Tüm iller</option></select>
+          <select id="districtInput"><option value="">Tüm ilçeler</option></select>
+          <select id="typeInput"><option value="">Ürün + Mağaza</option><option value="product">Sadece ürün</option><option value="store">Sadece mağaza</option></select>
+          <input id="dateInput" type="date">
+          <select id="sortInput"><option value="new">Yeni eklenen</option><option value="priceAsc">Ucuzdan pahalı</option><option value="priceDesc">Pahalıdan ucuz</option><option value="ratingDesc">Puana göre</option></select>
+        </div>
+        <div class="chips">
+          <button class="chip act" data-chip="all">Tümü</button>
+          <button class="chip" data-chip="available">Bugün müsait</button>
+          <button class="chip" data-chip="deposit">Depozitolu</button>
+          <button class="chip" data-chip="premium">Premium</button>
+          <button class="chip" data-chip="savedNote">Not eklenen</button>
+        </div>
+        <div class="fav-grid" id="favGrid"></div>
+        <div class="empty" id="emptyBox" style="display:none">Bu filtreye uygun favori bulunamadı.</div>
+      </div>
+      <aside>
+        <section class="card"><div class="head"><h2>Hızlı Bul</h2></div><div class="saved-list" id="quickStores"></div></section>
+        <section class="card" style="margin-top:22px"><div class="head"><h2>Akıllı Notlar</h2></div><div class="note"><b>200 favori olduğunda</b><span>İl, ilçe, mağaza ve tarih filtresiyle kaybolmadan bulursun.</span></div><div class="note"><b>Takvim seçimi</b><span>Seçtiğin güne göre müsait olan favoriler öne çıkar.</span></div><div class="note"><b>Favoriden çıkarma</b><span>Kalp butonuna basınca ürün listeden çıkar.</span></div></section>
+      </aside>
+    </section>
+  </main>
+</div>
+<nav class="bottom-nav"><a href="dashboard.html">Ana</a><a class="act" href="favorites.html">Favori</a><a href="messages.html">Mesaj</a><a href="profile.html">Profil</a></nav>
+<div class="modal" id="compareModal"><div class="modal-card"><div class="mh"><h2>Karşılaştırma</h2><button class="btn dark" data-close="compareModal">Kapat</button></div><div class="compare-box" id="compareBox"></div></div></div>
+<div class="toast" id="toast"></div>
+<script>
+const API_BASE="http://localhost:3000/api";
+const token=localStorage.getItem("token")||localStorage.getItem("akToken");
+const user=JSON.parse(localStorage.getItem("user")||localStorage.getItem("akUser")||"null")||{name:"Demo Müşteri"};
+const fallbackFavorites=[
+ {id:1,title:"Sony A7 IV Kamera Seti",store:"Kamera Dünyam",storeId:2,city:"İstanbul",district:"Kadıköy",price:850,rating:4.9,category:"Kamera",badge:"Doğrulanmış",deposit:true,availableDates:["2026-04-30","2026-05-01","2026-05-02"],note:"Düğün çekimi için iyi olabilir",premium:false,added:"2026-04-28"},
+ {id:2,title:"DJI Mini 4 Pro Drone",store:"Drone Kirala",storeId:3,city:"Ankara",district:"Çankaya",price:650,rating:4.8,category:"Drone",badge:"Sponsorlu",deposit:true,availableDates:["2026-05-01","2026-05-03"],note:"",premium:false,added:"2026-04-27"},
+ {id:3,title:"Premium Düğün Elbisesi",store:"Moda Vitrini",storeId:4,city:"İzmir",district:"Konak",price:500,rating:4.7,category:"Giyim",badge:"Popüler",deposit:true,availableDates:["2026-04-30"],note:"Ölçü sorulacak",premium:true,added:"2026-04-26"},
+ {id:4,title:"Profesyonel Ses Sistemi",store:"Event Pro",storeId:5,city:"Antalya",district:"Muratpaşa",price:900,rating:4.9,category:"Etkinlik",badge:"Bugün Müsait",deposit:true,availableDates:["2026-04-29","2026-04-30"],note:"Bahçe etkinliği için",premium:false,added:"2026-04-25"},
+ {id:5,title:"Projeksiyon Cihazı",store:"Ofis Kirala",storeId:6,city:"Bursa",district:"Nilüfer",price:300,rating:4.6,category:"Ofis",badge:"Ekonomik",deposit:true,availableDates:["2026-05-02"],note:"",premium:false,added:"2026-04-24"},
+ {id:6,title:"Matkap ve Tamir Seti",store:"Tamir Market",storeId:7,city:"Trabzon",district:"Ortahisar",price:180,rating:4.8,category:"Tamir",badge:"Yeni",deposit:true,availableDates:["2026-04-30","2026-05-01"],note:"Ev işleri için",premium:false,added:"2026-04-23"},
+ {id:7,title:"GoPro Aksiyon Kamera",store:"Kamera Dünyam",storeId:2,city:"İstanbul",district:"Beşiktaş",price:280,rating:4.9,category:"Kamera",badge:"Premium",deposit:true,availableDates:["2026-05-04"],note:"",premium:true,added:"2026-04-22"},
+ {id:8,title:"Kamp Çadırı 4 Kişilik",store:"Outdoor Plus",storeId:8,city:"Muğla",district:"Bodrum",price:220,rating:4.6,category:"Outdoor",badge:"Doğrulanmış",deposit:true,availableDates:["2026-04-30","2026-05-05"],note:"Yaz için sakla",premium:false,added:"2026-04-21"}
+];
+let favorites=[...fallbackFavorites];let selected=[];const $=id=>document.getElementById(id);
+$("userName").textContent=user.name||"Müşteri";$("avatar").textContent=(user.name||"M").trim()[0].toUpperCase();
+function todayStr(){return new Date().toISOString().slice(0,10)}
+function fillFilters(){const cities=[...new Set(favorites.map(x=>x.city))].sort();$("cityInput").innerHTML='<option value="">Tüm iller</option>'+cities.map(c=>`<option>${c}</option>`).join('');fillDistricts();}
+function fillDistricts(){const city=$("cityInput").value;const districts=[...new Set(favorites.filter(x=>!city||x.city===city).map(x=>x.district))].sort();$("districtInput").innerHTML='<option value="">Tüm ilçeler</option>'+districts.map(d=>`<option>${d}</option>`).join('');}
+function getFiltered(){const q=($("searchInput").value||$("topSearch").value||"").toLowerCase();const city=$("cityInput").value;const district=$("districtInput").value;const type=$("typeInput").value;const date=$("dateInput").value;const chip=document.querySelector(".chip.act")?.dataset.chip||"all";let list=favorites.filter(f=>{let text=type==="product"?f.title:type==="store"?f.store:`${f.title} ${f.store} ${f.city} ${f.district} ${f.category} ${f.note}`;let ok=(!q||text.toLowerCase().includes(q))&&(!city||f.city===city)&&(!district||f.district===district)&&(!date||f.availableDates.includes(date));if(chip==="available")ok=ok&&f.availableDates.includes(todayStr());if(chip==="deposit")ok=ok&&f.deposit;if(chip==="premium")ok=ok&&f.premium;if(chip==="savedNote")ok=ok&&!!f.note;return ok;});const s=$("sortInput").value;if(s==="priceAsc")list.sort((a,b)=>a.price-b.price);if(s==="priceDesc")list.sort((a,b)=>b.price-a.price);if(s==="ratingDesc")list.sort((a,b)=>b.rating-a.rating);if(s==="new")list.sort((a,b)=>new Date(b.added)-new Date(a.added));return list;}
+function card(f){const isSel=selected.includes(f.id);const available=f.availableDates.includes(todayStr())||f.badge.includes("Bugün");return `<article class="fav-card"><div class="photo"><div class="badges"><span class="badge">${f.badge}</span><span class="badge dark">${f.deposit?'Depozito':'Depozitosuz'}</span></div><button class="remove" data-remove="${f.id}" title="Favoriden çıkar">♥</button></div><div class="body"><h3>${f.title}</h3><div class="meta">${f.city}/${f.district} • <a href="../store-detail.html?id=${f.storeId}"><b>${f.store}</b></a> • ⭐ ${f.rating}<br>${available?'Bugün müsait':'Seçili tarihe göre kontrol et'}${f.note?` • Not: ${f.note}`:''}</div><div class="price">₺${f.price} <span>/ gün</span></div><div class="actions"><a class="small y" href="../product-detail.html?id=${f.id}">Ürünü İncele</a><a class="small" href="../store-detail.html?id=${f.storeId}">Mağazaya Git</a><button class="small" data-select="${f.id}">${isSel?'Seçildi':'Karşılaştır'}</button><button class="small red" data-remove="${f.id}">Çıkar</button></div></div></article>`}
+function render(){const list=getFiltered();$("favGrid").innerHTML=list.map(card).join('');$("emptyBox").style.display=list.length?'none':'block';updateStats();renderQuickStores();bindActions();}
+function updateStats(){const stores=new Set(favorites.map(f=>f.storeId));const avg=favorites.length?Math.round(favorites.reduce((a,b)=>a+b.price,0)/favorites.length):0;$("statTotal").textContent=favorites.length;$("statAvailable").textContent=favorites.filter(f=>f.availableDates.includes(todayStr())||f.badge.includes("Bugün")).length;$("statStores").textContent=stores.size;$("statAvg").textContent="₺"+avg;$("heroCount").textContent=favorites.length+" ürün";}
+function renderQuickStores(){const map={};favorites.forEach(f=>map[f.store]=(map[f.store]||0)+1);$("quickStores").innerHTML=Object.entries(map).sort((a,b)=>b[1]-a[1]).slice(0,6).map(([s,c])=>`<button class="saved" data-store="${s}"><span><b>${s}</b><span>${c} favori ürün</span></span><b>Git</b></button>`).join('')||'<p class="meta">Favori mağaza yok.</p>';document.querySelectorAll("[data-store]").forEach(b=>b.onclick=()=>{$("searchInput").value=b.dataset.store;$("topSearch").value=b.dataset.store;render();});}
+function bindActions(){document.querySelectorAll("[data-remove]").forEach(b=>b.onclick=()=>{const id=Number(b.dataset.remove);favorites=favorites.filter(f=>f.id!==id);localStorage.setItem("akFavoriteProducts",JSON.stringify(favorites));selected=selected.filter(x=>x!==id);render();toast("Favoriden çıkarıldı");});document.querySelectorAll("[data-select]").forEach(b=>b.onclick=()=>{const id=Number(b.dataset.select);selected=selected.includes(id)?selected.filter(x=>x!==id):[...selected,id].slice(-3);render();toast("Karşılaştırma seçimi güncellendi");});}
+function toast(msg){$("toast").textContent=msg;$("toast").style.display="block";setTimeout(()=>$("toast").style.display="none",1800)}
+function openCompare(){const list=favorites.filter(f=>selected.includes(f.id));$("compareBox").innerHTML=list.length?list.map(f=>`<div class="compare-row"><b>${f.title}</b><br><span class="meta">${f.store} • ${f.city}/${f.district} • ₺${f.price}/gün • ⭐ ${f.rating}</span></div>`).join(''):'<p class="meta">Karşılaştırmak için ürün kartlarından en fazla 3 ürün seç.</p>';$("compareModal").classList.add("show");}
+async function loadBackend(){const saved=JSON.parse(localStorage.getItem("akFavoriteProducts")||"null");if(saved&&Array.isArray(saved)&&saved.length){favorites=saved;fillFilters();render();return;}if(!token){fillFilters();render();return;}try{const res=await fetch(`${API_BASE}/favorites`,{headers:{Authorization:`Bearer ${token}`}});if(!res.ok)throw new Error('api');const data=await res.json();const list=Array.isArray(data)?data:(data.favorites||[]);if(list.length){favorites=list.map(x=>({id:x.product?.id||x.id,title:x.product?.title||x.title||"Favori Ürün",store:x.product?.store?.name||x.store?.name||"Mağaza",storeId:x.product?.store?.id||x.storeId||1,city:x.product?.city||x.city||"İstanbul",district:x.product?.district||x.district||"Merkez",price:x.product?.price||x.price||0,rating:x.product?.rating||4.8,category:x.product?.category||"Ürün",badge:x.badge||"Favori",deposit:true,availableDates:x.availableDates||[todayStr()],note:x.note||"",premium:false,added:x.createdAt||new Date()}));}}catch(e){console.log('Backend bekleniyor',e.message)}fillFilters();render();}
+["searchInput","topSearch","cityInput","districtInput","typeInput","dateInput","sortInput"].forEach(id=>$(id).addEventListener(id.includes('Input')||id==='topSearch'?'input':'change',()=>{if(id==="cityInput")fillDistricts();if(id==="topSearch")$("searchInput").value=$("topSearch").value;render();}));
+document.querySelectorAll(".chip").forEach(c=>c.onclick=()=>{document.querySelectorAll(".chip").forEach(x=>x.classList.remove("act"));c.classList.add("act");render();});
+$("clearFilters").onclick=()=>{["searchInput","topSearch","cityInput","districtInput","typeInput","dateInput"].forEach(id=>$(id).value="");$("sortInput").value="new";document.querySelectorAll(".chip").forEach(x=>x.classList.remove("act"));document.querySelector('[data-chip="all"]').classList.add("act");fillDistricts();render();};
+$("compareBtn").onclick=openCompare;$("refreshBtn").onclick=()=>{toast("Favoriler güncellendi");render();};document.querySelectorAll("[data-close]").forEach(b=>b.onclick=()=>$(b.dataset.close).classList.remove("show"));
+loadBackend();
+</script>
+</body>
+</html>

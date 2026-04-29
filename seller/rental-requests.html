@@ -1,0 +1,260 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Kiralama Talepleri | Alma Kirala</title>
+<style>
+:root{--dark:#07142f;--yellow:#ffcc00;--orange:#ff9f1c;--bg:#f4f6fb;--line:#e5e7eb;--muted:#64748b;--shadow:0 18px 45px rgba(15,23,42,.10);--shadow2:0 10px 28px rgba(15,23,42,.07)}
+*{box-sizing:border-box}body{margin:0;font-family:Inter,Arial,sans-serif;background:radial-gradient(circle at 100% 0%,rgba(255,204,0,.14),transparent 30%),var(--bg);color:var(--dark)}a{text-decoration:none;color:inherit}button,input,select,textarea{font-family:inherit}button{cursor:pointer}
+.app{display:grid;grid-template-columns:292px minmax(0,1fr);min-height:100vh}
+.side{background:linear-gradient(180deg,#07142f,#081226);color:#fff;padding:18px 14px;position:sticky;top:0;height:100vh;overflow:auto;z-index:80}
+.logo{display:flex;align-items:center;gap:10px;font-size:26px;font-weight:1000;padding:0 6px 16px}.mark{width:42px;height:42px;border-radius:15px;background:linear-gradient(135deg,#ffcc00,#ff9f1c);position:relative;overflow:hidden}.mark:before{content:"";position:absolute;width:18px;height:48px;background:#07142f;transform:rotate(28deg);left:12px;top:2px;border-radius:999px}.mark:after{content:"";position:absolute;width:14px;height:14px;border-radius:50%;background:#fff;right:7px;bottom:7px}
+.rolelabel{color:#cbd5e1;text-transform:uppercase;font-size:12px;font-weight:1000;padding:4px 12px 14px}.store-mini{margin:0 6px 14px;background:rgba(255,255,255,.08);border-radius:22px;padding:12px;display:flex;gap:10px;align-items:center}.store-avatar{width:46px;height:46px;border-radius:16px;background:#ffcc00;color:#07142f;display:grid;place-items:center;font-weight:1000}.store-mini strong{display:block;font-size:14px}.store-mini span{display:block;color:#cbd5e1;font-size:12px;font-weight:800;margin-top:3px}
+.snav{display:grid;gap:5px}.snav a{display:flex;align-items:center;justify-content:space-between;padding:11px 12px;border-radius:15px;color:#e5e7eb;font-weight:900;font-size:14px}.snav a:hover{background:rgba(255,255,255,.08)}.snav a.act{background:linear-gradient(135deg,#ffcc00,#ff9f1c);color:#07142f}.snav small{background:rgba(255,255,255,.10);color:#fff;border-radius:999px;padding:3px 7px;font-size:11px;font-weight:1000}.side-bottom{margin:14px 6px 0;border-top:1px solid rgba(255,255,255,.1);padding-top:12px;display:grid;gap:8px}.side-bottom button,.side-bottom a{border:0;border-radius:14px;padding:11px 12px;font-weight:1000;text-align:center}.logout{background:rgba(220,38,38,.18);color:#fecaca}.site-link{background:rgba(255,255,255,.08);color:#fff}
+.main{min-width:0;padding:22px}.hero{background:radial-gradient(circle at 92% 0%,rgba(255,204,0,.26),transparent 32%),linear-gradient(135deg,#fff,#fbfdff);border:1px solid var(--line);border-radius:32px;padding:24px;box-shadow:var(--shadow2);margin-bottom:16px;display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:18px;align-items:center}.mobile-menu{display:none;border:0;background:#07142f;color:#fff;border-radius:14px;padding:12px 14px;font-weight:1000}.hero span{display:inline-flex;background:#fff3bf;color:#8a5b00;border-radius:999px;padding:8px 11px;font-size:12px;font-weight:1000;margin-bottom:10px}.hero h1{margin:0;font-size:38px;line-height:1.04;font-family:Georgia,serif}.hero p{margin:9px 0 0;color:var(--muted);font-weight:750;line-height:1.6}.hero-panel{background:#07142f;color:#fff;border-radius:24px;padding:18px}.hero-panel strong{display:block;color:#ffcc00;font-size:24px;font-family:Georgia,serif}.hero-panel p{color:#cbd5e1}
+.btn{border:0;border-radius:16px;padding:13px 15px;font-weight:1000;display:inline-flex;align-items:center;justify-content:center;gap:8px;white-space:nowrap}.btn.y{background:linear-gradient(135deg,#ffcc00,#ff9f1c);color:#07142f}.btn.light{background:#f1f5f9;color:#07142f;border:1px solid #dbe3ef}.btn.dark{background:#07142f;color:#fff}.btn.green{background:#dcfce7;color:#166534;border:1px solid #bbf7d0}.btn.red{background:#fee2e2;color:#991b1b;border:1px solid #fecaca}
+.stats{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-bottom:16px}.stat{background:#fff;border:1px solid var(--line);border-radius:24px;padding:16px;box-shadow:var(--shadow2);position:relative;overflow:hidden}.stat:after{content:"";position:absolute;width:90px;height:90px;border-radius:50%;background:rgba(255,204,0,.13);right:-32px;top:-32px}.stat span{display:block;color:#64748b;font-size:12px;font-weight:900;margin-bottom:8px}.stat b{display:block;font-size:25px;line-height:1;font-weight:1000;position:relative;z-index:1}
+.command{background:#07142f;color:#fff;border-radius:28px;padding:16px;display:grid;grid-template-columns:minmax(0,1fr) 180px 170px 160px auto;gap:10px;align-items:center;box-shadow:var(--shadow);margin-bottom:16px}.command input,.command select{height:48px;border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.08);color:#fff;border-radius:16px;padding:0 13px;font-weight:850;outline:0}.command input::placeholder{color:#cbd5e1}.command select option{color:#07142f}
+.board{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:16px}.lane{background:#fff;border:1px solid var(--line);border-radius:28px;box-shadow:var(--shadow2);padding:14px}.lane h3{margin:0 0 12px;font-family:Georgia,serif}.request-card{background:#f8fafc;border:1px solid #edf1f7;border-radius:22px;padding:14px;margin-bottom:10px;transition:.2s}.request-card:hover{transform:translateY(-3px);box-shadow:var(--shadow2)}.req-top{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}.req-top h4{margin:0;font-size:17px}.badge{display:inline-flex;border-radius:999px;padding:7px 9px;font-size:11px;font-weight:1000}.pending{background:#fff8db;color:#8a5b00}.approved{background:#dcfce7;color:#166534}.rejected{background:#fee2e2;color:#991b1b}.completed{background:#eef4ff;color:#064db5}.req-meta{display:grid;gap:6px;margin:10px 0;color:#334155;font-size:13px;font-weight:850}.req-meta span{display:flex;justify-content:space-between;gap:8px;border-bottom:1px dashed #e2e8f0;padding-bottom:5px}.req-actions{display:grid;grid-template-columns:1fr 1fr;gap:7px}.req-actions .full{grid-column:1/-1}
+.table-wrap{background:#fff;border:1px solid var(--line);border-radius:28px;box-shadow:var(--shadow2);overflow:auto}.table{width:100%;border-collapse:collapse;min-width:1080px}.table th,.table td{padding:14px;border-bottom:1px solid #edf1f7;text-align:left;font-weight:850}.table th{font-size:12px;color:#64748b;text-transform:uppercase}.customer{display:flex;align-items:center;gap:10px}.avatar{width:42px;height:42px;border-radius:15px;background:#ffcc00;display:grid;place-items:center;font-weight:1000}.money{font-weight:1000}.empty{display:none;text-align:center;background:#fff;border:1px dashed #cbd5e1;border-radius:26px;padding:34px}.empty.show{display:block}
+.modal{display:none;position:fixed;inset:0;background:rgba(7,20,47,.58);z-index:200;align-items:center;justify-content:center;padding:16px;backdrop-filter:blur(6px)}.modal.open{display:flex}.modal-card{width:min(860px,100%);max-height:90vh;overflow:auto;background:#fff;border-radius:28px;padding:22px;box-shadow:var(--shadow)}.modal-head{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:14px}.modal-head h2{margin:0;font-family:Georgia,serif}.modal-close{border:0;background:#f1f5f9;width:40px;height:40px;border-radius:50%;font-size:20px;font-weight:1000}.detail-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}.detail-box{background:#f8fafc;border:1px solid #edf1f7;border-radius:20px;padding:14px}.detail-box h3{margin:0 0 10px;font-family:Georgia,serif}.detail-row{display:flex;justify-content:space-between;gap:10px;border-bottom:1px dashed #dbe3ef;padding:9px 0;font-weight:850}.detail-row span{color:#64748b}.note{background:#fff8db;border:1px solid #ffe08a;border-radius:18px;padding:12px;color:#7c4a11;font-weight:850;line-height:1.5}.modal-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
+.toast{position:fixed;right:18px;bottom:18px;background:#07142f;color:#fff;padding:14px 16px;border-radius:18px;box-shadow:var(--shadow);font-weight:900;display:none;z-index:220}.toast.show{display:block}.mobile-bottom-nav{display:none}
+@media(max-width:1280px){.stats{grid-template-columns:repeat(3,1fr)}.board{grid-template-columns:1fr}}
+@media(max-width:900px){body{padding-bottom:82px}.app{display:block}.side{position:fixed;left:-310px;top:0;bottom:0;width:292px;height:100vh;transition:.25s}.side.open{left:0}.main{padding:14px}.mobile-menu{display:inline-flex}.hero,.command{grid-template-columns:1fr;border-radius:24px}.hero h1{font-size:30px}.stats{grid-template-columns:repeat(2,1fr)}.detail-grid{grid-template-columns:1fr}.mobile-bottom-nav{position:fixed;left:10px;right:10px;bottom:10px;background:rgba(7,20,47,.96);border-radius:22px;padding:9px;display:grid;grid-template-columns:repeat(5,1fr);gap:6px;z-index:120}.mobile-bottom-nav a{color:#fff;text-align:center;border-radius:15px;padding:9px 4px;font-size:11px;font-weight:900}.mobile-bottom-nav a.active{background:#ffcc00;color:#07142f}}
+@media(max-width:560px){.stats{grid-template-columns:1fr}.card,.hero,.lane{padding:16px}.hero-panel{display:none}.req-actions{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="app">
+<aside class="side" id="sidebar">
+<a class="logo" href="../index.html"><span class="mark"></span>Alma Kirala</a>
+<div class="rolelabel">Mağaza Sahibi Paneli</div>
+<div class="store-mini"><div class="store-avatar" id="sideStoreLogo">AK</div><div><strong id="sideStoreName">Talepler</strong><span id="sideStorePlan">Para kazanma</span></div></div>
+<nav class="snav">
+<a href="dashboard.html">Panel</a><a href="my-stores.html">Mağazalarım</a><a href="create-store.html">Mağaza Aç</a><a href="store-settings.html">Mağaza Ayarları</a><a href="store-theme.html">Tema</a><a href="products.html">Ürünler</a><a href="add-product.html">Ürün Ekle</a><a href="edit-product.html">Ürün Düzenle</a><a href="product-performance.html">Ürün Performansı</a><a class="act" href="rental-requests.html">Kiralama Talepleri <small id="navReqCount">0</small></a><a href="messages.html">Mesajlar</a><a href="reviews.html">Yorumlar</a><a href="ads.html">Reklamlar</a><a href="ad-performance.html">Reklam Performansı</a><a href="finance.html">Muhasebe</a><a href="subscription.html">Abonelik</a><a href="notifications.html">Bildirimler</a><a href="support.html">Destek</a><a href="policies.html">Politikalar</a><a href="close-store.html">Mağaza Kapat</a>
+</nav>
+<div class="side-bottom"><a class="site-link" href="../index.html">Ana Siteye Dön</a><button class="logout" id="logoutBtn" type="button">Çıkış Yap</button></div>
+</aside>
+
+<main class="main">
+<section class="hero">
+<div><button class="mobile-menu" id="mobileMenu" type="button">☰ Menü</button><br><span>Kiralama operasyon merkezi</span><h1>Gelen talepleri hızlıca paraya çevir.</h1><p>Hangi mağazaya, hangi ürüne, kimden, kaç günlük ve hangi tarihler için talep geldiğini tek ekranda gör. Müşteri adı, telefon, e-posta, not, toplam tutar ve depozito bilgileri burada yönetilir.</p></div>
+<div class="hero-panel"><strong>Bu sayfa para kazanma sayfası</strong><p>Bekleyen talebi hızlı yanıtla, müşteriye ulaş, uygun tarihleri kontrol et ve kiralamayı onayla.</p></div>
+</section>
+
+<section class="stats">
+<div class="stat"><span>Bekleyen Talep</span><b id="pendingCount">0</b></div>
+<div class="stat"><span>Onaylanan</span><b id="approvedCount">0</b></div>
+<div class="stat"><span>Toplam Gün</span><b id="totalDays">0</b></div>
+<div class="stat"><span>Bekleyen Gelir</span><b id="pendingRevenue">₺0</b></div>
+<div class="stat"><span>Toplam Tutar</span><b id="totalRevenue">₺0</b></div>
+</section>
+
+<section class="command">
+<input id="searchInput" type="text" placeholder="Müşteri, telefon, ürün veya mağaza ara">
+<select id="storeSwitch"></select>
+<select id="statusFilter"><option value="all">Tüm durumlar</option><option value="pending">Bekleyen</option><option value="approved">Onaylanan</option><option value="rejected">Reddedilen</option><option value="completed">Tamamlanan</option></select>
+<select id="rangeFilter"><option value="all">Tüm tarihler</option><option value="today">Bugün</option><option value="week">Bu hafta</option><option value="month">Bu ay</option></select>
+<button class="btn y" id="clearBtn" type="button">Temizle</button>
+</section>
+
+<section class="board">
+<div class="lane"><h3>Bekleyen Talepler</h3><div id="pendingLane"></div></div>
+<div class="lane"><h3>Onaylanan Talepler</h3><div id="approvedLane"></div></div>
+<div class="lane"><h3>Tamamlanan / Reddedilen</h3><div id="closedLane"></div></div>
+</section>
+
+<section class="table-wrap">
+<table class="table">
+<thead><tr><th>Müşteri</th><th>İletişim</th><th>Mağaza</th><th>Ürün</th><th>Tarih</th><th>Gün</th><th>Tutar</th><th>Depozito</th><th>Durum</th><th>İşlem</th></tr></thead>
+<tbody id="requestTable"></tbody>
+</table>
+</section>
+<section class="empty" id="emptyState"><h2>Talep bulunamadı</h2><p>Filtreleri temizleyip tekrar dene.</p></section>
+</main>
+</div>
+
+<nav class="mobile-bottom-nav"><a href="dashboard.html">Panel</a><a href="products.html">Ürün</a><a class="active" href="rental-requests.html">Talep</a><a href="messages.html">Mesaj</a><a href="finance.html">Gelir</a></nav>
+
+<div class="modal" id="detailModal"><div class="modal-card"><div class="modal-head"><h2 id="modalTitle">Talep Detayı</h2><button class="modal-close" data-close="detailModal" type="button">×</button></div><div id="modalBody"></div></div></div>
+<div class="toast" id="toast"></div>
+
+<script>
+const API_BASE=localStorage.getItem("AK_API_BASE")||"http://localhost:5000";
+const STORE_ENDPOINT=`${API_BASE}/api/stores`;
+const RESERVATION_ENDPOINT=`${API_BASE}/api/reservations`;
+const token=localStorage.getItem("token");
+const akRole=localStorage.getItem("akRole");
+
+let stores=[],requests=[],activeStore=null;
+
+const demoStores=[{id:1,name:"Kamera Dünyam",logoText:"KD",plan:"Plus"},{id:2,name:"Event Pro",logoText:"EP",plan:"Premium"}];
+const demoRequests=[
+{id:1,storeId:1,storeName:"Kamera Dünyam",productId:1,productTitle:"Sony A7 IV Kamera Seti",productIcon:"📷",customerName:"Ahmet Yılmaz",customerPhone:"0555 123 45 67",customerEmail:"ahmet@mail.com",startDate:"2026-05-02",endDate:"2026-05-05",days:3,total:1350,deposit:1000,status:"pending",note:"Düğün çekimi için teslim almak istiyorum.",createdAt:"2026-04-28"},
+{id:2,storeId:1,storeName:"Kamera Dünyam",productId:2,productTitle:"Canon EOS R6",productIcon:"📷",customerName:"Zeynep Kaya",customerPhone:"0532 444 22 11",customerEmail:"zeynep@mail.com",startDate:"2026-05-08",endDate:"2026-05-10",days:2,total:1200,deposit:1500,status:"approved",note:"Kurye ile teslim mümkün mü?",createdAt:"2026-04-27"},
+{id:3,storeId:1,storeName:"Kamera Dünyam",productId:3,productTitle:"Işık Seti Kiralama",productIcon:"💡",customerName:"Mert Demir",customerPhone:"0541 222 10 90",customerEmail:"mert@mail.com",startDate:"2026-05-01",endDate:"2026-05-02",days:1,total:220,deposit:500,status:"rejected",note:"Akşam teslim alacağım.",createdAt:"2026-04-25"},
+{id:4,storeId:1,storeName:"Kamera Dünyam",productId:5,productTitle:"Kablosuz Mikrofon Seti",productIcon:"🎙️",customerName:"Elif Arslan",customerPhone:"0507 777 88 99",customerEmail:"elif@mail.com",startDate:"2026-04-20",endDate:"2026-04-22",days:2,total:420,deposit:500,status:"completed",note:"Etkinlik için kullanıldı.",createdAt:"2026-04-18"},
+{id:5,storeId:2,storeName:"Event Pro",productId:9,productTitle:"Sahne Işık Paketi",productIcon:"🎭",customerName:"Can Öztürk",customerPhone:"0530 111 22 33",customerEmail:"can@mail.com",startDate:"2026-05-12",endDate:"2026-05-15",days:3,total:3000,deposit:2000,status:"pending",note:"Festival alanına kurulum gerekiyor.",createdAt:"2026-04-28"}
+];
+
+function $(id){return document.getElementById(id)}
+function money(v){return "₺"+Number(v||0).toLocaleString("tr-TR")}
+function toast(msg){$("toast").textContent=msg;$("toast").classList.add("show");setTimeout(()=>$("toast").classList.remove("show"),3000)}
+function authGuard(){if(!token||akRole!=="seller"){toast("Kiralama talepleri için mağaza hesabıyla giriş yapmalısın.");setTimeout(()=>location.href="../seller-login.html",700);return false}return true}
+function authHeader(){return token?{"Authorization":`Bearer ${token}`}:{}} 
+async function fetchJson(url){try{const r=await fetch(url,{headers:{...authHeader()}});if(!r.ok)throw new Error();return await r.json()}catch{return null}}
+
+async function loadStores(){
+ const data=await fetchJson(`${STORE_ENDPOINT}/my`);
+ const raw=data?.stores||data?.data||data?.items||data;
+ stores=Array.isArray(raw)&&raw.length?raw.map(s=>({id:s.id||s._id,name:s.name||s.storeName||"Mağaza",logoText:s.logoText||s.logo||(s.name||"AK").slice(0,2).toUpperCase(),plan:s.plan||s.packageName||"Standart"})):demoStores;
+ const saved=localStorage.getItem("akActiveStoreId");
+ activeStore=stores.find(s=>String(s.id)===String(saved))||stores[0];
+ localStorage.setItem("akActiveStoreId",activeStore.id);
+ renderStoreInfo();
+}
+async function loadRequests(){
+ const data=await fetchJson(`${RESERVATION_ENDPOINT}/store?storeId=${encodeURIComponent(activeStore.id)}`);
+ const raw=data?.reservations||data?.data||data?.items||data?.results||data;
+ requests=Array.isArray(raw)&&raw.length?raw.map(normalizeRequest):demoRequests.filter(r=>String(r.storeId)===String(activeStore.id));
+}
+function normalizeRequest(r){
+ return {
+  id:r.id||r._id,storeId:r.storeId||r.store?.id||activeStore.id,storeName:r.storeName||r.store?.name||activeStore.name,
+  productId:r.productId||r.product?.id,productTitle:r.productTitle||r.product?.title||"Ürün",productIcon:r.productIcon||"📦",
+  customerName:r.customerName||r.user?.name||r.name||"Müşteri",customerPhone:r.customerPhone||r.phone||r.user?.phone||"",customerEmail:r.customerEmail||r.email||r.user?.email||"",
+  startDate:r.startDate||r.start||"",endDate:r.endDate||r.end||"",days:Number(r.days||r.rentalDays||1),
+  total:Number(r.total||r.totalPrice||r.amount||0),deposit:Number(r.deposit||0),status:r.status||"pending",note:r.note||r.message||"",createdAt:r.createdAt||new Date().toISOString()
+ }
+}
+function renderStoreInfo(){
+ $("storeSwitch").innerHTML=stores.map(s=>`<option value="${s.id}" ${String(s.id)===String(activeStore.id)?"selected":""}>${s.name}</option>`).join("");
+ $("sideStoreLogo").textContent=activeStore.logoText||"AK";$("sideStoreName").textContent=activeStore.name;$("sideStorePlan").textContent=activeStore.plan+" Paket";
+}
+function statusText(s){return {pending:"Bekleyen",approved:"Onaylandı",rejected:"Reddedildi",completed:"Tamamlandı"}[s]||s}
+function statusClass(s){return s==="pending"?"pending":s==="approved"?"approved":s==="rejected"?"rejected":"completed"}
+function filtered(){
+ const q=$("searchInput").value.trim().toLowerCase(), st=$("statusFilter").value, range=$("rangeFilter").value;
+ return requests.filter(r=>{
+  const text=`${r.customerName} ${r.customerPhone} ${r.customerEmail} ${r.productTitle} ${r.storeName}`.toLowerCase().includes(q);
+  const status=st==="all"||r.status===st;
+  const date=range==="all"||dateMatch(r.createdAt,range);
+  return text&&status&&date;
+ });
+}
+function dateMatch(date,range){
+ const d=new Date(date), now=new Date();
+ const diff=(now-d)/86400000;
+ if(range==="today") return diff<1;
+ if(range==="week") return diff<=7;
+ if(range==="month") return diff<=31;
+ return true;
+}
+function renderStats(){
+ const list=requests;
+ $("pendingCount").textContent=list.filter(r=>r.status==="pending").length;
+ $("approvedCount").textContent=list.filter(r=>r.status==="approved").length;
+ $("totalDays").textContent=list.reduce((a,r)=>a+r.days,0);
+ $("pendingRevenue").textContent=money(list.filter(r=>r.status==="pending").reduce((a,r)=>a+r.total,0));
+ $("totalRevenue").textContent=money(list.reduce((a,r)=>a+r.total,0));
+ $("navReqCount").textContent=list.filter(r=>r.status==="pending").length;
+}
+function cardHtml(r){
+ return `<article class="request-card">
+  <div class="req-top"><h4>${r.productIcon} ${r.productTitle}</h4><span class="badge ${statusClass(r.status)}">${statusText(r.status)}</span></div>
+  <div class="req-meta">
+    <span><b>Müşteri</b><em>${r.customerName}</em></span>
+    <span><b>Telefon</b><em>${r.customerPhone||"-"}</em></span>
+    <span><b>Tarih</b><em>${r.startDate} / ${r.endDate}</em></span>
+    <span><b>Gün</b><em>${r.days}</em></span>
+    <span><b>Tutar</b><em>${money(r.total)}</em></span>
+  </div>
+  <div class="req-actions">
+    <button class="btn light full" data-detail="${r.id}" type="button">Detayları İncele</button>
+    ${r.status==="pending"?`<button class="btn green" data-status="${r.id}:approved" type="button">Onayla</button><button class="btn red" data-status="${r.id}:rejected" type="button">Reddet</button>`:""}
+    <a class="btn y" href="tel:${r.customerPhone.replaceAll(" ","")}">Ara</a>
+    <a class="btn dark" href="messages.html?customer=${encodeURIComponent(r.customerName)}">Mesaj</a>
+  </div>
+ </article>`
+}
+function renderBoard(){
+ const list=filtered();
+ $("pendingLane").innerHTML=list.filter(r=>r.status==="pending").map(cardHtml).join("")||"<p style='color:#64748b;font-weight:850'>Bekleyen talep yok.</p>";
+ $("approvedLane").innerHTML=list.filter(r=>r.status==="approved").map(cardHtml).join("")||"<p style='color:#64748b;font-weight:850'>Onaylanan talep yok.</p>";
+ $("closedLane").innerHTML=list.filter(r=>r.status==="completed"||r.status==="rejected").map(cardHtml).join("")||"<p style='color:#64748b;font-weight:850'>Kapanan talep yok.</p>";
+}
+function renderTable(){
+ const list=filtered();
+ $("emptyState").classList.toggle("show",list.length===0);
+ $("requestTable").innerHTML=list.map(r=>`
+  <tr>
+    <td><div class="customer"><div class="avatar">${r.customerName.slice(0,1).toUpperCase()}</div><div><b>${r.customerName}</b><br><small>${r.customerEmail||"-"}</small></div></div></td>
+    <td>${r.customerPhone||"-"}</td>
+    <td>${r.storeName}</td>
+    <td>${r.productIcon} ${r.productTitle}</td>
+    <td>${r.startDate}<br><small>${r.endDate}</small></td>
+    <td>${r.days}</td>
+    <td class="money">${money(r.total)}</td>
+    <td>${money(r.deposit)}</td>
+    <td><span class="badge ${statusClass(r.status)}">${statusText(r.status)}</span></td>
+    <td><button class="btn light" data-detail="${r.id}" type="button">İncele</button></td>
+  </tr>`).join("");
+ bindRequestButtons();
+}
+function bindRequestButtons(){
+ document.querySelectorAll("[data-detail]").forEach(btn=>btn.addEventListener("click",()=>openDetail(btn.dataset.detail)));
+ document.querySelectorAll("[data-status]").forEach(btn=>btn.addEventListener("click",()=>{const [id,status]=btn.dataset.status.split(":");updateStatus(id,status)}));
+}
+function openDetail(id){
+ const r=requests.find(x=>String(x.id)===String(id));if(!r)return;
+ $("modalTitle").textContent=`${r.customerName} talebi`;
+ $("modalBody").innerHTML=`<div class="detail-grid">
+  <div class="detail-box"><h3>Müşteri Bilgileri</h3>
+    <div class="detail-row"><span>Ad Soyad</span><b>${r.customerName}</b></div>
+    <div class="detail-row"><span>Telefon</span><b>${r.customerPhone||"-"}</b></div>
+    <div class="detail-row"><span>E-mail</span><b>${r.customerEmail||"-"}</b></div>
+    <div class="detail-row"><span>Talep tarihi</span><b>${r.createdAt}</b></div>
+  </div>
+  <div class="detail-box"><h3>Kiralama Bilgileri</h3>
+    <div class="detail-row"><span>Mağaza</span><b>${r.storeName}</b></div>
+    <div class="detail-row"><span>Ürün</span><b>${r.productTitle}</b></div>
+    <div class="detail-row"><span>Başlangıç</span><b>${r.startDate}</b></div>
+    <div class="detail-row"><span>Bitiş</span><b>${r.endDate}</b></div>
+    <div class="detail-row"><span>Gün</span><b>${r.days}</b></div>
+    <div class="detail-row"><span>Toplam</span><b>${money(r.total)}</b></div>
+    <div class="detail-row"><span>Depozito</span><b>${money(r.deposit)}</b></div>
+  </div>
+ </div>
+ <br><div class="note"><b>Müşteri notu:</b><br>${r.note||"Not yazılmamış."}</div>
+ <div class="modal-actions">
+  ${r.status==="pending"?`<button class="btn green" data-status="${r.id}:approved" type="button">Talebi Onayla</button><button class="btn red" data-status="${r.id}:rejected" type="button">Talebi Reddet</button>`:""}
+  <a class="btn y" href="tel:${r.customerPhone.replaceAll(" ","")}">Müşteriyi Ara</a>
+  <a class="btn dark" href="https://wa.me/90${r.customerPhone.replace(/\D/g,'').replace(/^0/,'')}" target="_blank">WhatsApp</a>
+  <a class="btn light" href="messages.html?customer=${encodeURIComponent(r.customerName)}">Mesaj Gönder</a>
+ </div>`;
+ $("detailModal").classList.add("open");
+ bindRequestButtons();
+}
+async function updateStatus(id,status){
+ try{await fetch(`${RESERVATION_ENDPOINT}/${id}/status`,{method:"PATCH",headers:{"Content-Type":"application/json",...authHeader()},body:JSON.stringify({status})})}catch{}
+ const r=requests.find(x=>String(x.id)===String(id));if(r)r.status=status;
+ toast(status==="approved"?"Talep onaylandı.":"Talep reddedildi.");
+ $("detailModal").classList.remove("open");
+ renderAll();
+}
+function renderAll(){renderStats();renderBoard();renderTable()}
+function bindEvents(){
+ $("mobileMenu").addEventListener("click",()=>$("sidebar").classList.toggle("open"));
+ document.addEventListener("click",e=>{if(innerWidth<=900){const s=$("sidebar"),m=$("mobileMenu");if(s.classList.contains("open")&&!s.contains(e.target)&&e.target!==m)s.classList.remove("open")}});
+ $("storeSwitch").addEventListener("change",async()=>{activeStore=stores.find(s=>String(s.id)===$("storeSwitch").value)||activeStore;localStorage.setItem("akActiveStoreId",activeStore.id);renderStoreInfo();await loadRequests();renderAll();toast("Mağaza talepleri yüklendi.")});
+ ["searchInput","statusFilter","rangeFilter"].forEach(id=>$(id).addEventListener("input",renderAll));
+ $("clearBtn").addEventListener("click",()=>{$("searchInput").value="";$("statusFilter").value="all";$("rangeFilter").value="all";renderAll()});
+ document.querySelectorAll("[data-close]").forEach(btn=>btn.addEventListener("click",()=>$(btn.dataset.close).classList.remove("open")));
+ document.querySelectorAll(".modal").forEach(m=>m.addEventListener("click",e=>{if(e.target.classList.contains("modal"))m.classList.remove("open")}));
+ $("logoutBtn").addEventListener("click",()=>{localStorage.removeItem("token");localStorage.removeItem("akRole");localStorage.removeItem("akUser");toast("Çıkış yapıldı.");setTimeout(()=>location.href="../seller-login.html",600)});
+}
+async function init(){if(!authGuard())return;await loadStores();await loadRequests();bindEvents();renderAll()}init();
+</script>
+</body>
+</html>

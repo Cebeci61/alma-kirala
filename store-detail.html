@@ -1,0 +1,1811 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mağaza Detayı | Alma Kirala</title>
+
+  <style>
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{margin:0;font-family:Arial,sans-serif;background:#f4f6fb;color:#07142f}
+    a{text-decoration:none;color:inherit}
+    button,input,select,textarea{font-family:inherit}
+    .ak-container{width:min(1240px,calc(100% - 32px));margin:auto}
+
+    .topbar{background:#07142f;color:#fff;font-size:13px}
+    .topbar-inner{min-height:34px;display:flex;justify-content:space-between;align-items:center;gap:14px}
+
+    .header{background:#fff;border-bottom:1px solid #e5e7eb;position:sticky;top:0;z-index:50;box-shadow:0 8px 24px rgba(15,23,42,.05)}
+    .header-inner{min-height:86px;display:flex;align-items:center;justify-content:space-between;gap:22px}
+    .logo{display:flex;align-items:center;gap:12px;font-size:30px;font-weight:950;white-space:nowrap}
+    .logo-icon{width:50px;height:50px;background:#ffcc00;color:#07142f;border-radius:15px;display:grid;place-items:center;box-shadow:0 10px 24px rgba(255,204,0,.25)}
+    .nav{display:flex;gap:24px;font-weight:900}
+    .actions{display:flex;gap:10px}
+    .actions a{padding:14px 18px;border-radius:15px;font-weight:950;background:#f1f5f9}
+    .actions .yellow{background:#ffcc00}
+
+    .store-hero{
+      background:
+        radial-gradient(circle at 82% 10%,rgba(255,204,0,.22),transparent 30%),
+        linear-gradient(135deg,#07142f,#133a75);
+      color:#fff;
+    }
+    .store-hero-inner{padding:38px 0 78px}
+    .breadcrumb{display:flex;gap:8px;color:#cbd5e1;font-size:14px;margin-bottom:24px;flex-wrap:wrap}
+    .breadcrumb a{color:#ffcc00;font-weight:900}
+
+    .store-profile{display:grid;grid-template-columns:1fr 360px;gap:26px;align-items:end}
+    .profile-left{display:flex;gap:22px;align-items:center}
+    .store-logo-big{
+      width:116px;height:116px;border-radius:32px;background:#ffcc00;color:#07142f;
+      display:grid;place-items:center;font-size:36px;font-weight:950;
+      box-shadow:0 18px 40px rgba(0,0,0,.25);
+      animation:floatLogo 4s ease-in-out infinite;
+    }
+    .profile-left h1{margin:0;font-size:46px;letter-spacing:-1.4px}
+    .profile-left p{margin:10px 0;color:#dbe7ff;font-size:17px;line-height:1.55}
+    .hero-badges{display:flex;flex-wrap:wrap;gap:9px;margin-top:14px}
+    .hero-badges span{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.16);padding:9px 12px;border-radius:999px;font-weight:900;font-size:13px}
+
+    .contact-card{background:#fff;color:#07142f;border-radius:28px;padding:22px;box-shadow:0 20px 50px rgba(0,0,0,.18)}
+    .contact-card h3{margin:0 0 14px;font-size:22px}
+    .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+    .contact-grid a,.contact-grid button{border:0;border-radius:15px;padding:14px;text-align:center;font-weight:950;cursor:pointer;font-size:15px}
+    .whatsapp{background:#dcfce7;color:#166534}
+    .call{background:#eef4ff;color:#064db5}
+    .message{background:#07142f;color:#fff;grid-column:span 2}
+    .follow{background:#ffcc00;color:#07142f;grid-column:span 2}
+    .mini-note{font-size:12px;color:#64748b;line-height:1.5;margin:12px 0 0}
+
+    .stats-row{display:grid;grid-template-columns:repeat(5,1fr);gap:16px;margin-top:-42px;position:relative;z-index:3}
+    .stat{background:#fff;border:1px solid #e5e7eb;border-radius:24px;padding:20px;text-align:center;box-shadow:0 16px 40px rgba(15,23,42,.08)}
+    .stat strong{display:block;font-size:30px}
+    .stat span{color:#64748b;font-size:13px;font-weight:900}
+
+    .ad-banner{
+      margin:26px auto;
+      background:linear-gradient(135deg,#111827,#74470f 70%,#ffcc00);
+      color:#fff;border-radius:28px;padding:26px 30px;display:flex;justify-content:space-between;align-items:center;gap:22px;
+      box-shadow:0 18px 45px rgba(15,23,42,.13);overflow:hidden;position:relative;
+    }
+    .ad-banner:after{content:"";position:absolute;right:-55px;top:-80px;width:230px;height:230px;border-radius:50%;background:rgba(255,255,255,.16)}
+    .ad-banner span{display:inline-flex;background:#fff3bf;color:#8a5b00;padding:8px 12px;border-radius:999px;font-weight:950;font-size:13px}
+    .ad-banner h2{margin:10px 0 0;font-size:29px}
+    .ad-banner a{background:#ffcc00;color:#07142f;padding:14px 20px;border-radius:15px;font-weight:950;position:relative;z-index:2;white-space:nowrap}
+
+    .page-layout{display:grid;grid-template-columns:300px 1fr;gap:24px;margin-top:24px;align-items:start}
+    .side-card,.content-card{background:#fff;border:1px solid #e5e7eb;border-radius:26px;padding:22px;box-shadow:0 14px 35px rgba(15,23,42,.06)}
+    .side-card{position:sticky;top:104px}
+    .side-card h3,.content-card h2{margin:0 0 16px}
+    .info-list{display:grid;gap:12px}
+    .info-item{border:1px solid #edf1f7;background:#f8fafc;border-radius:16px;padding:13px}
+    .info-item span{display:block;color:#64748b;font-size:12px;font-weight:900;margin-bottom:5px}
+    .info-item strong{font-size:15px}
+
+    .trust-list{display:flex;flex-wrap:wrap;gap:8px;margin-top:15px}
+    .trust-list span{background:#eef4ff;color:#064db5;padding:8px 10px;border-radius:999px;font-size:12px;font-weight:950}
+
+    .score-card{margin-top:18px;background:#07142f;color:#fff;border-radius:22px;padding:18px}
+    .score-card strong{display:block;color:#ffcc00;font-size:30px;margin-bottom:4px}
+    .score-card span{color:#cbd5e1;font-size:13px;font-weight:800}
+
+    .tabs{display:flex;gap:10px;overflow-x:auto;margin-bottom:18px}
+    .tab{border:1px solid #dbe3ef;background:#fff;border-radius:999px;padding:12px 16px;font-weight:950;cursor:pointer;white-space:nowrap}
+    .tab.active{background:#07142f;color:#fff;border-color:#07142f}
+
+    .tab-content{display:none}
+    .tab-content.active{display:block}
+
+    .filter-line{display:grid;grid-template-columns:1fr 180px 180px auto;gap:12px;margin-bottom:18px}
+    .filter-line input,.filter-line select{border:1px solid #dbe3ef;border-radius:15px;padding:14px;outline:0;font-weight:800}
+    .filter-line button{border:0;background:#ffcc00;border-radius:15px;padding:0 18px;font-weight:950;cursor:pointer}
+
+    .view-row{display:flex;justify-content:space-between;align-items:center;gap:14px;margin-bottom:16px}
+    .view-switch{display:flex;background:#f1f5f9;border-radius:15px;padding:4px}
+    .view-switch button{border:0;background:transparent;border-radius:12px;padding:10px 13px;font-weight:950;cursor:pointer}
+    .view-switch button.active{background:#07142f;color:#fff}
+
+    .product-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+    .product-grid.list-view{grid-template-columns:1fr}
+    .product-card{border:1px solid #edf1f7;border-radius:22px;overflow:hidden;background:#fff;transition:.25s;position:relative}
+    .product-card:hover{transform:translateY(-5px);box-shadow:0 18px 40px rgba(15,23,42,.12)}
+    .product-card.premium{border:2px solid #ffcc00}
+    .product-img{height:170px;background:linear-gradient(135deg,#f8fafc,#ffcc00);position:relative;overflow:hidden}
+    .product-img:after{content:"";position:absolute;right:-35px;bottom:-45px;width:135px;height:135px;border-radius:50%;background:rgba(255,255,255,.35)}
+    .product-grid.list-view .product-card{display:grid;grid-template-columns:240px 1fr}
+    .product-grid.list-view .product-img{height:100%}
+    .badge{position:absolute;top:12px;left:12px;background:#07142f;color:#ffcc00;border-radius:999px;padding:7px 10px;font-size:12px;font-weight:950;z-index:2}
+    .fav{position:absolute;right:12px;top:12px;width:39px;height:39px;border:0;border-radius:50%;background:#fff;font-size:20px;cursor:pointer;z-index:3}
+    .fav.active{background:#ffcc00}
+    .product-body{padding:15px}
+    .product-body h3{margin:0 0 8px;font-size:17px}
+    .product-meta{color:#64748b;font-size:13px;margin-bottom:10px;line-height:1.5}
+    .price{font-size:22px;font-weight:950}
+    .price span{font-size:13px;color:#64748b}
+    .product-actions{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:13px}
+    .product-actions a,.product-actions button{border:0;border-radius:13px;padding:11px;text-align:center;font-weight:950;background:#f1f5f9;cursor:pointer}
+    .product-actions .yellow{background:#ffcc00}
+
+    .pagination{display:flex;justify-content:center;gap:8px;margin:24px 0 0}
+    .pagination button{width:40px;height:40px;border:1px solid #dbe3ef;background:#fff;border-radius:13px;font-weight:950;cursor:pointer}
+    .pagination button.active{background:#07142f;color:#fff}
+
+    .review-summary{display:grid;grid-template-columns:240px 1fr;gap:20px;margin-bottom:20px}
+    .rating-big{background:#07142f;color:#fff;border-radius:24px;padding:22px;text-align:center}
+    .rating-big strong{font-size:46px;color:#ffcc00}
+    .rating-bars{display:grid;gap:9px}
+    .bar{display:grid;grid-template-columns:70px 1fr 35px;gap:10px;align-items:center;font-weight:900;color:#64748b}
+    .bar-line{height:10px;background:#edf1f7;border-radius:999px;overflow:hidden}
+    .bar-line span{display:block;height:100%;background:#ffcc00}
+
+    .review-list{display:grid;gap:14px}
+    .review{border:1px solid #edf1f7;background:#f8fafc;border-radius:18px;padding:16px}
+    .review strong{display:block;margin-bottom:5px}
+    .review .stars{color:#f59e0b;font-weight:950}
+    .review p{color:#475569;line-height:1.6}
+
+    .about-text{color:#475569;line-height:1.8;font-size:16px}
+    .about-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:18px}
+    .about-box{background:#f8fafc;border:1px solid #edf1f7;border-radius:18px;padding:16px}
+    .about-box strong{display:block;font-size:22px;margin-bottom:5px}
+    .about-box span{color:#64748b;font-size:13px;font-weight:800}
+
+    .map-box{
+      min-height:330px;border-radius:24px;background:linear-gradient(135deg,#dbeafe,#fff7cc);
+      position:relative;overflow:hidden;border:1px solid #e5e7eb;
+    }
+    .map-shape{position:absolute;left:10%;top:28%;width:80%;height:42%;background:#bfdbfe;clip-path:polygon(2% 52%,10% 38%,22% 40%,30% 28%,43% 35%,55% 27%,70% 35%,84% 30%,98% 43%,88% 56%,75% 54%,62% 70%,46% 63%,33% 73%,20% 62%,8% 67%)}
+    .map-pin{position:absolute;left:42%;top:46%;background:#07142f;color:#ffcc00;width:46px;height:46px;border-radius:50% 50% 50% 8px;transform:rotate(-45deg);display:grid;place-items:center;font-weight:950}
+    .map-pin span{transform:rotate(45deg)}
+
+    .message-modal{position:fixed;inset:0;background:rgba(7,20,47,.65);z-index:200;display:none;align-items:center;justify-content:center;padding:20px}
+    .message-modal.show{display:flex}
+    .message-box{width:min(520px,100%);background:#fff;border-radius:28px;padding:24px;box-shadow:0 30px 90px rgba(0,0,0,.3)}
+    .message-box h2{margin:0 0 14px}
+    .message-box input,.message-box textarea{width:100%;border:1px solid #dbe3ef;border-radius:16px;padding:14px;margin-bottom:10px;outline:0;font-weight:800}
+    .message-box textarea{min-height:120px;resize:vertical}
+    .message-actions{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+    .message-actions button{border:0;border-radius:15px;padding:14px;font-weight:950;cursor:pointer}
+    .close{background:#f1f5f9}
+    .send{background:#ffcc00}
+
+    @keyframes floatLogo{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+
+    @media(max-width:1100px){
+      .store-profile,.page-layout{grid-template-columns:1fr}
+      .side-card{position:static}
+      .stats-row{grid-template-columns:repeat(2,1fr);margin-top:20px}
+      .product-grid{grid-template-columns:repeat(2,1fr)}
+      .review-summary{grid-template-columns:1fr}
+    }
+
+    @media(max-width:650px){
+      .topbar{display:none}
+      .header-inner{height:auto;padding:14px 0;flex-direction:column;align-items:flex-start}
+      .nav{display:none}
+      .actions{width:100%}
+      .actions a{flex:1;text-align:center}
+      .profile-left{flex-direction:column;align-items:flex-start}
+      .profile-left h1{font-size:34px}
+      .stats-row,.product-grid,.filter-line,.about-grid{grid-template-columns:1fr}
+      .contact-grid{grid-template-columns:1fr}
+      .message,.follow{grid-column:auto}
+      .store-hero-inner{padding:30px 0 45px}
+      .product-grid.list-view .product-card{grid-template-columns:1fr}
+      .ad-banner{flex-direction:column;align-items:flex-start;padding:22px}
+    }
+  
+/* === ALMA KIRALA STORE DETAIL PREMIUM APP FINAL === */
+:root{
+  --dark:#07142f;
+  --dark2:#10264d;
+  --blue:#064db5;
+  --yellow:#ffcc00;
+  --orange:#ff9f1c;
+  --bg:#f4f6fb;
+  --card:#fff;
+  --text:#07142f;
+  --muted:#64748b;
+  --line:#e5e7eb;
+  --soft:#eef4ff;
+  --green:#16a34a;
+  --red:#dc2626;
+  --shadow:0 18px 45px rgba(15,23,42,.10);
+  --shadow2:0 10px 28px rgba(15,23,42,.07);
+}
+body{
+  font-family:Inter,Arial,sans-serif!important;
+  background:
+    radial-gradient(circle at 100% 0%,rgba(255,204,0,.15),transparent 30%),
+    radial-gradient(circle at 0 24%,rgba(6,77,181,.08),transparent 32%),
+    #f4f6fb!important;
+  -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
+}
+.ak-container{width:min(1240px,calc(100% - 32px))!important}
+
+/* header */
+.header{
+  background:linear-gradient(135deg,rgba(255,255,255,.98),rgba(248,251,255,.96))!important;
+  backdrop-filter:blur(16px);
+  z-index:95!important;
+}
+.header-inner{
+  min-height:74px!important;
+}
+.logo{
+  letter-spacing:-.8px;
+}
+.logo-icon{
+  background:linear-gradient(135deg,#ffcc00,#ff9f1c)!important;
+  border-radius:17px!important;
+  position:relative;
+  overflow:hidden;
+}
+.logo-icon::before{
+  content:"";
+  position:absolute;
+  width:19px;
+  height:54px;
+  background:#07142f;
+  transform:rotate(28deg);
+  left:15px;
+  top:4px;
+  border-radius:999px;
+  opacity:.95;
+}
+.logo-icon{
+  font-size:0!important;
+}
+.logo-icon::after{
+  content:"";
+  position:absolute;
+  width:16px;
+  height:16px;
+  background:#fff;
+  border-radius:50%;
+  right:8px;
+  bottom:8px;
+}
+.nav a,
+.actions a{
+  transition:.2s;
+}
+.nav a:hover,
+.actions a:hover{
+  transform:translateY(-2px);
+  box-shadow:0 12px 26px rgba(15,23,42,.08);
+}
+
+/* hero */
+.store-hero{
+  background:
+    radial-gradient(circle at 88% 2%,rgba(255,204,0,.30),transparent 32%),
+    radial-gradient(circle at 0 100%,rgba(6,77,181,.26),transparent 34%),
+    linear-gradient(135deg,#07142f,#12376f)!important;
+  overflow:hidden;
+}
+.store-hero-inner{
+  padding:32px 0 70px!important;
+}
+.breadcrumb{
+  font-weight:850;
+}
+.store-profile{
+  grid-template-columns:minmax(0,1fr) 340px!important;
+  align-items:center!important;
+}
+.profile-left h1{
+  font-family:Georgia,"Times New Roman",serif;
+  text-wrap:balance;
+  line-height:1.04;
+}
+.store-logo-big{
+  background:linear-gradient(135deg,#ffcc00,#ff9f1c)!important;
+  box-shadow:0 18px 44px rgba(255,204,0,.24),0 24px 60px rgba(0,0,0,.18)!important;
+}
+.hero-badges span{
+  backdrop-filter:blur(10px);
+}
+.contact-card{
+  border:1px solid rgba(255,255,255,.28);
+  animation:premiumAppear .35s ease both;
+}
+.contact-grid a,
+.contact-grid button{
+  transition:.2s;
+}
+.contact-grid a:hover,
+.contact-grid button:hover{
+  transform:translateY(-2px);
+  box-shadow:var(--shadow2);
+}
+.message{
+  background:linear-gradient(135deg,#07142f,#10264d)!important;
+}
+.follow{
+  background:linear-gradient(135deg,#ffcc00,#ff9f1c)!important;
+}
+
+/* stats */
+.stats-row{
+  gap:12px!important;
+}
+.stat{
+  border-radius:22px!important;
+  padding:16px!important;
+  transition:.25s;
+}
+.stat:hover{
+  transform:translateY(-4px);
+  box-shadow:var(--shadow)!important;
+}
+.stat strong{
+  font-size:26px!important;
+  letter-spacing:-.6px;
+}
+
+/* ad */
+.ad-banner{
+  background:
+    radial-gradient(circle at 90% 0%,rgba(255,204,0,.40),transparent 30%),
+    linear-gradient(135deg,#111827,#7c4a11)!important;
+}
+.ad-banner h2{
+  font-family:Georgia,"Times New Roman",serif;
+  letter-spacing:-.4px;
+}
+.ad-banner a{
+  transition:.2s;
+}
+.ad-banner a:hover{
+  transform:translateY(-2px);
+}
+
+/* layout */
+.page-layout{
+  grid-template-columns:300px minmax(0,1fr)!important;
+}
+.side-card,
+.content-card{
+  border-radius:28px!important;
+  box-shadow:var(--shadow2)!important;
+}
+.side-card{
+  top:94px!important;
+}
+.side-card h3,
+.content-card h2{
+  font-family:Georgia,"Times New Roman",serif;
+}
+.info-item,
+.about-box,
+.review,
+.product-card{
+  transition:.25s;
+}
+.info-item:hover,
+.about-box:hover,
+.review:hover{
+  transform:translateY(-2px);
+  box-shadow:var(--shadow2);
+}
+.score-card{
+  background:
+    radial-gradient(circle at 90% 0%,rgba(255,204,0,.22),transparent 32%),
+    linear-gradient(135deg,#07142f,#10264d)!important;
+}
+
+/* tabs */
+.tabs{
+  position:sticky;
+  top:82px;
+  z-index:30;
+  background:rgba(255,255,255,.86);
+  backdrop-filter:blur(14px);
+  margin:-8px -8px 18px;
+  padding:8px;
+  border-radius:20px;
+}
+.tab{
+  transition:.2s;
+}
+.tab:hover{
+  transform:translateY(-2px);
+}
+.tab.active{
+  background:linear-gradient(135deg,#07142f,#10264d)!important;
+}
+
+/* filters */
+.filter-line{
+  grid-template-columns:minmax(0,1fr) 170px 170px auto!important;
+}
+.filter-line input,
+.filter-line select{
+  background:#fff;
+}
+.filter-line input:focus,
+.filter-line select:focus,
+.message-box input:focus,
+.message-box textarea:focus{
+  border-color:#ffcc00!important;
+  box-shadow:0 0 0 4px rgba(255,204,0,.16);
+}
+.filter-line button{
+  background:linear-gradient(135deg,#ffcc00,#ff9f1c)!important;
+}
+
+/* products */
+.product-grid{
+  gap:14px!important;
+}
+.product-card{
+  border-radius:24px!important;
+  background:linear-gradient(180deg,#fff,#fbfdff)!important;
+  box-shadow:0 12px 28px rgba(15,23,42,.07);
+}
+.product-card:hover{
+  transform:translateY(-7px) scale(1.004)!important;
+  box-shadow:0 24px 58px rgba(15,23,42,.15)!important;
+}
+.product-img{
+  background:
+    radial-gradient(circle at 82% 14%,rgba(255,204,0,.42),transparent 28%),
+    linear-gradient(135deg,#eef4ff,#ffd633)!important;
+}
+.product-img::before{
+  content:"📦";
+  position:absolute;
+  inset:0;
+  display:grid;
+  place-items:center;
+  font-size:58px;
+  filter:drop-shadow(0 16px 20px rgba(15,23,42,.12));
+}
+.product-card:nth-child(1) .product-img::before{content:"📷"}
+.product-card:nth-child(2) .product-img::before{content:"🎥"}
+.product-card:nth-child(3) .product-img::before{content:"💡"}
+.product-card:nth-child(4) .product-img::before{content:"🎬"}
+.product-card:nth-child(5) .product-img::before{content:"🚁"}
+.product-card:nth-child(6) .product-img::before{content:"🛠️"}
+.badge{
+  box-shadow:0 8px 20px rgba(7,20,47,.20);
+}
+.fav{
+  box-shadow:0 10px 24px rgba(15,23,42,.16);
+}
+.product-body h3{
+  font-weight:1000;
+  letter-spacing:-.2px;
+}
+.product-actions a,
+.product-actions button{
+  transition:.2s;
+}
+.product-actions a:hover,
+.product-actions button:hover{
+  transform:translateY(-2px);
+}
+.product-actions .yellow{
+  background:linear-gradient(135deg,#ffcc00,#ff9f1c)!important;
+}
+
+/* reviews */
+.review-summary{
+  align-items:stretch;
+}
+.rating-big{
+  background:
+    radial-gradient(circle at 90% 0%,rgba(255,204,0,.26),transparent 35%),
+    linear-gradient(135deg,#07142f,#10264d)!important;
+}
+.review{
+  background:linear-gradient(180deg,#f8fafc,#fff)!important;
+}
+.review p{
+  margin-bottom:0;
+}
+.bar-line span{
+  border-radius:999px;
+}
+
+/* map */
+.map-box{
+  background:
+    radial-gradient(circle at 80% 10%,rgba(255,204,0,.30),transparent 28%),
+    linear-gradient(135deg,#dbeafe,#fff7cc)!important;
+}
+.map-pin{
+  box-shadow:0 15px 34px rgba(7,20,47,.25);
+}
+
+/* modal */
+.message-modal{
+  backdrop-filter:blur(6px);
+}
+.message-box{
+  animation:modalIn .24s ease both;
+}
+.message-actions .send{
+  background:linear-gradient(135deg,#ffcc00,#ff9f1c)!important;
+}
+
+/* footer-like bottom trust block */
+.store-bottom-trust{
+  margin:30px auto 0;
+  background:#07142f;
+  color:#fff;
+  border-radius:28px;
+  padding:24px;
+  display:grid;
+  grid-template-columns:1.4fr 1fr 1fr;
+  gap:14px;
+}
+.store-bottom-trust div{
+  background:rgba(255,255,255,.08);
+  border:1px solid rgba(255,255,255,.12);
+  border-radius:20px;
+  padding:16px;
+}
+.store-bottom-trust strong{
+  display:block;
+  color:#ffcc00;
+  font-size:22px;
+}
+.store-bottom-trust span{
+  color:#cbd5e1;
+  font-weight:800;
+  font-size:13px;
+}
+
+/* app mobile */
+.mobile-store-cta{
+  display:none;
+}
+@media(max-width:1100px){
+  .page-layout{
+    grid-template-columns:1fr!important;
+  }
+  .side-card{
+    position:static!important;
+  }
+  .store-profile{
+    grid-template-columns:1fr!important;
+  }
+  .contact-card{
+    max-width:520px;
+  }
+  .stats-row{
+    margin-top:-28px!important;
+    grid-template-columns:repeat(3,1fr)!important;
+  }
+  .product-grid{
+    grid-template-columns:repeat(2,1fr)!important;
+  }
+}
+@media(max-width:760px){
+  body{
+    padding-bottom:82px;
+  }
+  .ak-container{
+    width:calc(100% - 20px)!important;
+  }
+  .topbar{
+    display:none;
+  }
+  .header{
+    border-radius:0 0 22px 22px;
+  }
+  .header-inner{
+    min-height:auto!important;
+    padding:11px 0!important;
+    display:flex!important;
+    align-items:center!important;
+    justify-content:space-between!important;
+    gap:10px!important;
+  }
+  .logo{
+    font-size:22px!important;
+  }
+  .logo-icon{
+    width:42px!important;
+    height:42px!important;
+  }
+  .actions{
+    margin-left:auto;
+  }
+  .actions a:first-child{
+    display:none;
+  }
+  .actions a{
+    padding:10px 12px!important;
+    border-radius:13px!important;
+    font-size:13px;
+  }
+  .store-hero-inner{
+    padding:22px 0 38px!important;
+  }
+  .breadcrumb{
+    font-size:12px!important;
+    margin-bottom:16px!important;
+    overflow-x:auto;
+    flex-wrap:nowrap!important;
+    white-space:nowrap;
+    padding-bottom:2px;
+  }
+  .profile-left{
+    gap:14px!important;
+  }
+  .store-logo-big{
+    width:74px!important;
+    height:74px!important;
+    border-radius:22px!important;
+    font-size:25px!important;
+  }
+  .profile-left h1{
+    font-size:30px!important;
+    letter-spacing:-.8px!important;
+  }
+  .profile-left p{
+    font-size:14px!important;
+    line-height:1.55!important;
+  }
+  .hero-badges{
+    gap:7px!important;
+  }
+  .hero-badges span{
+    font-size:11px!important;
+    padding:7px 9px!important;
+  }
+  .contact-card{
+    border-radius:23px!important;
+    padding:16px!important;
+    width:100%;
+  }
+  .contact-card h3{
+    font-size:20px!important;
+  }
+  .contact-grid{
+    grid-template-columns:1fr 1fr!important;
+    gap:8px!important;
+  }
+  .contact-grid a,
+  .contact-grid button{
+    padding:12px 8px!important;
+    font-size:13px!important;
+  }
+  .message,
+  .follow{
+    grid-column:span 2!important;
+  }
+  .stats-row{
+    grid-template-columns:repeat(2,1fr)!important;
+    margin-top:14px!important;
+    gap:9px!important;
+  }
+  .stat{
+    padding:12px 9px!important;
+    border-radius:18px!important;
+  }
+  .stat strong{
+    font-size:21px!important;
+  }
+  .stat span{
+    font-size:11px!important;
+  }
+  .ad-banner{
+    margin:18px auto!important;
+    border-radius:23px!important;
+    padding:18px!important;
+  }
+  .ad-banner h2{
+    font-size:22px!important;
+  }
+  .page-layout{
+    gap:14px!important;
+    margin-top:14px!important;
+  }
+  .side-card,
+  .content-card{
+    border-radius:23px!important;
+    padding:16px!important;
+  }
+  .info-list{
+    grid-template-columns:1fr 1fr;
+    gap:8px!important;
+  }
+  .info-item{
+    padding:10px!important;
+    border-radius:15px!important;
+  }
+  .info-item strong{
+    font-size:13px!important;
+  }
+  .trust-list span{
+    font-size:11px!important;
+    padding:7px 9px!important;
+  }
+  .tabs{
+    top:66px!important;
+    margin:-6px -6px 14px!important;
+    padding:7px!important;
+    border-radius:18px!important;
+  }
+  .tab{
+    padding:10px 13px!important;
+    font-size:13px!important;
+  }
+  .filter-line{
+    grid-template-columns:1fr!important;
+    gap:8px!important;
+  }
+  .filter-line input,
+  .filter-line select,
+  .filter-line button{
+    padding:12px!important;
+  }
+  .view-row{
+    align-items:flex-start!important;
+  }
+  .view-row h2{
+    font-size:22px!important;
+  }
+  .view-switch{
+    width:100%;
+    display:grid!important;
+    grid-template-columns:1fr 1fr;
+  }
+  .product-grid,
+  .product-grid.list-view{
+    grid-template-columns:1fr 1fr!important;
+    gap:10px!important;
+  }
+  .product-card,
+  .product-grid.list-view .product-card{
+    display:block!important;
+    border-radius:19px!important;
+  }
+  .product-img,
+  .product-grid.list-view .product-img{
+    height:112px!important;
+  }
+  .product-img::before{
+    font-size:42px!important;
+  }
+  .badge{
+    font-size:10px!important;
+    padding:5px 7px!important;
+  }
+  .fav{
+    width:32px!important;
+    height:32px!important;
+    font-size:16px!important;
+  }
+  .product-body{
+    padding:9px!important;
+  }
+  .product-body h3{
+    font-size:13px!important;
+    line-height:1.2!important;
+    display:-webkit-box;
+    -webkit-line-clamp:2;
+    line-clamp:2;
+    -webkit-box-orient:vertical;
+    overflow:hidden;
+  }
+  .product-meta{
+    display:none;
+  }
+  .price{
+    font-size:16px!important;
+  }
+  .product-actions{
+    grid-template-columns:1fr!important;
+    gap:6px!important;
+    margin-top:8px!important;
+  }
+  .product-actions button{
+    display:none;
+  }
+  .review-summary{
+    grid-template-columns:1fr!important;
+  }
+  .rating-big{
+    padding:18px!important;
+  }
+  .rating-big strong{
+    font-size:40px!important;
+  }
+  .bar{
+    grid-template-columns:62px 1fr 32px!important;
+    font-size:12px;
+  }
+  .review{
+    padding:13px!important;
+  }
+  .about-grid{
+    grid-template-columns:1fr!important;
+  }
+  .map-box{
+    min-height:230px!important;
+  }
+  .message-box{
+    border-radius:24px!important;
+    padding:18px!important;
+  }
+  .message-actions{
+    grid-template-columns:1fr!important;
+  }
+  .mobile-store-cta{
+    position:fixed;
+    left:10px;
+    right:10px;
+    bottom:10px;
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:8px;
+    background:rgba(7,20,47,.96);
+    border-radius:22px;
+    padding:10px;
+    z-index:150;
+    box-shadow:0 18px 45px rgba(7,20,47,.35);
+    backdrop-filter:blur(14px);
+  }
+  .mobile-store-cta a,
+  .mobile-store-cta button{
+    border:0;
+    border-radius:16px;
+    padding:13px 10px;
+    font-weight:1000;
+    text-align:center;
+  }
+  .mobile-store-cta a{
+    background:#fff;
+    color:#07142f;
+  }
+  .mobile-store-cta button{
+    background:#ffcc00;
+    color:#07142f;
+  }
+  .store-bottom-trust{
+    grid-template-columns:1fr!important;
+    padding:18px!important;
+    border-radius:23px!important;
+  }
+}
+@media(max-width:390px){
+  .product-grid,
+  .product-grid.list-view{
+    grid-template-columns:1fr!important;
+  }
+  .info-list,
+  .stats-row{
+    grid-template-columns:1fr!important;
+  }
+}
+@keyframes premiumAppear{
+  from{opacity:0;transform:translateY(14px)}
+  to{opacity:1;transform:translateY(0)}
+}
+@keyframes modalIn{
+  from{opacity:0;transform:translateY(18px) scale(.98)}
+  to{opacity:1;transform:translateY(0) scale(1)}
+}
+
+
+/* === STORE DETAIL V2: FILTER + LISTING + TRUST === */
+.store-confidence{
+  margin:0 0 24px;
+  background:#fff;
+  border:1px solid #e5e7eb;
+  border-radius:28px;
+  padding:22px;
+  box-shadow:0 14px 35px rgba(15,23,42,.06);
+  display:grid;
+  grid-template-columns:1.1fr 1fr;
+  gap:18px;
+  align-items:center;
+}
+.confidence-main span{
+  display:inline-flex;
+  background:#fff3bf;
+  color:#8a5b00;
+  padding:8px 11px;
+  border-radius:999px;
+  font-size:12px;
+  font-weight:1000;
+}
+.confidence-main h2{
+  margin:10px 0 8px;
+  font-family:Georgia,"Times New Roman",serif;
+  font-size:28px;
+  letter-spacing:-.5px;
+}
+.confidence-main p{
+  margin:0;
+  color:#475569;
+  line-height:1.65;
+  font-weight:750;
+}
+.confidence-grid{
+  display:grid;
+  grid-template-columns:1fr;
+  gap:9px;
+}
+.confidence-grid div{
+  background:#f8fafc;
+  border:1px solid #edf1f7;
+  border-radius:18px;
+  padding:14px;
+}
+.confidence-grid strong{
+  display:block;
+  color:#07142f;
+}
+.confidence-grid small{
+  display:block;
+  color:#64748b;
+  margin-top:4px;
+  font-weight:850;
+}
+.product-filter-toggle{
+  width:100%;
+  border:0;
+  background:#07142f;
+  color:#fff;
+  border-radius:16px;
+  padding:13px 16px;
+  font-weight:1000;
+  margin-bottom:12px;
+}
+.product-filter-panel{
+  display:none!important;
+}
+.product-filter-panel.open{
+  display:grid!important;
+  grid-template-columns:1.2fr .8fr .8fr .8fr .65fr .65fr .9fr auto!important;
+}
+.active-product-filters{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  margin:0 0 14px;
+}
+.active-product-filters span{
+  background:#eef4ff;
+  border:1px solid #d8e7ff;
+  color:#064db5;
+  border-radius:999px;
+  padding:8px 10px;
+  font-size:12px;
+  font-weight:1000;
+}
+.inline-store-banner{
+  margin:4px 0 16px;
+  border-radius:24px;
+  background:
+    radial-gradient(circle at 90% 0%,rgba(255,204,0,.36),transparent 28%),
+    linear-gradient(135deg,#07142f,#7c4a11);
+  color:#fff;
+  padding:18px 20px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:14px;
+  box-shadow:0 14px 34px rgba(15,23,42,.10);
+}
+.inline-store-banner span{
+  display:inline-flex;
+  background:rgba(255,255,255,.14);
+  border:1px solid rgba(255,255,255,.16);
+  border-radius:999px;
+  padding:6px 9px;
+  font-size:11px;
+  font-weight:1000;
+}
+.inline-store-banner strong{
+  display:block;
+  margin-top:6px;
+  font-family:Georgia,"Times New Roman",serif;
+  font-size:21px;
+}
+.inline-store-banner a{
+  background:#ffcc00;
+  color:#07142f;
+  border-radius:14px;
+  padding:12px 15px;
+  font-weight:1000;
+  white-space:nowrap;
+}
+.product-grid.compact-view{
+  grid-template-columns:repeat(4,1fr)!important;
+  gap:10px!important;
+}
+.compact-view .product-img{
+  height:105px!important;
+}
+.compact-view .product-body{
+  padding:9px!important;
+}
+.compact-view .product-body h3{
+  font-size:12px!important;
+  line-height:1.2!important;
+  display:-webkit-box;
+  -webkit-line-clamp:2;
+  line-clamp:2;
+  -webkit-box-orient:vertical;
+  overflow:hidden;
+}
+.compact-view .product-meta,
+.compact-view .product-actions{
+  display:none!important;
+}
+.compact-view .price{
+  font-size:15px!important;
+}
+.product-grid.list-view .product-card{
+  min-height:150px;
+}
+.product-grid.list-view .product-img{
+  height:150px!important;
+}
+.product-grid.list-view .product-body{
+  display:grid;
+  align-content:center;
+}
+.pagination button{
+  transition:.2s;
+}
+.pagination button:hover{
+  transform:translateY(-2px);
+  box-shadow:0 10px 24px rgba(15,23,42,.08);
+}
+@media(max-width:1100px){
+  .store-confidence{
+    grid-template-columns:1fr;
+  }
+  .product-filter-panel.open{
+    grid-template-columns:1fr 1fr 1fr!important;
+  }
+  .product-grid.compact-view{
+    grid-template-columns:repeat(3,1fr)!important;
+  }
+}
+@media(max-width:760px){
+  .store-confidence{
+    border-radius:23px;
+    padding:16px;
+    margin-bottom:16px;
+  }
+  .confidence-main h2{
+    font-size:23px;
+  }
+  .product-filter-panel.open{
+    grid-template-columns:1fr!important;
+  }
+  .inline-store-banner{
+    flex-direction:column;
+    align-items:flex-start;
+    padding:16px;
+    border-radius:21px;
+  }
+  .inline-store-banner a{
+    width:100%;
+    text-align:center;
+  }
+  .product-grid.compact-view{
+    grid-template-columns:1fr 1fr!important;
+  }
+  .compact-view .product-img{
+    height:92px!important;
+  }
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="topbar">
+  <div class="ak-container topbar-inner">
+    <span>Alma Kirala • Mağaza profili</span>
+    <span>Güven rozetleri, ilanlar, puanlar ve hızlı iletişim</span>
+  </div>
+</div>
+
+<header class="header">
+  <div class="ak-container header-inner">
+    <a href="index.html" class="logo">
+      <span class="logo-icon">AK</span>
+      Alma Kirala
+    </a>
+
+    <nav class="nav">
+      <a href="listing.html">Kategoriler</a>
+      <a href="stores.html">Mağazalar</a>
+      <a href="pricing.html">Paketler</a>
+      <a href="help.html">Yardım</a>
+    </nav>
+
+    <div class="actions">
+      <a href="login.html">Giriş</a>
+      <a href="seller-login.html" class="yellow">Mağaza Aç</a>
+    </div>
+  </div>
+</header>
+
+<section class="store-hero">
+  <div class="ak-container store-hero-inner">
+
+    <div class="breadcrumb">
+      <a href="index.html">Ana Sayfa</a>
+      <span>/</span>
+      <a href="stores.html">Mağazalar</a>
+      <span>/</span>
+      <b id="breadcrumbStore">Mağaza</b>
+    </div>
+
+    <div class="store-profile">
+      <div class="profile-left">
+        <div class="store-logo-big" id="storeLogo">KD</div>
+
+        <div>
+          <h1 id="storeName">Mağaza Adı</h1>
+          <p id="storeDesc">Mağaza açıklaması</p>
+          <div class="hero-badges" id="heroBadges"></div>
+        </div>
+      </div>
+
+      <div class="contact-card">
+        <h3>Mağazayla İletişim</h3>
+
+        <div class="contact-grid">
+          <a id="whatsappBtn" class="whatsapp" target="_blank">WhatsApp</a>
+          <a id="callBtn" class="call">Ara</a>
+          <button id="messageBtn" class="message" type="button">Mesaj Gönder</button>
+          <button id="followBtn" class="follow" type="button">Mağazayı Takip Et</button>
+        </div>
+
+        <p class="mini-note">Güvenlik için tam adres ve teslimat detayları rezervasyon onayından sonra paylaşılır.</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<main class="ak-container">
+
+  <section class="stats-row">
+    <div class="stat"><strong id="ratingStat">0</strong><span>Mağaza Puanı</span></div>
+    <div class="stat"><strong id="productStat">0</strong><span>Aktif İlan</span></div>
+    <div class="stat"><strong id="rentalStat">0</strong><span>Kiralama</span></div>
+    <div class="stat"><strong id="responseStat">0</strong><span>Yanıt Süresi</span></div>
+    <div class="stat"><strong id="followerStat">0</strong><span>Takipçi</span></div>
+  </section>
+
+  <section class="ad-banner">
+    <div>
+      <span>Mağaza Vitrini</span>
+      <h2 id="adTitle">Bu mağazanın öne çıkan kiralık ürünlerini incele.</h2>
+    </div>
+    <a href="#products">İlanlara Git</a>
+  </section>
+
+
+  <section class="store-confidence">
+    <div class="confidence-main">
+      <span>Güvenli Mağaza Deneyimi</span>
+      <h2>Bu mağazayı seçmeden önce ihtiyacın olan her bilgi burada.</h2>
+      <p>Ürünleri, yorumları, mağaza puanını, yanıt süresini, konum bilgisini ve iletişim seçeneklerini tek ekranda inceleyebilirsin.</p>
+    </div>
+    <div class="confidence-grid">
+      <div><strong>Kimlik & mağaza kontrolü</strong><small>Doğrulanmış mağaza rozetleri</small></div>
+      <div><strong>Şeffaf ürün bilgisi</strong><small>Fiyat, talep ve görüntülenme</small></div>
+      <div><strong>Hızlı iletişim</strong><small>WhatsApp, arama ve mesaj</small></div>
+    </div>
+  </section>
+
+  <section class="page-layout">
+
+    <aside class="side-card">
+      <h3>Mağaza Bilgileri</h3>
+
+      <div class="info-list">
+        <div class="info-item"><span>Konum</span><strong id="storeLocation"></strong></div>
+        <div class="info-item"><span>Kategori</span><strong id="storeCategory"></strong></div>
+        <div class="info-item"><span>Paket</span><strong id="storePlan"></strong></div>
+        <div class="info-item"><span>Üyelik</span><strong id="storeSince"></strong></div>
+        <div class="info-item"><span>Çalışma Saatleri</span><strong>09:00 - 20:00</strong></div>
+      </div>
+
+      <div class="trust-list" id="trustList"></div>
+
+      <div class="score-card">
+        <strong id="trustScore">98</strong>
+        <span>Alma Kirala güven skoru</span>
+      </div>
+    </aside>
+
+    <section class="content-card">
+
+      <div class="tabs">
+        <button class="tab active" data-tab="products" type="button">İlanlar</button>
+        <button class="tab" data-tab="about" type="button">Mağaza Hakkında</button>
+        <button class="tab" data-tab="reviews" type="button">Yorumlar</button>
+        <button class="tab" data-tab="location" type="button">Konum</button>
+      </div>
+
+      <div class="tab-content active" id="products">
+        <button class="product-filter-toggle" id="productFilterToggle" type="button">Ürün Filtrelerini Aç</button>
+
+        <div class="filter-line product-filter-panel" id="productFilterPanel">
+          <input id="productSearch" type="text" placeholder="Bu mağazada ürün ara">
+          <select id="productCategory">
+            <option value="all">Tüm Kategoriler</option>
+          </select>
+          <select id="availabilityFilter">
+            <option value="all">Tüm müsaitlik</option>
+            <option value="available">Bugün müsait</option>
+            <option value="ask">Müsaitlik sor</option>
+          </select>
+          <select id="adTypeFilter">
+            <option value="all">Tüm ilan tipleri</option>
+            <option value="premium">Premium</option>
+            <option value="normal">Standart</option>
+          </select>
+          <input id="minPrice" type="number" min="0" placeholder="Min ₺">
+          <input id="maxPrice" type="number" min="0" placeholder="Max ₺">
+          <select id="productSort">
+            <option value="recommended">Önerilen</option>
+            <option value="low">En düşük fiyat</option>
+            <option value="high">En yüksek fiyat</option>
+            <option value="rating">En yüksek puan</option>
+            <option value="views">En çok görüntülenen</option>
+            <option value="requests">En çok talep alan</option>
+          </select>
+          <button id="clearProductFilter" type="button">Temizle</button>
+        </div>
+
+        <div class="active-product-filters" id="activeProductFilters"></div>
+
+        <div class="view-row">
+          <div>
+            <h2 id="productsTitle">Mağaza İlanları</h2>
+          </div>
+          <div class="view-switch">
+            <button class="active" data-view="grid" type="button">Grid</button>
+            <button data-view="list" type="button">Liste</button><button data-view="compact" type="button">Küçük</button>
+          </div>
+        </div>
+
+        
+        <section class="inline-store-banner">
+          <div>
+            <span>Mağaza Ürün Vitrini</span>
+            <strong>Popüler ürünleri filtrele, karşılaştır ve hemen detayına git.</strong>
+          </div>
+          <a href="#products">Ürünleri İncele</a>
+        </section>
+
+        <div class="product-grid" id="productGrid"></div>
+        <div class="pagination" id="pagination"></div>
+
+        <div class="empty" id="emptyProducts">
+          <h3>Ürün bulunamadı</h3>
+          <p>Arama veya filtreyi değiştirerek tekrar deneyebilirsin.</p>
+        </div>
+      </div>
+
+      <div class="tab-content" id="about">
+        <h2>Mağaza Hakkında</h2>
+        <p class="about-text" id="aboutText"></p>
+
+        <div class="about-grid">
+          <div class="about-box"><strong id="aboutProducts">0</strong><span>aktif ilan</span></div>
+          <div class="about-box"><strong id="aboutRentals">0</strong><span>başarılı kiralama</span></div>
+          <div class="about-box"><strong id="aboutResponse">0</strong><span>ortalama yanıt</span></div>
+        </div>
+      </div>
+
+      <div class="tab-content" id="reviews">
+        <h2>Müşteri Yorumları</h2>
+
+        <div class="review-summary">
+          <div class="rating-big">
+            <strong id="reviewRating">0</strong>
+            <p>Ortalama puan</p>
+          </div>
+
+          <div class="rating-bars" id="ratingBars"></div>
+        </div>
+
+        <div class="review-list" id="reviewList"></div>
+      </div>
+
+      <div class="tab-content" id="location">
+        <h2>Konum</h2>
+        <p class="about-text" id="locationText"></p>
+        <div class="map-box">
+          <div class="map-shape"></div>
+          <div class="map-pin"><span id="mapPinLogo">KD</span></div>
+        </div>
+      </div>
+
+    </section>
+
+  </section>
+
+</main>
+
+
+<section class="ak-container store-bottom-trust">
+  <div><strong>Güvenli mağaza profili</strong><span>Rozetler, yorumlar, konum ve ürünler tek ekranda.</span></div>
+  <div><strong>Hızlı iletişim</strong><span>WhatsApp, arama ve mesaj aksiyonları hazır.</span></div>
+  <div><strong>Mobil app görünümü</strong><span>Tüm ekranlara sığan müşteri odaklı deneyim.</span></div>
+</section>
+
+<div class="mobile-store-cta">
+  <a id="mobileWhatsappBtn" href="#" target="_blank" rel="noopener">WhatsApp</a>
+  <button id="mobileMessageBtn" type="button">Mesaj Gönder</button>
+</div>
+
+<div class="message-modal" id="messageModal">
+  <div class="message-box">
+    <h2>Mağazaya Mesaj Gönder</h2>
+    <input id="msgName" type="text" placeholder="Ad Soyad">
+    <input id="msgPhone" type="text" placeholder="Telefon">
+    <textarea id="msgText" placeholder="Mesajınız"></textarea>
+
+    <div class="message-actions">
+      <button class="close" id="closeMessage" type="button">Kapat</button>
+      <button class="send" id="sendMessage" type="button">Gönder</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  const stores = [
+    {
+      id:1,
+      name:"Kamera Dünyam",
+      logo:"KD",
+      city:"İstanbul",
+      district:"Kadıköy",
+      category:"Kamera",
+      rating:4.9,
+      plan:"Plus",
+      products:86,
+      rentals:1240,
+      response:"8 dk",
+      followers:3260,
+      since:"2023",
+      trustScore:98,
+      phone:"905555555555",
+      whatsapp:"905555555555",
+      description:"Profesyonel kamera, lens, ışık ve çekim ekipmanlarında güvenilir kiralama mağazası.",
+      about:"Kamera Dünyam; fotoğraf, video, reklam, etkinlik ve sosyal medya projeleri için profesyonel kamera ekipmanları sunar. Tüm ekipmanlar teslim öncesi kontrol edilir, temizlenir ve kullanıma hazır şekilde teslim edilir. Hızlı yanıt, güvenli teslimat ve açıklayıcı ürün bilgisi mağazanın temel çalışma prensibidir.",
+      badges:["Doğrulanmış Mağaza","Hızlı Yanıt","Belgeli Satıcı","Yüksek Puan","Güvenli Teslimat"],
+      items:[
+        {id:1,title:"Sony A7 IV Kamera Seti",category:"Kamera",price:450,rating:4.8,badge:"Bugün Müsait",premium:true,views:2450,requests:38},
+        {id:2,title:"Canon EOS R6 Profesyonel Kamera",category:"Kamera",price:600,rating:4.9,badge:"Depozitosuz",premium:false,views:1840,requests:29},
+        {id:4,title:"GoPro Hero Aksiyon Kamera",category:"Kamera",price:280,rating:4.5,badge:"Popüler",premium:false,views:920,requests:14},
+        {id:11,title:"Profesyonel Işık Seti",category:"Işık",price:320,rating:4.7,badge:"Kampanyalı",premium:true,views:760,requests:12},
+        {id:12,title:"Tripod Seti",category:"Kamera",price:90,rating:4.6,badge:"Bugün Müsait",premium:false,views:420,requests:8},
+        {id:13,title:"Kablosuz Mikrofon Seti",category:"Ses",price:210,rating:4.8,badge:"Popüler",premium:true,views:1100,requests:21},
+        {id:14,title:"Softbox Işık Takımı",category:"Işık",price:160,rating:4.5,badge:"Uygun Fiyat",premium:false,views:640,requests:10},
+        {id:15,title:"Video Monitor Kiralama",category:"Kamera",price:260,rating:4.7,badge:"Premium",premium:true,views:830,requests:15},
+        {id:16,title:"Kamera Slider",category:"Kamera",price:190,rating:4.4,badge:"Müsaitlik Sor",premium:false,views:370,requests:6},
+        {id:17,title:"Led Panel Işık",category:"Işık",price:130,rating:4.6,badge:"Bugün Müsait",premium:false,views:510,requests:9},
+        {id:18,title:"Gimbal Pro Set",category:"Kamera",price:240,rating:4.8,badge:"Çok Talep",premium:true,views:990,requests:19}
+      ],
+      reviews:[
+        ["Mert K.","Ürünler temiz ve teslimat çok hızlıydı.",5],
+        ["Ayşe D.","Satıcı çok ilgiliydi, tekrar kiralarım.",5],
+        ["Burak S.","Profesyonel bir mağaza deneyimi.",4]
+      ]
+    },
+    {
+      id:2,
+      name:"Event Pro",
+      logo:"EP",
+      city:"Antalya",
+      district:"Muratpaşa",
+      category:"Etkinlik",
+      rating:4.8,
+      plan:"Premium",
+      products:64,
+      rentals:890,
+      response:"12 dk",
+      followers:2140,
+      since:"2022",
+      trustScore:96,
+      phone:"905555555555",
+      whatsapp:"905555555555",
+      description:"Etkinlik, organizasyon ve sahne ekipmanları için premium kiralama mağazası.",
+      about:"Event Pro; düğün, toplantı, lansman, konser ve özel organizasyonlar için ses, ışık, sahne ve etkinlik ekipmanları sağlar.",
+      badges:["Premium Mağaza","Kurumsal Satıcı","Hızlı Yanıt","Yüksek Puan"],
+      items:[
+        {id:7,title:"Etkinlik Ses Sistemi",category:"Etkinlik",price:650,rating:4.5,badge:"Sponsorlu",premium:true,views:1520,requests:25},
+        {id:9,title:"Organizasyon Işık Sistemi",category:"Etkinlik",price:520,rating:4.3,badge:"Bugün Müsait",premium:false,views:980,requests:18}
+      ],
+      reviews:[
+        ["Selin A.","Organizasyonumuz sorunsuz geçti.",5],
+        ["Emre T.","Ekipmanlar zamanında teslim edildi.",4]
+      ]
+    }
+  ];
+
+  const params = new URLSearchParams(location.search);
+  const storeId = Number(params.get("id")) || 1;
+  const store = stores.find(s => s.id === storeId) || stores[0];
+
+  const $ = id => document.getElementById(id);
+  let currentPage = 1;
+  const pageSize = 10;
+  let currentView = "grid";
+  let favorites = JSON.parse(localStorage.getItem("akStoreProductFavorites") || "[]");
+
+  function money(v){
+    return `₺${Number(v).toLocaleString("tr-TR")}`;
+  }
+
+  function fillStore(){
+    document.title = `${store.name} | Alma Kirala`;
+    $("breadcrumbStore").textContent = store.name;
+    $("storeLogo").textContent = store.logo;
+    $("mapPinLogo").textContent = store.logo;
+    $("storeName").textContent = store.name;
+    $("storeDesc").textContent = store.description;
+
+    $("ratingStat").textContent = store.rating;
+    $("productStat").textContent = store.products;
+    $("rentalStat").textContent = store.rentals;
+    $("responseStat").textContent = store.response;
+    $("followerStat").textContent = store.followers;
+    $("trustScore").textContent = store.trustScore;
+
+    $("storeLocation").textContent = `${store.city} / ${store.district}`;
+    $("storeCategory").textContent = store.category;
+    $("storePlan").textContent = store.plan;
+    $("storeSince").textContent = `${store.since} yılından beri`;
+
+    $("aboutText").textContent = store.about;
+    $("aboutProducts").textContent = store.products;
+    $("aboutRentals").textContent = store.rentals;
+    $("aboutResponse").textContent = store.response;
+    $("reviewRating").textContent = store.rating;
+
+    $("locationText").textContent = `${store.city} / ${store.district}. Tam adres, rezervasyon onayından sonra güvenlik nedeniyle paylaşılır.`;
+    $("adTitle").textContent = `${store.name} mağazasının öne çıkan kiralık ürünlerini incele.`;
+    $("productsTitle").textContent = `${store.name} ilanları`;
+
+    $("whatsappBtn").href = `https://wa.me/${store.whatsapp}?text=${encodeURIComponent(store.name + " mağazası hakkında bilgi almak istiyorum.")}`;
+    $("callBtn").href = `tel:+${store.phone}`;
+
+    $("heroBadges").innerHTML = "";
+    $("trustList").innerHTML = "";
+
+    store.badges.forEach(badge=>{
+      $("heroBadges").innerHTML += `<span>${badge}</span>`;
+      $("trustList").innerHTML += `<span>${badge}</span>`;
+    });
+  }
+
+  function fillProductCategories(){
+    const categories = [...new Set(store.items.map(i=>i.category))];
+    categories.forEach(cat=>{
+      $("productCategory").innerHTML += `<option value="${cat}">${cat}</option>`;
+    });
+  }
+
+  function getFilteredProducts(){
+    const q = $("productSearch").value.trim().toLowerCase();
+    const category = $("productCategory").value;
+    const availability = $("availabilityFilter").value;
+    const adType = $("adTypeFilter").value;
+    const minPrice = Number($("minPrice").value || 0);
+    const maxPrice = Number($("maxPrice").value || 0);
+    const sort = $("productSort").value;
+
+    let list = store.items.filter(item=>{
+      const searchMatch = item.title.toLowerCase().includes(q);
+      const categoryMatch = category === "all" || item.category === category;
+      const availableStatus = !String(item.badge || "").toLowerCase().includes("sor");
+      const availabilityMatch =
+        availability === "all" ||
+        (availability === "available" && availableStatus) ||
+        (availability === "ask" && !availableStatus);
+      const adTypeMatch =
+        adType === "all" ||
+        (adType === "premium" && item.premium) ||
+        (adType === "normal" && !item.premium);
+      const minMatch = !minPrice || item.price >= minPrice;
+      const maxMatch = !maxPrice || item.price <= maxPrice;
+      return searchMatch && categoryMatch && availabilityMatch && adTypeMatch && minMatch && maxMatch;
+    });
+
+    if(sort === "low") list.sort((a,b)=>a.price-b.price);
+    if(sort === "high") list.sort((a,b)=>b.price-a.price);
+    if(sort === "rating") list.sort((a,b)=>b.rating-a.rating);
+    if(sort === "views") list.sort((a,b)=>b.views-a.views);
+    if(sort === "requests") list.sort((a,b)=>b.requests-a.requests);
+    if(sort === "recommended") list.sort((a,b)=>Number(b.premium)-Number(a.premium) || b.rating-a.rating || b.requests-a.requests);
+
+    renderActiveProductFilters(list.length);
+    return list;
+  }
+
+  function renderActiveProductFilters(count){
+    const chips = [];
+    if($("productSearch").value.trim()) chips.push("Arama: " + $("productSearch").value.trim());
+    if($("productCategory").value !== "all") chips.push("Kategori: " + $("productCategory").value);
+    if($("availabilityFilter").value !== "all") chips.push("Müsaitlik: " + $("availabilityFilter").options[$("availabilityFilter").selectedIndex].text);
+    if($("adTypeFilter").value !== "all") chips.push("İlan: " + $("adTypeFilter").options[$("adTypeFilter").selectedIndex].text);
+    if($("minPrice").value || $("maxPrice").value) chips.push("Fiyat: " + ($("minPrice").value || 0) + " - " + ($("maxPrice").value || "∞") + " TL");
+    chips.unshift(count + " ürün");
+    $("activeProductFilters").innerHTML = chips.map(c=>`<span>${c}</span>`).join("");
+  }
+
+  function productCard(item){
+    const favActive = favorites.includes(item.id) ? "active" : "";
+
+    return `
+      <article class="product-card ${item.premium ? "premium" : ""}">
+        <a href="product-detail.html?id=${item.id}">
+          <div class="product-img">
+            <span class="badge">${item.badge}</span>
+            <button class="fav ${favActive}" type="button" data-id="${item.id}">♥</button>
+          </div>
+        </a>
+
+        <div class="product-body">
+          <h3>${item.title}</h3>
+          <div class="product-meta">
+            ${store.city} / ${store.district} • ★ ${item.rating}
+            <br>👁 ${item.views} görüntülenme • ${item.requests} talep
+          </div>
+          <div class="price">${money(item.price)} <span>/ gün</span></div>
+
+          <div class="product-actions">
+            <a class="yellow" href="product-detail.html?id=${item.id}">İncele</a>
+            <button type="button" onclick="openMessage()">Sor</button>
+          </div>
+        </div>
+      </article>
+    `;
+  }
+
+  function renderProducts(){
+    const list = getFilteredProducts();
+    const totalPages = Math.max(1, Math.ceil(list.length / pageSize));
+    currentPage = Math.min(currentPage, totalPages);
+
+    const start = (currentPage - 1) * pageSize;
+    const pageItems = list.slice(start, start + pageSize);
+
+    $("productGrid").classList.toggle("list-view", currentView === "list");
+    $("productGrid").classList.toggle("compact-view", currentView === "compact");
+    $("productGrid").innerHTML = "";
+
+    if(list.length === 0){
+      $("emptyProducts").classList.add("show");
+      $("pagination").innerHTML = "";
+      return;
+    }
+
+    $("emptyProducts").classList.remove("show");
+    $("productGrid").innerHTML = pageItems.map(productCard).join("");
+    renderPagination(totalPages);
+    bindFavorites();
+  }
+
+  function renderPagination(totalPages){
+    $("pagination").innerHTML = "";
+
+    for(let i=1;i<=totalPages;i++){
+      $("pagination").innerHTML += `<button class="${i===currentPage ? "active" : ""}" data-page="${i}">${i}</button>`;
+    }
+
+    $("pagination").querySelectorAll("button").forEach(btn=>{
+      btn.addEventListener("click",()=>{
+        currentPage = Number(btn.dataset.page);
+        renderProducts();
+      });
+    });
+  }
+
+  function bindFavorites(){
+    document.querySelectorAll(".fav").forEach(btn=>{
+      btn.addEventListener("click",(event)=>{
+        event.preventDefault();
+        event.stopPropagation();
+
+        const id = Number(btn.dataset.id);
+        const index = favorites.indexOf(id);
+
+        if(index >= 0){
+          favorites.splice(index,1);
+        }else{
+          favorites.push(id);
+        }
+
+        localStorage.setItem("akStoreProductFavorites", JSON.stringify(favorites));
+        btn.classList.toggle("active");
+      });
+    });
+  }
+
+  function renderReviews(){
+    $("reviewList").innerHTML = "";
+
+    store.reviews.forEach(review=>{
+      $("reviewList").innerHTML += `
+        <div class="review">
+          <strong>${review[0]}</strong>
+          <div class="stars">${"★".repeat(review[2])}${"☆".repeat(5-review[2])}</div>
+          <p>${review[1]}</p>
+        </div>
+      `;
+    });
+
+    $("ratingBars").innerHTML = `
+      <div class="bar"><span>5 yıldız</span><div class="bar-line"><span style="width:78%"></span></div><b>78%</b></div>
+      <div class="bar"><span>4 yıldız</span><div class="bar-line"><span style="width:18%"></span></div><b>18%</b></div>
+      <div class="bar"><span>3 yıldız</span><div class="bar-line"><span style="width:4%"></span></div><b>4%</b></div>
+    `;
+  }
+
+  function initTabs(){
+    document.querySelectorAll(".tab").forEach(tab=>{
+      tab.addEventListener("click",()=>{
+        document.querySelectorAll(".tab").forEach(t=>t.classList.remove("active"));
+        document.querySelectorAll(".tab-content").forEach(c=>c.classList.remove("active"));
+        tab.classList.add("active");
+        $(tab.dataset.tab).classList.add("active");
+      });
+    });
+  }
+
+  function initEvents(){
+    $("productSearch").addEventListener("input",()=>{currentPage=1;renderProducts()});
+    ["productCategory","availabilityFilter","adTypeFilter","minPrice","maxPrice","productSort"].forEach(id=>{
+      $(id).addEventListener("change",()=>{currentPage=1;renderProducts()});
+    });
+    $("productFilterToggle").addEventListener("click",()=>{
+      $("productFilterPanel").classList.toggle("open");
+      $("productFilterToggle").textContent = $("productFilterPanel").classList.contains("open") ? "Ürün Filtrelerini Kapat" : "Ürün Filtrelerini Aç";
+    });
+
+    $("clearProductFilter").addEventListener("click",()=>{
+      $("productSearch").value = "";
+      $("productCategory").value = "all";
+      $("availabilityFilter").value = "all";
+      $("adTypeFilter").value = "all";
+      $("minPrice").value = "";
+      $("maxPrice").value = "";
+      $("productSort").value = "recommended";
+      currentPage = 1;
+      renderProducts();
+    });
+
+    document.querySelectorAll(".view-switch button").forEach(btn=>{
+      btn.addEventListener("click",()=>{
+        document.querySelectorAll(".view-switch button").forEach(b=>b.classList.remove("active"));
+        btn.classList.add("active");
+        currentView = btn.dataset.view;
+        renderProducts();
+      });
+    });
+
+    $("messageBtn").addEventListener("click",openMessage);
+    $("closeMessage").addEventListener("click",closeMessage);
+    $("sendMessage").addEventListener("click",()=>{
+      alert("Mesajın mağazaya iletildi.");
+      closeMessage();
+    });
+
+    $("followBtn").addEventListener("click",()=>{
+      $("followBtn").textContent = $("followBtn").textContent.includes("Takip Et") ? "Takip Ediliyor" : "Mağazayı Takip Et";
+    });
+  }
+
+  function openMessage(){
+    $("messageModal").classList.add("show");
+  }
+
+  function closeMessage(){
+    $("messageModal").classList.remove("show");
+  }
+
+  async function hydrateFromBackend(){
+    const API_BASE = localStorage.getItem("AK_API_BASE") || "http://localhost:5000";
+    try{
+      const storeRes = await fetch(`${API_BASE}/api/stores/${storeId}`);
+      if(storeRes.ok){
+        const data = await storeRes.json();
+        const apiStore = data.store || data.data || data;
+        if(apiStore){
+          store.name = apiStore.name || store.name;
+          store.logo = apiStore.logoText || apiStore.logo || store.logo;
+          store.city = apiStore.city || store.city;
+          store.district = apiStore.district || store.district;
+          store.category = apiStore.category || store.category;
+          store.rating = Number(apiStore.rating || apiStore.averageRating || store.rating);
+          store.plan = apiStore.plan || apiStore.packageName || store.plan;
+          store.products = Number(apiStore.products || apiStore.productCount || store.products);
+          store.rentals = Number(apiStore.rentals || apiStore.rentalCount || store.rentals);
+          store.response = apiStore.response || apiStore.responseTime || store.response;
+          store.followers = Number(apiStore.followers || store.followers);
+          store.since = apiStore.since || apiStore.createdYear || store.since;
+          store.trustScore = Number(apiStore.trustScore || store.trustScore);
+          store.phone = apiStore.phone || store.phone;
+          store.whatsapp = apiStore.whatsapp || apiStore.phone || store.whatsapp;
+          store.description = apiStore.description || store.description;
+          store.about = apiStore.about || apiStore.description || store.about;
+          store.badges = apiStore.badges || store.badges;
+          store.reviews = apiStore.reviews || store.reviews;
+        }
+      }
+    }catch(err){}
+
+    try{
+      const productRes = await fetch(`${API_BASE}/api/products?storeId=${storeId}`);
+      if(productRes.ok){
+        const data = await productRes.json();
+        const raw = data.products || data.items || data.data || data.results || data;
+        if(Array.isArray(raw) && raw.length){
+          store.items = raw.map((p)=>({
+            id:p.id || p._id,
+            title:p.title || p.name || "Kiralık Ürün",
+            category:p.category || "Genel",
+            price:Number(p.price || p.dailyPrice || p.rentPrice || 0),
+            rating:Number(p.rating || p.averageRating || 4.7),
+            badge:p.badge || (p.available === false ? "Müsaitlik Sor" : "Bugün Müsait"),
+            premium:Boolean(p.premium || p.isPremium || p.sponsored),
+            views:Number(p.views || p.viewCount || 0),
+            requests:Number(p.requests || p.requestCount || 0)
+          }));
+        }
+      }
+    }catch(err){}
+  }
+
+  (async function boot(){
+    await hydrateFromBackend();
+    fillStore();
+    fillProductCategories();
+    renderProducts();
+    renderReviews();
+    initTabs();
+    initEvents();
+  })();
+
+/* PREMIUM FINAL JS PATCH */
+(function(){
+  function syncMobileActions(){
+    const wp = document.getElementById("whatsappBtn")?.getAttribute("href") || "#";
+    const mobileWp = document.getElementById("mobileWhatsappBtn");
+    if(mobileWp) mobileWp.href = wp;
+
+    const mobileMsg = document.getElementById("mobileMessageBtn");
+    if(mobileMsg) mobileMsg.addEventListener("click", openMessage);
+  }
+
+  function addAppMicroInteractions(){
+    document.querySelectorAll(".tab,.product-card,.stat,.contact-grid a,.contact-grid button").forEach((el,index)=>{
+      el.style.animation = `premiumAppear .28s ease ${Math.min(index * 0.025, .18)}s both`;
+    });
+  }
+
+  setTimeout(()=>{
+    syncMobileActions();
+    addAppMicroInteractions();
+  },80);
+})();
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Mesajlar | Alma Kirala</title>
+  <style>
+    :root{--navy:#06122b;--navy2:#0b1f49;--yellow:#ffcc00;--bg:#f3f6fb;--card:#fff;--text:#07142f;--muted:#64748b;--line:#e5eaf2;--green:#16a34a;--red:#dc2626;--blue:#2563eb;--shadow:0 20px 55px rgba(7,20,47,.10);--r:26px}
+    *{box-sizing:border-box}body{margin:0;font-family:Inter,Arial,sans-serif;background:radial-gradient(circle at top right,#fff0a6 0,#f3f6fb 34%,#eef3fb 100%);color:var(--text)}a{text-decoration:none;color:inherit}button,input,textarea,select{font-family:inherit}button{cursor:pointer}.app{display:grid;grid-template-columns:292px 1fr;min-height:100vh}.side{position:sticky;top:0;height:100vh;background:linear-gradient(180deg,#06122b,#091a3d);color:#fff;padding:24px 20px;display:flex;flex-direction:column;gap:18px;z-index:10}.logo{display:flex;align-items:center;gap:12px;font-size:27px;font-weight:1000;line-height:1.05}.mark{width:54px;height:54px;border-radius:18px;background:var(--yellow);color:var(--navy);display:grid;place-items:center;font-weight:1000}.rolelabel{font-size:12px;font-weight:1000;color:#9fb2d4;letter-spacing:.08em;text-transform:uppercase}.snav{display:grid;gap:7px;overflow:auto;padding-right:4px}.snav a{color:#dbe7ff;border-radius:16px;padding:13px 14px;font-weight:900;font-size:14px;display:flex;align-items:center;justify-content:space-between}.snav a:hover,.snav .act{background:var(--yellow);color:var(--navy)}.main{padding:26px 34px 46px;min-width:0}.topbar{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:20px}.search{flex:1;max-width:760px;background:rgba(255,255,255,.9);border:1px solid var(--line);border-radius:22px;padding:13px 16px;display:flex;gap:12px;box-shadow:0 12px 35px rgba(7,20,47,.05)}.search input{border:0;outline:0;background:transparent;width:100%;font-weight:800}.mini-user{background:#fff;border:1px solid var(--line);border-radius:18px;padding:8px 12px;display:flex;align-items:center;gap:10px;box-shadow:0 12px 35px rgba(7,20,47,.05)}.avatar{width:38px;height:38px;border-radius:14px;background:var(--navy);color:var(--yellow);display:grid;place-items:center;font-weight:1000}.hero{background:linear-gradient(135deg,#07142f 0,#12306a 58%,#ffcc00 59%,#ffe27a 100%);border-radius:34px;padding:30px;color:#fff;display:grid;grid-template-columns:1.25fr .75fr;gap:20px;box-shadow:var(--shadow);overflow:hidden;margin-bottom:22px}.hero h1{margin:0;font-size:38px;letter-spacing:-.04em}.hero p{margin:10px 0 0;color:#dce8ff;line-height:1.6}.hero-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px}.btn{border:0;border-radius:16px;padding:13px 17px;font-weight:1000}.btn.y{background:var(--yellow);color:var(--navy)}.btn.dark{background:var(--navy);color:#fff}.btn.light{background:rgba(255,255,255,.15);color:#fff;border:1px solid rgba(255,255,255,.18)}.message-box{background:rgba(255,255,255,.94);color:var(--text);border-radius:26px;padding:20px;align-self:end}.message-box b{display:block;font-size:34px}.message-box span{color:var(--muted);font-weight:800}.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:22px}.stat{background:rgba(255,255,255,.94);border:1px solid var(--line);border-radius:24px;padding:18px;box-shadow:0 14px 35px rgba(7,20,47,.06)}.stat span{color:var(--muted);font-size:13px;font-weight:900}.stat strong{display:block;font-size:31px;margin-top:8px}.stat em{font-style:normal;color:var(--green);font-size:12px;font-weight:900}.layout{display:grid;grid-template-columns:360px minmax(0,1fr) 330px;gap:18px}.card{background:rgba(255,255,255,.94);border:1px solid var(--line);border-radius:var(--r);padding:18px;box-shadow:0 16px 42px rgba(7,20,47,.07);backdrop-filter:blur(10px);min-width:0}.head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:14px}.head h2{margin:0;font-size:22px}.filters{display:flex;gap:9px;flex-wrap:wrap}.chip{border:1px solid var(--line);background:#fff;border-radius:999px;padding:9px 12px;font-weight:1000}.chip.act{background:var(--navy);color:#fff;border-color:var(--navy)}.threads{display:grid;gap:10px;max-height:670px;overflow:auto;padding-right:4px}.thread{border:1px solid var(--line);background:#fbfdff;border-radius:20px;padding:13px;display:grid;grid-template-columns:46px 1fr auto;gap:11px;align-items:center;text-align:left;width:100%}.thread.act,.thread:hover{border-color:#ffcc00;background:#fffbea}.thread .ava{width:46px;height:46px;border-radius:16px;background:var(--navy);color:var(--yellow);display:grid;place-items:center;font-weight:1000}.thread h3{margin:0 0 4px;font-size:15px}.thread p{margin:0;color:var(--muted);font-size:12px;line-height:1.35}.badge{display:inline-flex;border-radius:999px;padding:6px 9px;font-size:11px;font-weight:1000}.new{background:#dcfce7;color:#166534}.wait{background:#fff7d6;color:#8a5b00}.info{background:#dbeafe;color:#1d4ed8}.chat{display:grid;grid-template-rows:auto 1fr auto;min-height:670px}.chat-top{display:flex;align-items:center;justify-content:space-between;gap:12px;border-bottom:1px solid var(--line);padding-bottom:14px}.store-title{display:flex;align-items:center;gap:12px}.store-title .ava{width:48px;height:48px;border-radius:16px;background:var(--navy);color:var(--yellow);display:grid;place-items:center;font-weight:1000}.store-title h2{margin:0;font-size:21px}.store-title p{margin:4px 0 0;color:var(--muted);font-size:13px}.messages{display:flex;flex-direction:column;gap:12px;padding:18px 4px;overflow:auto}.bubble{max-width:74%;border:1px solid var(--line);border-radius:20px;padding:12px 14px;background:#fff;line-height:1.55}.bubble.me{align-self:flex-end;background:#07142f;color:#fff;border-color:#07142f}.bubble small{display:block;margin-top:6px;opacity:.72;font-weight:800}.composer{border-top:1px solid var(--line);padding-top:14px;display:grid;grid-template-columns:1fr auto;gap:10px}.composer textarea{width:100%;min-height:54px;max-height:140px;border:1px solid var(--line);border-radius:18px;padding:13px 14px;resize:vertical;outline:0;font-weight:700}.side-list{display:grid;gap:10px}.mini-card{border:1px solid var(--line);border-radius:18px;background:#fbfdff;padding:13px}.mini-card b{display:block;margin-bottom:4px}.mini-card span{color:var(--muted);font-size:13px;line-height:1.45}.quick{display:grid;gap:10px}.quick button,.quick a{border:1px solid var(--line);background:#fff;border-radius:16px;padding:12px;font-weight:1000;text-align:center}.quick .y{background:var(--yellow);border-color:var(--yellow)}.mobile-head,.bottom-nav{display:none}.toast{position:fixed;right:22px;bottom:22px;background:var(--navy);color:#fff;padding:14px 16px;border-radius:18px;font-weight:900;display:none;z-index:120}.modal{position:fixed;inset:0;background:rgba(7,20,47,.55);display:none;align-items:center;justify-content:center;padding:18px;z-index:99}.modal.show{display:flex}.modal-card{background:#fff;border-radius:26px;padding:22px;max-width:560px;width:100%;box-shadow:var(--shadow)}.mh{display:flex;align-items:center;justify-content:space-between;gap:12px}.mh h2{margin:0}.form{display:grid;gap:10px}.form input,.form select,.form textarea{border:1px solid var(--line);border-radius:16px;padding:13px;outline:0;font-weight:800}.empty{padding:30px;text-align:center;color:var(--muted);font-weight:900;border:1px dashed #cbd5e1;border-radius:22px;background:#fbfdff}
+    @media(max-width:1260px){.layout{grid-template-columns:330px 1fr}.right-col{grid-column:1/-1}.side-list{grid-template-columns:repeat(3,1fr)}}
+    @media(max-width:1180px){.app{grid-template-columns:88px 1fr}.logo strong,.rolelabel,.snav a span{display:none}.side{padding:20px 12px}.snav a{justify-content:center}.stats{grid-template-columns:repeat(2,1fr)}}
+    @media(max-width:860px){body{padding-bottom:82px}.app{display:block}.side,.topbar{display:none}.mobile-head{display:flex;align-items:center;justify-content:space-between;padding:14px 16px;background:#06122b;color:#fff;position:sticky;top:0;z-index:30}.main{padding:14px}.hero{grid-template-columns:1fr;padding:23px;border-radius:28px}.hero h1{font-size:29px}.layout{grid-template-columns:1fr}.chat{min-height:540px}.side-list{grid-template-columns:1fr}.stats{grid-template-columns:repeat(2,1fr);gap:12px}.card{padding:16px;border-radius:24px}.bubble{max-width:88%}.bottom-nav{position:fixed;left:12px;right:12px;bottom:12px;height:64px;background:#06122b;color:#fff;border-radius:24px;display:grid;grid-template-columns:repeat(4,1fr);box-shadow:0 18px 50px rgba(7,20,47,.35);z-index:40;overflow:hidden}.bottom-nav a{display:grid;place-items:center;color:#fff;font-weight:1000}.bottom-nav .act{background:var(--yellow);color:var(--navy)}}
+  </style>
+</head>
+<body>
+<div class="mobile-head"><b>AK Alma Kirala</b><button class="btn y" data-open="newMsg">Yeni Mesaj</button></div>
+<div class="app">
+  <aside class="side">
+    <a class="logo" href="../index.html"><span class="mark">AK</span><strong>Alma<br>Kirala</strong></a>
+    <div class="rolelabel">Müşteri Alanı</div>
+    <nav class="snav">
+      <a href="dashboard.html">🏠 <span>Akıllı Panel</span></a>
+      <a href="rentals-active.html">📦 <span>Kiralamalar</span></a>
+      <a href="requests.html">📝 <span>Talepler</span></a>
+      <a class="act" href="messages.html">💬 <span>Mesajlar</span></a>
+      <a href="favorites.html">💛 <span>Favoriler</span></a>
+      <a href="wallet.html">💳 <span>Cüzdan</span></a>
+      <a href="reviews.html">⭐ <span>Yorumlar</span></a>
+      <a href="following-stores.html">🏪 <span>Takip Mağazalar</span></a>
+      <a href="notifications.html">🔔 <span>Bildirimler</span></a>
+      <a href="profile.html">👤 <span>Profil & Güven</span></a>
+      <a href="addresses.html">📍 <span>Adresler</span></a>
+      <a href="support.html">🛟 <span>Destek</span></a>
+      <a href="../index.html">↩ <span>Ana Site</span></a>
+    </nav>
+  </aside>
+
+  <main class="main">
+    <div class="topbar">
+      <div class="search">🔎 <input id="searchInput" placeholder="Mağaza, ürün, mesaj veya durum ara..."></div>
+      <div class="mini-user"><div class="avatar" id="avatar">M</div><div><b id="userName">Müşteri</b><span style="color:#64748b;font-size:12px">Mesaj merkezi</span></div></div>
+    </div>
+
+    <section class="hero">
+      <div>
+        <h1>Mesajlar</h1>
+        <p>Mağazalarla tüm görüşmelerin burada. Ürün veya mağaza arayabilir, eski cevaplara ulaşabilir ve aynı konuşmadan tekrar mesaj yazabilirsin.</p>
+        <div class="hero-actions">
+          <button class="btn y" data-open="newMsg">Yeni Mesaj Yaz</button>
+          <a class="btn light" href="requests.html">Taleplere Git</a>
+          <a class="btn light" href="rentals-active.html">Kiralamalarım</a>
+        </div>
+      </div>
+      <div class="message-box">
+        <span>Okunmamış mesaj</span>
+        <b id="unreadHero">0</b>
+        <span>Öncelikli mağaza cevapları</span>
+      </div>
+    </section>
+
+    <section class="stats">
+      <div class="stat"><span>Toplam Konuşma</span><strong id="statTotal">0</strong><em>aktif</em></div>
+      <div class="stat"><span>Okunmamış</span><strong id="statUnread">0</strong><em>öncelikli</em></div>
+      <div class="stat"><span>Teklif Cevabı</span><strong id="statOffer">0</strong><em>kontrol et</em></div>
+      <div class="stat"><span>Bugünkü Mesaj</span><strong id="statToday">0</strong><em>bugün</em></div>
+    </section>
+
+    <section class="layout">
+      <section class="card">
+        <div class="head"><h2>Konuşmalar</h2><button class="chip act" data-filter="all">Tümü</button></div>
+        <div class="filters" style="margin-bottom:12px">
+          <button class="chip" data-filter="unread">Okunmamış</button>
+          <button class="chip" data-filter="offer">Teklifler</button>
+          <button class="chip" data-filter="rental">Kiralamalar</button>
+        </div>
+        <div class="threads" id="threadList"></div>
+      </section>
+
+      <section class="card chat">
+        <div class="chat-top">
+          <div class="store-title"><div class="ava" id="chatAva">K</div><div><h2 id="chatStore">Mağaza</h2><p id="chatSub">Ürün bağlantısı</p></div></div>
+          <div class="filters"><a class="chip" id="storeLink" href="#">Mağazaya Git</a><a class="chip" id="productLink" href="#">Ürüne Git</a></div>
+        </div>
+        <div class="messages" id="messageArea"></div>
+        <div class="composer">
+          <textarea id="replyText" placeholder="Cevabını yaz... Teslim saati, adres, teklif veya ürün detayı sorabilirsin."></textarea>
+          <button class="btn y" id="sendBtn">Gönder</button>
+        </div>
+      </section>
+
+      <aside class="right-col">
+        <section class="card">
+          <div class="head"><h2>Hızlı İşlemler</h2></div>
+          <div class="quick">
+            <button class="y" data-open="newMsg">Yeni Mesaj</button>
+            <a href="requests.html">Açık Talepler</a>
+            <a href="rentals-active.html">Aktif Kiralamalar</a>
+            <a href="support.html">Destek Al</a>
+          </div>
+        </section>
+        <section class="card" style="margin-top:18px">
+          <div class="head"><h2>Bağlantılı İşler</h2></div>
+          <div class="side-list" id="linkedInfo"></div>
+        </section>
+      </aside>
+    </section>
+  </main>
+</div>
+
+<nav class="bottom-nav">
+  <a href="dashboard.html">Ana</a>
+  <a href="rentals-active.html">Kira</a>
+  <a class="act" href="messages.html">Mesaj</a>
+  <a href="profile.html">Profil</a>
+</nav>
+
+<div class="modal" id="newMsg"><div class="modal-card"><div class="mh"><h2>Yeni Mesaj Yaz</h2><button class="btn dark" data-close="newMsg">Kapat</button></div><br><div class="form"><input id="newStore" placeholder="Mağaza adı"><input id="newProduct" placeholder="Ürün adı"><select id="newType"><option value="rental">Kiralama hakkında</option><option value="offer">Teklif hakkında</option><option value="general">Genel mesaj</option></select><textarea id="newBody" rows="5" placeholder="Mesajın..."></textarea><button class="btn y" id="createMsg">Mesajı Başlat</button></div></div></div>
+<div class="toast" id="toast"></div>
+
+<script>
+const API_BASE="http://localhost:3000/api";
+const token=localStorage.getItem("token")||localStorage.getItem("akToken");
+const user=JSON.parse(localStorage.getItem("user")||localStorage.getItem("akUser")||"null")||{name:"Demo Müşteri"};
+let activeId=1, filter="all";
+let threads=[
+ {id:1,store:"Kamera Dünyam",storeId:2,product:"Sony A7 IV Kamera Seti",productId:1,type:"offer",unread:true,status:"Yeni cevap",time:"2 dk önce",last:"Sony A7 IV için teslim saatini onaylayabiliriz.",messages:[['seller','Merhaba, Sony A7 IV bugün 15:00 sonrası teslim edilebilir.','2 dk önce'],['me','Merhaba, 16:00 benim için uygun. Depozito ne kadar?','1 dk önce']]},
+ {id:2,store:"Drone Market",storeId:3,product:"DJI Mini 4 Pro Drone",productId:3,type:"rental",unread:false,status:"Teslimat",time:"18 dk önce",last:"Teslimat adresi ve saatini onayladı.",messages:[['seller','Teslimatı yarın 12:00 olarak planladık.','18 dk önce'],['me','Tamam, adres bilgilerim güncel.','16 dk önce']]},
+ {id:3,store:"Organizasyon Plus",storeId:4,product:"Etkinlik Ses Sistemi",productId:8,type:"offer",unread:true,status:"Teklif",time:"Bugün",last:"Ses sistemi için yeni fiyat teklifi geldi.",messages:[['seller','Etkinlik ses sistemi için günlük teklifimiz ₺600.','Bugün'],['me','Kurulum dahil mi?','Bugün']]},
+ {id:4,store:"Destek",storeId:0,product:"Güven Skoru",productId:0,type:"general",unread:false,status:"Bilgi",time:"Dün",last:"Profilini tamamlayarak güven skorunu artırabilirsin.",messages:[['seller','Kimlik doğrulama ve adres bilgisi güven skorunu artırır.','Dün']]}
+];
+const $=id=>document.getElementById(id);
+$("userName").textContent=user.name||"Müşteri";$("avatar").textContent=(user.name||"M").trim()[0].toUpperCase();
+function typeClass(t,u){if(u)return"new";if(t==='offer')return"wait";return"info"}
+function renderThreads(){const q=($("searchInput").value||"").toLowerCase();let list=threads.filter(t=>{const f=filter==='all'||(filter==='unread'?t.unread:t.type===filter);const s=(t.store+' '+t.product+' '+t.last+' '+t.status).toLowerCase().includes(q);return f&&s});$("threadList").innerHTML=list.length?list.map(t=>`<button class="thread ${t.id===activeId?'act':''}" data-id="${t.id}"><div class="ava">${t.store[0]}</div><div><h3>${t.store}</h3><p><b>${t.product}</b><br>${t.last}</p></div><span class="badge ${typeClass(t.type,t.unread)}">${t.status}</span></button>`).join(''):`<div class="empty">Bu aramada konuşma bulunamadı.</div>`;document.querySelectorAll('.thread').forEach(b=>b.onclick=()=>{activeId=Number(b.dataset.id);const t=threads.find(x=>x.id===activeId);if(t)t.unread=false;renderAll();});}
+function renderChat(){const t=threads.find(x=>x.id===activeId)||threads[0];if(!t)return;$("chatAva").textContent=t.store[0];$("chatStore").textContent=t.store;$("chatSub").textContent=t.product+" • "+t.status;$("storeLink").href=t.storeId?`../store-detail.html?id=${t.storeId}`:'#';$("productLink").href=t.productId?`../product-detail.html?id=${t.productId}`:'#';$("messageArea").innerHTML=t.messages.map(m=>`<div class="bubble ${m[0]==='me'?'me':''}">${m[1]}<small>${m[0]==='me'?'Sen':t.store} • ${m[2]}</small></div>`).join('');$("linkedInfo").innerHTML=`<div class="mini-card"><b>Mağaza</b><span>${t.store}</span></div><div class="mini-card"><b>Ürün</b><span>${t.product}</span></div><div class="mini-card"><b>Durum</b><span>${t.status}</span></div>`;}
+function renderStats(){const unread=threads.filter(t=>t.unread).length;$("statTotal").textContent=threads.length;$("statUnread").textContent=unread;$("unreadHero").textContent=unread;$("statOffer").textContent=threads.filter(t=>t.type==='offer').length;$("statToday").textContent=threads.filter(t=>['Bugün','2 dk önce','18 dk önce'].includes(t.time)).length;}
+function renderAll(){renderStats();renderThreads();renderChat();}
+function toast(msg){$("toast").textContent=msg;$("toast").style.display='block';setTimeout(()=>$("toast").style.display='none',2000)}
+$("sendBtn").onclick=()=>{const val=$("replyText").value.trim();if(!val)return toast('Mesaj boş olamaz.');const t=threads.find(x=>x.id===activeId);t.messages.push(['me',val,'Şimdi']);t.last=val;t.time='Şimdi';$("replyText").value='';renderAll();toast('Mesaj gönderildi.');};
+$("createMsg").onclick=()=>{const store=$("newStore").value.trim()||'Yeni Mağaza';const product=$("newProduct").value.trim()||'Ürün görüşmesi';const body=$("newBody").value.trim()||'Merhaba, ürün hakkında bilgi alabilir miyim?';const id=Date.now();threads.unshift({id,store,storeId:1,product,productId:1,type:$("newType").value,unread:false,status:'Yeni konuşma',time:'Şimdi',last:body,messages:[['me',body,'Şimdi']]});activeId=id;document.getElementById('newMsg').classList.remove('show');renderAll();toast('Yeni konuşma oluşturuldu.');};
+document.querySelectorAll('[data-filter]').forEach(b=>b.onclick=()=>{document.querySelectorAll('[data-filter]').forEach(x=>x.classList.remove('act'));b.classList.add('act');filter=b.dataset.filter;renderThreads();});
+document.querySelectorAll('[data-open]').forEach(b=>b.onclick=()=>$(b.dataset.open).classList.add('show'));document.querySelectorAll('[data-close]').forEach(b=>b.onclick=()=>$(b.dataset.close).classList.remove('show'));$("searchInput").addEventListener('input',renderThreads);
+async function loadBackend(){if(!token){renderAll();return;}try{const res=await fetch(`${API_BASE}/messages/my`,{headers:{Authorization:`Bearer ${token}`}});if(!res.ok){renderAll();return;}const data=await res.json();const list=Array.isArray(data)?data:(data.threads||data.messages||[]);if(list.length){threads=list.map((x,i)=>({id:x.id||i+1,store:x.store?.name||x.storeName||x.sellerName||'Mağaza',storeId:x.store?.id||x.storeId||1,product:x.product?.title||x.productTitle||'Ürün görüşmesi',productId:x.product?.id||x.productId||1,type:x.type||'general',unread:!!x.unread,status:x.status||'Mesaj',time:x.createdAt?'Yeni':'Bugün',last:x.lastMessage||x.body||'Mesaj',messages:x.messages?x.messages.map(m=>[m.senderRole==='customer'?'me':'seller',m.body,m.createdAt||'']):[['seller',x.body||'Mesaj','Bugün']]}));activeId=threads[0].id;}}catch(e){console.log('Backend bekleniyor',e.message)}renderAll();}
+loadBackend();
+</script>
+</body>
+</html>

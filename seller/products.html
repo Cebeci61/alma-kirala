@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Ürünler | Alma Kirala</title>
+<style>
+:root{--dark:#07142f;--yellow:#ffcc00;--orange:#ff9f1c;--bg:#f4f6fb;--line:#e5e7eb;--muted:#64748b;--shadow:0 18px 45px rgba(15,23,42,.10);--shadow2:0 10px 28px rgba(15,23,42,.07)}
+*{box-sizing:border-box}body{margin:0;font-family:Inter,Arial,sans-serif;background:radial-gradient(circle at 100% 0%,rgba(255,204,0,.14),transparent 30%),var(--bg);color:var(--dark)}a{text-decoration:none;color:inherit}button,input,select{font-family:inherit}button{cursor:pointer}
+.app{display:grid;grid-template-columns:292px minmax(0,1fr);min-height:100vh}
+.side{background:linear-gradient(180deg,#07142f,#081226);color:#fff;padding:18px 14px;position:sticky;top:0;height:100vh;overflow:auto;z-index:80}
+.logo{display:flex;align-items:center;gap:10px;font-size:26px;font-weight:1000;padding:0 6px 16px}.mark{width:42px;height:42px;border-radius:15px;background:linear-gradient(135deg,#ffcc00,#ff9f1c);position:relative;overflow:hidden}.mark:before{content:"";position:absolute;width:18px;height:48px;background:#07142f;transform:rotate(28deg);left:12px;top:2px;border-radius:999px}.mark:after{content:"";position:absolute;width:14px;height:14px;border-radius:50%;background:#fff;right:7px;bottom:7px}
+.rolelabel{color:#cbd5e1;text-transform:uppercase;font-size:12px;font-weight:1000;padding:4px 12px 14px}.store-mini{margin:0 6px 14px;background:rgba(255,255,255,.08);border-radius:22px;padding:12px;display:flex;gap:10px;align-items:center}.store-avatar{width:46px;height:46px;border-radius:16px;background:#ffcc00;color:#07142f;display:grid;place-items:center;font-weight:1000}.store-mini strong{display:block;font-size:14px}.store-mini span{display:block;color:#cbd5e1;font-size:12px;font-weight:800;margin-top:3px}
+.snav{display:grid;gap:5px}.snav a{display:flex;align-items:center;justify-content:space-between;padding:11px 12px;border-radius:15px;color:#e5e7eb;font-weight:900;font-size:14px}.snav a:hover{background:rgba(255,255,255,.08)}.snav a.act{background:linear-gradient(135deg,#ffcc00,#ff9f1c);color:#07142f}.snav small{background:rgba(255,255,255,.10);color:#fff;border-radius:999px;padding:3px 7px;font-size:11px;font-weight:1000}.side-bottom{margin:14px 6px 0;border-top:1px solid rgba(255,255,255,.1);padding-top:12px;display:grid;gap:8px}.side-bottom button,.side-bottom a{border:0;border-radius:14px;padding:11px 12px;font-weight:1000;text-align:center}.logout{background:rgba(220,38,38,.18);color:#fecaca}.site-link{background:rgba(255,255,255,.08);color:#fff}
+.main{min-width:0;padding:22px}.hero{background:radial-gradient(circle at 92% 0%,rgba(255,204,0,.26),transparent 32%),linear-gradient(135deg,#fff,#fbfdff);border:1px solid var(--line);border-radius:32px;padding:24px;box-shadow:var(--shadow2);margin-bottom:16px;display:grid;grid-template-columns:minmax(0,1fr) 330px;gap:18px;align-items:center}.mobile-menu{display:none;border:0;background:#07142f;color:#fff;border-radius:14px;padding:12px 14px;font-weight:1000}.hero span{display:inline-flex;background:#fff3bf;color:#8a5b00;border-radius:999px;padding:8px 11px;font-size:12px;font-weight:1000;margin-bottom:10px}.hero h1{margin:0;font-size:38px;line-height:1.04;font-family:Georgia,serif}.hero p{margin:9px 0 0;color:var(--muted);font-weight:750;line-height:1.6}.hero-panel{background:#07142f;color:#fff;border-radius:24px;padding:18px}.hero-panel strong{display:block;color:#ffcc00;font-size:24px;font-family:Georgia,serif}.hero-panel p{color:#cbd5e1}
+.btn{border:0;border-radius:16px;padding:13px 15px;font-weight:1000;display:inline-flex;align-items:center;justify-content:center;gap:8px;white-space:nowrap}.btn.y{background:linear-gradient(135deg,#ffcc00,#ff9f1c);color:#07142f}.btn.light{background:#f1f5f9;color:#07142f;border:1px solid #dbe3ef}.btn.dark{background:#07142f;color:#fff}.btn.red{background:#fee2e2;color:#991b1b;border:1px solid #fecaca}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:16px}.stat{background:#fff;border:1px solid var(--line);border-radius:24px;padding:16px;box-shadow:var(--shadow2)}.stat span{display:block;color:#64748b;font-size:12px;font-weight:900}.stat b{display:block;font-size:27px;margin-top:7px}
+.command{background:#07142f;color:#fff;border-radius:28px;padding:16px;display:grid;grid-template-columns:minmax(0,1fr) 160px 160px 160px auto;gap:10px;align-items:center;box-shadow:var(--shadow);margin-bottom:16px}.command input,.command select{height:48px;border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.08);color:#fff;border-radius:16px;padding:0 13px;font-weight:850;outline:0}.command input::placeholder{color:#cbd5e1}.command select option{color:#07142f}
+.toolbar{display:flex;justify-content:space-between;gap:12px;align-items:center;margin-bottom:14px}.view-switch{display:flex;background:#fff;border:1px solid var(--line);border-radius:18px;padding:5px}.view-switch button{border:0;background:transparent;border-radius:14px;padding:10px 14px;font-weight:1000}.view-switch button.active{background:#07142f;color:#fff}
+.product-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.product-card{background:#fff;border:1px solid var(--line);border-radius:28px;box-shadow:var(--shadow2);overflow:hidden;transition:.22s}.product-card:hover{transform:translateY(-4px);box-shadow:var(--shadow)}.product-img{height:170px;background:linear-gradient(135deg,#fff8db,#ffcc00);display:grid;place-items:center;font-size:54px;position:relative}.product-badge{position:absolute;left:12px;top:12px;background:#07142f;color:#ffcc00;border-radius:999px;padding:7px 10px;font-size:12px;font-weight:1000}.product-status{position:absolute;right:12px;top:12px;background:#fff;border-radius:999px;padding:7px 10px;font-size:12px;font-weight:1000}.thumbs{position:absolute;left:12px;right:12px;bottom:12px;display:flex;gap:6px}.thumbs span{height:26px;width:34px;border-radius:8px;background:rgba(255,255,255,.72);display:grid;place-items:center;font-size:13px;font-weight:1000}
+.product-body{padding:15px}.product-body h3{margin:0;font-size:20px;font-family:Georgia,serif}.desc{color:#64748b;font-size:13px;font-weight:750;line-height:1.45;margin:7px 0;display:-webkit-box;-webkit-line-clamp:2;line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}.meta{display:flex;flex-wrap:wrap;gap:7px;margin:10px 0}.meta span{background:#f8fafc;border:1px solid #edf1f7;border-radius:999px;padding:6px 8px;font-size:11px;font-weight:900;color:#334155}.price{font-size:24px;font-weight:1000;margin:10px 0}.actions{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}.actions a,.actions button{border:0;border-radius:13px;padding:10px 8px;font-weight:1000;text-align:center}.actions .yellow{background:#ffcc00}.actions .dark{background:#07142f;color:#fff}.actions .light{background:#f1f5f9}
+.table-wrap{display:none;background:#fff;border:1px solid var(--line);border-radius:26px;box-shadow:var(--shadow2);overflow:auto}.table{width:100%;border-collapse:collapse;min-width:900px}.table th,.table td{padding:14px;border-bottom:1px solid #edf1f7;text-align:left;font-weight:850}.table th{color:#64748b;font-size:12px;text-transform:uppercase}.row-product{display:flex;align-items:center;gap:10px}.mini-img{width:54px;height:54px;border-radius:15px;background:#ffcc00;display:grid;place-items:center;font-size:24px}.status{border-radius:999px;padding:7px 10px;font-size:12px;font-weight:1000}.active-s{background:#dcfce7;color:#166534}.pending-s{background:#fff8db;color:#8a5b00}.passive-s{background:#fee2e2;color:#991b1b}
+.empty{display:none;text-align:center;background:#fff;border:1px dashed #cbd5e1;border-radius:26px;padding:34px}.empty.show{display:block}
+.modal{display:none;position:fixed;inset:0;background:rgba(7,20,47,.58);z-index:200;align-items:center;justify-content:center;padding:16px;backdrop-filter:blur(6px)}.modal.open{display:flex}.modal-card{width:min(820px,100%);max-height:90vh;overflow:auto;background:#fff;border-radius:28px;padding:22px;box-shadow:var(--shadow)}.modal-head{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:14px}.modal-head h2{margin:0;font-family:Georgia,serif}.modal-close{border:0;background:#f1f5f9;width:40px;height:40px;border-radius:50%;font-size:20px;font-weight:1000}.detail-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}.detail-gallery{display:grid;gap:8px}.big-photo{height:260px;border-radius:22px;background:#ffcc00;display:grid;place-items:center;font-size:70px}.photo-list{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}.photo-list span{height:58px;border-radius:14px;background:#fff8db;display:grid;place-items:center;font-weight:1000}
+.toast{position:fixed;right:18px;bottom:18px;background:#07142f;color:#fff;padding:14px 16px;border-radius:18px;box-shadow:var(--shadow);font-weight:900;display:none;z-index:220}.toast.show{display:block}.mobile-bottom-nav{display:none}
+@media(max-width:1260px){.product-grid{grid-template-columns:repeat(2,1fr)}.stats{grid-template-columns:repeat(2,1fr)}.command{grid-template-columns:1fr 1fr 1fr}}
+@media(max-width:900px){body{padding-bottom:82px}.app{display:block}.side{position:fixed;left:-310px;top:0;bottom:0;width:292px;height:100vh;transition:.25s}.side.open{left:0}.main{padding:14px}.mobile-menu{display:inline-flex}.hero{grid-template-columns:1fr;border-radius:24px}.hero h1{font-size:30px}.command{grid-template-columns:1fr}.toolbar{display:grid}.product-grid{grid-template-columns:1fr 1fr}.mobile-bottom-nav{position:fixed;left:10px;right:10px;bottom:10px;background:rgba(7,20,47,.96);border-radius:22px;padding:9px;display:grid;grid-template-columns:repeat(5,1fr);gap:6px;z-index:120}.mobile-bottom-nav a{color:#fff;text-align:center;border-radius:15px;padding:9px 4px;font-size:11px;font-weight:900}.mobile-bottom-nav a.active{background:#ffcc00;color:#07142f}.detail-grid{grid-template-columns:1fr}}
+@media(max-width:560px){.product-grid,.stats{grid-template-columns:1fr}.product-img{height:140px}.actions{grid-template-columns:1fr}.hero-panel{display:none}}
+</style>
+</head>
+<body>
+<div class="app">
+<aside class="side" id="sidebar">
+<a class="logo" href="../index.html"><span class="mark"></span>Alma Kirala</a>
+<div class="rolelabel">Mağaza Sahibi Paneli</div>
+<div class="store-mini"><div class="store-avatar" id="sideStoreLogo">AK</div><div><strong id="sideStoreName">Ürünler</strong><span id="sideStorePlan">Vitrin yönetimi</span></div></div>
+<nav class="snav">
+<a href="dashboard.html">Panel</a><a href="my-stores.html">Mağazalarım</a><a href="create-store.html">Mağaza Aç</a><a href="store-settings.html">Mağaza Ayarları</a><a href="store-theme.html">Tema</a><a class="act" href="products.html">Ürünler <small id="navProductCount">0</small></a><a href="add-product.html">Ürün Ekle</a><a href="edit-product.html">Ürün Düzenle</a><a href="product-performance.html">Ürün Performansı</a><a href="rental-requests.html">Kiralama Talepleri</a><a href="messages.html">Mesajlar</a><a href="reviews.html">Yorumlar</a><a href="ads.html">Reklamlar</a><a href="ad-performance.html">Reklam Performansı</a><a href="finance.html">Muhasebe</a><a href="subscription.html">Abonelik</a><a href="notifications.html">Bildirimler</a><a href="support.html">Destek</a><a href="policies.html">Politikalar</a><a href="close-store.html">Mağaza Kapat</a>
+</nav>
+<div class="side-bottom"><a class="site-link" href="../index.html">Ana Siteye Dön</a><button class="logout" id="logoutBtn" type="button">Çıkış Yap</button></div>
+</aside>
+
+<main class="main">
+<section class="hero">
+<div><button class="mobile-menu" id="mobileMenu" type="button">☰ Menü</button><br><span>Satıcı ürün vitrini</span><h1>Seçili mağazanın ürünlerini yönet.</h1><p>Kiracı müşterinin göreceği ürün adı, açıklaması, etiketi, fiyatı, durumu ve en fazla 5 fotoğraf önizlemesi burada kontrol edilir. Ürünün ne olduğu ve neden kiralanması gerektiği net görünmeli.</p></div>
+<div class="hero-panel"><strong>Ürün kartı ne anlatmalı?</strong><p>Ürün ne işe yarar, günlük fiyatı nedir, müsait mi, kaç fotoğrafı var, hangi etikete sahip ve müşteri neden güvenmeli?</p></div>
+</section>
+
+<section class="stats">
+<div class="stat"><span>Toplam Ürün</span><b id="totalProducts">0</b></div>
+<div class="stat"><span>Aktif Ürün</span><b id="activeProducts">0</b></div>
+<div class="stat"><span>Fotoğraf Eksik</span><b id="missingPhotos">0</b></div>
+<div class="stat"><span>Ortalama Fiyat</span><b id="avgPrice">₺0</b></div>
+</section>
+
+<section class="command">
+<input id="searchInput" type="text" placeholder="Ürün adı, açıklama veya etiket ara">
+<select id="storeSwitch"></select>
+<select id="statusFilter"><option value="all">Tüm durumlar</option><option value="active">Aktif</option><option value="pending">Onay bekliyor</option><option value="passive">Pasif</option></select>
+<select id="tagFilter"><option value="all">Tüm etiketler</option><option>Premium</option><option>Bugün Müsait</option><option>Kampanyalı</option><option>Sponsorlu</option><option>Yeni</option></select>
+<button class="btn y" id="clearBtn" type="button">Temizle</button>
+</section>
+
+<div class="toolbar">
+<div><h2 style="margin:0;font-family:Georgia,serif">Ürün Listesi</h2><p style="margin:5px 0 0;color:#64748b;font-weight:750">Her ürün kartı müşterinin karar alanıdır.</p></div>
+<div style="display:flex;gap:8px;flex-wrap:wrap">
+<div class="view-switch"><button class="active" data-view="card" type="button">Kart</button><button data-view="table" type="button">Tablo</button></div>
+<a class="btn y" href="add-product.html">+ Ürün Ekle</a>
+</div>
+</div>
+
+<section class="product-grid" id="productGrid"></section>
+<section class="table-wrap" id="tableWrap"><table class="table"><thead><tr><th>Ürün</th><th>Etiket</th><th>Fiyat</th><th>Fotoğraf</th><th>Durum</th><th>İşlem</th></tr></thead><tbody id="productTable"></tbody></table></section>
+<section class="empty" id="emptyState"><h2>Ürün bulunamadı</h2><p>Filtreleri temizle veya yeni ürün ekle.</p></section>
+</main>
+</div>
+
+<nav class="mobile-bottom-nav"><a href="dashboard.html">Panel</a><a href="my-stores.html">Mağaza</a><a class="active" href="products.html">Ürün</a><a href="rental-requests.html">Talep</a><a href="ads.html">Reklam</a></nav>
+
+<div class="modal" id="detailModal"><div class="modal-card"><div class="modal-head"><h2 id="modalTitle">Ürün Detayı</h2><button class="modal-close" data-close="detailModal" type="button">×</button></div><div id="modalBody"></div></div></div>
+<div class="toast" id="toast"></div>
+
+<script>
+const API_BASE=localStorage.getItem("AK_API_BASE")||"http://localhost:5000";
+const STORE_ENDPOINT=`${API_BASE}/api/stores`;
+const PRODUCT_ENDPOINT=`${API_BASE}/api/products`;
+const token=localStorage.getItem("token");
+const akRole=localStorage.getItem("akRole");
+let stores=[],products=[],activeStore=null,currentView="card";
+
+const demoStores=[{id:1,name:"Kamera Dünyam",logoText:"KD",plan:"Plus"},{id:2,name:"Event Pro",logoText:"EP",plan:"Premium"}];
+const demoProducts=[
+{id:1,storeId:1,title:"Sony A7 IV Kamera Seti",description:"Profesyonel çekimler için kamera, lens ve batarya dahil set.",tag:"Premium",price:450,status:"active",category:"Kamera",photos:["📷","🔋","🎒","🔌","📦"],views:2410,requests:47},
+{id:2,storeId:1,title:"Canon EOS R6",description:"Düğün, etkinlik ve ürün çekimi için yüksek performanslı kamera.",tag:"Bugün Müsait",price:600,status:"active",category:"Kamera",photos:["📷","📷","🔋"],views:1840,requests:31},
+{id:3,storeId:1,title:"Işık Seti Kiralama",description:"Softbox ve led panel içeren taşınabilir ışık seti.",tag:"Kampanyalı",price:220,status:"pending",category:"Işık",photos:["💡","💡"],views:890,requests:16},
+{id:4,storeId:1,title:"Gimbal Stabilizer",description:"Akıcı video çekimleri için profesyonel gimbal.",tag:"Yeni",price:180,status:"active",category:"Kamera",photos:["🎥"],views:760,requests:12},
+{id:5,storeId:1,title:"Kablosuz Mikrofon Seti",description:"Röportaj ve etkinlik çekimleri için çiftli kablosuz mikrofon.",tag:"Sponsorlu",price:210,status:"passive",category:"Ses",photos:["🎙️","🎧","📦","🔋","🔌"],views:1100,requests:21}
+];
+
+function $(id){return document.getElementById(id)}
+function money(v){return "₺"+Number(v||0).toLocaleString("tr-TR")}
+function toast(msg){$("toast").textContent=msg;$("toast").classList.add("show");setTimeout(()=>$("toast").classList.remove("show"),3000)}
+function authGuard(){if(!token||akRole!=="seller"){toast("Ürünleri görmek için mağaza hesabıyla giriş yapmalısın.");setTimeout(()=>location.href="../seller-login.html",700);return false}return true}
+function authHeader(){return token?{"Authorization":`Bearer ${token}`}:{}} 
+async function fetchJson(url){try{const r=await fetch(url,{headers:{...authHeader()}});if(!r.ok)throw new Error();return await r.json()}catch{return null}}
+
+async function loadStores(){
+ const data=await fetchJson(`${STORE_ENDPOINT}/my`);
+ const raw=data?.stores||data?.data||data?.items||data;
+ stores=Array.isArray(raw)&&raw.length?raw.map(s=>({id:s.id||s._id,name:s.name||s.storeName||"Mağaza",logoText:s.logoText||s.logo||(s.name||"AK").slice(0,2).toUpperCase(),plan:s.plan||s.packageName||"Standart"})):demoStores;
+ const saved=localStorage.getItem("akActiveStoreId");
+ activeStore=stores.find(s=>String(s.id)===String(saved))||stores[0];
+ localStorage.setItem("akActiveStoreId",activeStore.id);
+}
+async function loadProducts(){
+ const data=await fetchJson(`${PRODUCT_ENDPOINT}?storeId=${encodeURIComponent(activeStore.id)}`);
+ const raw=data?.products||data?.data||data?.items||data?.results||data;
+ products=Array.isArray(raw)&&raw.length?raw.map(normalizeProduct):demoProducts.filter(p=>String(p.storeId)===String(activeStore.id));
+}
+function normalizeProduct(p){
+ return {id:p.id||p._id,storeId:p.storeId||p.store?.id||activeStore.id,title:p.title||p.name||"Ürün",description:p.description||"",tag:p.tag||p.badge||"Standart",price:Number(p.price||p.dailyPrice||0),status:p.status||"active",category:p.category||"Genel",photos:p.photos||p.images||[],views:Number(p.views||0),requests:Number(p.requests||0)}
+}
+function renderStores(){
+ $("storeSwitch").innerHTML=stores.map(s=>`<option value="${s.id}" ${String(s.id)===String(activeStore.id)?"selected":""}>${s.name}</option>`).join("");
+ $("sideStoreLogo").textContent=activeStore.logoText||"AK";$("sideStoreName").textContent=activeStore.name;$("sideStorePlan").textContent=activeStore.plan+" Paket";
+}
+function filtered(){
+ const q=$("searchInput").value.trim().toLowerCase(),st=$("statusFilter").value,tag=$("tagFilter").value;
+ return products.filter(p=>{
+  const matchText=`${p.title} ${p.description} ${p.tag} ${p.category}`.toLowerCase().includes(q);
+  const matchStatus=st==="all"||p.status===st;
+  const matchTag=tag==="all"||p.tag===tag;
+  return matchText&&matchStatus&&matchTag;
+ });
+}
+function statusLabel(s){if(s==="active")return["Aktif","active-s"];if(s==="pending")return["Onay bekliyor","pending-s"];return["Pasif","passive-s"]}
+function renderStats(){
+ const total=products.length,active=products.filter(p=>p.status==="active").length,missing=products.filter(p=>(p.photos||[]).length<5).length,avg=total?products.reduce((a,p)=>a+p.price,0)/total:0;
+ $("totalProducts").textContent=total;$("activeProducts").textContent=active;$("missingPhotos").textContent=missing;$("avgPrice").textContent=money(Math.round(avg));$("navProductCount").textContent=total;
+}
+function renderProducts(){
+ const list=filtered();$("emptyState").classList.toggle("show",list.length===0);
+ $("productGrid").style.display=currentView==="card"?"grid":"none";$("tableWrap").style.display=currentView==="table"?"block":"none";
+ $("productGrid").innerHTML=list.map(cardHtml).join("");
+ $("productTable").innerHTML=list.map(rowHtml).join("");
+ bindProductButtons();
+}
+function cardHtml(p){
+ const [text,cls]=statusLabel(p.status);const photos=(p.photos||[]).slice(0,5);
+ return `<article class="product-card"><div class="product-img"><span class="product-badge">${p.tag}</span><span class="product-status">${text}</span>${photos[0]||"📦"}<div class="thumbs">${[0,1,2,3,4].map(i=>`<span>${photos[i]||"+"}</span>`).join("")}</div></div><div class="product-body"><h3>${p.title}</h3><p class="desc">${p.description||"Açıklama eklenmemiş."}</p><div class="meta"><span>${p.category}</span><span>${photos.length}/5 fotoğraf</span><span>${p.views} görüntülenme</span><span>${p.requests} talep</span></div><div class="price">${money(p.price)} / gün</div><div class="actions"><button class="yellow" data-detail="${p.id}">İncele</button><a class="dark" href="edit-product.html?id=${p.id}">Düzenle</a><button class="light" data-toggle="${p.id}">${p.status==="active"?"Pasifleştir":"Aktifleştir"}</button></div></div></article>`;
+}
+function rowHtml(p){
+ const [text,cls]=statusLabel(p.status);
+ return `<tr><td><div class="row-product"><div class="mini-img">${(p.photos||[])[0]||"📦"}</div><div><b>${p.title}</b><br><small>${p.description.slice(0,70)}</small></div></div></td><td>${p.tag}</td><td>${money(p.price)}/gün</td><td>${(p.photos||[]).length}/5</td><td><span class="status ${cls}">${text}</span></td><td><button class="btn light" data-detail="${p.id}">İncele</button></td></tr>`
+}
+function bindProductButtons(){
+ document.querySelectorAll("[data-detail]").forEach(btn=>btn.addEventListener("click",()=>openDetail(btn.dataset.detail)));
+ document.querySelectorAll("[data-toggle]").forEach(btn=>btn.addEventListener("click",()=>toggleProduct(btn.dataset.toggle)));
+}
+function openDetail(id){
+ const p=products.find(x=>String(x.id)===String(id));if(!p)return;
+ $("modalTitle").textContent=p.title;
+ $("modalBody").innerHTML=`<div class="detail-grid"><div class="detail-gallery"><div class="big-photo">${(p.photos||[])[0]||"📦"}</div><div class="photo-list">${[0,1,2,3,4].map(i=>`<span>${(p.photos||[])[i]||"+"}</span>`).join("")}</div></div><div><h3 style="font-family:Georgia,serif;font-size:26px;margin:0">${p.title}</h3><p style="color:#64748b;font-weight:750;line-height:1.6">${p.description}</p><p><b>Etiket:</b> ${p.tag}</p><p><b>Kategori:</b> ${p.category}</p><p><b>Fiyat:</b> ${money(p.price)} / gün</p><p><b>Fotoğraf:</b> ${(p.photos||[]).length}/5</p><p><b>Performans:</b> ${p.views} görüntülenme • ${p.requests} talep</p><br><a class="btn y" href="edit-product.html?id=${p.id}">Ürünü Düzenle</a></div></div>`;
+ $("detailModal").classList.add("open");
+}
+async function toggleProduct(id){
+ const p=products.find(x=>String(x.id)===String(id));if(!p)return;
+ const next=p.status==="active"?"passive":"active";
+ try{await fetch(`${PRODUCT_ENDPOINT}/${id}`,{method:"PATCH",headers:{"Content-Type":"application/json",...authHeader()},body:JSON.stringify({status:next})})}catch{}
+ p.status=next;toast("Ürün durumu güncellendi.");renderStats();renderProducts();
+}
+function bindEvents(){
+ $("mobileMenu").addEventListener("click",()=>$("sidebar").classList.toggle("open"));
+ document.addEventListener("click",e=>{if(innerWidth<=900){const s=$("sidebar"),m=$("mobileMenu");if(s.classList.contains("open")&&!s.contains(e.target)&&e.target!==m)s.classList.remove("open")}});
+ $("storeSwitch").addEventListener("change",async()=>{activeStore=stores.find(s=>String(s.id)===$("storeSwitch").value)||activeStore;localStorage.setItem("akActiveStoreId",activeStore.id);await loadProducts();renderStores();renderStats();renderProducts();toast("Mağaza ürünleri yüklendi.")});
+ ["searchInput","statusFilter","tagFilter"].forEach(id=>$(id).addEventListener("input",renderProducts));
+ $("clearBtn").addEventListener("click",()=>{$("searchInput").value="";$("statusFilter").value="all";$("tagFilter").value="all";renderProducts()});
+ document.querySelectorAll("[data-view]").forEach(btn=>btn.addEventListener("click",()=>{document.querySelectorAll("[data-view]").forEach(b=>b.classList.remove("active"));btn.classList.add("active");currentView=btn.dataset.view;renderProducts()}));
+ document.querySelectorAll("[data-close]").forEach(btn=>btn.addEventListener("click",()=>$(btn.dataset.close).classList.remove("open")));
+ document.querySelectorAll(".modal").forEach(m=>m.addEventListener("click",e=>{if(e.target.classList.contains("modal"))m.classList.remove("open")}));
+ $("logoutBtn").addEventListener("click",()=>{localStorage.removeItem("token");localStorage.removeItem("akRole");localStorage.removeItem("akUser");toast("Çıkış yapıldı.");setTimeout(()=>location.href="../seller-login.html",600)});
+}
+async function init(){if(!authGuard())return;await loadStores();renderStores();await loadProducts();bindEvents();renderStats();renderProducts()}init();
+</script>
+</body>
+</html>

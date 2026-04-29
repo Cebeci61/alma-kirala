@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Adresler | Alma Kirala</title>
+  <style>
+    :root{--navy:#06122b;--navy2:#102a5c;--yellow:#ffcc00;--bg:#f3f6fb;--card:#fff;--text:#07142f;--muted:#64748b;--line:#e5eaf2;--green:#16a34a;--red:#dc2626;--orange:#d97706;--blue:#2563eb;--shadow:0 20px 55px rgba(7,20,47,.10);--r:26px}
+    *{box-sizing:border-box} body{margin:0;font-family:Inter,Arial,sans-serif;background:radial-gradient(circle at top right,#fff0a6 0,#f3f6fb 34%,#eef3fb 100%);color:var(--text)} a{text-decoration:none;color:inherit} button,input,select,textarea{font-family:inherit} button{cursor:pointer}
+    .app{display:grid;grid-template-columns:292px 1fr;min-height:100vh}.side{position:sticky;top:0;height:100vh;background:linear-gradient(180deg,#06122b,#091a3d);color:#fff;padding:24px 20px;display:flex;flex-direction:column;gap:18px;z-index:10}.logo{display:flex;align-items:center;gap:12px;font-size:27px;font-weight:1000;line-height:1.05}.mark{width:54px;height:54px;border-radius:18px;background:var(--yellow);color:var(--navy);display:grid;place-items:center;font-weight:1000}.rolelabel{font-size:12px;font-weight:1000;color:#9fb2d4;letter-spacing:.08em;text-transform:uppercase}.snav{display:grid;gap:7px;overflow:auto;padding-right:4px}.snav a{color:#dbe7ff;border-radius:16px;padding:13px 14px;font-weight:900;font-size:14px;display:flex;align-items:center;justify-content:space-between}.snav a:hover,.snav .act{background:var(--yellow);color:var(--navy)}
+    .main{padding:26px 34px 46px;min-width:0}.topbar{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:20px}.search{flex:1;max-width:720px;background:rgba(255,255,255,.9);border:1px solid var(--line);border-radius:22px;padding:13px 16px;display:flex;gap:12px;box-shadow:0 12px 35px rgba(7,20,47,.05)}.search input{border:0;outline:0;background:transparent;width:100%;font-weight:800}.mini-user{background:#fff;border:1px solid var(--line);border-radius:18px;padding:8px 12px;display:flex;align-items:center;gap:10px;box-shadow:0 12px 35px rgba(7,20,47,.05)}.avatar{width:38px;height:38px;border-radius:14px;background:var(--navy);color:var(--yellow);display:grid;place-items:center;font-weight:1000}
+    .hero{background:linear-gradient(135deg,#07142f 0,#12306a 58%,#ffcc00 59%,#ffe27a 100%);border-radius:34px;padding:30px;color:#fff;display:grid;grid-template-columns:1.2fr .8fr;gap:20px;box-shadow:var(--shadow);overflow:hidden}.hero h1{margin:0;font-size:38px;letter-spacing:-.04em}.hero p{margin:10px 0 0;color:#dce8ff;line-height:1.6}.hero-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px}.btn{border:0;border-radius:16px;padding:13px 17px;font-weight:1000}.btn.y{background:var(--yellow);color:var(--navy)}.btn.dark{background:var(--navy);color:#fff}.btn.light{background:rgba(255,255,255,.15);color:#fff;border:1px solid rgba(255,255,255,.18)}.trust-box{background:rgba(255,255,255,.94);color:var(--text);border-radius:26px;padding:20px;align-self:end}.trust-box b{display:block;font-size:34px}.trust-box span{color:var(--muted);font-weight:800}.progress{height:10px;background:#e9eef7;border-radius:999px;overflow:hidden;margin-top:14px}.progress i{display:block;height:100%;width:82%;background:linear-gradient(90deg,var(--yellow),var(--green))}
+    .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin:22px 0}.stat{background:rgba(255,255,255,.94);border:1px solid var(--line);border-radius:24px;padding:18px;box-shadow:0 14px 35px rgba(7,20,47,.06)}.stat span{color:var(--muted);font-size:13px;font-weight:900}.stat strong{display:block;font-size:31px;margin-top:8px}.stat em{font-style:normal;color:var(--green);font-size:12px;font-weight:900}
+    .layout{display:grid;grid-template-columns:minmax(0,1fr) 390px;gap:22px}.card{background:rgba(255,255,255,.94);border:1px solid var(--line);border-radius:var(--r);padding:22px;box-shadow:0 16px 42px rgba(7,20,47,.07);backdrop-filter:blur(10px)}.head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:16px}.head h2{margin:0;font-size:23px}.filters{display:grid;grid-template-columns:1fr 150px 150px;gap:10px;margin-bottom:16px}.filters input,.filters select,.form input,.form select,.form textarea{border:1px solid var(--line);border-radius:16px;padding:13px 14px;font-weight:800;outline:0;background:#fff}.addr-list{display:grid;gap:14px}.addr{border:1px solid var(--line);background:linear-gradient(180deg,#fff,#fbfdff);border-radius:24px;padding:16px;display:grid;grid-template-columns:62px 1fr auto;gap:15px;align-items:center}.ico{width:62px;height:62px;border-radius:20px;background:linear-gradient(135deg,#fff0a3,#ffcc00);display:grid;place-items:center;font-size:27px}.addr h3{margin:0 0 7px;font-size:18px}.addr p{margin:0;color:var(--muted);font-size:13px;line-height:1.6}.badge{display:inline-flex;align-items:center;gap:6px;padding:8px 11px;border-radius:999px;font-size:12px;font-weight:1000;white-space:nowrap}.ok{background:#dcfce7;color:#166534}.wait{background:#fff7d6;color:#8a5b00}.blue{background:#dbeafe;color:#1d4ed8}.bad{background:#fee2e2;color:#991b1b}.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:11px}.small{border:1px solid var(--line);background:#fff;border-radius:999px;padding:8px 11px;font-size:12px;font-weight:1000}.small.y{background:var(--yellow);border-color:var(--yellow)}.right-actions{display:grid;gap:8px;min-width:132px}.form{display:grid;grid-template-columns:1fr 1fr;gap:12px}.form .wide{grid-column:1/-1}.note{padding:14px;border-radius:18px;background:#f8fafc;border:1px solid var(--line);margin-bottom:10px}.note b{display:block;margin-bottom:4px}.note span{font-size:13px;color:var(--muted)}.empty{display:none;text-align:center;padding:34px;border:1px dashed #cbd5e1;border-radius:24px;color:var(--muted);font-weight:900;background:#fbfdff}.mobile-head,.bottom-nav{display:none}.toast{position:fixed;right:22px;bottom:22px;background:var(--navy);color:#fff;padding:14px 16px;border-radius:18px;font-weight:900;display:none;z-index:120}
+    @media(max-width:1180px){.app{grid-template-columns:88px 1fr}.logo strong,.rolelabel,.snav a span{display:none}.side{padding:20px 12px}.snav a{justify-content:center}.layout{grid-template-columns:1fr}.stats{grid-template-columns:repeat(2,1fr)}}
+    @media(max-width:760px){body{padding-bottom:82px}.app{display:block}.side,.topbar{display:none}.mobile-head{display:flex;align-items:center;justify-content:space-between;padding:14px 16px;background:#06122b;color:#fff;position:sticky;top:0;z-index:30}.main{padding:14px}.hero{grid-template-columns:1fr;padding:23px;border-radius:28px}.hero h1{font-size:29px}.stats,.filters,.form{grid-template-columns:1fr}.card{padding:18px;border-radius:24px}.addr{grid-template-columns:54px 1fr}.ico{width:54px;height:54px}.right-actions{grid-column:1/-1}.bottom-nav{position:fixed;left:12px;right:12px;bottom:12px;height:64px;background:#06122b;color:#fff;border-radius:24px;display:grid;grid-template-columns:repeat(4,1fr);box-shadow:0 18px 50px rgba(7,20,47,.35);z-index:40;overflow:hidden}.bottom-nav a{display:grid;place-items:center;color:#fff;font-weight:1000}.bottom-nav .act{background:var(--yellow);color:var(--navy)}}
+  </style>
+</head>
+<body>
+<div class="mobile-head"><b>AK Alma Kirala</b><button class="btn y" id="mobileAdd">Adres Ekle</button></div>
+<div class="app">
+  <aside class="side">
+    <a class="logo" href="../index.html"><span class="mark">AK</span><strong>Alma<br>Kirala</strong></a>
+    <div class="rolelabel">Müşteri Alanı</div>
+    <nav class="snav">
+      <a href="dashboard.html">🏠 <span>Akıllı Panel</span></a>
+      <a href="rentals-active.html">📦 <span>Kiralamalar</span></a>
+      <a href="requests.html">📝 <span>Talepler</span></a>
+      <a href="messages.html">💬 <span>Mesajlar</span></a>
+      <a href="favorites.html">💛 <span>Favoriler</span></a>
+      <a href="wallet.html">💳 <span>Cüzdan</span></a>
+      <a href="reviews.html">⭐ <span>Yorumlar</span></a>
+      <a href="following-stores.html">🏪 <span>Takip Mağazalar</span></a>
+      <a href="notifications.html">🔔 <span>Bildirimler</span></a>
+      <a href="profile.html">👤 <span>Profil & Güven</span></a>
+      <a class="act" href="addresses.html">📍 <span>Adresler</span></a>
+      <a href="support.html">🛟 <span>Destek</span></a>
+      <a href="../index.html">↩ <span>Ana Site</span></a>
+    </nav>
+  </aside>
+
+  <main class="main">
+    <div class="topbar">
+      <div class="search">🔎 <input id="searchInput" placeholder="Adres adı, il, ilçe veya mahalle ara..."></div>
+      <div class="mini-user"><div class="avatar" id="avatar">M</div><div><b id="userName">Müşteri</b><span style="color:#64748b;font-size:12px">Adres yönetimi</span></div></div>
+    </div>
+
+    <section class="hero">
+      <div>
+        <h1>Adreslerim</h1>
+        <p>Bu sayfa gerekli: kiralanan ürünün teslimatı, iadesi, mağazadan alma planı ve güven skoru için adres bilgisi kullanılır.</p>
+        <div class="hero-actions">
+          <button class="btn y" id="addBtn">Yeni Adres Ekle</button>
+          <button class="btn light" id="resetBtn">Demo Adresleri Yenile</button>
+        </div>
+      </div>
+      <div class="trust-box">
+        <span>Adres Güven Skoru</span>
+        <b id="addressScore">82%</b>
+        <span>Varsayılan adres + doğrulama durumuna göre hesaplanır.</span>
+        <div class="progress"><i></i></div>
+      </div>
+    </section>
+
+    <section class="stats">
+      <div class="stat"><span>Kayıtlı Adres</span><strong id="totalCount">0</strong><em>aktif</em></div>
+      <div class="stat"><span>Varsayılan Teslimat</span><strong id="defaultDelivery">-</strong><em>teslimat</em></div>
+      <div class="stat"><span>Varsayılan İade</span><strong id="defaultReturn">-</strong><em>iade</em></div>
+      <div class="stat"><span>Doğrulanmış</span><strong id="verifiedCount">0</strong><em>güven</em></div>
+    </section>
+
+    <section class="layout">
+      <div class="card">
+        <div class="head"><h2>Kayıtlı Adresler</h2><button class="btn y" id="addBtn2">Adres Ekle</button></div>
+        <div class="filters">
+          <input id="q" placeholder="Ev, iş, il, ilçe ara">
+          <select id="cityFilter"><option value="">Tüm iller</option></select>
+          <select id="typeFilter"><option value="">Tüm tipler</option><option value="Ev">Ev</option><option value="İş">İş</option><option value="Teslimat Noktası">Teslimat Noktası</option></select>
+        </div>
+        <div class="addr-list" id="addressList"></div>
+        <div class="empty" id="emptyBox">Bu filtreye uygun adres bulunamadı.</div>
+      </div>
+
+      <aside>
+        <section class="card">
+          <div class="head"><h2>Adres Ne İşe Yarar?</h2></div>
+          <div class="note"><b>Teslimat planı</b><span>Ürün sana getirilecekse satıcı bu adres üzerinden teslimat planlar.</span></div>
+          <div class="note"><b>İade süreci</b><span>Ürün iadesi için ev, iş veya teslim noktası seçilebilir.</span></div>
+          <div class="note"><b>Güven skoru</b><span>Doğrulanmış adresler müşteri güven puanını artırır.</span></div>
+          <div class="note"><b>Yakındaki mağazalar</b><span>Konuma göre en yakın mağaza ve uygun ürün önerileri yapılır.</span></div>
+        </section>
+        <section class="card" style="margin-top:22px">
+          <div class="head"><h2>Adres Formu</h2></div>
+          <div class="form">
+            <input id="label" placeholder="Adres adı: Ev, İş...">
+            <select id="type"><option>Ev</option><option>İş</option><option>Teslimat Noktası</option></select>
+            <input id="city" placeholder="İl">
+            <input id="district" placeholder="İlçe">
+            <input id="neighborhood" placeholder="Mahalle">
+            <input id="phone" placeholder="Teslimat telefonu">
+            <textarea class="wide" id="full" rows="4" placeholder="Açık adres"></textarea>
+            <button class="btn y wide" id="saveBtn">Adresi Kaydet</button>
+          </div>
+        </section>
+      </aside>
+    </section>
+  </main>
+</div>
+
+<nav class="bottom-nav">
+  <a href="dashboard.html">Ana</a>
+  <a href="rentals-active.html">Kira</a>
+  <a href="messages.html">Mesaj</a>
+  <a class="act" href="profile.html">Profil</a>
+</nav>
+<div class="toast" id="toast"></div>
+
+<script>
+const API_BASE="http://localhost:3000/api";
+const token=localStorage.getItem("token")||localStorage.getItem("akToken");
+const user=JSON.parse(localStorage.getItem("user")||localStorage.getItem("akUser")||"null")||{name:"Demo Müşteri"};
+const fallback=[
+  {id:1,label:"Ev Adresi",type:"Ev",city:"İstanbul",district:"Kadıköy",neighborhood:"Caferağa",full:"Moda Caddesi No:12 Daire:5",phone:"0555 555 55 55",verified:true,deliveryDefault:true,returnDefault:true},
+  {id:2,label:"İş Adresi",type:"İş",city:"İstanbul",district:"Ataşehir",neighborhood:"Barbaros",full:"Finans Merkezi Ofis Blokları No:8",phone:"0555 444 33 22",verified:true,deliveryDefault:false,returnDefault:false},
+  {id:3,label:"Yazlık Teslim Noktası",type:"Teslimat Noktası",city:"Muğla",district:"Bodrum",neighborhood:"Bitez",full:"Sahil yolu teslim noktası",phone:"0555 222 11 00",verified:false,deliveryDefault:false,returnDefault:false}
+];
+let addresses=JSON.parse(localStorage.getItem("akAddresses")||"null")||fallback;
+const $=id=>document.getElementById(id);
+$("userName").textContent=user.name||"Müşteri";$("avatar").textContent=(user.name||"M").trim()[0].toUpperCase();
+function save(){localStorage.setItem("akAddresses",JSON.stringify(addresses));}
+function toast(t){$("toast").textContent=t;$("toast").style.display="block";setTimeout(()=>$("toast").style.display="none",1800)}
+function fillCities(){const cities=[...new Set(addresses.map(a=>a.city).filter(Boolean))];$("cityFilter").innerHTML='<option value="">Tüm iller</option>'+cities.map(c=>`<option>${c}</option>`).join("");}
+function card(a){return `<article class="addr"><div class="ico">${a.type==='İş'?'🏢':a.type==='Teslimat Noktası'?'📦':'🏠'}</div><div><h3>${a.label}</h3><p>${a.city} / ${a.district} • ${a.neighborhood}<br>${a.full}<br>Telefon: <b>${a.phone||'-'}</b></p><div class="actions"><span class="badge ${a.verified?'ok':'wait'}">${a.verified?'Doğrulanmış':'Doğrulama Bekliyor'}</span>${a.deliveryDefault?'<span class="badge blue">Varsayılan Teslimat</span>':''}${a.returnDefault?'<span class="badge ok">Varsayılan İade</span>':''}</div></div><div class="right-actions"><button class="small y" onclick="setDelivery(${a.id})">Teslimat Yap</button><button class="small" onclick="setReturn(${a.id})">İade Yap</button><button class="small" onclick="editAddress(${a.id})">Düzenle</button><button class="small" onclick="removeAddress(${a.id})">Sil</button></div></article>`}
+function render(){fillCities();const q=($("q").value||$("searchInput").value||"").toLowerCase();const city=$("cityFilter").value;const type=$("typeFilter").value;let list=addresses.filter(a=>`${a.label} ${a.type} ${a.city} ${a.district} ${a.neighborhood} ${a.full}`.toLowerCase().includes(q));if(city)list=list.filter(a=>a.city===city);if(type)list=list.filter(a=>a.type===type);$("addressList").innerHTML=list.map(card).join("");$("emptyBox").style.display=list.length?"none":"block";updateStats();}
+function updateStats(){const delivery=addresses.find(a=>a.deliveryDefault);const ret=addresses.find(a=>a.returnDefault);$("totalCount").textContent=addresses.length;$("defaultDelivery").textContent=delivery?delivery.city:"-";$("defaultReturn").textContent=ret?ret.city:"-";$("verifiedCount").textContent=addresses.filter(a=>a.verified).length;const score=Math.min(100,50+(addresses.filter(a=>a.verified).length*16)+(delivery?8:0)+(ret?8:0));$("addressScore").textContent=score+"%";}
+function setDelivery(id){addresses=addresses.map(a=>({...a,deliveryDefault:a.id===id}));save();render();toast("Varsayılan teslimat adresi güncellendi")}
+function setReturn(id){addresses=addresses.map(a=>({...a,returnDefault:a.id===id}));save();render();toast("Varsayılan iade adresi güncellendi")}
+function removeAddress(id){addresses=addresses.filter(a=>a.id!==id);save();render();toast("Adres silindi")}
+function editAddress(id){const a=addresses.find(x=>x.id===id);if(!a)return;["label","type","city","district","neighborhood","phone","full"].forEach(k=>$(k).value=a[k]||"");$("saveBtn").dataset.edit=id;scrollTo({top:document.body.scrollHeight,behavior:"smooth"});}
+function clearForm(){["label","city","district","neighborhood","phone","full"].forEach(k=>$(k).value="");$("type").value="Ev";delete $("saveBtn").dataset.edit;}
+function saveAddress(){const data={id:Number($("saveBtn").dataset.edit)||Date.now(),label:$("label").value||"Yeni Adres",type:$("type").value,city:$("city").value||"İstanbul",district:$("district").value||"Merkez",neighborhood:$("neighborhood").value||"",full:$("full").value||"Açık adres girilmedi",phone:$("phone").value||"",verified:false,deliveryDefault:false,returnDefault:false};const edit=$("saveBtn").dataset.edit;if(edit){addresses=addresses.map(a=>a.id==edit?{...a,...data}:a);toast("Adres güncellendi");}else{addresses.unshift(data);toast("Adres eklendi");}save();clearForm();render();}
+["q","searchInput","cityFilter","typeFilter"].forEach(id=>$(id).addEventListener("input",render));$("saveBtn").onclick=saveAddress;$("addBtn").onclick=$("addBtn2").onclick=$("mobileAdd").onclick=()=>{clearForm();scrollTo({top:document.body.scrollHeight,behavior:"smooth"});};$("resetBtn").onclick=()=>{addresses=[...fallback];save();render();toast("Demo adresler yenilendi")};
+async function loadBackend(){if(!token){render();return;}try{const res=await fetch(`${API_BASE}/addresses`,{headers:{Authorization:`Bearer ${token}`}});if(!res.ok){render();return;}const data=await res.json();const list=Array.isArray(data)?data:(data.addresses||[]);if(list.length){addresses=list;}render();}catch(e){render();}}
+loadBackend();
+</script>
+</body>
+</html>

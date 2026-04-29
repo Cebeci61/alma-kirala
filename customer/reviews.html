@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Yorumlarım | Alma Kirala</title>
+  <style>
+    :root{--navy:#06122b;--navy2:#0b1f49;--yellow:#ffcc00;--bg:#f3f6fb;--card:#fff;--text:#07142f;--muted:#64748b;--line:#e5eaf2;--green:#16a34a;--orange:#d97706;--red:#dc2626;--blue:#2563eb;--shadow:0 20px 55px rgba(7,20,47,.10);--r:26px}
+    *{box-sizing:border-box} body{margin:0;font-family:Inter,Arial,sans-serif;background:radial-gradient(circle at top right,#fff0a6 0,#f3f6fb 34%,#eef3fb 100%);color:var(--text)} a{text-decoration:none;color:inherit} button,input,select,textarea{font-family:inherit} button{cursor:pointer}
+    .app{display:grid;grid-template-columns:292px 1fr;min-height:100vh}.side{position:sticky;top:0;height:100vh;background:linear-gradient(180deg,#06122b,#091a3d);color:#fff;padding:24px 20px;display:flex;flex-direction:column;gap:18px;z-index:10}.logo{display:flex;align-items:center;gap:12px;font-size:27px;font-weight:1000;line-height:1.05}.mark{width:54px;height:54px;border-radius:18px;background:var(--yellow);color:var(--navy);display:grid;place-items:center;font-weight:1000}.rolelabel{font-size:12px;font-weight:1000;color:#9fb2d4;letter-spacing:.08em;text-transform:uppercase}.snav{display:grid;gap:7px;overflow:auto;padding-right:4px}.snav a{color:#dbe7ff;border-radius:16px;padding:13px 14px;font-weight:900;font-size:14px;display:flex;align-items:center;justify-content:space-between}.snav a:hover,.snav .act{background:var(--yellow);color:var(--navy)}
+    .main{padding:26px 34px 46px;min-width:0}.topbar{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:20px}.search{flex:1;max-width:760px;background:rgba(255,255,255,.9);border:1px solid var(--line);border-radius:22px;padding:13px 16px;display:flex;gap:12px;box-shadow:0 12px 35px rgba(7,20,47,.05)}.search input{border:0;outline:0;background:transparent;width:100%;font-weight:800}.mini-user{background:#fff;border:1px solid var(--line);border-radius:18px;padding:8px 12px;display:flex;align-items:center;gap:10px;box-shadow:0 12px 35px rgba(7,20,47,.05)}.avatar{width:38px;height:38px;border-radius:14px;background:var(--navy);color:var(--yellow);display:grid;place-items:center;font-weight:1000}
+    .hero{background:linear-gradient(135deg,#07142f 0,#12306a 58%,#ffcc00 59%,#ffe27a 100%);border-radius:34px;padding:30px;color:#fff;display:grid;grid-template-columns:1.2fr .8fr;gap:20px;box-shadow:var(--shadow);overflow:hidden}.hero h1{margin:0;font-size:38px;letter-spacing:-.04em}.hero p{margin:10px 0 0;color:#dce8ff;line-height:1.6}.hero-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px}.btn{border:0;border-radius:16px;padding:13px 17px;font-weight:1000}.btn.y{background:var(--yellow);color:var(--navy)}.btn.dark{background:var(--navy);color:#fff}.btn.light{background:rgba(255,255,255,.15);color:#fff;border:1px solid rgba(255,255,255,.18)}.score-box{background:rgba(255,255,255,.94);color:var(--text);border-radius:26px;padding:20px;align-self:end}.score-box b{display:block;font-size:34px}.score-box span{color:var(--muted);font-weight:800}.stars{color:#f5b400;letter-spacing:2px;font-weight:1000}.progress{height:10px;background:#e9eef7;border-radius:999px;overflow:hidden;margin-top:14px}.progress i{display:block;height:100%;width:92%;background:linear-gradient(90deg,var(--yellow),var(--green))}
+    .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin:22px 0}.stat{background:rgba(255,255,255,.94);border:1px solid var(--line);border-radius:24px;padding:18px;box-shadow:0 14px 35px rgba(7,20,47,.06)}.stat span{color:var(--muted);font-size:13px;font-weight:900}.stat strong{display:block;font-size:31px;margin-top:8px}.stat em{font-style:normal;color:var(--green);font-size:12px;font-weight:900}
+    .layout{display:grid;grid-template-columns:minmax(0,1fr) 380px;gap:22px}.card{background:rgba(255,255,255,.94);border:1px solid var(--line);border-radius:var(--r);padding:22px;box-shadow:0 16px 42px rgba(7,20,47,.07);backdrop-filter:blur(10px)}.head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:16px}.head h2{margin:0;font-size:23px}.filters{display:grid;grid-template-columns:1fr 150px 150px 150px;gap:10px;margin-bottom:16px}.filters input,.filters select{border:1px solid var(--line);background:#fff;border-radius:16px;padding:13px 14px;font-weight:900;outline:0}.chips{display:flex;gap:10px;flex-wrap:wrap}.chip{border:1px solid var(--line);background:#fff;border-radius:999px;padding:10px 13px;font-weight:1000}.chip.act{background:var(--navy);color:#fff;border-color:var(--navy)}
+    .review-list{display:grid;gap:14px}.review{border:1px solid var(--line);background:linear-gradient(180deg,#fff,#fbfdff);border-radius:24px;padding:17px;display:grid;grid-template-columns:64px 1fr auto;gap:15px;align-items:start}.thumb{width:64px;height:64px;border-radius:20px;background:linear-gradient(135deg,#fff0a3,#ffcc00);display:grid;place-items:center;font-size:27px}.review h3{margin:0 0 6px;font-size:18px}.review p{margin:0;color:var(--muted);font-size:13px;line-height:1.6}.meta{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0}.pill{display:inline-flex;align-items:center;border-radius:999px;padding:7px 10px;font-size:12px;font-weight:1000;background:#eef2ff;color:#1d4ed8}.pill.product{background:#dcfce7;color:#166534}.pill.store{background:#fff7d6;color:#8a5b00}.rating{min-width:112px;text-align:center;background:var(--navy);color:#fff;border-radius:20px;padding:12px}.rating b{font-size:25px}.rating span{display:block;font-size:12px;color:#dbe7ff;font-weight:900}.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:11px}.small{border:1px solid var(--line);background:#fff;border-radius:999px;padding:8px 11px;font-size:12px;font-weight:1000}.small.y{background:var(--yellow);border-color:var(--yellow)}.empty{display:none;text-align:center;padding:34px;border:1px dashed #cbd5e1;border-radius:24px;color:var(--muted);font-weight:900;background:#fbfdff}
+    .note{padding:14px;border-radius:18px;background:#f8fafc;border:1px solid var(--line);margin-bottom:10px}.note b{display:block;margin-bottom:4px}.note span{font-size:13px;color:var(--muted)}.bar{height:11px;background:#e9eef7;border-radius:999px;overflow:hidden}.bar i{display:block;height:100%;background:linear-gradient(90deg,var(--yellow),var(--green))}.rate-row{display:grid;grid-template-columns:42px 1fr 34px;gap:10px;align-items:center;margin:10px 0;color:var(--muted);font-weight:900}.mobile-head,.bottom-nav{display:none}.modal{position:fixed;inset:0;background:rgba(7,20,47,.55);display:none;align-items:center;justify-content:center;padding:18px;z-index:99}.modal.show{display:flex}.modal-card{background:#fff;border-radius:26px;padding:22px;max-width:560px;width:100%;box-shadow:var(--shadow)}.mh{display:flex;align-items:center;justify-content:space-between;gap:12px}.mh h2{margin:0}.form{display:grid;gap:10px;margin-top:14px}.form input,.form select,.form textarea{border:1px solid var(--line);border-radius:16px;padding:13px;outline:0;font-weight:800}.toast{position:fixed;right:22px;bottom:22px;background:var(--navy);color:#fff;padding:14px 16px;border-radius:18px;font-weight:900;display:none;z-index:120}
+    @media(max-width:1180px){.app{grid-template-columns:88px 1fr}.logo strong,.rolelabel,.snav a span{display:none}.side{padding:20px 12px}.snav a{justify-content:center}.layout{grid-template-columns:1fr}.stats{grid-template-columns:repeat(2,1fr)}.filters{grid-template-columns:1fr 1fr}}
+    @media(max-width:760px){body{padding-bottom:82px}.app{display:block}.side,.topbar{display:none}.mobile-head{display:flex;align-items:center;justify-content:space-between;padding:14px 16px;background:#06122b;color:#fff;position:sticky;top:0;z-index:30}.main{padding:14px}.hero{grid-template-columns:1fr;padding:23px;border-radius:28px}.hero h1{font-size:29px}.stats{grid-template-columns:repeat(2,1fr);gap:12px}.card{padding:18px;border-radius:24px}.filters{grid-template-columns:1fr}.review{grid-template-columns:54px 1fr}.thumb{width:54px;height:54px}.rating{grid-column:1 / -1;text-align:left}.bottom-nav{position:fixed;left:12px;right:12px;bottom:12px;height:64px;background:#06122b;color:#fff;border-radius:24px;display:grid;grid-template-columns:repeat(4,1fr);box-shadow:0 18px 50px rgba(7,20,47,.35);z-index:40;overflow:hidden}.bottom-nav a{display:grid;place-items:center;color:#fff;font-weight:1000}.bottom-nav .act{background:var(--yellow);color:var(--navy)}}
+  </style>
+</head>
+<body>
+<div class="mobile-head"><b>AK Alma Kirala</b><a class="btn y" href="explore.html">Keşfet</a></div>
+<div class="app">
+  <aside class="side">
+    <a class="logo" href="../index.html"><span class="mark">AK</span><strong>Alma<br>Kirala</strong></a>
+    <div class="rolelabel">Müşteri Alanı</div>
+    <nav class="snav">
+      <a href="dashboard.html">🏠 <span>Akıllı Panel</span></a>
+      <a href="rentals-active.html">📦 <span>Kiralamalar</span></a>
+      <a href="requests.html">📝 <span>Talepler</span></a>
+      <a href="messages.html">💬 <span>Mesajlar</span></a>
+      <a href="favorites.html">💛 <span>Favoriler</span></a>
+      <a href="wallet.html">💳 <span>Cüzdan</span></a>
+      <a class="act" href="reviews.html">⭐ <span>Yorumlar</span></a>
+      <a href="following-stores.html">🏪 <span>Takip Mağazalar</span></a>
+      <a href="notifications.html">🔔 <span>Bildirimler</span></a>
+      <a href="profile.html">👤 <span>Profil & Güven</span></a>
+      <a href="addresses.html">📍 <span>Adresler</span></a>
+      <a href="support.html">🛟 <span>Destek</span></a>
+      <a href="../index.html">↩ <span>Ana Site</span></a>
+    </nav>
+  </aside>
+
+  <main class="main">
+    <div class="topbar">
+      <div class="search">🔎 <input id="searchInput" placeholder="Ürün, mağaza, yorum içeriği veya tarih ara..."></div>
+      <div class="mini-user"><div class="avatar" id="avatar">M</div><div><b id="userName">Müşteri</b><span style="color:#64748b;font-size:12px">Yorum geçmişi</span></div></div>
+    </div>
+
+    <section class="hero">
+      <div>
+        <h1>Yorumlarım</h1>
+        <p>Hangi ürüne, hangi mağazaya, ne zaman ve kaç puan verdiğini buradan yönet. Yorumlarını incele, düzenle veya mağaza/ürün sayfasına git.</p>
+        <div class="hero-actions">
+          <a class="btn y" href="rentals-history.html">Yorum Bekleyenler</a>
+          <button class="btn light" data-open="addReview">Yeni Yorum Yaz</button>
+          <button class="btn light" id="clearFilters">Filtreleri Temizle</button>
+        </div>
+      </div>
+      <div class="score-box">
+        <span>Ortalama Puanın</span>
+        <b id="avgRate">4.8</b>
+        <div class="stars" id="avgStars">★★★★★</div>
+        <span>Yorum kaliten güven skorunu güçlendirir.</span>
+        <div class="progress"><i></i></div>
+      </div>
+    </section>
+
+    <section class="stats">
+      <div class="stat"><span>Toplam Yorum</span><strong id="totalReviews">0</strong><em>aktif kayıt</em></div>
+      <div class="stat"><span>Ürün Yorumu</span><strong id="productReviews">0</strong><em>ürün bazlı</em></div>
+      <div class="stat"><span>Mağaza Yorumu</span><strong id="storeReviews">0</strong><em>satıcı bazlı</em></div>
+      <div class="stat"><span>Bu Ay</span><strong id="monthReviews">0</strong><em>yeni yorum</em></div>
+    </section>
+
+    <section class="layout">
+      <div class="card">
+        <div class="head">
+          <h2>Yorum Geçmişi</h2>
+          <div class="chips">
+            <button class="chip act" data-type="all">Tümü</button>
+            <button class="chip" data-type="product">Ürün</button>
+            <button class="chip" data-type="store">Mağaza</button>
+          </div>
+        </div>
+
+        <div class="filters">
+          <input id="dateFrom" type="date" title="Başlangıç tarihi">
+          <input id="dateTo" type="date" title="Bitiş tarihi">
+          <select id="ratingFilter"><option value="">Tüm puanlar</option><option value="5">5 yıldız</option><option value="4">4 yıldız</option><option value="3">3 yıldız</option><option value="2">2 yıldız</option><option value="1">1 yıldız</option></select>
+          <select id="sortFilter"><option value="new">En yeni</option><option value="old">En eski</option><option value="high">Puan yüksek</option><option value="low">Puan düşük</option></select>
+        </div>
+
+        <div class="review-list" id="reviewList"></div>
+        <div class="empty" id="emptyBox">Bu filtrelere uygun yorum bulunamadı.</div>
+      </div>
+
+      <aside>
+        <section class="card">
+          <div class="head"><h2>Puan Dağılımı</h2></div>
+          <div id="rateBars"></div>
+        </section>
+        <section class="card" style="margin-top:22px">
+          <div class="head"><h2>Yorum İpuçları</h2></div>
+          <div class="note"><b>Ürünü net anlat</b><span>Temizlik, teslimat, açıklamaya uygunluk ve kullanım deneyimini yaz.</span></div>
+          <div class="note"><b>Mağazayı ayrı değerlendir</b><span>İletişim, hız, güven ve teslim sürecini ayrıca belirt.</span></div>
+          <div class="note"><b>Güven skoru</b><span>Düzenli ve gerçek yorumlar müşteri güvenini artırır.</span></div>
+        </section>
+      </aside>
+    </section>
+  </main>
+</div>
+
+<nav class="bottom-nav">
+  <a href="dashboard.html">Ana</a>
+  <a href="rentals-active.html">Kira</a>
+  <a href="messages.html">Mesaj</a>
+  <a class="act" href="reviews.html">Yorum</a>
+</nav>
+
+<div class="modal" id="addReview"><div class="modal-card"><div class="mh"><h2>Yeni Yorum Yaz</h2><button class="btn dark" data-close="addReview">Kapat</button></div><div class="form"><select id="newType"><option value="product">Ürün Yorumu</option><option value="store">Mağaza Yorumu</option></select><input id="newTarget" placeholder="Ürün veya mağaza adı"><select id="newRating"><option value="5">5 yıldız</option><option value="4">4 yıldız</option><option value="3">3 yıldız</option><option value="2">2 yıldız</option><option value="1">1 yıldız</option></select><textarea id="newText" rows="5" placeholder="Yorumun..."></textarea><button class="btn y" id="saveReview">Yorumu Kaydet</button></div></div></div>
+<div class="modal" id="editReview"><div class="modal-card"><div class="mh"><h2>Yorumu Düzenle</h2><button class="btn dark" data-close="editReview">Kapat</button></div><div class="form"><input id="editTarget"><select id="editRating"><option value="5">5 yıldız</option><option value="4">4 yıldız</option><option value="3">3 yıldız</option><option value="2">2 yıldız</option><option value="1">1 yıldız</option></select><textarea id="editText" rows="5"></textarea><button class="btn y" id="updateReview">Güncelle</button></div></div></div>
+<div class="toast" id="toast"></div>
+
+<script>
+  const API_BASE="http://localhost:3000/api";
+  const token=localStorage.getItem("token")||localStorage.getItem("akToken");
+  const user=JSON.parse(localStorage.getItem("user")||localStorage.getItem("akUser")||"null")||{name:"Demo Müşteri"};
+  const fallbackReviews=[
+    {id:1,type:"product",target:"Canon EOS R6 Profesyonel Kamera",store:"Kamera Dünyam",productId:11,storeId:2,rating:5,date:"2026-04-28",text:"Ürün çok temizdi, bataryası doluydu ve açıklamadaki gibi teslim edildi.",icon:"📷"},
+    {id:2,type:"store",target:"Kamera Dünyam",store:"Kamera Dünyam",productId:null,storeId:2,rating:5,date:"2026-04-27",text:"Satıcı hızlı cevap verdi, teslim süreci çok düzenliydi.",icon:"🏪"},
+    {id:3,type:"product",target:"DJI Mini 4 Pro Drone",store:"Drone Market",productId:12,storeId:3,rating:4,date:"2026-04-20",text:"Drone iyi durumdaydı. Teslim saatinde küçük gecikme oldu ama iletişim iyiydi.",icon:"🚁"},
+    {id:4,type:"store",target:"Organizasyon Plus",store:"Organizasyon Plus",productId:null,storeId:7,rating:4,date:"2026-03-18",text:"Teklif açıklaması netti, kurulum desteği yeterliydi.",icon:"🔊"},
+    {id:5,type:"product",target:"Premium Gelinlik",store:"Özel Gün",productId:15,storeId:5,rating:5,date:"2026-03-05",text:"Ölçü ve teslimat gayet özenliydi, ürün fotoğraftaki gibiydi.",icon:"👗"}
+  ];
+  let reviews=JSON.parse(localStorage.getItem("akReviews")||"null")||fallbackReviews;
+  let editingId=null;
+  const $=id=>document.getElementById(id);
+  $("userName").textContent=user.name||"Müşteri";$("avatar").textContent=(user.name||"M").trim()[0].toUpperCase();
+  function trDate(d){return new Date(d+"T12:00:00").toLocaleDateString("tr-TR",{day:"2-digit",month:"long",year:"numeric"})}
+  function stars(n){return "★★★★★".slice(0,n)+"☆☆☆☆☆".slice(0,5-n)}
+  function typeName(t){return t==="product"?"Ürün Yorumu":"Mağaza Yorumu"}
+  function card(r){const targetLink=r.type==="product"?`../product-detail.html?id=${r.productId||r.id}`:`../store-detail.html?id=${r.storeId||r.id}`;return `<article class="review" data-id="${r.id}"><div class="thumb">${r.icon||"⭐"}</div><div><h3>${r.target}</h3><p><b>Mağaza:</b> <a class="store" href="../store-detail.html?id=${r.storeId||1}">${r.store}</a> · <b>Tarih:</b> ${trDate(r.date)}</p><div class="meta"><span class="pill ${r.type}">${typeName(r.type)}</span><span class="pill">${r.rating} yıldız</span></div><p>“${r.text}”</p><div class="actions"><a class="small y" href="${targetLink}">${r.type==="product"?"Ürünü İncele":"Mağazaya Git"}</a><button class="small" data-edit="${r.id}">Düzenle</button><button class="small" data-delete="${r.id}">Sil</button></div></div><div class="rating"><b>${r.rating}.0</b><span>${stars(r.rating)}</span></div></article>`}
+  function getFiltered(){const q=$("searchInput").value.toLowerCase();const type=document.querySelector(".chip.act").dataset.type;const rf=$("ratingFilter").value;const from=$("dateFrom").value;const to=$("dateTo").value;let list=reviews.filter(r=>{const hay=(r.target+" "+r.store+" "+r.text+" "+r.date).toLowerCase();return (!q||hay.includes(q))&&(type==="all"||r.type===type)&&(!rf||String(r.rating)===rf)&&(!from||r.date>=from)&&(!to||r.date<=to)});const sort=$("sortFilter").value;if(sort==="new")list.sort((a,b)=>b.date.localeCompare(a.date));if(sort==="old")list.sort((a,b)=>a.date.localeCompare(b.date));if(sort==="high")list.sort((a,b)=>b.rating-a.rating);if(sort==="low")list.sort((a,b)=>a.rating-b.rating);return list}
+  function render(){const list=getFiltered();$("reviewList").innerHTML=list.map(card).join("");$("emptyBox").style.display=list.length?"none":"block";updateStats();bindActions();}
+  function updateStats(){const total=reviews.length;const avg=total?(reviews.reduce((a,r)=>a+r.rating,0)/total):0;$("totalReviews").textContent=total;$("productReviews").textContent=reviews.filter(r=>r.type==="product").length;$("storeReviews").textContent=reviews.filter(r=>r.type==="store").length;$("monthReviews").textContent=reviews.filter(r=>r.date.startsWith("2026-04")).length;$("avgRate").textContent=avg.toFixed(1);$("avgStars").textContent=stars(Math.round(avg));const bars=[5,4,3,2,1].map(n=>{const c=reviews.filter(r=>r.rating===n).length;const w=total?Math.round(c/total*100):0;return `<div class="rate-row"><span>${n}★</span><div class="bar"><i style="width:${w}%"></i></div><span>${c}</span></div>`}).join("");$("rateBars").innerHTML=bars;}
+  function bindActions(){document.querySelectorAll("[data-edit]").forEach(b=>b.onclick=()=>{const r=reviews.find(x=>x.id==b.dataset.edit);editingId=r.id;$("editTarget").value=r.target;$("editRating").value=r.rating;$("editText").value=r.text;$("editReview").classList.add("show")});document.querySelectorAll("[data-delete]").forEach(b=>b.onclick=()=>{reviews=reviews.filter(x=>x.id!=b.dataset.delete);save();toast("Yorum silindi.")});}
+  function save(){localStorage.setItem("akReviews",JSON.stringify(reviews));render();}
+  function toast(msg){$("toast").textContent=msg;$("toast").style.display="block";setTimeout(()=>$("toast").style.display="none",2000)}
+  document.querySelectorAll("[data-open]").forEach(b=>b.onclick=()=>$(b.dataset.open).classList.add("show"));document.querySelectorAll("[data-close]").forEach(b=>b.onclick=()=>$(b.dataset.close).classList.remove("show"));
+  ["searchInput","dateFrom","dateTo","ratingFilter","sortFilter"].forEach(id=>$(id).addEventListener("input",render));document.querySelectorAll(".chip").forEach(c=>c.onclick=()=>{document.querySelectorAll(".chip").forEach(x=>x.classList.remove("act"));c.classList.add("act");render()});
+  $("clearFilters").onclick=()=>{$("searchInput").value="";$("dateFrom").value="";$("dateTo").value="";$("ratingFilter").value="";$("sortFilter").value="new";document.querySelectorAll(".chip").forEach(x=>x.classList.remove("act"));document.querySelector('[data-type="all"]').classList.add("act");render();};
+  $("saveReview").onclick=()=>{const target=$("newTarget").value.trim();if(!target)return toast("Ürün veya mağaza adı yaz.");reviews.unshift({id:Date.now(),type:$("newType").value,target,store:$("newType").value==="store"?target:"Mağaza",productId:Date.now(),storeId:1,rating:Number($("newRating").value),date:new Date().toISOString().slice(0,10),text:$("newText").value||"Yorum eklendi.",icon:$("newType").value==="store"?"🏪":"📦"});$("addReview").classList.remove("show");$("newTarget").value="";$("newText").value="";save();toast("Yorum kaydedildi.")};
+  $("updateReview").onclick=()=>{const r=reviews.find(x=>x.id===editingId);if(r){r.target=$("editTarget").value;r.rating=Number($("editRating").value);r.text=$("editText").value;save();$("editReview").classList.remove("show");toast("Yorum güncellendi.")}};
+  async function loadBackend(){if(!token){render();return;}try{const res=await fetch(`${API_BASE}/reviews/my`,{headers:{Authorization:`Bearer ${token}`}});if(!res.ok){render();return;}const data=await res.json();const list=Array.isArray(data)?data:(data.reviews||[]);if(list.length){reviews=list.map(x=>({id:x.id,type:x.type|| (x.product?"product":"store"),target:x.product?.title||x.store?.name||x.target||"Yorum",store:x.store?.name||x.storeName||"Mağaza",productId:x.product?.id||x.productId,storeId:x.store?.id||x.storeId,rating:Number(x.rating||5),date:(x.createdAt||x.date||new Date().toISOString()).slice(0,10),text:x.comment||x.text||"",icon:x.product?"📦":"🏪"}));}render();}catch(e){render();}}
+  loadBackend();
+</script>
+</body>
+</html>

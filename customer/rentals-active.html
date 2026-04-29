@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Kiralamalarım | Alma Kirala</title>
+  <style>
+    :root{--navy:#06122b;--navy2:#0b1f49;--yellow:#ffcc00;--bg:#f3f6fb;--card:#fff;--text:#07142f;--muted:#64748b;--line:#e5eaf2;--green:#16a34a;--orange:#d97706;--red:#dc2626;--blue:#2563eb;--shadow:0 20px 55px rgba(7,20,47,.10);--r:26px}
+    *{box-sizing:border-box}body{margin:0;font-family:Inter,Arial,sans-serif;background:radial-gradient(circle at top right,#fff0a6 0,#f3f6fb 34%,#eef3fb 100%);color:var(--text)}a{text-decoration:none;color:inherit}button,input,select{font-family:inherit}button{cursor:pointer}.app{display:grid;grid-template-columns:292px 1fr;min-height:100vh}.side{position:sticky;top:0;height:100vh;background:linear-gradient(180deg,#06122b,#091a3d);color:#fff;padding:24px 20px;display:flex;flex-direction:column;gap:18px;z-index:10}.logo{display:flex;align-items:center;gap:12px;font-size:27px;font-weight:1000;line-height:1.05}.mark{width:54px;height:54px;border-radius:18px;background:var(--yellow);color:var(--navy);display:grid;place-items:center;font-weight:1000}.rolelabel{font-size:12px;font-weight:1000;color:#9fb2d4;letter-spacing:.08em;text-transform:uppercase}.snav{display:grid;gap:7px;overflow:auto;padding-right:4px}.snav a{color:#dbe7ff;border-radius:16px;padding:13px 14px;font-weight:900;font-size:14px;display:flex;align-items:center;justify-content:space-between}.snav a:hover,.snav .act{background:var(--yellow);color:var(--navy)}.main{padding:26px 34px 46px;min-width:0}.topbar{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:20px}.search{flex:1;max-width:720px;background:rgba(255,255,255,.9);border:1px solid var(--line);border-radius:22px;padding:13px 16px;display:flex;gap:12px;box-shadow:0 12px 35px rgba(7,20,47,.05)}.search input{border:0;outline:0;background:transparent;width:100%;font-weight:800}.mini-user{background:#fff;border:1px solid var(--line);border-radius:18px;padding:8px 12px;display:flex;align-items:center;gap:10px;box-shadow:0 12px 35px rgba(7,20,47,.05)}.avatar{width:38px;height:38px;border-radius:14px;background:var(--navy);color:var(--yellow);display:grid;place-items:center;font-weight:1000}.hero{background:linear-gradient(135deg,#07142f 0,#12306a 58%,#ffcc00 59%,#ffe27a 100%);border-radius:34px;padding:30px;color:#fff;display:grid;grid-template-columns:1.2fr .8fr;gap:20px;box-shadow:var(--shadow);overflow:hidden}.hero h1{margin:0;font-size:38px;letter-spacing:-.04em}.hero p{margin:10px 0 0;color:#dce8ff;line-height:1.6}.hero-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px}.btn{border:0;border-radius:16px;padding:13px 17px;font-weight:1000}.btn.y{background:var(--yellow);color:var(--navy)}.btn.dark{background:var(--navy);color:#fff}.btn.light{background:rgba(255,255,255,.15);color:#fff;border:1px solid rgba(255,255,255,.18)}.return-box{background:rgba(255,255,255,.94);color:var(--text);border-radius:26px;padding:20px;align-self:end}.return-box b{display:block;font-size:34px}.return-box span{color:var(--muted);font-weight:800}.progress{height:10px;background:#e9eef7;border-radius:999px;overflow:hidden;margin-top:14px}.progress i{display:block;height:100%;width:68%;background:linear-gradient(90deg,var(--yellow),var(--green))}.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin:22px 0}.stat{background:rgba(255,255,255,.94);border:1px solid var(--line);border-radius:24px;padding:18px;box-shadow:0 14px 35px rgba(7,20,47,.06)}.stat span{color:var(--muted);font-size:13px;font-weight:900}.stat strong{display:block;font-size:31px;margin-top:8px}.stat em{font-style:normal;color:var(--green);font-size:12px;font-weight:900}.layout{display:grid;grid-template-columns:minmax(0,1fr) 380px;gap:22px}.card{background:rgba(255,255,255,.94);border:1px solid var(--line);border-radius:var(--r);padding:22px;box-shadow:0 16px 42px rgba(7,20,47,.07);backdrop-filter:blur(10px)}.head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:16px}.head h2{margin:0;font-size:23px}.filters{display:flex;gap:10px;flex-wrap:wrap}.chip{border:1px solid var(--line);background:#fff;border-radius:999px;padding:10px 13px;font-weight:1000}.chip.act{background:var(--navy);color:#fff;border-color:var(--navy)}.rent-list{display:grid;gap:14px}.rent{border:1px solid var(--line);background:linear-gradient(180deg,#fff,#fbfdff);border-radius:24px;padding:16px;display:grid;grid-template-columns:72px 1fr auto;gap:16px;align-items:center}.thumb{width:72px;height:72px;border-radius:22px;background:linear-gradient(135deg,#fff0a3,#ffcc00);display:grid;place-items:center;font-size:30px}.rent h3{margin:0 0 7px;font-size:18px}.rent p{margin:0;color:var(--muted);font-size:13px;line-height:1.6}.store{font-weight:1000;color:#0f3b86}.status{display:inline-flex;align-items:center;gap:6px;padding:8px 11px;border-radius:999px;font-size:12px;font-weight:1000;white-space:nowrap}.ok{background:#dcfce7;color:#166534}.wait{background:#fff7d6;color:#8a5b00}.blue{background:#dbeafe;color:#1d4ed8}.bad{background:#fee2e2;color:#991b1b}.count{min-width:126px;background:var(--navy);color:#fff;border-radius:20px;padding:12px;text-align:center}.count b{display:block;font-size:24px}.count span{font-size:12px;color:#dbe7ff;font-weight:900}.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:11px}.small{border:1px solid var(--line);background:#fff;border-radius:999px;padding:8px 11px;font-size:12px;font-weight:1000}.small.y{background:var(--yellow);border-color:var(--yellow)}.steps{display:grid;gap:12px}.step{display:grid;grid-template-columns:34px 1fr;gap:11px;align-items:start}.dot{width:34px;height:34px;border-radius:50%;background:#edf2fb;display:grid;place-items:center;font-weight:1000}.step.done .dot{background:#dcfce7;color:#166534}.step.now .dot{background:var(--yellow);color:var(--navy)}.step b{display:block}.step span{color:var(--muted);font-size:13px}.note{padding:14px;border-radius:18px;background:#f8fafc;border:1px solid var(--line);margin-bottom:10px}.note b{display:block;margin-bottom:4px}.note span{font-size:13px;color:var(--muted)}.empty{display:none;text-align:center;padding:34px;border:1px dashed #cbd5e1;border-radius:24px;color:var(--muted);font-weight:900;background:#fbfdff}.mobile-head,.bottom-nav{display:none}.modal{position:fixed;inset:0;background:rgba(7,20,47,.55);display:none;align-items:center;justify-content:center;padding:18px;z-index:99}.modal.show{display:flex}.modal-card{background:#fff;border-radius:26px;padding:22px;max-width:540px;width:100%;box-shadow:var(--shadow)}.mh{display:flex;align-items:center;justify-content:space-between;gap:12px}.mh h2{margin:0}textarea{width:100%;border:1px solid var(--line);border-radius:18px;padding:14px;outline:0;resize:vertical}.toast{position:fixed;right:22px;bottom:22px;background:var(--navy);color:#fff;padding:14px 16px;border-radius:18px;font-weight:900;display:none;z-index:120}
+    @media(max-width:1180px){.app{grid-template-columns:88px 1fr}.logo strong,.rolelabel,.snav a span{display:none}.side{padding:20px 12px}.snav a{justify-content:center}.layout{grid-template-columns:1fr}.stats{grid-template-columns:repeat(2,1fr)}}
+    @media(max-width:760px){body{padding-bottom:82px}.app{display:block}.side,.topbar{display:none}.mobile-head{display:flex;align-items:center;justify-content:space-between;padding:14px 16px;background:#06122b;color:#fff;position:sticky;top:0;z-index:30}.main{padding:14px}.hero{grid-template-columns:1fr;padding:23px;border-radius:28px}.hero h1{font-size:29px}.stats{grid-template-columns:repeat(2,1fr);gap:12px}.card{padding:18px;border-radius:24px}.rent{grid-template-columns:58px 1fr}.thumb{width:58px;height:58px}.count{grid-column:1 / -1;text-align:left}.bottom-nav{position:fixed;left:12px;right:12px;bottom:12px;height:64px;background:#06122b;color:#fff;border-radius:24px;display:grid;grid-template-columns:repeat(4,1fr);box-shadow:0 18px 50px rgba(7,20,47,.35);z-index:40;overflow:hidden}.bottom-nav a{display:grid;place-items:center;color:#fff;font-weight:1000}.bottom-nav .act{background:var(--yellow);color:var(--navy)}}
+  </style>
+</head>
+<body>
+<div class="mobile-head"><b>AK Alma Kirala</b><a class="btn y" href="explore.html">Keşfet</a></div>
+<div class="app">
+  <aside class="side">
+    <a class="logo" href="../index.html"><span class="mark">AK</span><strong>Alma<br>Kirala</strong></a>
+    <div class="rolelabel">Müşteri Alanı</div>
+    <nav class="snav">
+      <a href="dashboard.html">🏠 <span>Akıllı Panel</span></a>
+      <a class="act" href="rentals-active.html">📦 <span>Kiralamalar</span></a>
+      <a href="requests.html">📝 <span>Talepler</span></a>
+      <a href="messages.html">💬 <span>Mesajlar</span></a>
+      <a href="favorites.html">💛 <span>Favoriler</span></a>
+      <a href="wallet.html">💳 <span>Cüzdan</span></a>
+      <a href="reviews.html">⭐ <span>Yorumlar</span></a>
+      <a href="following-stores.html">🏪 <span>Takip Mağazalar</span></a>
+      <a href="notifications.html">🔔 <span>Bildirimler</span></a>
+      <a href="profile.html">👤 <span>Profil & Güven</span></a>
+      <a href="addresses.html">📍 <span>Adresler</span></a>
+      <a href="support.html">🛟 <span>Destek</span></a>
+      <a href="../index.html">↩ <span>Ana Site</span></a>
+    </nav>
+  </aside>
+
+  <main class="main">
+    <div class="topbar">
+      <div class="search">🔎 <input id="searchInput" placeholder="Kiralama, ürün, mağaza veya durum ara..."></div>
+      <div class="mini-user"><div class="avatar" id="avatar">M</div><div><b id="userName">Müşteri</b><span style="color:#64748b;font-size:12px">Aktif kiralamalar</span></div></div>
+    </div>
+
+    <section class="hero">
+      <div>
+        <h1>Kiralamalarım</h1>
+        <p>Elindeki ürünleri, teslim tarihlerini, mağaza bağlantılarını, kalan süreyi ve kiralama sürecini buradan takip et.</p>
+        <div class="hero-actions">
+          <a class="btn y" href="explore.html">Yeni Kiralama Yap</a>
+          <button class="btn light" data-open="msg">Satıcıya Mesaj Gönder</button>
+          <button class="btn light" id="refreshBtn">Yenile</button>
+        </div>
+      </div>
+      <div class="return-box">
+        <span>En yakın teslim</span>
+        <b id="nearestReturn">2 gün</b>
+        <span>Canon EOS R6 teslim planı</span>
+        <div class="progress"><i></i></div>
+      </div>
+    </section>
+
+    <section class="stats">
+      <div class="stat"><span>Elimdeki Ürün</span><strong id="activeCount">0</strong><em>aktif</em></div>
+      <div class="stat"><span>Bugünkü Teslim</span><strong id="todayCount">0</strong><em>kontrol et</em></div>
+      <div class="stat"><span>Planlanan Ödeme</span><strong id="payTotal">₺0</strong><em>bu hafta</em></div>
+      <div class="stat"><span>İade Bekleyen Depozito</span><strong id="depositTotal">₺0</strong><em>güvende</em></div>
+    </section>
+
+    <section class="layout">
+      <div class="card">
+        <div class="head">
+          <h2>Aktif Kiralama Listesi</h2>
+          <div class="filters">
+            <button class="chip act" data-filter="all">Tümü</button>
+            <button class="chip" data-filter="today">Bugün</button>
+            <button class="chip" data-filter="soon">Yaklaşan</button>
+            <button class="chip" data-filter="late">Geciken</button>
+          </div>
+        </div>
+        <div class="rent-list" id="rentList"></div>
+        <div class="empty" id="emptyBox">Bu filtreye uygun kiralama bulunamadı.</div>
+      </div>
+
+      <aside>
+        <section class="card">
+          <div class="head"><h2>Teslimat Süreci</h2></div>
+          <div class="steps">
+            <div class="step done"><div class="dot">✓</div><div><b>Talep onaylandı</b><span>Satıcı kiralamayı kabul etti.</span></div></div>
+            <div class="step done"><div class="dot">✓</div><div><b>Ürün teslim alındı</b><span>Ürün müşteride aktif görünüyor.</span></div></div>
+            <div class="step now"><div class="dot">3</div><div><b>Kullanım süreci</b><span>Kalan süre ve teslim planı takip ediliyor.</span></div></div>
+            <div class="step"><div class="dot">4</div><div><b>İade / teslim</b><span>Ürün mağazaya teslim edildiğinde kapanır.</span></div></div>
+          </div>
+        </section>
+        <section class="card" style="margin-top:22px">
+          <div class="head"><h2>Önemli Notlar</h2></div>
+          <div class="note"><b>Geç teslim riski</b><span>Teslim saatinden önce mağaza ile iletişime geç.</span></div>
+          <div class="note"><b>Depozito güvenliği</b><span>İade onayından sonra cüzdana yansır.</span></div>
+          <div class="note"><b>Mağaza bağlantısı</b><span>Mağaza adına tıklayarak mağaza sayfasına gidebilirsin.</span></div>
+        </section>
+      </aside>
+    </section>
+  </main>
+</div>
+
+<nav class="bottom-nav">
+  <a href="dashboard.html">Ana</a>
+  <a class="act" href="rentals-active.html">Kira</a>
+  <a href="messages.html">Mesaj</a>
+  <a href="profile.html">Profil</a>
+</nav>
+
+<div class="modal" id="msg"><div class="modal-card"><div class="mh"><h2>Satıcıya Mesaj Gönder</h2><button class="btn dark" data-close="msg">Kapat</button></div><p style="color:#64748b">Hangi kiralama için mesaj göndermek istediğini yaz.</p><textarea rows="5" placeholder="Mesajın..."></textarea><br><br><button class="btn y" data-toast="Mesaj gönderimi hazırlandı.">Gönder</button></div></div>
+<div class="toast" id="toast"></div>
+
+<script>
+  const API_BASE="http://localhost:3000/api";
+  const token=localStorage.getItem("token")||localStorage.getItem("akToken");
+  const user=JSON.parse(localStorage.getItem("user")||localStorage.getItem("akUser")||"null")||{name:"Demo Müşteri"};
+  const fallbackRentals=[
+    {id:1,title:"Canon EOS R6 Profesyonel Kamera",store:"Kamera Dünyam",storeId:2,taken:"2026-04-29T10:30:00",returnDate:"2026-04-30T16:00:00",status:"Teslimata Hazır",icon:"📷",price:900,deposit:1500},
+    {id:2,title:"DJI Mini 4 Pro Drone",store:"Drone Market",storeId:3,taken:"2026-04-28T14:00:00",returnDate:"2026-05-01T12:00:00",status:"Kullanımda",icon:"🚁",price:1500,deposit:2000},
+    {id:3,title:"Sony A7 IV Kamera Seti",store:"Kamera Dünyam",storeId:2,taken:"2026-04-27T09:00:00",returnDate:"2026-05-03T18:00:00",status:"Yaklaşan Teslim",icon:"🎥",price:1800,deposit:2500}
+  ];
+  let rentals=[...fallbackRentals];
+  const $=id=>document.getElementById(id);
+  $("userName").textContent=user.name||"Müşteri";$("avatar").textContent=(user.name||"M").trim()[0].toUpperCase();
+  function fmt(d){return new Date(d).toLocaleString("tr-TR",{day:"2-digit",month:"long",year:"numeric",hour:"2-digit",minute:"2-digit"})}
+  function diffInfo(date){const ms=new Date(date)-new Date();const h=Math.ceil(ms/36e5);if(h<0)return {big:Math.abs(h),small:"saat gecikti",cls:"bad",type:"late"};if(h<24)return {big:h,small:"saat kaldı",cls:"wait",type:"today"};if(h<=72)return {big:Math.ceil(h/24),small:"gün kaldı",cls:"blue",type:"soon"};return {big:Math.ceil(h/24),small:"gün kaldı",cls:"ok",type:"soon"}}
+  function statusClass(s){if((s||"").includes("Gecik"))return"bad";if((s||"").includes("Hazır"))return"ok";if((s||"").includes("Yaklaş"))return"blue";return"wait"}
+  function card(r){const left=diffInfo(r.returnDate);return `<article class="rent" data-type="${left.type}" data-search="${(r.title+' '+r.store+' '+r.status).toLowerCase()}"><div class="thumb">${r.icon||"📦"}</div><div><h3>${r.title}</h3><p>Alındı: <b>${fmt(r.taken)}</b><br>Teslim/iade: <b>${fmt(r.returnDate)}</b><br>Mağaza: <a class="store" href="../store-detail.html?id=${r.storeId}">${r.store}</a></p><div class="actions"><a class="small y" href="../store-detail.html?id=${r.storeId}">Mağazaya Git</a><button class="small" data-open="msg">Mesaj Gönder</button><button class="small" data-toast="Teslimat detayı açılacak.">Teslimat Detayı</button><span class="status ${statusClass(r.status)}">${r.status}</span></div></div><div class="count"><b>${left.big}</b><span>${left.small}</span></div></article>`}
+  function render(filter="all",q=""){let list=rentals.filter(r=>{const t=diffInfo(r.returnDate).type;const match=filter==="all"||t===filter;const search=(r.title+" "+r.store+" "+r.status).toLowerCase().includes(q.toLowerCase());return match&&search});$("rentList").innerHTML=list.map(card).join("");$("emptyBox").style.display=list.length?"none":"block";bindButtons();updateStats();}
+  function updateStats(){const today=rentals.filter(r=>diffInfo(r.returnDate).type==="today").length;$("activeCount").textContent=rentals.length;$("todayCount").textContent=today;$("payTotal").textContent="₺"+rentals.reduce((a,r)=>a+(Number(r.price)||0),0).toLocaleString("tr-TR");$("depositTotal").textContent="₺"+rentals.reduce((a,r)=>a+(Number(r.deposit)||0),0).toLocaleString("tr-TR");const nearest=rentals.map(r=>diffInfo(r.returnDate)).sort((a,b)=>a.big-b.big)[0];if(nearest)$("nearestReturn").textContent=nearest.big+" "+nearest.small;}
+  function bindButtons(){document.querySelectorAll("[data-open]").forEach(b=>b.onclick=()=>$(b.dataset.open).classList.add("show"));document.querySelectorAll("[data-toast]").forEach(b=>b.onclick=()=>toast(b.dataset.toast));}
+  function toast(msg){$("toast").textContent=msg;$("toast").style.display="block";setTimeout(()=>$("toast").style.display="none",2200)}
+  document.querySelectorAll("[data-close]").forEach(b=>b.onclick=()=>$(b.dataset.close).classList.remove("show"));
+  document.querySelectorAll(".chip").forEach(c=>c.onclick=()=>{document.querySelectorAll(".chip").forEach(x=>x.classList.remove("act"));c.classList.add("act");render(c.dataset.filter,$("searchInput").value)});
+  $("searchInput").addEventListener("input",e=>render(document.querySelector(".chip.act").dataset.filter,e.target.value));
+  $("refreshBtn").onclick=()=>{toast("Kiralamalar güncellendi.");loadBackend();};
+  async function loadBackend(){if(!token){render();return;}try{const res=await fetch(`${API_BASE}/rentals/my`,{headers:{Authorization:`Bearer ${token}`}});if(!res.ok){render();return;}const data=await res.json();const list=Array.isArray(data)?data:(data.rentals||[]);if(list.length){rentals=list.map(x=>({id:x.id,title:x.product?.title||x.title||"Kiralık Ürün",store:x.store?.name||x.storeName||"Mağaza",storeId:x.store?.id||x.storeId||1,taken:x.startDate||x.taken||new Date(),returnDate:x.endDate||x.returnDate||new Date(),status:x.status||"Kullanımda",icon:"📦",price:x.totalPrice||x.price||0,deposit:x.deposit||0}));}render();}catch(e){console.log("Backend bekleniyor",e.message);render();}}
+  loadBackend();
+</script>
+</body>
+</html>

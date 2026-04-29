@@ -1,0 +1,218 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Politikalar | Alma Kirala</title>
+<style>
+:root{--dark:#07142f;--yellow:#ffcc00;--orange:#ff9f1c;--bg:#f4f6fb;--line:#e5e7eb;--muted:#64748b;--red:#ef4444;--green:#16a34a;--shadow:0 18px 45px rgba(15,23,42,.10);--shadow2:0 10px 28px rgba(15,23,42,.07)}
+*{box-sizing:border-box}body{margin:0;font-family:Inter,Arial,sans-serif;background:radial-gradient(circle at 100% 0%,rgba(255,204,0,.14),transparent 30%),var(--bg);color:var(--dark)}a{text-decoration:none;color:inherit}button,input,select,textarea{font-family:inherit}button{cursor:pointer}
+.app{display:grid;grid-template-columns:292px minmax(0,1fr);min-height:100vh}
+.side{background:linear-gradient(180deg,#07142f,#081226);color:#fff;padding:18px 14px;position:sticky;top:0;height:100vh;overflow:auto;z-index:80}
+.logo{display:flex;align-items:center;gap:10px;font-size:26px;font-weight:1000;padding:0 6px 16px}.mark{width:42px;height:42px;border-radius:15px;background:linear-gradient(135deg,#ffcc00,#ff9f1c);position:relative;overflow:hidden}.mark:before{content:"";position:absolute;width:18px;height:48px;background:#07142f;transform:rotate(28deg);left:12px;top:2px;border-radius:999px}.mark:after{content:"";position:absolute;width:14px;height:14px;border-radius:50%;background:#fff;right:7px;bottom:7px}
+.rolelabel{color:#cbd5e1;text-transform:uppercase;font-size:12px;font-weight:1000;padding:4px 12px 14px}.store-mini{margin:0 6px 14px;background:rgba(255,255,255,.08);border-radius:22px;padding:12px;display:flex;gap:10px;align-items:center}.store-avatar{width:46px;height:46px;border-radius:16px;background:#ffcc00;color:#07142f;display:grid;place-items:center;font-weight:1000}.store-mini strong{display:block;font-size:14px}.store-mini span{display:block;color:#cbd5e1;font-size:12px;font-weight:800;margin-top:3px}
+.snav{display:grid;gap:5px}.snav a{display:flex;align-items:center;justify-content:space-between;padding:11px 12px;border-radius:15px;color:#e5e7eb;font-weight:900;font-size:14px}.snav a:hover{background:rgba(255,255,255,.08)}.snav a.act{background:linear-gradient(135deg,#ffcc00,#ff9f1c);color:#07142f}.snav small{background:#ef4444;color:#fff;border-radius:999px;padding:3px 7px;font-size:11px;font-weight:1000}.side-bottom{margin:14px 6px 0;border-top:1px solid rgba(255,255,255,.1);padding-top:12px;display:grid;gap:8px}.side-bottom button,.side-bottom a{border:0;border-radius:14px;padding:11px 12px;font-weight:1000;text-align:center}.logout{background:rgba(220,38,38,.18);color:#fecaca}.site-link{background:rgba(255,255,255,.08);color:#fff}
+.main{min-width:0;padding:22px}.hero{background:radial-gradient(circle at 92% 0%,rgba(255,204,0,.26),transparent 32%),linear-gradient(135deg,#fff,#fbfdff);border:1px solid var(--line);border-radius:32px;padding:24px;box-shadow:var(--shadow2);margin-bottom:16px;display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:18px;align-items:center}.mobile-menu{display:none;border:0;background:#07142f;color:#fff;border-radius:14px;padding:12px 14px;font-weight:1000}.hero span{display:inline-flex;background:#fff3bf;color:#8a5b00;border-radius:999px;padding:8px 11px;font-size:12px;font-weight:1000;margin-bottom:10px}.hero h1{margin:0;font-size:38px;line-height:1.04;font-family:Georgia,serif}.hero p{margin:9px 0 0;color:var(--muted);font-weight:750;line-height:1.6}.hero-panel{background:#07142f;color:#fff;border-radius:24px;padding:18px}.hero-panel strong{display:block;color:#ffcc00;font-size:24px;font-family:Georgia,serif}.hero-panel p{color:#cbd5e1}
+.btn{border:0;border-radius:16px;padding:13px 15px;font-weight:1000;display:inline-flex;align-items:center;justify-content:center;gap:8px;white-space:nowrap}.btn.y{background:linear-gradient(135deg,#ffcc00,#ff9f1c);color:#07142f}.btn.light{background:#f1f5f9;color:#07142f;border:1px solid #dbe3ef}.btn.dark{background:#07142f;color:#fff}.btn.green{background:#dcfce7;color:#166534;border:1px solid #bbf7d0}.btn.red{background:#fee2e2;color:#991b1b;border:1px solid #fecaca}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:16px}.stat{background:#fff;border:1px solid var(--line);border-radius:24px;padding:16px;box-shadow:var(--shadow2);position:relative;overflow:hidden}.stat:after{content:"";position:absolute;width:90px;height:90px;border-radius:50%;background:rgba(255,204,0,.13);right:-32px;top:-32px}.stat span{display:block;color:#64748b;font-size:12px;font-weight:900;margin-bottom:8px}.stat b{display:block;font-size:24px;line-height:1;font-weight:1000;position:relative;z-index:1}.stat small{display:block;margin-top:7px;color:#64748b;font-weight:850;font-size:11px}
+.command{background:#07142f;color:#fff;border-radius:28px;padding:16px;display:grid;grid-template-columns:minmax(0,1fr) 180px 160px auto;gap:10px;align-items:center;box-shadow:var(--shadow);margin-bottom:16px}.command input,.command select{height:48px;border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.08);color:#fff;border-radius:16px;padding:0 13px;font-weight:850;outline:0}.command input::placeholder{color:#cbd5e1}.command select option{color:#07142f}
+.layout{display:grid;grid-template-columns:330px minmax(0,1fr) 340px;gap:16px;align-items:start}.card{background:#fff;border:1px solid var(--line);border-radius:28px;box-shadow:var(--shadow2);padding:18px;margin-bottom:16px}.card h2,.card h3{margin:0;font-family:Georgia,serif}.card p{margin:7px 0 0;color:#64748b;font-weight:750;line-height:1.55}.card-head{display:flex;justify-content:space-between;gap:12px;align-items:flex-start;margin-bottom:16px}
+.policy-menu{display:grid;gap:8px;position:sticky;top:18px}.policy-tab{border:1px solid #edf1f7;background:#fff;border-radius:18px;padding:13px;text-align:left;font-weight:1000;color:#334155;display:flex;justify-content:space-between;gap:8px;align-items:center}.policy-tab.active{background:#07142f;color:#fff;border-color:#07142f}.policy-tab small{background:#ffcc00;color:#07142f;border-radius:999px;padding:4px 8px;font-weight:1000}
+.article{background:#fff;border:1px solid var(--line);border-radius:28px;box-shadow:var(--shadow2);padding:22px;margin-bottom:16px}.article h2{font-family:Georgia,serif;font-size:28px;margin:0}.article h3{font-size:18px;margin:20px 0 8px}.article p,.article li{color:#334155;font-weight:800;line-height:1.65}.article ul{padding-left:20px}.article .notice{background:#fff8db;border:1px solid #ffe08a;border-radius:20px;padding:14px;margin:15px 0;color:#8a5b00;font-weight:900}.article .danger{background:#fee2e2;border:1px solid #fecaca;color:#991b1b}.status-pill{border-radius:999px;padding:7px 10px;font-size:12px;font-weight:1000}.accepted{background:#dcfce7;color:#166534}.pending{background:#fff8db;color:#8a5b00}.updated{background:#fee2e2;color:#991b1b}
+.checklist{display:grid;gap:10px}.check{display:flex;gap:10px;align-items:flex-start;background:#f8fafc;border:1px solid #edf1f7;border-radius:18px;padding:12px}.check input{width:20px;height:20px;margin-top:2px;accent-color:#ffcc00}.check b{display:block}.check span{display:block;color:#64748b;font-size:12px;font-weight:850;margin-top:3px}
+.version-list{display:grid;gap:10px}.version{background:#f8fafc;border:1px solid #edf1f7;border-radius:18px;padding:12px}.version b{display:block}.version span{display:block;color:#64748b;font-size:12px;font-weight:850;margin-top:4px}
+.table-wrap{overflow:auto;background:#fff;border:1px solid var(--line);border-radius:26px;box-shadow:var(--shadow2)}.table{width:100%;border-collapse:collapse;min-width:760px}.table th,.table td{padding:14px;border-bottom:1px solid #edf1f7;text-align:left;font-weight:850}.table th{font-size:12px;color:#64748b;text-transform:uppercase}
+.modal{display:none;position:fixed;inset:0;background:rgba(7,20,47,.58);z-index:200;align-items:center;justify-content:center;padding:16px;backdrop-filter:blur(6px)}.modal.open{display:flex}.modal-card{width:min(720px,100%);max-height:90vh;overflow:auto;background:#fff;border-radius:28px;padding:22px;box-shadow:var(--shadow)}.modal-head{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:14px}.modal-head h2{margin:0;font-family:Georgia,serif}.modal-close{border:0;background:#f1f5f9;width:40px;height:40px;border-radius:50%;font-size:20px;font-weight:1000}label{display:block;font-size:13px;font-weight:1000;color:#1e293b;margin-bottom:7px}textarea{width:100%;min-height:130px;border:1px solid #dbe3ef;background:#fff;border-radius:16px;padding:14px;outline:0;font-size:15px;font-weight:850;resize:vertical}
+.toast{position:fixed;right:18px;bottom:18px;background:#07142f;color:#fff;padding:14px 16px;border-radius:18px;box-shadow:var(--shadow);font-weight:900;display:none;z-index:220}.toast.show{display:block}.mobile-bottom-nav{display:none}
+@media(max-width:1380px){.layout{grid-template-columns:1fr}.policy-menu{position:static;grid-template-columns:repeat(2,1fr)}}
+@media(max-width:900px){body{padding-bottom:82px}.app{display:block}.side{position:fixed;left:-310px;top:0;bottom:0;width:292px;height:100vh;transition:.25s}.side.open{left:0}.main{padding:14px}.mobile-menu{display:inline-flex}.hero,.command{grid-template-columns:1fr;border-radius:24px}.hero h1{font-size:30px}.stats{grid-template-columns:repeat(2,1fr)}.policy-menu{grid-template-columns:1fr}.mobile-bottom-nav{position:fixed;left:10px;right:10px;bottom:10px;background:rgba(7,20,47,.96);border-radius:22px;padding:9px;display:grid;grid-template-columns:repeat(5,1fr);gap:6px;z-index:120}.mobile-bottom-nav a{color:#fff;text-align:center;border-radius:15px;padding:9px 4px;font-size:11px;font-weight:900}.mobile-bottom-nav a.active{background:#ffcc00;color:#07142f}}
+@media(max-width:560px){.stats{grid-template-columns:1fr}.card,.hero,.article{padding:16px}.hero-panel{display:none}.card-head{display:block}.card-head .btn{margin-top:10px;width:100%}}
+</style>
+</head>
+<body>
+<div class="app">
+<aside class="side" id="sidebar">
+<a class="logo" href="../index.html"><span class="mark"></span>Alma Kirala</a>
+<div class="rolelabel">Mağaza Sahibi Paneli</div>
+<div class="store-mini"><div class="store-avatar">AK</div><div><strong>Politikalar</strong><span>Güven ve kural merkezi</span></div></div>
+<nav class="snav">
+<a href="dashboard.html">Panel</a><a href="my-stores.html">Mağazalarım</a><a href="create-store.html">Mağaza Aç</a><a href="store-settings.html">Mağaza Ayarları</a><a href="store-theme.html">Tema</a><a href="products.html">Ürünler</a><a href="add-product.html">Ürün Ekle</a><a href="edit-product.html">Ürün Düzenle</a><a href="product-performance.html">Ürün Performansı</a><a href="rental-requests.html">Kiralama Talepleri</a><a href="messages.html">Mesajlar</a><a href="reviews.html">Yorumlar</a><a href="ads.html">Reklamlar</a><a href="ad-performance.html">Reklam Performansı</a><a href="finance.html">Muhasebe</a><a href="subscription.html">Abonelik</a><a href="notifications.html">Bildirimler</a><a href="support.html">Destek</a><a class="act" href="policies.html">Politikalar <small id="navPending">0</small></a><a href="close-store.html">Mağaza Kapat</a>
+</nav>
+<div class="side-bottom"><a class="site-link" href="../index.html">Ana Siteye Dön</a><button class="logout" id="logoutBtn" type="button">Çıkış Yap</button></div>
+</aside>
+
+<main class="main">
+<section class="hero">
+<div><button class="mobile-menu" id="mobileMenu" type="button">☰ Menü</button><br><span>Satıcı güven ve politika merkezi</span><h1>Kiralama düzeni, mağaza güveni ve platform kuralları burada.</h1><p>Satıcı neyi kiralayabilir, depozito nasıl çalışır, iade nasıl olur, reklam ve mağaza kapatma kuralları nedir; tüm kritik kurallar tek merkezde okunur ve onaylanır.</p></div>
+<div class="hero-panel"><strong>Net kural = güçlü platform</strong><p>Satıcı, müşteri ve yönetim aynı kurallara göre hareket eder. Admin bu içerikleri daha sonra panelden güncelleyebilir.</p></div>
+</section>
+
+<section class="stats">
+<div class="stat"><span>Politika Durumu</span><b id="policyStatus">Eksik</b><small>Onay bekleyen var</small></div>
+<div class="stat"><span>Okunan Politika</span><b id="readCount">0/8</b><small>Satıcı kabul kaydı</small></div>
+<div class="stat"><span>Son Güncelleme</span><b>28.04</b><small>Admin sürümü v1.4</small></div>
+<div class="stat"><span>Risk Uyarısı</span><b id="riskCount">3</b><small>Kritik madde</small></div>
+</section>
+
+<section class="command">
+<input id="searchInput" placeholder="Politika, yasaklı ürün, depozito veya iade ara">
+<select id="categoryFilter"><option value="all">Tüm politikalar</option><option value="critical">Kritik</option><option value="seller">Satıcı</option><option value="payment">Ödeme</option><option value="ad">Reklam</option></select>
+<select id="statusFilter"><option value="all">Tüm durumlar</option><option value="accepted">Onaylandı</option><option value="pending">Onay bekliyor</option></select>
+<button class="btn y" id="acceptAllBtn" type="button">Tümünü Okudum Onaylıyorum</button>
+</section>
+
+<section class="layout">
+<aside>
+<div class="card">
+<h3>Politika Başlıkları</h3>
+<p>Başlık seç, detayı oku ve onayla.</p><br>
+<div class="policy-menu" id="policyMenu"></div>
+</div>
+</aside>
+
+<section>
+<article class="article" id="policyArticle"></article>
+
+<div class="card">
+<div class="card-head"><div><h2>Politika Onay Kaydı</h2><p>Satıcının hangi politikayı ne zaman onayladığı kayıt altına alınır.</p></div><button class="btn light" id="exportBtn" type="button">Kayıtları İndir</button></div>
+<div class="table-wrap"><table class="table"><thead><tr><th>Politika</th><th>Kategori</th><th>Sürüm</th><th>Durum</th><th>Onay Tarihi</th></tr></thead><tbody id="acceptTable"></tbody></table></div>
+</div>
+</section>
+
+<aside>
+<div class="card">
+<h3>Onay Kontrol Listesi</h3>
+<p>Mağazanın güvenli çalışması için gerekli kabuller.</p><br>
+<div class="checklist" id="checklist"></div>
+</div>
+
+<div class="card">
+<h3>Sürüm Geçmişi</h3>
+<p>Admin güncellemeleri burada görünür.</p><br>
+<div class="version-list">
+<div class="version"><b>v1.4 • Reklam politikası güncellendi</b><span>Üst banner ve orta banner görünürlük kuralları eklendi.</span></div>
+<div class="version"><b>v1.3 • Depozito maddesi eklendi</b><span>Hasar, iade ve emanet tutar süreçleri netleştirildi.</span></div>
+<div class="version"><b>v1.2 • Yasaklı ürünler</b><span>Riskli ürün listesi genişletildi.</span></div>
+</div>
+</div>
+
+<div class="card">
+<h3>Politika Sorusu</h3>
+<p>Kural hakkında emin değilsen destek talebi aç.</p><br>
+<button class="btn y" style="width:100%" data-modal="questionModal" type="button">Politika Sorusu Sor</button>
+</div>
+</aside>
+</section>
+</main>
+</div>
+
+<nav class="mobile-bottom-nav"><a href="dashboard.html">Panel</a><a href="support.html">Destek</a><a href="finance.html">Muhasebe</a><a class="active" href="policies.html">Politika</a><a href="close-store.html">Kapat</a></nav>
+
+<div class="modal" id="questionModal"><div class="modal-card"><div class="modal-head"><h2>Politika Sorusu</h2><button class="modal-close" data-close="questionModal" type="button">×</button></div><label>Sorun / açıklaman</label><textarea id="questionText" placeholder="Hangi politika maddesinde emin değilsin?"></textarea><br><br><button class="btn y" id="sendQuestionBtn" type="button">Destek Talebi Oluştur</button></div></div>
+<div class="toast" id="toast"></div>
+
+<script>
+const token=localStorage.getItem("token");
+const akRole=localStorage.getItem("akRole");
+
+const policies=[
+{id:"rental",title:"Kiralama ve Teslimat Politikası",category:"critical",version:"v1.4",summary:"Teslimat, süre, gecikme ve ürün kondisyonu kuralları.",content:`<p>Satıcı kiralanan ürünü ilanda yazdığı kondisyon, aksesuar ve çalışma durumuyla teslim etmek zorundadır. Ürünün teslim saati, iade saati ve teslim noktası kiralama talebi onaylanmadan önce netleşmelidir.</p><h3>Temel kurallar</h3><ul><li>Ürün tesliminde fotoğraf veya video ile kondisyon kaydı alınmalıdır.</li><li>Gecikme durumunda satıcı müşteriye ve platforma bilgi vermelidir.</li><li>Ürün ilanda yazan aksesuarlarla teslim edilmelidir.</li><li>Teslim edilmeyen aksesuarlar müşteri şikayetine neden olabilir.</li></ul><div class="notice danger">Kritik: Ürün teslim edilmediği halde teslim edildi işaretlemek mağaza güven puanını düşürür.</div>`},
+{id:"deposit",title:"Depozito ve Hasar Politikası",category:"payment",version:"v1.3",summary:"Depozito, hasar, iade ve emanet tutar süreçleri.",content:`<p>Depozito, ürün güvenliği için alınan emanet tutardır. Hasar yoksa depozito iade edilir. Hasar veya eksik parça varsa süreç belgeyle yürütülür.</p><h3>Hasar süreci</h3><ul><li>Teslim öncesi ve sonrası görsel kayıt alınmalıdır.</li><li>Hasar iddiası fotoğraf, video veya servis raporuyla desteklenmelidir.</li><li>Depozito kesintisi keyfi yapılamaz.</li><li>Uyuşmazlıkta platform kayıtları esas alınır.</li></ul>`},
+{id:"forbidden",title:"Yasaklı Ürün Politikası",category:"critical",version:"v1.2",summary:"Platformda listelenemeyecek ürünler.",content:`<p>Alma Kirala güvenli ve yasal ürün kiralama platformudur. Tehlikeli, yasaklı, sahte veya denetimsiz ürünler listelenemez.</p><h3>Yasaklı örnekler</h3><ul><li>Ruhsat gerektiren silah, patlayıcı veya tehlikeli ekipmanlar.</li><li>Çalıntı, sahte veya marka hakkı ihlali olan ürünler.</li><li>Sağlık açısından riskli ve steril şart gerektiren ürünler.</li><li>Kullanımı yasal izin gerektiren özel cihazlar.</li></ul><div class="notice danger">Kritik: Yasaklı ürün tespiti mağaza kapatma sebebi olabilir.</div>`},
+{id:"seller",title:"Satıcı Sorumlulukları",category:"seller",version:"v1.4",summary:"Mağaza sahibi davranış ve hizmet kalitesi.",content:`<p>Satıcı doğru bilgi vermek, müşteriye zamanında dönüş yapmak ve ürününü güvenli şekilde teslim etmekle sorumludur.</p><ul><li>İlan başlığı, açıklaması, fiyatı ve fotoğrafı yanıltıcı olamaz.</li><li>Müşteri mesajlarına makul sürede dönüş yapılmalıdır.</li><li>Rezervasyon onaylandıktan sonra keyfi iptal yapılmamalıdır.</li><li>Mağaza puanı, yorumlar ve şikayetler kalite göstergesi olarak izlenir.</li></ul>`},
+{id:"ad",title:"Reklam ve Vitrin Politikası",category:"ad",version:"v1.4",summary:"Sponsorlu alan, banner, kampanya etiketi ve çerçeve kuralları.",content:`<p>Satıcı reklam paketi satın aldığında seçtiği reklam alanı, paket süresi ve uygunluk durumuna göre yayına alınır.</p><ul><li>Reklam satın almak ürünün kesin kiralanacağını garanti etmez.</li><li>Yanıltıcı kampanya etiketi kullanılamaz.</li><li>Admin uygunsuz reklam içeriğini durdurabilir.</li><li>Reklam performansı gösterim, tıklama, mesaj ve kiralama talebiyle ölçülür.</li></ul>`},
+{id:"payment",title:"Ödeme, Komisyon ve Fatura Politikası",category:"payment",version:"v1.4",summary:"Tahsilat, komisyon, ödeme aktarımı ve fatura.",content:`<p>Kiralama tahsilatları, platform komisyonu ve ödeme aktarımı satıcı muhasebe panelinde izlenir.</p><ul><li>Platform komisyonu işlem bazında hesaplanır.</li><li>Satıcıya ödenecek net tutar muhasebe ekranında görünür.</li><li>Fatura ve ödeme kayıtları indirilebilir olmalıdır.</li><li>İptal/iade durumunda ödeme hareketi güncellenir.</li></ul>`},
+{id:"privacy",title:"KVKK ve Müşteri Verisi Politikası",category:"critical",version:"v1.1",summary:"Müşteri verisini koruma ve iletişim sınırları.",content:`<p>Satıcı müşteri adı, telefon, e-posta, adres ve kiralama bilgilerini yalnızca kiralama süreci için kullanabilir.</p><ul><li>Müşteri verisi üçüncü kişilerle paylaşılamaz.</li><li>Müşteriye izinsiz reklam mesajı gönderilemez.</li><li>Telefon ve WhatsApp iletişimi yalnızca kiralama amacıyla kullanılmalıdır.</li><li>Veri ihlali şüphesinde platforma bildirim yapılmalıdır.</li></ul><div class="notice danger">Kritik: Müşteri verisini kötüye kullanmak mağaza kapatma sebebidir.</div>`},
+{id:"close",title:"Mağaza Kapatma ve Askıya Alma",category:"seller",version:"v1.3",summary:"Mağaza kapatma, askıya alma ve aktif kiralama süreçleri.",content:`<p>Mağaza kapatma talebi aktif kiralama, ödeme ve uyuşmazlık durumlarına göre değerlendirilir.</p><ul><li>Aktif kiralama varsa mağaza hemen kapatılamaz.</li><li>Bekleyen ödeme ve depozito süreçleri tamamlanmalıdır.</li><li>Şikayet veya inceleme varsa mağaza askıya alınabilir.</li><li>Satıcı geçmiş kayıtlarına erişmeye devam edebilir.</li></ul>`}
+];
+
+let activeId=localStorage.getItem("akActivePolicy")||"rental";
+let accepted=JSON.parse(localStorage.getItem("akAcceptedPolicies")||"{}");
+
+function $(id){return document.getElementById(id)}
+function toast(msg){$("toast").textContent=msg;$("toast").classList.add("show");setTimeout(()=>$("toast").classList.remove("show"),3000)}
+function authGuard(){if(!token||akRole!=="seller"){toast("Politikalar için mağaza hesabıyla giriş yapmalısın.");setTimeout(()=>location.href="../seller-login.html",700);return false}return true}
+function isAccepted(p){return accepted[p.id]?.version===p.version}
+function statusBadge(p){return isAccepted(p)?'<span class="status-pill accepted">Onaylandı</span>':'<span class="status-pill pending">Onay bekliyor</span>'}
+function filteredPolicies(){
+ const q=$("searchInput").value.trim().toLowerCase(), cat=$("categoryFilter").value, st=$("statusFilter").value;
+ return policies.filter(p=>{
+  const text=`${p.title} ${p.summary} ${p.content}`.toLowerCase().includes(q);
+  const catOk=cat==="all"||p.category===cat;
+  const stOk=st==="all"||(st==="accepted"&&isAccepted(p))||(st==="pending"&&!isAccepted(p));
+  return text&&catOk&&stOk;
+ });
+}
+function renderMenu(){
+ const list=filteredPolicies();
+ if(!list.find(p=>p.id===activeId)&&list[0]) activeId=list[0].id;
+ $("policyMenu").innerHTML=list.map(p=>`<button class="policy-tab ${p.id===activeId?"active":""}" data-policy="${p.id}" type="button"><span>${p.title}</span><small>${isAccepted(p)?"✓":"!"}</small></button>`).join("");
+ document.querySelectorAll("[data-policy]").forEach(b=>b.onclick=()=>{activeId=b.dataset.policy;localStorage.setItem("akActivePolicy",activeId);renderAll()});
+}
+function renderArticle(){
+ const p=policies.find(x=>x.id===activeId)||policies[0];
+ $("policyArticle").innerHTML=`<div class="card-head"><div><h2>${p.title}</h2><p>${p.summary}</p></div>${statusBadge(p)}</div><div class="notice">Sürüm: ${p.version} • Bu metin admin panelinden güncellenebilir yapıdadır.</div>${p.content}<br><button class="btn y" data-accept="${p.id}" type="button">${isAccepted(p)?"Tekrar Onayla":"Okudum ve Onaylıyorum"}</button> <button class="btn light" data-modal="questionModal" type="button">Bu Politikayı Sor</button>`;
+ document.querySelector("[data-accept]").onclick=()=>acceptPolicy(p.id);
+ document.querySelectorAll("[data-modal]").forEach(b=>b.onclick=()=>$(b.dataset.modal).classList.add("open"));
+}
+function renderStats(){
+ const read=policies.filter(isAccepted).length;
+ $("readCount").textContent=`${read}/${policies.length}`;
+ $("policyStatus").textContent=read===policies.length?"Tamam":"Eksik";
+ $("navPending").textContent=policies.length-read;
+ $("riskCount").textContent=policies.filter(p=>p.category==="critical"&&!isAccepted(p)).length;
+}
+function renderChecklist(){
+ $("checklist").innerHTML=policies.map(p=>`<label class="check"><input type="checkbox" ${isAccepted(p)?"checked":""} data-check="${p.id}"><div><b>${p.title}</b><span>${p.version} • ${isAccepted(p)?"Onaylandı":"Onay bekliyor"}</span></div></label>`).join("");
+ document.querySelectorAll("[data-check]").forEach(c=>c.onchange=()=>acceptPolicy(c.dataset.check));
+}
+function renderTable(){
+ $("acceptTable").innerHTML=policies.map(p=>`<tr><td>${p.title}</td><td>${p.category}</td><td>${p.version}</td><td>${statusBadge(p)}</td><td>${accepted[p.id]?.date||"-"}</td></tr>`).join("");
+}
+function acceptPolicy(id){
+ const p=policies.find(x=>x.id===id); if(!p)return;
+ accepted[id]={version:p.version,date:new Date().toLocaleString("tr-TR")};
+ localStorage.setItem("akAcceptedPolicies",JSON.stringify(accepted));
+ toast(p.title+" onaylandı.");
+ renderAll();
+}
+function acceptAll(){
+ policies.forEach(p=>accepted[p.id]={version:p.version,date:new Date().toLocaleString("tr-TR")});
+ localStorage.setItem("akAcceptedPolicies",JSON.stringify(accepted));
+ toast("Tüm politikalar onaylandı.");
+ renderAll();
+}
+function exportRecords(){
+ const rows=[["Politika","Kategori","Sürüm","Durum","Onay Tarihi"]];
+ policies.forEach(p=>rows.push([p.title,p.category,p.version,isAccepted(p)?"Onaylandı":"Onay bekliyor",accepted[p.id]?.date||""]));
+ const csv=rows.map(r=>r.map(x=>`"${String(x).replaceAll('"','""')}"`).join(",")).join("\n");
+ const blob=new Blob([csv],{type:"text/csv;charset=utf-8"});
+ const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="alma-kirala-politika-onaylari.csv";a.click();
+ toast("Politika onay kayıtları indirildi.");
+}
+function sendQuestion(){
+ const text=$("questionText").value.trim();
+ if(!text)return toast("Soru alanı boş olamaz.");
+ const list=JSON.parse(localStorage.getItem("akSupportTickets")||"[]");
+ list.push({id:Date.now(),type:"policy",topic:"Politika sorusu",text,status:"open",createdAt:new Date().toISOString()});
+ localStorage.setItem("akSupportTickets",JSON.stringify(list));
+ $("questionText").value="";
+ $("questionModal").classList.remove("open");
+ toast("Politika sorunuz destek talebine dönüştürüldü.");
+}
+function renderAll(){renderStats();renderMenu();renderArticle();renderChecklist();renderTable()}
+function bindEvents(){
+ $("mobileMenu").addEventListener("click",()=>$("sidebar").classList.toggle("open"));
+ document.addEventListener("click",e=>{if(innerWidth<=900){const s=$("sidebar"),m=$("mobileMenu");if(s.classList.contains("open")&&!s.contains(e.target)&&e.target!==m)s.classList.remove("open")}});
+ ["searchInput","categoryFilter","statusFilter"].forEach(id=>$(id).addEventListener("input",renderAll));
+ $("acceptAllBtn").addEventListener("click",acceptAll);
+ $("exportBtn").addEventListener("click",exportRecords);
+ $("sendQuestionBtn").addEventListener("click",sendQuestion);
+ document.querySelectorAll("[data-close]").forEach(b=>b.onclick=()=>$(b.dataset.close).classList.remove("open"));
+ document.querySelectorAll(".modal").forEach(m=>m.addEventListener("click",e=>{if(e.target.classList.contains("modal"))m.classList.remove("open")}));
+ $("logoutBtn").addEventListener("click",()=>{localStorage.removeItem("token");localStorage.removeItem("akRole");localStorage.removeItem("akUser");toast("Çıkış yapıldı.");setTimeout(()=>location.href="../seller-login.html",600)});
+}
+function init(){if(!authGuard())return;bindEvents();renderAll()}init();
+</script>
+</body>
+</html>

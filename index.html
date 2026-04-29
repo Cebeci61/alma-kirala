@@ -1,0 +1,1906 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Alma Kirala | Satın alma, kirala</title>
+  <meta name="description" content="Kamera, drone, etkinlik, özel gün ve iş ekipmanlarını satın almadan güvenle kirala. Alma Kirala ile ihtiyacın kadar kullan." />
+
+  <style>
+    :root{
+      --dark:#07142f;
+      --dark2:#10264d;
+      --blue:#064db5;
+      --yellow:#ffcc00;
+      --orange:#ff9f1c;
+      --bg:#f4f6fb;
+      --card:#fff;
+      --text:#07142f;
+      --muted:#64748b;
+      --line:#e5e7eb;
+      --soft:#eef4ff;
+      --red:#dc2626;
+      --green:#16a34a;
+      --shadow:0 18px 45px rgba(15,23,42,.10);
+      --shadow2:0 10px 28px rgba(15,23,42,.07);
+      --radius:24px;
+    }
+
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      font-family:Inter, Arial, sans-serif;
+      background:
+        radial-gradient(circle at 100% 0%, rgba(255,204,0,.16), transparent 30%),
+        radial-gradient(circle at 0% 20%, rgba(6,77,181,.08), transparent 28%),
+        var(--bg);
+      color:var(--text);
+      padding-bottom:0;
+    }
+    body.no-scroll{overflow:hidden}
+    a{text-decoration:none;color:inherit}
+    button,input,select{font-family:inherit}
+    button{cursor:pointer}
+    .ak-container{width:min(1240px,calc(100% - 32px));margin:auto}
+    .display-font{font-family:Georgia, "Times New Roman", serif}
+
+    .topbar{
+      background:var(--dark);
+      color:#fff;
+      font-size:13px;
+    }
+    .topbar-inner{
+      min-height:36px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      font-weight:800;
+    }
+    .topbar b{color:var(--yellow)}
+
+    .header{
+      position:sticky;
+      top:0;
+      z-index:90;
+      background:rgba(255,255,255,.92);
+      backdrop-filter:blur(16px);
+      border-bottom:1px solid rgba(226,232,240,.9);
+      box-shadow:0 8px 26px rgba(15,23,42,.045);
+    }
+    .header-inner{
+      min-height:82px;
+      display:grid;
+      grid-template-columns:auto 1fr auto;
+      align-items:center;
+      gap:18px;
+    }
+
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:11px;
+      white-space:nowrap;
+    }
+    .brand-mark{
+      width:52px;
+      height:52px;
+      border-radius:17px;
+      background:linear-gradient(135deg,#ffcc00,#ff9f1c);
+      display:grid;
+      place-items:center;
+      color:var(--dark);
+      font-weight:1000;
+      font-size:21px;
+      box-shadow:0 12px 30px rgba(255,204,0,.30);
+      position:relative;
+      overflow:hidden;
+    }
+    .brand-mark:before{
+      content:"";
+      position:absolute;
+      width:22px;height:58px;
+      background:var(--dark);
+      transform:rotate(28deg);
+      left:13px;top:5px;
+      border-radius:999px;
+      opacity:.95;
+    }
+    .brand-mark:after{
+      content:"";
+      position:absolute;
+      width:18px;height:18px;
+      background:#fff;
+      border-radius:50%;
+      right:8px;bottom:8px;
+      opacity:.9;
+    }
+    .brand-text strong{
+      display:block;
+      font-size:28px;
+      line-height:1;
+      letter-spacing:-1.1px;
+      font-weight:1000;
+    }
+    .brand-text span{
+      display:block;
+      margin-top:4px;
+      color:#8a5b00;
+      font-size:12px;
+      font-weight:950;
+    }
+
+    .search{
+      display:grid;
+      grid-template-columns:1fr auto;
+      background:#f1f5f9;
+      border:1px solid #dbe3ef;
+      border-radius:18px;
+      overflow:hidden;
+      transition:.2s;
+    }
+    .search:focus-within{
+      background:#fff;
+      border-color:var(--yellow);
+      box-shadow:0 0 0 4px rgba(255,204,0,.18);
+    }
+    .search input{
+      border:0;
+      outline:0;
+      background:transparent;
+      padding:15px 16px;
+      font-size:15px;
+      min-width:0;
+    }
+    .search button{
+      border:0;
+      background:var(--yellow);
+      color:var(--dark);
+      font-weight:1000;
+      padding:0 23px;
+    }
+
+    .header-actions{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      font-weight:950;
+      white-space:nowrap;
+    }
+    .header-actions a,
+    .header-actions button{
+      border:1px solid #dbe3ef;
+      background:#fff;
+      padding:12px 14px;
+      border-radius:15px;
+      font-weight:950;
+      color:var(--dark);
+      transition:.2s;
+    }
+    .header-actions a:hover,
+    .header-actions button:hover{
+      transform:translateY(-2px);
+      box-shadow:var(--shadow2);
+    }
+    .store-open{
+      background:var(--yellow)!important;
+      border-color:var(--yellow)!important;
+      box-shadow:0 12px 28px rgba(255,204,0,.24);
+    }
+    .store-list{
+      background:var(--dark)!important;
+      color:#fff!important;
+      border-color:var(--dark)!important;
+    }
+    .more-menu-wrap{position:relative}
+    .more-menu{
+      display:none;
+      position:absolute;
+      right:0;
+      top:52px;
+      min-width:210px;
+      background:#fff;
+      border:1px solid var(--line);
+      border-radius:18px;
+      box-shadow:var(--shadow);
+      padding:8px;
+    }
+    .more-menu.open{display:block}
+    .more-menu a{
+      display:block;
+      border:0;
+      box-shadow:none;
+      padding:12px;
+      border-radius:12px;
+    }
+
+    .ad-slot{
+      position:relative;
+      border:1px dashed rgba(255,255,255,.45);
+      overflow:hidden;
+    }
+    .ad-slot:after{
+      content:attr(data-price);
+      position:absolute;
+      right:14px;
+      top:12px;
+      background:rgba(255,255,255,.16);
+      color:#fff;
+      border:1px solid rgba(255,255,255,.18);
+      border-radius:999px;
+      padding:7px 10px;
+      font-size:12px;
+      font-weight:1000;
+      backdrop-filter:blur(10px);
+    }
+    .top-ad{
+      margin:18px auto 0;
+      min-height:96px;
+      border-radius:26px;
+      background:
+        radial-gradient(circle at 85% 10%,rgba(255,204,0,.45),transparent 26%),
+        linear-gradient(135deg,#07142f,#7c4a11);
+      color:#fff;
+      padding:24px 30px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:18px;
+      box-shadow:var(--shadow);
+    }
+    .top-ad strong{
+      font-size:28px;
+      letter-spacing:-.7px;
+      line-height:1.1;
+    }
+    .top-ad span{
+      color:#dbe7ff;
+      font-weight:800;
+    }
+
+    .hero{padding:18px 0 8px}
+    .hero-grid{
+      display:grid;
+      grid-template-columns:minmax(0,1fr) 350px;
+      gap:16px;
+    }
+    .hero-main{
+      background:
+        radial-gradient(circle at 86% 0%,rgba(255,204,0,.25),transparent 34%),
+        linear-gradient(135deg,var(--dark),#173761);
+      color:#fff;
+      border-radius:30px;
+      padding:28px;
+      min-height:292px;
+      display:grid;
+      grid-template-columns:1fr 230px;
+      gap:20px;
+      align-items:center;
+      box-shadow:var(--shadow);
+      overflow:hidden;
+      position:relative;
+    }
+    .tag{
+      display:inline-flex;
+      background:#fff3bf;
+      color:#8a5b00;
+      padding:8px 12px;
+      border-radius:999px;
+      font-size:13px;
+      font-weight:1000;
+    }
+    .hero-main h1{
+      margin:14px 0 10px;
+      max-width:700px;
+      font-size:43px;
+      line-height:1.03;
+      letter-spacing:-1.5px;
+      font-family:Georgia,"Times New Roman",serif;
+    }
+    .hero-main p{
+      margin:0;
+      max-width:710px;
+      color:#dbe7ff;
+      line-height:1.65;
+      font-weight:700;
+    }
+    .hero-trust{
+      display:flex;
+      flex-wrap:wrap;
+      gap:9px;
+      margin-top:14px;
+    }
+    .hero-trust span{
+      background:rgba(255,255,255,.1);
+      border:1px solid rgba(255,255,255,.13);
+      border-radius:999px;
+      padding:8px 10px;
+      font-size:12px;
+      font-weight:950;
+    }
+
+    .hero-search-panel{
+      margin-top:18px;
+      display:grid;
+      grid-template-columns:1.2fr 1fr 1fr auto;
+      gap:9px;
+    }
+    .hero-search-panel input,
+    .hero-search-panel select,
+    .hero-search-panel button{
+      border:0;
+      outline:0;
+      border-radius:15px;
+      padding:13px 13px;
+      font-weight:900;
+      min-width:0;
+    }
+    .hero-search-panel button{
+      background:var(--yellow);
+      color:var(--dark);
+      font-weight:1000;
+      white-space:nowrap;
+    }
+
+    .hero-card{
+      background:
+        linear-gradient(135deg,rgba(255,255,255,.86),rgba(255,204,0,.90)),
+        linear-gradient(135deg,#e2e8f0,var(--yellow));
+      color:var(--dark);
+      min-height:210px;
+      border-radius:25px;
+      padding:18px;
+      display:flex;
+      flex-direction:column;
+      justify-content:space-between;
+      position:relative;
+      overflow:hidden;
+      transition:.25s;
+    }
+    .hero-card:hover{transform:translateY(-5px)}
+    .hero-card small{
+      width:max-content;
+      background:var(--dark);
+      color:var(--yellow);
+      border-radius:999px;
+      padding:7px 10px;
+      font-weight:1000;
+    }
+    .hero-card strong{
+      font-size:23px;
+      line-height:1.15;
+    }
+    .hero-card b{font-size:24px}
+
+    .side-panel{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:12px;
+    }
+    .side-card{
+      background:#fff;
+      border:1px solid var(--line);
+      border-radius:24px;
+      padding:17px;
+      min-height:132px;
+      box-shadow:var(--shadow2);
+      transition:.25s;
+      overflow:hidden;
+      position:relative;
+    }
+    .side-card:hover{transform:translateY(-5px);box-shadow:var(--shadow)}
+    .side-card.yellow{background:linear-gradient(135deg,#fff3bf,var(--yellow))}
+    .side-card.dark{background:linear-gradient(135deg,var(--dark),#213d68);color:#fff}
+    .side-card span{
+      display:inline-flex;
+      background:var(--soft);
+      color:var(--blue);
+      padding:7px 10px;
+      border-radius:999px;
+      font-size:12px;
+      font-weight:1000;
+      margin-bottom:11px;
+    }
+    .side-card.dark span{background:var(--yellow);color:var(--dark)}
+    .side-card h3{margin:0 0 8px;font-size:18px;line-height:1.22}
+    .side-card p{margin:0;color:var(--muted);font-weight:850;font-size:14px}
+    .side-card.dark p{color:#dbe7ff}
+
+    .category-strip{
+      margin-top:16px;
+      display:grid;
+      grid-template-columns:repeat(6,1fr);
+      gap:12px;
+    }
+    .cat-pill{
+      background:#fff;
+      border:1px solid var(--line);
+      border-radius:22px;
+      padding:15px;
+      box-shadow:var(--shadow2);
+      text-align:left;
+      transition:.2s;
+    }
+    .cat-pill:hover,
+    .cat-pill.active{
+      transform:translateY(-3px);
+      background:var(--dark);
+      color:#fff;
+    }
+    .cat-pill b{display:block;font-size:16px;margin-bottom:4px}
+    .cat-pill span{color:var(--muted);font-size:12px;font-weight:850}
+    .cat-pill:hover span,
+    .cat-pill.active span{color:#dbe7ff}
+
+    .middle-ad{
+      margin:24px auto 0;
+      min-height:118px;
+      border-radius:28px;
+      background:
+        radial-gradient(circle at 90% 10%,rgba(255,204,0,.35),transparent 26%),
+        linear-gradient(135deg,#172554,#064db5);
+      color:#fff;
+      padding:26px;
+      display:flex;
+      justify-content:space-between;
+      gap:16px;
+      align-items:center;
+      box-shadow:var(--shadow);
+    }
+    .middle-ad strong{font-size:26px;font-family:Georgia,"Times New Roman",serif}
+    .middle-ad span{color:#dbe7ff;font-weight:800}
+
+    .toolbar{
+      margin-top:22px;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:12px;
+    }
+    .toolbar-left{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+    .filter-toggle{
+      border:0;
+      background:var(--dark);
+      color:#fff;
+      border-radius:16px;
+      padding:13px 16px;
+      font-weight:1000;
+      box-shadow:var(--shadow2);
+    }
+    .result-count{font-weight:900;color:var(--muted)}
+    .market-sort{
+      display:flex;
+      align-items:center;
+      gap:8px;
+      color:var(--muted);
+      font-weight:900;
+    }
+    .market-sort select{
+      border:1px solid #dbe3ef;
+      background:#fff;
+      border-radius:999px;
+      padding:11px 14px;
+      font-weight:950;
+      outline:0;
+    }
+
+    .layout{
+      display:grid;
+      grid-template-columns:300px 1fr;
+      gap:22px;
+      margin-top:14px;
+      align-items:start;
+    }
+    .layout.filters-hidden{grid-template-columns:1fr}
+    .layout.filters-hidden .sidebar{display:none}
+    .sidebar{
+      background:#fff;
+      border:1px solid var(--line);
+      border-radius:26px;
+      padding:20px;
+      box-shadow:var(--shadow2);
+      position:sticky;
+      top:104px;
+    }
+    .sidebar-head{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:12px;
+      margin-bottom:12px;
+    }
+    .sidebar h2{margin:0;font-size:23px;font-family:Georgia,"Times New Roman",serif}
+    .close-filter{
+      border:0;
+      background:#eef2f7;
+      border-radius:50%;
+      width:36px;
+      height:36px;
+      font-weight:1000;
+    }
+
+    .filter-group{
+      border-top:1px solid #edf1f7;
+      padding-top:14px;
+      margin-top:14px;
+    }
+    .filter-group label{
+      display:block;
+      margin-bottom:8px;
+      font-size:13px;
+      font-weight:1000;
+      color:var(--dark);
+    }
+    .filter-group input,
+    .filter-group select{
+      width:100%;
+      border:1px solid #dbe3ef;
+      border-radius:15px;
+      background:#fff;
+      outline:0;
+      padding:12px;
+      font-weight:850;
+    }
+    .price-row{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+    .type-select-wrap{
+      position:relative;
+    }
+    .type-select-wrap select{
+      appearance:none;
+      padding-right:38px;
+      background:
+        linear-gradient(45deg,transparent 50%,var(--dark) 50%),
+        linear-gradient(135deg,var(--dark) 50%,transparent 50%),
+        #fff;
+      background-position:
+        calc(100% - 18px) calc(50% - 3px),
+        calc(100% - 12px) calc(50% - 3px),
+        100% 0;
+      background-size:6px 6px,6px 6px,2.5em 2.5em;
+      background-repeat:no-repeat;
+    }
+    .filter-actions{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:16px}
+    .filter-actions button{
+      border:0;
+      padding:12px;
+      border-radius:15px;
+      font-weight:1000;
+    }
+    .apply-filter{background:var(--dark);color:#fff}
+    .clear-filter{background:#eef2f7;color:var(--dark)}
+
+    .section-head{
+      display:flex;
+      align-items:flex-end;
+      justify-content:space-between;
+      gap:16px;
+      margin-bottom:16px;
+    }
+    .section-head h2{
+      margin:0;
+      font-size:30px;
+      letter-spacing:-.7px;
+      font-family:Georgia,"Times New Roman",serif;
+    }
+    .section-head p{margin:5px 0 0;color:var(--muted);font-weight:750}
+    .section-head a{color:var(--blue);font-weight:1000;white-space:nowrap}
+
+    .grid{
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      gap:15px;
+    }
+    .product{
+      background:#fff;
+      border:1px solid var(--line);
+      border-radius:23px;
+      overflow:hidden;
+      box-shadow:var(--shadow2);
+      transition:.25s;
+      position:relative;
+    }
+    .product:hover{transform:translateY(-6px);box-shadow:var(--shadow)}
+    .product.premium-frame{
+      border:2px solid var(--yellow);
+      box-shadow:0 20px 55px rgba(255,204,0,.22);
+    }
+    .product.sponsored:after,
+    .product.discount:after{
+      position:absolute;
+      right:12px;
+      top:12px;
+      color:var(--dark);
+      padding:6px 9px;
+      border-radius:999px;
+      font-size:11px;
+      font-weight:1000;
+      z-index:5;
+    }
+    .product.sponsored:after{content:"Sponsorlu";background:var(--yellow)}
+    .product.discount:after{content:"İndirimli";background:#bbf7d0}
+    .product.campaign .product-img:before{
+      content:"Kampanyalı";
+      position:absolute;
+      left:10px;
+      bottom:10px;
+      background:var(--red);
+      color:#fff;
+      padding:6px 9px;
+      border-radius:999px;
+      font-size:11px;
+      font-weight:1000;
+      z-index:5;
+    }
+    .product-img{
+      height:150px;
+      position:relative;
+      overflow:hidden;
+      background:linear-gradient(135deg,#dbeafe,var(--yellow));
+    }
+    .product-img img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+    }
+    .placeholder-icon{
+      width:100%;
+      height:100%;
+      display:grid;
+      place-items:center;
+      font-size:50px;
+      background:linear-gradient(135deg,#e2e8f0,var(--yellow));
+    }
+    .badge{
+      position:absolute;
+      left:10px;
+      top:10px;
+      background:var(--dark);
+      color:var(--yellow);
+      border-radius:999px;
+      padding:6px 9px;
+      font-size:11px;
+      font-weight:1000;
+      z-index:4;
+    }
+    .fav-btn{
+      position:absolute;
+      right:10px;
+      bottom:10px;
+      width:39px;
+      height:39px;
+      border:0;
+      border-radius:50%;
+      background:#fff;
+      color:var(--dark);
+      font-size:19px;
+      box-shadow:0 10px 24px rgba(15,23,42,.14);
+      z-index:6;
+    }
+    .fav-btn.active{background:var(--yellow)}
+    .product-body{padding:14px}
+    .product-body h3{margin:0 0 8px;font-size:16px;line-height:1.3}
+    .meta{font-size:13px;color:var(--muted);font-weight:850;margin-bottom:10px}
+    .price{font-size:20px;font-weight:1000}
+    .price span{font-size:13px;color:var(--muted)}
+    .product-stats{
+      display:flex;
+      justify-content:space-between;
+      gap:8px;
+      color:var(--muted);
+      font-size:12px;
+      font-weight:850;
+      margin-top:10px;
+    }
+    .empty-state{
+      grid-column:1/-1;
+      background:#fff;
+      border:1px dashed #cbd5e1;
+      border-radius:24px;
+      padding:32px;
+      text-align:center;
+      color:var(--muted);
+      font-weight:900;
+    }
+
+    .recent-panel{
+      margin-top:28px;
+      background:#fff;
+      border:1px solid var(--line);
+      border-radius:26px;
+      padding:20px;
+      box-shadow:var(--shadow2);
+    }
+    .recent-panel h2{
+      margin:0 0 14px;
+      font-size:25px;
+      font-family:Georgia,"Times New Roman",serif;
+    }
+    .recent-list{
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      gap:14px;
+    }
+    .recent-item{
+      display:grid;
+      grid-template-columns:72px 1fr;
+      gap:12px;
+      align-items:center;
+      background:#f8fafc;
+      border:1px solid #edf1f7;
+      border-radius:20px;
+      padding:10px;
+      font-weight:900;
+    }
+    .recent-thumb{
+      width:72px;
+      height:64px;
+      border-radius:15px;
+      overflow:hidden;
+      background:linear-gradient(135deg,#e2e8f0,var(--yellow));
+      display:grid;
+      place-items:center;
+      font-size:26px;
+    }
+    .recent-thumb img{width:100%;height:100%;object-fit:cover}
+    .recent-item span{
+      display:block;
+      color:var(--muted);
+      font-size:13px;
+      margin-top:5px;
+    }
+
+    .city-section,
+    .search-section,
+    .seller-section{
+      margin-top:30px;
+    }
+    .city-grid,
+    .search-grid{
+      display:grid;
+      grid-template-columns:repeat(6,1fr);
+      gap:12px;
+    }
+    .city-card,
+    .search-card{
+      background:#fff;
+      border:1px solid var(--line);
+      border-radius:20px;
+      padding:16px;
+      box-shadow:var(--shadow2);
+      transition:.2s;
+      font-weight:1000;
+    }
+    .city-card:hover,
+    .search-card:hover{transform:translateY(-3px);background:var(--dark);color:#fff}
+    .city-card span,
+    .search-card span{
+      display:block;
+      margin-top:5px;
+      color:var(--muted);
+      font-size:12px;
+      font-weight:850;
+    }
+    .city-card:hover span,
+    .search-card:hover span{color:#dbe7ff}
+
+    .bottom-ad{
+      margin:28px auto 0;
+      min-height:120px;
+      border-radius:28px;
+      background:
+        radial-gradient(circle at 90% 15%,rgba(255,204,0,.38),transparent 28%),
+        linear-gradient(135deg,#111827,#7c4a11);
+      color:#fff;
+      padding:28px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:16px;
+      box-shadow:var(--shadow);
+    }
+    .bottom-ad strong{font-size:27px;font-family:Georgia,"Times New Roman",serif}
+    .bottom-ad span{color:#e5e7eb;font-weight:800}
+    .bottom-ad a{
+      background:var(--yellow);
+      color:var(--dark);
+      border-radius:15px;
+      padding:14px 18px;
+      font-weight:1000;
+      white-space:nowrap;
+    }
+
+    .stores{
+      display:grid;
+      grid-template-columns:1.25fr 1fr 1fr 1fr;
+      gap:16px;
+    }
+    .store{
+      background:#fff;
+      border:1px solid var(--line);
+      border-radius:23px;
+      padding:18px;
+      box-shadow:var(--shadow2);
+      transition:.25s;
+    }
+    .store:hover{transform:translateY(-6px);box-shadow:var(--shadow)}
+    .store:first-child{background:linear-gradient(135deg,var(--dark),#193762);color:#fff}
+    .store-logo{
+      width:58px;
+      height:58px;
+      border-radius:17px;
+      background:var(--dark);
+      color:var(--yellow);
+      display:grid;
+      place-items:center;
+      font-weight:1000;
+      font-size:20px;
+      margin-bottom:13px;
+    }
+    .store:first-child .store-logo{background:var(--yellow);color:var(--dark)}
+    .store h3{margin:0 0 7px;font-size:20px}
+    .store-meta{color:var(--muted);font-size:14px;line-height:1.45;font-weight:800;margin-bottom:11px}
+    .store:first-child .store-meta{color:#dbe7ff}
+    .store-tags{display:flex;gap:7px;flex-wrap:wrap}
+    .store-tags span{
+      background:var(--soft);
+      color:var(--blue);
+      padding:7px 9px;
+      border-radius:999px;
+      font-size:12px;
+      font-weight:1000;
+    }
+
+    .pagination{display:flex;justify-content:center;gap:8px;margin:24px 0 4px}
+    .pagination button{
+      width:40px;
+      height:40px;
+      border:1px solid #dbe3ef;
+      background:#fff;
+      border-radius:13px;
+      font-weight:1000;
+    }
+    .pagination button.active{background:var(--dark);color:#fff}
+
+    footer{
+      background:var(--dark);
+      color:#fff;
+      margin-top:52px;
+      padding:44px 0 28px;
+    }
+    .footer-grid{
+      display:grid;
+      grid-template-columns:2fr 1fr 1fr 1fr;
+      gap:28px;
+    }
+    .footer-brand{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      margin-bottom:12px;
+    }
+    .footer-brand .brand-mark{width:46px;height:46px}
+    footer h3, footer h4{margin:0 0 12px}
+    footer p, footer a{
+      display:block;
+      color:#cbd5e1;
+      margin:8px 0;
+      line-height:1.55;
+      font-weight:750;
+    }
+    .footer-bottom{
+      border-top:1px solid rgba(255,255,255,.1);
+      margin-top:28px;
+      padding-top:18px;
+      color:#94a3b8;
+      display:flex;
+      justify-content:space-between;
+      gap:12px;
+      flex-wrap:wrap;
+      font-size:13px;
+      font-weight:800;
+    }
+
+    .mobile-bottom-nav{display:none}
+
+    @media(max-width:1100px){
+      .header-inner{grid-template-columns:1fr auto; padding:12px 0}
+      .search{grid-column:1/-1;order:3}
+      .hero-grid,.layout{grid-template-columns:1fr}
+      .hero-main{grid-template-columns:1fr}
+      .grid,.recent-list,.stores{grid-template-columns:repeat(2,1fr)}
+      .category-strip,.city-grid,.search-grid{grid-template-columns:repeat(3,1fr)}
+      .sidebar{position:static}
+    }
+
+    @media(max-width:760px){
+      body{padding-bottom:76px}
+      .topbar{display:none}
+      .header{
+        border-radius:0 0 22px 22px;
+      }
+      .header-inner{
+        display:flex;
+        flex-wrap:wrap;
+        min-height:auto;
+        gap:11px;
+        padding:12px 0;
+      }
+      .brand-mark{width:44px;height:44px;border-radius:14px}
+      .brand-text strong{font-size:23px}
+      .brand-text span{font-size:11px}
+      .header-actions{margin-left:auto}
+      .header-actions .desktop-link,
+      .header-actions .store-list,
+      .header-actions .store-open{
+        display:none;
+      }
+      .header-actions button{
+        padding:10px 12px;
+      }
+      .more-menu{right:0;top:46px}
+      .search{width:100%;flex-basis:100%;border-radius:15px}
+      .search input{padding:13px 14px}
+      .search button{padding:0 17px}
+
+      .top-ad{
+        margin-top:14px;
+        min-height:auto;
+        padding:18px;
+        border-radius:22px;
+        align-items:flex-start;
+        flex-direction:column;
+      }
+      .top-ad strong{font-size:22px}
+      .top-ad:after{position:static;width:max-content;margin-top:6px}
+
+      .hero{padding-top:14px}
+      .hero-grid{grid-template-columns:1fr}
+      .hero-main{
+        min-height:auto;
+        padding:22px;
+        border-radius:25px;
+      }
+      .hero-main h1{font-size:31px}
+      .hero-main p{font-size:14px}
+      .hero-search-panel{grid-template-columns:1fr}
+      .hero-card{min-height:150px}
+      .side-panel{
+        display:grid;
+        grid-template-columns:repeat(4,168px);
+        overflow-x:auto;
+        scroll-snap-type:x mandatory;
+        padding-bottom:4px;
+      }
+      .side-card{
+        scroll-snap-align:start;
+        min-width:168px;
+        min-height:125px;
+      }
+
+      .category-strip{
+        display:flex;
+        overflow-x:auto;
+        gap:10px;
+      }
+      .cat-pill{
+        min-width:138px;
+        padding:14px;
+      }
+
+      .middle-ad,
+      .bottom-ad{
+        flex-direction:column;
+        align-items:flex-start;
+        padding:20px;
+        border-radius:24px;
+      }
+      .middle-ad strong,
+      .bottom-ad strong{font-size:23px}
+      .middle-ad:after,
+      .bottom-ad:after{position:static;width:max-content;margin-top:4px}
+
+      .toolbar{
+        position:sticky;
+        top:116px;
+        z-index:50;
+        background:rgba(244,246,251,.92);
+        backdrop-filter:blur(14px);
+        padding:12px 0;
+        margin-left:-16px;
+        margin-right:-16px;
+        padding-left:16px;
+        padding-right:16px;
+        border-bottom:1px solid rgba(226,232,240,.85);
+        align-items:flex-start;
+        flex-direction:column;
+      }
+      .toolbar-left{width:100%;justify-content:space-between}
+      .filter-toggle{
+        width:100%;
+      }
+      .market-sort{
+        width:100%;
+        justify-content:space-between;
+      }
+
+      .layout{display:block}
+      .sidebar{
+        display:none;
+        position:fixed!important;
+        left:0;
+        right:0;
+        bottom:0;
+        top:auto;
+        z-index:200;
+        max-height:82vh;
+        overflow:auto;
+        border-radius:28px 28px 0 0;
+        box-shadow:0 -18px 50px rgba(7,20,47,.25);
+      }
+      .layout.filters-open .sidebar{display:block}
+      .layout.filters-open:before{
+        content:"";
+        position:fixed;
+        inset:0;
+        background:rgba(7,20,47,.48);
+        z-index:190;
+      }
+
+      .section-head{flex-direction:column;align-items:flex-start}
+      .section-head h2{font-size:25px}
+      .grid,.recent-list,.stores{
+        grid-template-columns:1fr 1fr;
+        gap:12px;
+      }
+      .product-img{height:120px}
+      .product-body{padding:12px}
+      .product-body h3{font-size:14px}
+      .price{font-size:18px}
+      .recent-item{
+        grid-template-columns:1fr;
+      }
+      .recent-thumb{
+        width:100%;
+        height:96px;
+      }
+      .city-grid,.search-grid{
+        grid-template-columns:1fr 1fr;
+      }
+      .footer-grid{grid-template-columns:1fr}
+      footer{display:none}
+
+      .mobile-bottom-nav{
+        position:fixed;
+        left:12px;
+        right:12px;
+        bottom:12px;
+        height:62px;
+        display:grid;
+        grid-template-columns:repeat(4,1fr);
+        background:rgba(7,20,47,.96);
+        color:#fff;
+        border-radius:22px;
+        z-index:999;
+        box-shadow:0 18px 45px rgba(7,20,47,.35);
+        overflow:hidden;
+      }
+      .mobile-bottom-nav a,
+      .mobile-bottom-nav button{
+        border:0;
+        background:transparent;
+        color:inherit;
+        display:grid;
+        place-items:center;
+        font-size:12px;
+        font-weight:950;
+      }
+      .mobile-bottom-nav span{
+        display:block;
+        font-size:18px;
+        margin-bottom:2px;
+      }
+      .mobile-bottom-nav .active{
+        background:var(--yellow);
+        color:var(--dark);
+      }
+    }
+
+    @media(max-width:430px){
+      .grid,.recent-list,.stores{grid-template-columns:1fr}
+      .city-grid,.search-grid{grid-template-columns:1fr}
+    }
+  </style>
+</head>
+
+<body>
+  <div class="topbar">
+    <div class="ak-container topbar-inner">
+      <span><b>Alma Kirala</b> • Kayıtsız gez, kiralamada giriş yap</span>
+      <span>Admin kontrollü vitrin • Sponsorlu ilan • Kampanya • Şehir bazlı keşif</span>
+    </div>
+  </div>
+
+  <header class="header">
+    <div class="ak-container header-inner">
+      <a class="brand" href="index.html" aria-label="Alma Kirala Anasayfa">
+        <span class="brand-mark" aria-hidden="true"></span>
+        <span class="brand-text">
+          <strong>Alma Kirala</strong>
+          <span>Satın alma, kirala.</span>
+        </span>
+      </a>
+
+      <div class="search">
+        <input id="topSearchInput" type="text" placeholder="Ürün, marka, kategori, şehir veya ilçe ara">
+        <button id="topSearchBtn" type="button">Ara</button>
+      </div>
+
+      <div class="header-actions">
+        <a class="desktop-link" href="listing.html">Detaylı Arama</a>
+        <a class="desktop-link" href="login.html">Giriş</a>
+        <a class="desktop-link" href="register.html">Hesap Aç</a>
+        <a class="store-list" href="stores.html">Mağazalar</a>
+        <a class="store-open" href="seller-login.html">Mağaza Aç</a>
+
+        <div class="more-menu-wrap">
+          <button id="moreMenuBtn" type="button">Menü</button>
+          <div class="more-menu" id="moreMenu">
+            <a href="listing.html">Detaylı Arama</a>
+            <a href="stores.html">Mağazalar</a>
+            <a href="login.html">Giriş Yap</a>
+            <a href="register.html">Hesap Aç</a>
+            <a href="seller-login.html">Mağaza Aç</a>
+            <a href="help.html">Yardım</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <section class="ak-container top-ad ad-slot" id="topAdSlot" data-price="Üst reklam alanı: ₺1000">
+    <div>
+      <strong class="display-font">Haftanın vitrin mağazası burada görünür.</strong><br>
+      <span>Admin panelinden bu alan mağazaya, ürüne veya kampanyaya bağlanabilir.</span>
+    </div>
+  </section>
+
+  <main>
+    <section class="hero">
+      <div class="ak-container hero-grid">
+        <div class="hero-main">
+          <div>
+            <span class="tag">Ürünleri hesap açmadan incele</span>
+            <h1>İhtiyacın olan ürünü satın almadan güvenle kirala.</h1>
+            <p>Kamera, drone, etkinlik, özel gün, tamir ve iş ekipmanlarını şehir, ilçe, fiyat, müsaitlik ve ilan tipine göre bul.</p>
+
+            <div class="hero-trust">
+              <span>✓ Doğrulanmış mağaza</span>
+              <span>✓ Tarih uygunluğu</span>
+              <span>✓ Şeffaf fiyat</span>
+              <span>✓ Admin kontrolü</span>
+            </div>
+
+            <div class="hero-search-panel">
+              <input id="heroQuery" type="text" placeholder="Ne kiralamak istiyorsun?">
+              <input id="heroCity" type="text" placeholder="Şehir yaz">
+              <input id="heroDistrict" type="text" placeholder="İlçe yaz">
+              <button id="heroFindBtn" type="button">Ürün Bul</button>
+            </div>
+          </div>
+
+          <a class="hero-card" id="heroProduct" href="product-detail.html?id=1">
+            <small>Bugün müsait</small>
+            <strong>Sony A7 IV Kamera Seti</strong>
+            <b>₺450 / gün</b>
+          </a>
+        </div>
+
+        <div class="side-panel">
+          <a href="listing.html?adType=sponsored" class="side-card yellow">
+            <span>Reklam</span>
+            <h3>Sponsorlu ilanlar</h3>
+            <p>Satıcı ödeme yapar, öne çıkar.</p>
+          </a>
+          <a href="listing.html?adType=premium" class="side-card">
+            <span>Vitrin</span>
+            <h3>Çerçeveli ürünler</h3>
+            <p>Premium görünüm.</p>
+          </a>
+          <a href="stores.html" class="side-card dark">
+            <span>Mağaza</span>
+            <h3>Mağazaları keşfet</h3>
+            <p>Puan, yorum, ürün sayısı.</p>
+          </a>
+          <a href="listing.html?available=true" class="side-card">
+            <span>Hızlı</span>
+            <h3>Bugün müsait</h3>
+            <p>Hemen kiralanabilir.</p>
+          </a>
+        </div>
+      </div>
+
+      <div class="ak-container category-strip" id="categoryStrip">
+        <button class="cat-pill active" data-category="all"><b>✨ Tümü</b><span>Genel vitrin</span></button>
+        <button class="cat-pill" data-category="kamera"><b>📷 Kamera</b><span>Lens, ışık, set</span></button>
+        <button class="cat-pill" data-category="drone"><b>🚁 Drone</b><span>Çekim ekipmanı</span></button>
+        <button class="cat-pill" data-category="etkinlik"><b>🎉 Etkinlik</b><span>Ses, ışık, stand</span></button>
+        <button class="cat-pill" data-category="moda"><b>👗 Özel Gün</b><span>Gelinlik, elbise</span></button>
+        <button class="cat-pill" data-category="tamir"><b>🛠️ Tamir</b><span>Makine, el aleti</span></button>
+      </div>
+    </section>
+
+    <section class="ak-container middle-ad ad-slot" id="middleAdSlot" data-price="Orta reklam alanı: ₺750">
+      <div>
+        <strong>Orta reklam alanı: kategori, şehir veya kampanya reklamı.</strong><br>
+        <span>Bu alanı admin istediği mağaza reklamına bağlayabilir.</span>
+      </div>
+    </section>
+
+    <section class="ak-container toolbar">
+      <div class="toolbar-left">
+        <button class="filter-toggle" id="filterToggle" type="button">Filtrele</button>
+        <span class="result-count" id="resultCount">Ürünler hazırlanıyor...</span>
+      </div>
+
+      <div class="market-sort">
+        <span>Sırala</span>
+        <select id="sortSelect">
+          <option value="newest">En yeni</option>
+          <option value="low">Ucuzdan pahalıya</option>
+          <option value="high">Pahalıdan ucuza</option>
+          <option value="popular">En popüler</option>
+        </select>
+      </div>
+    </section>
+
+    <section class="ak-container layout filters-hidden" id="marketLayout">
+      <aside class="sidebar" id="smartFilter">
+        <div class="sidebar-head">
+          <h2>Akıllı Filtre</h2>
+          <button class="close-filter" id="closeFilter" type="button">×</button>
+        </div>
+
+        <div class="filter-group">
+          <label for="filterQuery">Ürün / marka / kelime</label>
+          <input id="filterQuery" type="text" placeholder="Örn: Canon, drone, matkap">
+        </div>
+
+        <div class="filter-group">
+          <label for="filterCategory">Kategori</label>
+          <input id="filterCategoryText" type="text" placeholder="Manuel kategori yaz">
+          <select id="filterCategory" style="margin-top:8px">
+            <option value="all">Tüm Kategoriler</option>
+            <option value="kamera">Kamera</option>
+            <option value="drone">Drone</option>
+            <option value="etkinlik">Etkinlik</option>
+            <option value="moda">Özel Gün</option>
+            <option value="tamir">Yapı & Tamir</option>
+          </select>
+        </div>
+
+        <div class="filter-group">
+          <label for="filterCity">Şehir</label>
+          <input id="filterCity" type="text" placeholder="Şehir yaz">
+        </div>
+
+        <div class="filter-group">
+          <label for="filterDistrict">İlçe</label>
+          <input id="filterDistrict" type="text" placeholder="İlçe yaz">
+        </div>
+
+        <div class="filter-group">
+          <label for="filterAvailability">Müsaitlik</label>
+          <select id="filterAvailability">
+            <option value="all">Tümü</option>
+            <option value="available">Bugün müsait</option>
+            <option value="unavailable">Şu an müsait değil</option>
+          </select>
+        </div>
+
+        <div class="filter-group">
+          <label>Fiyat aralığı</label>
+          <div class="price-row">
+            <input id="minPrice" type="number" min="0" placeholder="Min ₺">
+            <input id="maxPrice" type="number" min="0" placeholder="Max ₺">
+          </div>
+        </div>
+
+        <div class="filter-group">
+          <label for="adTypeSelect">İlan tipi</label>
+          <div class="type-select-wrap">
+            <select id="adTypeSelect">
+              <option value="all">Tüm ilan tipleri</option>
+              <option value="sponsored">Sponsorlu</option>
+              <option value="premium">Çerçeveli / Premium</option>
+              <option value="campaign">Kampanyalı</option>
+              <option value="discount">İndirimli</option>
+              <option value="liked">Favorilerim</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="filter-actions">
+          <button class="apply-filter" id="applyFilter" type="button">Uygula</button>
+          <button class="clear-filter" id="clearFilter" type="button">Temizle</button>
+        </div>
+      </aside>
+
+      <section>
+        <div class="section-head">
+          <div>
+            <h2>Anasayfa Vitrini</h2>
+            <p>Satıcı reklamları, kampanyalı ürünler ve organik ürünler birlikte görünür.</p>
+          </div>
+          <a href="listing.html">Tüm ilanlar</a>
+        </div>
+
+        <div class="grid" id="showcaseGrid">
+          <div class="empty-state">Ürünler yükleniyor...</div>
+        </div>
+        <div class="pagination" id="pagination"></div>
+
+        <section class="recent-panel">
+          <h2>Son Bakılan / Favoriye Eklenenler</h2>
+          <div class="recent-list" id="recentList"></div>
+        </section>
+      </section>
+    </section>
+
+    <section class="ak-container search-section">
+      <div class="section-head">
+        <div>
+          <h2>Popüler Aramalar</h2>
+          <p>Kullanıcının hızlı karar vermesi için farklı arama yolları</p>
+        </div>
+      </div>
+      <div class="search-grid" id="popularSearches"></div>
+    </section>
+
+    <section class="ak-container section">
+      <div class="section-head">
+        <div>
+          <h2>Bugün Müsait Ürünler</h2>
+          <p>Hemen kiralanabilir ürünler</p>
+        </div>
+        <a href="listing.html?available=true">Tümünü Gör</a>
+      </div>
+      <div class="grid" id="availableGrid"></div>
+    </section>
+
+    <section class="ak-container section">
+      <div class="section-head">
+        <div>
+          <h2>Popüler Kiralamalar</h2>
+          <p>En çok ilgi gören ürünler</p>
+        </div>
+        <a href="listing.html?sort=popular">Tümünü Gör</a>
+      </div>
+      <div class="grid" id="popularGrid"></div>
+    </section>
+
+    <section class="ak-container city-section">
+      <div class="section-head">
+        <div>
+          <h2>Şehirlere Göre Kirala</h2>
+          <p>Şehir ve ilçe bazlı keşif altyapısı</p>
+        </div>
+      </div>
+      <div class="city-grid" id="cityGrid"></div>
+    </section>
+
+    <section class="ak-container bottom-ad ad-slot" id="bottomAdSlot" data-price="Alt reklam alanı: ₺500">
+      <div>
+        <strong>Alt reklam alanı: mağaza paketleri ve kampanyalar.</strong><br>
+        <span>Admin bu alanı aktif/pasif yapabilir, fiyatını ve içeriğini değiştirebilir.</span>
+      </div>
+      <a href="seller-login.html">Mağaza Aç</a>
+    </section>
+
+    <section class="ak-container section">
+      <div class="section-head">
+        <div>
+          <h2>Öne Çıkan Mağazalar</h2>
+          <p>Doğrulanmış, yüksek puanlı ve reklam veren mağazalar</p>
+        </div>
+        <a href="stores.html">Tüm mağazalar</a>
+      </div>
+      <div class="stores" id="storeGrid"></div>
+    </section>
+  </main>
+
+  <nav class="mobile-bottom-nav">
+    <a class="active" href="index.html"><span>⌂</span>Ana Sayfa</a>
+    <a href="listing.html"><span>⌕</span>Keşfet</a>
+    <button type="button" id="mobileFilterBtn"><span>☰</span>Filtrele</button>
+    <a href="stores.html"><span>🏪</span>Mağazalar</a>
+  </nav>
+
+  <footer>
+    <div class="ak-container footer-grid">
+      <div>
+        <div class="footer-brand">
+          <span class="brand-mark" aria-hidden="true"></span>
+          <div>
+            <h3>Alma Kirala</h3>
+            <p>Satın almadan kullanmak isteyen müşteriler ile ürünlerini kiraya vermek isteyen mağazaları buluşturan kiralama pazaryeri.</p>
+          </div>
+        </div>
+      </div>
+      <div>
+        <h4>Müşteri</h4>
+        <a href="listing.html">Ürün keşfet</a>
+        <a href="stores.html">Mağazalar</a>
+        <a href="login.html">Giriş yap</a>
+      </div>
+      <div>
+        <h4>Mağaza</h4>
+        <a href="seller-login.html">Mağaza aç</a>
+        <a href="pricing.html">Reklam paketleri</a>
+        <a href="help.html">Satıcı destek</a>
+      </div>
+      <div>
+        <h4>Yönetim</h4>
+        <a href="admin-login.html">Admin girişi</a>
+        <a href="how-it-works.html">Nasıl çalışır</a>
+        <a href="help.html">Yardım merkezi</a>
+      </div>
+    </div>
+    <div class="ak-container footer-bottom">
+      <span>© 2026 Alma Kirala</span>
+      <span>Admin kontrollü vitrin, reklam alanı ve kategori sistemi için hazır yapı.</span>
+    </div>
+  </footer>
+
+<script>
+const API_BASE = localStorage.getItem("AK_API_BASE") || "http://localhost:5000";
+const PRODUCT_ENDPOINT = `${API_BASE}/api/products`;
+const STORE_ENDPOINT = `${API_BASE}/api/stores`;
+const PAGE_CONFIG_ENDPOINT = `${API_BASE}/api/page-config/home`;
+
+let products = [];
+let stores = [];
+let activeCategory = "all";
+let currentPage = 1;
+const pageSize = 8;
+const favorites = JSON.parse(localStorage.getItem("akFavorites") || "[]");
+const viewed = JSON.parse(localStorage.getItem("akViewed") || "[]");
+
+const demoProducts = [
+  {id:1,title:"Sony A7 IV Kamera Seti",category:"kamera",city:"Trabzon",district:"Ortahisar",price:450,badge:"Bugün Müsait",available:true,popular:true,sponsored:true,premium:true,campaign:false,discount:false,likes:128,views:2410,date:"2026-04-25",storeName:"Kamera Dünyam",icon:"📷"},
+  {id:2,title:"Canon EOS R6 Profesyonel",category:"kamera",city:"İstanbul",district:"Kadıköy",price:600,badge:"Doğrulanmış",available:true,popular:true,sponsored:false,premium:true,campaign:true,discount:true,likes:97,views:1840,date:"2026-04-24",storeName:"FotoKöşk",icon:"📷"},
+  {id:3,title:"DJI Mini 4 Pro Drone",category:"drone",city:"Ankara",district:"Çankaya",price:750,badge:"Sponsorlu",available:false,popular:true,sponsored:true,premium:false,campaign:false,discount:false,likes:142,views:3140,date:"2026-04-23",storeName:"Drone Market",icon:"🚁"},
+  {id:4,title:"GoPro Hero Aksiyon Kamera",category:"kamera",city:"Antalya",district:"Muratpaşa",price:280,badge:"Uygun Fiyat",available:true,popular:false,sponsored:false,premium:false,campaign:true,discount:true,likes:41,views:860,date:"2026-04-22",storeName:"Outdoor Dünya",icon:"🎥"},
+  {id:5,title:"Premium Gelinlik Kiralama",category:"moda",city:"İzmir",district:"Konak",price:900,badge:"Premium",available:true,popular:true,sponsored:true,premium:true,campaign:false,discount:false,likes:76,views:1190,date:"2026-04-21",storeName:"Özel Gün",icon:"👗"},
+  {id:6,title:"Profesyonel Matkap Seti",category:"tamir",city:"Antalya",district:"Muratpaşa",price:180,badge:"Depozitosuz",available:true,popular:false,sponsored:false,premium:false,campaign:false,discount:false,likes:24,views:530,date:"2026-04-20",storeName:"Trabzon Teknik",icon:"🛠️"},
+  {id:7,title:"Etkinlik Ses Sistemi",category:"etkinlik",city:"Trabzon",district:"Ortahisar",price:650,badge:"Etkinlik",available:false,popular:true,sponsored:true,premium:false,campaign:true,discount:true,likes:88,views:1670,date:"2026-04-19",storeName:"Event Pro",icon:"🎉"},
+  {id:8,title:"Organizasyon Işık Sistemi",category:"etkinlik",city:"Ankara",district:"Çankaya",price:520,badge:"Bugün",available:true,popular:false,sponsored:false,premium:true,campaign:false,discount:false,likes:55,views:920,date:"2026-04-18",storeName:"Event Pro",icon:"💡"},
+  {id:9,title:"Nişan Elbisesi Kiralama",category:"moda",city:"İstanbul",district:"Beşiktaş",price:420,badge:"Yeni",available:true,popular:true,sponsored:false,premium:false,campaign:true,discount:true,likes:61,views:1040,date:"2026-04-17",storeName:"Moda Kirala",icon:"👗"},
+  {id:10,title:"Bahçe Temizlik Makinesi",category:"tamir",city:"Trabzon",district:"Akçaabat",price:240,badge:"Ekonomik",available:true,popular:false,sponsored:false,premium:false,campaign:false,discount:false,likes:19,views:410,date:"2026-04-16",storeName:"Trabzon Teknik",icon:"🧰"}
+];
+
+const demoStores = [
+  {id:1,name:"Kamera Dünyam",logo:"KD",city:"İstanbul",category:"Kamera",rating:4.9,products:86,badges:["Sponsorlu","Doğrulanmış"]},
+  {id:2,name:"Event Pro",logo:"EP",city:"Antalya",category:"Etkinlik",rating:4.8,products:64,badges:["Premium","Kurumsal"]},
+  {id:3,name:"Drone Market",logo:"DM",city:"Ankara",category:"Drone",rating:4.9,products:38,badges:["Hızlı Yanıt","Belgeli"]},
+  {id:4,name:"Trabzon Teknik",logo:"TT",city:"Trabzon",category:"Yapı & Tamir",rating:4.6,products:57,badges:["Plus","Uygun Fiyat"]}
+];
+
+const popularSearches = [
+  ["Canon kamera", "Kamera ekipmanı"],
+  ["DJI drone", "Havadan çekim"],
+  ["Gelinlik kiralama", "Özel gün"],
+  ["Ses sistemi", "Etkinlik"],
+  ["Matkap seti", "Yapı & tamir"],
+  ["Trabzon kamera", "Şehir bazlı"]
+];
+
+const cities = [
+  ["İstanbul", "Kadıköy, Beşiktaş, Şişli"],
+  ["Ankara", "Çankaya, Keçiören"],
+  ["İzmir", "Konak, Karşıyaka"],
+  ["Trabzon", "Ortahisar, Akçaabat"],
+  ["Antalya", "Muratpaşa, Konyaaltı"],
+  ["Bursa", "Nilüfer, Osmangazi"]
+];
+
+function safeText(value, fallback=""){
+  return String(value ?? fallback).replace(/[&<>"']/g, m=>({
+    "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"
+  }[m]));
+}
+
+function normalizeProduct(item){
+  const image = item.image || item.imageUrl || item.coverImage || item.thumbnail || item.images?.[0]?.url || item.images?.[0] || "";
+  const store = item.store || {};
+  return {
+    id:item.id || item._id,
+    title:item.title || item.name || "Kiralık Ürün",
+    category:(item.category || item.categorySlug || "kamera").toString().toLowerCase(),
+    city:item.city || store.city || "Trabzon",
+    district:item.district || item.location || store.district || "",
+    price:Number(item.price || item.dailyPrice || item.rentPrice || 0),
+    badge:item.badge || (item.available ? "Bugün Müsait" : "İlan"),
+    available:item.available ?? item.isAvailable ?? true,
+    popular:item.popular ?? item.isPopular ?? false,
+    sponsored:item.sponsored ?? item.isSponsored ?? false,
+    premium:item.premium ?? item.isPremium ?? false,
+    campaign:item.campaign ?? item.hasCampaign ?? false,
+    discount:item.discount ?? item.isDiscounted ?? false,
+    likes:Number(item.likes || item.favoriteCount || 0),
+    views:Number(item.views || item.viewCount || 0),
+    date:item.date || item.createdAt || "",
+    image,
+    storeName:store.name || item.storeName || "Alma Kirala Mağazası",
+    icon:item.icon || "📦"
+  };
+}
+
+function normalizeStore(item){
+  return {
+    id:item.id || item._id,
+    name:item.name || item.title || "Mağaza",
+    logo:item.logoText || item.logo || (item.name || "M").slice(0,2).toUpperCase(),
+    city:item.city || "Türkiye",
+    category:item.category || "Kiralama",
+    rating:Number(item.rating || item.averageRating || 4.8),
+    products:Number(item.products || item.productCount || 0),
+    badges:item.badges || ["Doğrulanmış"]
+  };
+}
+
+async function fetchProducts(){
+  try{
+    const res = await fetch(PRODUCT_ENDPOINT);
+    if(!res.ok) throw new Error("Ürün endpoint hatası");
+    const data = await res.json();
+    const raw = data.products || data.items || data.data || data.results || data;
+    products = Array.isArray(raw) && raw.length ? raw.map(normalizeProduct) : [...demoProducts];
+  }catch(err){
+    products = [...demoProducts];
+  }
+}
+
+async function fetchStores(){
+  try{
+    const res = await fetch(STORE_ENDPOINT);
+    if(!res.ok) throw new Error("Mağaza endpoint hatası");
+    const data = await res.json();
+    const raw = data.stores || data.items || data.data || data.results || data;
+    stores = Array.isArray(raw) && raw.length ? raw.map(normalizeStore) : [...demoStores];
+  }catch(err){
+    stores = [...demoStores];
+  }
+}
+
+async function fetchPageConfig(){
+  try{
+    const res = await fetch(PAGE_CONFIG_ENDPOINT);
+    if(!res.ok) throw new Error("Sayfa config endpoint yok");
+    const config = await res.json();
+    applyAdConfig(config.ads || config);
+  }catch(err){
+    // Admin endpoint hazır değilse demo reklam alanları çalışmaya devam eder.
+  }
+}
+
+function applyAdConfig(config){
+  const slots = [
+    ["topAdSlot", config.topAd],
+    ["middleAdSlot", config.middleAd],
+    ["bottomAdSlot", config.bottomAd]
+  ];
+  slots.forEach(([id, ad])=>{
+    if(!ad) return;
+    const el = document.getElementById(id);
+    if(!el) return;
+    if(ad.priceLabel) el.dataset.price = ad.priceLabel;
+    if(ad.title || ad.description){
+      const link = ad.href ? ` href="${safeText(ad.href)}"` : "";
+      el.innerHTML = `<div><strong>${safeText(ad.title || "")}</strong><br><span>${safeText(ad.description || "")}</span></div>${ad.cta ? `<a${link}>${safeText(ad.cta)}</a>` : ""}`;
+    }
+  });
+}
+
+function imageMarkup(p){
+  return p.image
+    ? `<img src="${safeText(p.image)}" alt="${safeText(p.title)}" loading="lazy">`
+    : `<div class="placeholder-icon">${safeText(p.icon || "📦")}</div>`;
+}
+
+function productCard(p){
+  const classes = [
+    p.premium ? "premium-frame" : "",
+    p.sponsored ? "sponsored" : "",
+    p.campaign ? "campaign" : "",
+    p.discount ? "discount" : ""
+  ].join(" ");
+  const fav = favorites.includes(Number(p.id)) ? "active" : "";
+  const date = p.date ? new Date(p.date).toLocaleDateString("tr-TR") : "Yeni";
+
+  return `
+    <a class="product ${classes}" href="product-detail.html?id=${encodeURIComponent(p.id)}" data-id="${safeText(p.id)}">
+      <div class="product-img">
+        ${imageMarkup(p)}
+        <span class="badge">${safeText(p.badge)}</span>
+        <button class="fav-btn ${fav}" type="button" data-id="${safeText(p.id)}" aria-label="Favoriye ekle">♥</button>
+      </div>
+      <div class="product-body">
+        <h3>${safeText(p.title)}</h3>
+        <div class="meta">${safeText(p.city)} ${p.district ? "/ " + safeText(p.district) : ""} • ${safeText(p.storeName)}</div>
+        <div class="price">₺${Number(p.price || 0).toLocaleString("tr-TR")} <span>/ gün</span></div>
+        <div class="product-stats">
+          <span>👁 ${Number(p.views || 0).toLocaleString("tr-TR")}</span>
+          <span>♥ ${Number(p.likes || 0).toLocaleString("tr-TR")}</span>
+          <span>${date}</span>
+        </div>
+      </div>
+    </a>
+  `;
+}
+
+function storeCard(s){
+  return `
+    <a class="store" href="store-detail.html?id=${encodeURIComponent(s.id)}">
+      <div class="store-logo">${safeText(s.logo).slice(0,3)}</div>
+      <h3>${safeText(s.name)}</h3>
+      <div class="store-meta">${safeText(s.city)} • ${safeText(s.category)} • ★ ${s.rating} • ${s.products} ilan</div>
+      <div class="store-tags">${s.badges.map(b=>`<span>${safeText(b)}</span>`).join("")}</div>
+    </a>
+  `;
+}
+
+function getFilters(){
+  return {
+    q:document.getElementById("filterQuery").value.trim().toLowerCase(),
+    categorySelect:document.getElementById("filterCategory").value,
+    categoryText:document.getElementById("filterCategoryText").value.trim().toLowerCase(),
+    city:document.getElementById("filterCity").value.trim().toLowerCase(),
+    district:document.getElementById("filterDistrict").value.trim().toLowerCase(),
+    availability:document.getElementById("filterAvailability").value,
+    min:Number(document.getElementById("minPrice").value || 0),
+    max:Number(document.getElementById("maxPrice").value || 0),
+    adType:document.getElementById("adTypeSelect").value,
+    sort:document.getElementById("sortSelect").value
+  };
+}
+
+function filteredProducts(){
+  const f = getFilters();
+  let list = [...products];
+
+  if(activeCategory !== "all") list = list.filter(p=>p.category === activeCategory);
+
+  if(f.q){
+    list = list.filter(p=>
+      `${p.title} ${p.category} ${p.city} ${p.district} ${p.storeName}`.toLowerCase().includes(f.q)
+    );
+  }
+
+  if(f.categorySelect !== "all") list = list.filter(p=>p.category === f.categorySelect);
+  if(f.categoryText) list = list.filter(p=>`${p.category} ${p.title}`.toLowerCase().includes(f.categoryText));
+  if(f.city) list = list.filter(p=>p.city.toLowerCase().includes(f.city));
+  if(f.district) list = list.filter(p=>p.district.toLowerCase().includes(f.district));
+  if(f.availability === "available") list = list.filter(p=>p.available);
+  if(f.availability === "unavailable") list = list.filter(p=>!p.available);
+  if(f.min) list = list.filter(p=>p.price >= f.min);
+  if(f.max) list = list.filter(p=>p.price <= f.max);
+
+  if(f.adType === "sponsored") list = list.filter(p=>p.sponsored);
+  if(f.adType === "premium") list = list.filter(p=>p.premium);
+  if(f.adType === "campaign") list = list.filter(p=>p.campaign);
+  if(f.adType === "discount") list = list.filter(p=>p.discount);
+  if(f.adType === "liked") list = list.filter(p=>favorites.includes(Number(p.id)));
+
+  if(f.sort === "low") list.sort((a,b)=>a.price-b.price);
+  if(f.sort === "high") list.sort((a,b)=>b.price-a.price);
+  if(f.sort === "popular") list.sort((a,b)=>b.likes-a.likes);
+  if(f.sort === "newest") list.sort((a,b)=>new Date(b.date || 0)-new Date(a.date || 0));
+
+  return list;
+}
+
+function renderProducts(){
+  const all = filteredProducts();
+  const totalPages = Math.max(1, Math.ceil(all.length / pageSize));
+  currentPage = Math.min(currentPage, totalPages);
+  const pageItems = all.slice((currentPage - 1) * pageSize, currentPage * pageSize);
+
+  document.getElementById("resultCount").textContent = `${all.length} ürün listeleniyor`;
+  document.getElementById("showcaseGrid").innerHTML = pageItems.length
+    ? pageItems.map(productCard).join("")
+    : `<div class="empty-state">Bu filtrelere uygun ürün bulunamadı. Filtreleri temizleyip tekrar dene.</div>`;
+
+  const available = products.filter(p=>p.available).slice(0,4);
+  const popular = [...products].sort((a,b)=>b.likes-a.likes).slice(0,4);
+  document.getElementById("availableGrid").innerHTML = available.map(productCard).join("");
+  document.getElementById("popularGrid").innerHTML = popular.map(productCard).join("");
+
+  renderPagination(totalPages);
+  renderRecent();
+  updateHeroProduct();
+  bindFavoriteButtons();
+  bindViewedTracker();
+}
+
+function renderPagination(totalPages){
+  const el = document.getElementById("pagination");
+  el.innerHTML = "";
+  if(totalPages <= 1) return;
+  for(let i=1;i<=totalPages;i++){
+    el.innerHTML += `<button class="${i===currentPage ? "active" : ""}" data-page="${i}">${i}</button>`;
+  }
+  el.querySelectorAll("button").forEach(btn=>{
+    btn.addEventListener("click",()=>{
+      currentPage = Number(btn.dataset.page);
+      renderProducts();
+      document.getElementById("showcaseGrid").scrollIntoView({behavior:"smooth",block:"start"});
+    });
+  });
+}
+
+function renderRecent(){
+  const recent = document.getElementById("recentList");
+  const liked = products.filter(p=>favorites.includes(Number(p.id)));
+  const seen = viewed.map(id=>products.find(p=>Number(p.id)===Number(id))).filter(Boolean);
+  const mixed = [...liked, ...seen].filter((p,i,arr)=>arr.findIndex(x=>Number(x.id)===Number(p.id))===i).slice(0,4);
+
+  recent.innerHTML = mixed.length
+    ? mixed.map(p=>`
+      <a class="recent-item" href="product-detail.html?id=${encodeURIComponent(p.id)}">
+        <div class="recent-thumb">${imageMarkup(p)}</div>
+        <div>${safeText(p.title)}<span>₺${Number(p.price).toLocaleString("tr-TR")} / gün</span></div>
+      </a>
+    `).join("")
+    : `<div class="recent-item"><div class="recent-thumb">👀</div><div>Henüz ürün seçilmedi<span>Ürünlere bakınca burada görünür</span></div></div>`;
+}
+
+function renderStores(){
+  document.getElementById("storeGrid").innerHTML = stores.slice(0,4).map(storeCard).join("");
+}
+
+function renderCities(){
+  document.getElementById("cityGrid").innerHTML = cities.map(([city, sub])=>`
+    <a class="city-card" href="listing.html?city=${encodeURIComponent(city)}">${city}<span>${sub}</span></a>
+  `).join("");
+}
+
+function renderPopularSearches(){
+  document.getElementById("popularSearches").innerHTML = popularSearches.map(([q, sub])=>`
+    <a class="search-card" href="listing.html?q=${encodeURIComponent(q)}">${q}<span>${sub}</span></a>
+  `).join("");
+}
+
+function updateHeroProduct(){
+  const p = products.find(x=>x.available && x.sponsored) || products.find(x=>x.available) || products[0];
+  if(!p) return;
+  const hero = document.getElementById("heroProduct");
+  hero.href = `product-detail.html?id=${encodeURIComponent(p.id)}`;
+  hero.innerHTML = `<small>${safeText(p.badge)}</small><strong>${safeText(p.title)}</strong><b>₺${Number(p.price).toLocaleString("tr-TR")} / gün</b>`;
+}
+
+function bindFavoriteButtons(){
+  document.querySelectorAll(".fav-btn").forEach(btn=>{
+    btn.addEventListener("click",(e)=>{
+      e.preventDefault();
+      e.stopPropagation();
+      const id = Number(btn.dataset.id);
+      const index = favorites.indexOf(id);
+      if(index >= 0) favorites.splice(index,1);
+      else favorites.push(id);
+      localStorage.setItem("akFavorites", JSON.stringify(favorites));
+      renderProducts();
+    });
+  });
+}
+
+function bindViewedTracker(){
+  document.querySelectorAll(".product").forEach(card=>{
+    card.addEventListener("click",()=>{
+      const id = Number(card.dataset.id);
+      const next = [id, ...viewed.filter(x=>Number(x)!==id)].slice(0,8);
+      localStorage.setItem("akViewed", JSON.stringify(next));
+    });
+  });
+}
+
+function setCategory(category){
+  activeCategory = category;
+  document.getElementById("filterCategory").value = category;
+  document.querySelectorAll(".cat-pill").forEach(btn=>btn.classList.toggle("active", btn.dataset.category === category));
+  currentPage = 1;
+  renderProducts();
+}
+
+function openFilter(){
+  const layout = document.getElementById("marketLayout");
+  layout.classList.remove("filters-hidden");
+  layout.classList.add("filters-open");
+  document.getElementById("filterToggle").textContent = "Filtreyi Gizle";
+  if(window.innerWidth <= 760) document.body.classList.add("no-scroll");
+}
+function closeFilter(){
+  const layout = document.getElementById("marketLayout");
+  layout.classList.add("filters-hidden");
+  layout.classList.remove("filters-open");
+  document.getElementById("filterToggle").textContent = "Filtrele";
+  document.body.classList.remove("no-scroll");
+}
+function toggleFilter(){
+  const hidden = document.getElementById("marketLayout").classList.contains("filters-hidden");
+  hidden ? openFilter() : closeFilter();
+}
+
+function applyFilter(){
+  activeCategory = document.getElementById("filterCategory").value;
+  document.querySelectorAll(".cat-pill").forEach(btn=>btn.classList.toggle("active", btn.dataset.category === activeCategory));
+  currentPage = 1;
+  renderProducts();
+  if(window.innerWidth <= 760) closeFilter();
+}
+
+function clearFilter(){
+  ["filterQuery","filterCategoryText","filterCity","filterDistrict","minPrice","maxPrice"].forEach(id=>document.getElementById(id).value="");
+  document.getElementById("filterCategory").value = "all";
+  document.getElementById("filterAvailability").value = "all";
+  document.getElementById("adTypeSelect").value = "all";
+  activeCategory = "all";
+  currentPage = 1;
+  document.querySelectorAll(".cat-pill").forEach(btn=>btn.classList.toggle("active", btn.dataset.category === "all"));
+  renderProducts();
+}
+
+function goListing(){
+  const q = document.getElementById("topSearchInput").value.trim();
+  const params = new URLSearchParams();
+  if(q) params.set("q", q);
+  window.location.href = "listing.html" + (params.toString() ? `?${params}` : "");
+}
+
+function goHeroListing(){
+  const q = document.getElementById("heroQuery").value.trim();
+  const city = document.getElementById("heroCity").value.trim();
+  const district = document.getElementById("heroDistrict").value.trim();
+  const params = new URLSearchParams();
+  if(q) params.set("q", q);
+  if(city) params.set("city", city);
+  if(district) params.set("district", district);
+  window.location.href = "listing.html" + (params.toString() ? `?${params}` : "");
+}
+
+document.getElementById("moreMenuBtn").addEventListener("click",()=>{
+  document.getElementById("moreMenu").classList.toggle("open");
+});
+document.addEventListener("click",(e)=>{
+  if(!e.target.closest(".more-menu-wrap")) document.getElementById("moreMenu").classList.remove("open");
+});
+
+document.getElementById("topSearchBtn").addEventListener("click",goListing);
+document.getElementById("topSearchInput").addEventListener("keydown",e=>{if(e.key==="Enter") goListing()});
+document.getElementById("heroFindBtn").addEventListener("click",goHeroListing);
+document.getElementById("filterToggle").addEventListener("click",toggleFilter);
+document.getElementById("mobileFilterBtn").addEventListener("click",openFilter);
+document.getElementById("closeFilter").addEventListener("click",closeFilter);
+document.getElementById("applyFilter").addEventListener("click",applyFilter);
+document.getElementById("clearFilter").addEventListener("click",clearFilter);
+document.getElementById("sortSelect").addEventListener("change",()=>{currentPage=1;renderProducts()});
+
+document.querySelectorAll(".cat-pill").forEach(btn=>{
+  btn.addEventListener("click",()=>setCategory(btn.dataset.category));
+});
+
+["filterQuery","filterCity","filterDistrict","minPrice","maxPrice","filterCategoryText"].forEach(id=>{
+  document.getElementById(id).addEventListener("keydown",e=>{if(e.key==="Enter") applyFilter()});
+});
+
+(async function init(){
+  renderCities();
+  renderPopularSearches();
+  await Promise.all([fetchProducts(), fetchStores(), fetchPageConfig()]);
+  renderProducts();
+  renderStores();
+})();
+</script>
+</body>
+</html>
