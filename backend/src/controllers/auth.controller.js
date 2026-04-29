@@ -28,13 +28,13 @@ if (password.length < 6) {
 
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    const user = await prisma.user.create({
-      data: {
-        name,
-        email,
-        password: hashedPassword
-      }
-    });
+const user = await prisma.user.create({
+  data: {
+    name,
+    email: email.trim().toLowerCase(),
+    password: hashedPassword
+  }
+});
 
     const token = jwt.sign(
       { id: user.id },
@@ -57,20 +57,21 @@ if (password.length < 6) {
     });
   }
 };
-
 exports.login = async (req, res) => {
   try {
     const { email, password } = req.body;
-if (!email || !password) {
-  return res.status(400).json({
-    message: "Email ve şifre zorunlu"
-  });
-}
+
+    if (!email || !password) {
+      return res.status(400).json({
+        message: "Email ve şifre zorunlu"
+      });
+    }
+
     const user = await prisma.user.findUnique({
-      where: { email }
+      where: { email: email.trim().toLowerCase() }
     });
 
-    if (!user) {
+    if (!user || !user.password) {
       return res.status(400).json({
         message: "Email veya şifre hatalı"
       });
@@ -85,28 +86,24 @@ if (!email || !password) {
     }
 
     const token = jwt.sign(
-      { id: user.id },
-      process.env.JWT_SECRET,
+      { id: user.id, role: user.role },
+      process.env.JWT_SECRET || "123456",
       { expiresIn: "7d" }
     );
 
     const { password: userPassword, ...userWithoutPassword } = user;
 
-    res.json({
+    return res.json({
       message: "Giriş başarılı",
       token,
       user: userWithoutPassword
     });
 
   } catch (error) {
-    console.log(error);
-    res.status(500).json({
-      message: "Sunucu hatası"
+    console.log("LOGIN ERROR:", error);
+    return res.status(500).json({
+      message: "Sunucu hatası",
+      error: error.message
     });
   }
-};
-exports.me = async (req, res) => {
-  res.json({
-    user: req.user
-  });
 };
