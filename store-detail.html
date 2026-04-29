@@ -1720,8 +1720,7 @@ body{
   }
 
   async function hydrateFromBackend(){
-    const API_BASE = localStorage.getItem("AK_API_BASE") || "http://localhost:5000";
-    try{
+const API_BASE = "https://alma-kirala-api.onrender.com";    try{
       const storeRes = await fetch(`${API_BASE}/api/stores/${storeId}`);
       if(storeRes.ok){
         const data = await storeRes.json();
