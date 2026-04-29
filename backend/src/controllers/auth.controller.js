@@ -2,22 +2,28 @@ const prisma = require("../utils/prisma");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
+const JWT_SECRET = process.env.JWT_SECRET || "123456";
+
 exports.register = async (req, res) => {
   try {
     const { name, email, password } = req.body;
-if (!name || !email || !password) {
-  return res.status(400).json({
-    message: "İsim, email ve şifre zorunlu"
-  });
-}
 
-if (password.length < 6) {
-  return res.status(400).json({
-    message: "Şifre en az 6 karakter olmalı"
-  });
-}
+    if (!name || !email || !password) {
+      return res.status(400).json({
+        message: "İsim, email ve şifre zorunlu"
+      });
+    }
+
+    if (password.length < 6) {
+      return res.status(400).json({
+        message: "Şifre en az 6 karakter olmalı"
+      });
+    }
+
+    const cleanEmail = email.trim().toLowerCase();
+
     const existingUser = await prisma.user.findUnique({
-      where: { email }
+      where: { email: cleanEmail }
     });
 
     if (existingUser) {
@@ -28,35 +34,37 @@ if (password.length < 6) {
 
     const hashedPassword = await bcrypt.hash(password, 10);
 
-const user = await prisma.user.create({
-  data: {
-    name,
-    email: email.trim().toLowerCase(),
-    password: hashedPassword
-  }
-});
+    const user = await prisma.user.create({
+      data: {
+        name,
+        email: cleanEmail,
+        password: hashedPassword
+      }
+    });
 
     const token = jwt.sign(
-      { id: user.id },
-      process.env.JWT_SECRET,
+      { id: user.id, role: user.role },
+      JWT_SECRET,
       { expiresIn: "7d" }
     );
 
     const { password: userPassword, ...userWithoutPassword } = user;
 
-    res.json({
+    return res.json({
       message: "Kayıt başarılı",
       token,
       user: userWithoutPassword
     });
 
   } catch (error) {
-    console.log(error);
-    res.status(500).json({
-      message: "Sunucu hatası"
+    console.log("REGISTER ERROR:", error);
+    return res.status(500).json({
+      message: "Sunucu hatası",
+      error: error.message
     });
   }
 };
+
 exports.login = async (req, res) => {
   try {
     const { email, password } = req.body;
@@ -67,8 +75,10 @@ exports.login = async (req, res) => {
       });
     }
 
+    const cleanEmail = email.trim().toLowerCase();
+
     const user = await prisma.user.findUnique({
-      where: { email: email.trim().toLowerCase() }
+      where: { email: cleanEmail }
     });
 
     if (!user || !user.password) {
@@ -87,7 +97,7 @@ exports.login = async (req, res) => {
 
     const token = jwt.sign(
       { id: user.id, role: user.role },
-      process.env.JWT_SECRET || "123456",
+      JWT_SECRET,
       { expiresIn: "7d" }
     );
 
@@ -106,4 +116,10 @@ exports.login = async (req, res) => {
       error: error.message
     });
   }
+};
+
+exports.me = async (req, res) => {
+  return res.json({
+    user: req.user
+  });
 };

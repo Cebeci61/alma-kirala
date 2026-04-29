@@ -1,6 +1,8 @@
 const jwt = require("jsonwebtoken");
 const prisma = require("../utils/prisma");
 
+const JWT_SECRET = process.env.JWT_SECRET || "123456";
+
 exports.protect = async (req, res, next) => {
   try {
     const authHeader = req.headers.authorization;
@@ -13,7 +15,7 @@ exports.protect = async (req, res, next) => {
 
     const token = authHeader.split(" ")[1];
 
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    const decoded = jwt.verify(token, JWT_SECRET);
 
     const user = await prisma.user.findUnique({
       where: { id: decoded.id }
@@ -30,6 +32,7 @@ exports.protect = async (req, res, next) => {
     req.user = userWithoutPassword;
 
     next();
+
   } catch (error) {
     return res.status(401).json({
       message: "Geçersiz token"
