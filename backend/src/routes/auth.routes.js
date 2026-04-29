@@ -1,18 +1,17 @@
 const express = require("express");
 const router = express.Router();
 
-const { register, login, me } = require("../controllers/auth.controller");
-const { protect } = require("../middlewares/auth.middleware");
-const { allowRoles } = require("../middlewares/role.middleware");
+const authController = require("../controllers/auth.controller");
+const authMiddleware = require("../middlewares/auth.middleware");
+
+const register = authController.register;
+const login = authController.login;
+const me = authController.me;
+const protect = authMiddleware.protect;
 
 router.post("/register", register);
 router.post("/login", login);
-router.get("/me", protect, me);
 
-router.get("/admin-test", protect, allowRoles("admin"), (req, res) => {
-  res.json({
-    message: "Admin yetkisi başarılı"
-  });
-});
+router.get("/me", protect, me);
 
 module.exports = router;
