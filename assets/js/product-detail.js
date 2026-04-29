@@ -1,5 +1,7 @@
-const API_URL = "http://localhost:5001/api";
-
+const API_URL =
+  window.location.hostname === "localhost"
+    ? "http://localhost:5001/api"
+    : "https://alma-kirala-api.onrender.com/api";
 function getIdFromUrl() {
   const params = new URLSearchParams(window.location.search);
   return params.get("id");

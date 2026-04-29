@@ -1,8 +1,10 @@
+const API_BASE = "https://alma-kirala-api.onrender.com";
+
 async function login() {
   const email = document.getElementById("email").value;
   const password = document.getElementById("password").value;
 
-  const res = await fetch("http://localhost:5001/api/auth/login", {
+  const res = await fetch(`${API_BASE}/api/auth/login`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json"
@@ -16,7 +18,7 @@ async function login() {
   const data = await res.json();
 
   if (data.token) {
-    localStorage.setItem("token", data.token);  // 🔥 EN ÖNEMLİ SATIR
+    localStorage.setItem("token", data.token);
 
     alert("Giriş başarılı");
     window.location.href = "index.html";

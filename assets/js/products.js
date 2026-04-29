@@ -1,5 +1,7 @@
-const API_URL = "http://localhost:5001/api";
-
+const API_URL =
+  window.location.hostname === "localhost"
+    ? "http://localhost:5001/api"
+    : "https://alma-kirala-api.onrender.com/api";
 const productList = document.getElementById("product-list");
 const resultCount = document.getElementById("resultCount");
 const heroTotalCount = document.getElementById("heroTotalCount");

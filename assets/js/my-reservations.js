@@ -1,4 +1,7 @@
-const API_URL = "http://localhost:5001/api";
+const API_URL =
+  window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1"
+    ? "http://localhost:5001/api"
+    : "https://alma-kirala-api.onrender.com/api";
 
 async function loadReservations() {
   try {
@@ -15,17 +18,21 @@ async function loadReservations() {
     const container = document.getElementById("reservation-list");
     container.innerHTML = "";
 
-    data.forEach(r => {
+    const reservations = Array.isArray(data)
+      ? data
+      : data.reservations || data.data || [];
+
+    reservations.forEach(r => {
       container.innerHTML += `
         <div class="reservation-card">
-          <h3>${r.product.title}</h3>
-          <p>${r.product.description}</p>
+          <h3>${r.product?.title || "Ürün adı yok"}</h3>
+          <p>${r.product?.description || ""}</p>
 
-          <strong>${r.product.price} TL</strong>
+          <strong>${r.product?.price || 0} TL</strong>
 
-          <p>Durum: ${r.status}</p>
-          <p>Başlangıç: ${new Date(r.startDate).toLocaleDateString()}</p>
-          <p>Bitiş: ${new Date(r.endDate).toLocaleDateString()}</p>
+          <p>Durum: ${r.status || "Beklemede"}</p>
+          <p>Başlangıç: ${r.startDate ? new Date(r.startDate).toLocaleDateString("tr-TR") : "-"}</p>
+          <p>Bitiş: ${r.endDate ? new Date(r.endDate).toLocaleDateString("tr-TR") : "-"}</p>
         </div>
       `;
     });
