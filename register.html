@@ -647,28 +647,27 @@
 <div class="toast" id="toast"></div>
 
 <script>
-const DEMO_CODE = "123456";
 const API_BASE = "https://alma-kirala-api.onrender.com";
+
 let currentRole = "customer";
 let currentMethod = "email";
-let pendingAccount = null;
 
-function $(id){return document.getElementById(id)}
+function $(id){ return document.getElementById(id); }
 
 function toast(message){
   $("toast").textContent = message;
   $("toast").classList.add("show");
-  setTimeout(()=>$("toast").classList.remove("show"),3500);
+  setTimeout(() => $("toast").classList.remove("show"), 3500);
 }
 
 function setRole(role){
   currentRole = role;
 
-  document.querySelectorAll(".role-tab").forEach(btn=>{
-    btn.classList.toggle("active",btn.dataset.role === role);
+  document.querySelectorAll(".role-tab").forEach(btn => {
+    btn.classList.toggle("active", btn.dataset.role === role);
   });
 
-  $("sellerFields").classList.toggle("show",role === "seller");
+  $("sellerFields").classList.toggle("show", role === "seller");
 
   $("roleDescription").textContent = role === "seller"
     ? "Mağaza hesabı oluştur. Şirket, vergi, iletişim ve mağaza bilgileri zorunludur."
@@ -678,15 +677,15 @@ function setRole(role){
 function setMethod(method){
   currentMethod = method;
 
-  document.querySelectorAll(".method-btn").forEach(btn=>{
-    btn.classList.toggle("active",btn.dataset.method === method);
+  document.querySelectorAll(".method-btn").forEach(btn => {
+    btn.classList.toggle("active", btn.dataset.method === method);
   });
 
   $("emailField").style.display = method === "email" ? "block" : "none";
   $("phoneField").style.display = method === "phone" ? "block" : "none";
 }
 
-function requireValue(value,message){
+function requireValue(value, message){
   if(!String(value || "").trim()){
     toast(message);
     return false;
@@ -695,14 +694,14 @@ function requireValue(value,message){
 }
 
 function collectPayload(){
-  const payload = {
-      role: currentRole,
+  return {
+    role: currentRole,
     method: currentMethod,
     firstName: $("firstName").value.trim(),
     lastName: $("lastName").value.trim(),
     birthDate: $("birthDate").value,
     city: $("city").value.trim(),
-    email: $("email").value.trim(),
+    email: $("email").value.trim().toLowerCase(),
     phone: $("phone").value.trim(),
     password: $("password").value,
     password2: $("password2").value,
@@ -711,28 +710,24 @@ function collectPayload(){
     taxNumber: $("taxNumber").value.trim(),
     businessPhone: $("businessPhone").value.trim(),
     businessEmail: $("businessEmail").value.trim(),
-    website: $("website").value.trim(),
     storeDescription: $("storeDescription").value.trim()
   };
-
-  return payload;
 }
 
 function validatePayload(payload){
-  if(!requireValue(payload.firstName,"Ad zorunlu.")) return false;
-  if(!requireValue(payload.lastName,"Soyad zorunlu.")) return false;
-  if(!requireValue(payload.birthDate,"Doğum tarihi zorunlu.")) return false;
-  if(!requireValue(payload.city,"Şehir zorunlu.")) return false;
+  if(!requireValue(payload.firstName, "Ad zorunlu.")) return false;
+  if(!requireValue(payload.lastName, "Soyad zorunlu.")) return false;
+  if(!requireValue(payload.birthDate, "Doğum tarihi zorunlu.")) return false;
+  if(!requireValue(payload.city, "Şehir zorunlu.")) return false;
 
-  if(payload.method === "email"){
-    if(!requireValue(payload.email,"E-mail adresi zorunlu.")) return false;
+  if(payload.method !== "email"){
+    toast("Şimdilik gerçek backend kaydı sadece e-mail ile çalışıyor.");
+    return false;
   }
 
-  if(payload.method === "phone"){
-    if(!requireValue(payload.phone,"Telefon numarası zorunlu.")) return false;
-  }
+  if(!requireValue(payload.email, "E-mail adresi zorunlu.")) return false;
+  if(!requireValue(payload.password, "Şifre zorunlu.")) return false;
 
-  if(!requireValue(payload.password,"Şifre zorunlu.")) return false;
   if(payload.password.length < 6){
     toast("Şifre en az 6 karakter olmalı.");
     return false;
@@ -744,12 +739,12 @@ function validatePayload(payload){
   }
 
   if(payload.role === "seller"){
-    if(!requireValue(payload.companyName,"Şirket / mağaza ismi zorunlu.")) return false;
-    if(!requireValue(payload.taxOffice,"Vergi dairesi zorunlu.")) return false;
-    if(!requireValue(payload.taxNumber,"Vergi numarası zorunlu.")) return false;
-    if(!requireValue(payload.businessPhone,"İşletme telefonu zorunlu.")) return false;
-    if(!requireValue(payload.businessEmail,"İşletme e-mail adresi zorunlu.")) return false;
-    if(!requireValue(payload.storeDescription,"Mağaza açıklaması zorunlu.")) return false;
+    if(!requireValue(payload.companyName, "Şirket / mağaza ismi zorunlu.")) return false;
+    if(!requireValue(payload.taxOffice, "Vergi dairesi zorunlu.")) return false;
+    if(!requireValue(payload.taxNumber, "Vergi numarası zorunlu.")) return false;
+    if(!requireValue(payload.businessPhone, "İşletme telefonu zorunlu.")) return false;
+    if(!requireValue(payload.businessEmail, "İşletme e-mail adresi zorunlu.")) return false;
+    if(!requireValue(payload.storeDescription, "Mağaza açıklaması zorunlu.")) return false;
   }
 
   if(!$("terms").checked){
@@ -760,96 +755,38 @@ function validatePayload(payload){
   return true;
 }
 
-async function tryBackendRegister(payload){
-  try{
-    const apiPayload = {
-      name: `${payload.firstName} ${payload.lastName}`.trim(),
-      email: payload.email.trim().toLowerCase(),
-      password: payload.password
-    };
-
-    const res = await fetch(`${API_BASE}/api/auth/register`,{
-      method:"POST",
-      headers:{"Content-Type":"application/json"},
-      body:JSON.stringify(apiPayload)
-    });
-
-    const data = await res.json();
-
-    if(!res.ok){
-      toast(data.message || "Backend kayıt başarısız.");
-      return null;
-    }
-
-    return data;
-  }catch(err){
-    toast("Backend bağlantı hatası.");
-    return null;
-  }
-}
-
-function saveDemoAccount(payload){
-  const key = payload.role === "seller" ? "akDemoSellerAccounts" : "akDemoCustomerAccounts";
-  const accounts = JSON.parse(localStorage.getItem(key) || "[]");
-
-  const exists = accounts.some(acc =>
-    (payload.email && acc.email === payload.email) ||
-    (payload.phone && acc.phone === payload.phone)
-  );
-
-  if(exists){
-    toast("Bu mail veya telefon ile kayıt zaten var.");
-    return false;
-  }
-
-  const account = {
-    ...payload,
-    verified:false,
-    createdAt:new Date().toISOString()
+async function registerToBackend(payload){
+  const apiPayload = {
+    name: `${payload.firstName} ${payload.lastName}`.trim(),
+    email: payload.email,
+    password: payload.password
   };
 
-  accounts.push(account);
-  localStorage.setItem(key,JSON.stringify(accounts));
-
-  return true;
-}
-
-function finishRegister(){
-  if(!pendingAccount){
-    toast("Bekleyen kayıt bulunamadı.");
-    return;
-  }
-
-  pendingAccount.verified = true;
-
-  const key = pendingAccount.role === "seller" ? "akDemoSellerAccounts" : "akDemoCustomerAccounts";
-  const accounts = JSON.parse(localStorage.getItem(key) || "[]");
-
-  const updated = accounts.map(acc=>{
-    const sameEmail = pendingAccount.email && acc.email === pendingAccount.email;
-    const samePhone = pendingAccount.phone && acc.phone === pendingAccount.phone;
-    return sameEmail || samePhone ? pendingAccount : acc;
+  const res = await fetch(`${API_BASE}/api/auth/register`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(apiPayload)
   });
 
-  localStorage.setItem(key,JSON.stringify(updated));
+  const data = await res.json();
 
-  toast("Hesabın doğrulandı. Şimdi giriş sayfasına yönlendiriliyorsun...");
+  if(!res.ok){
+    throw new Error(data.message || "Kayıt başarısız.");
+  }
 
-  setTimeout(()=>{
-    window.location.href = "login.html";
-  },900);
+  return data;
 }
 
-document.querySelectorAll(".role-tab").forEach(btn=>{
-  btn.addEventListener("click",()=>setRole(btn.dataset.role));
+document.querySelectorAll(".role-tab").forEach(btn => {
+  btn.addEventListener("click", () => setRole(btn.dataset.role));
 });
 
-document.querySelectorAll(".method-btn").forEach(btn=>{
-  btn.addEventListener("click",()=>setMethod(btn.dataset.method));
+document.querySelectorAll(".method-btn").forEach(btn => {
+  btn.addEventListener("click", () => setMethod(btn.dataset.method));
 });
 
-document.querySelectorAll(".show-pass").forEach(btn=>{
-  btn.addEventListener("click",()=>{
+document.querySelectorAll(".show-pass").forEach(btn => {
+  btn.addEventListener("click", () => {
     const input = $(btn.dataset.target);
     input.type = input.type === "password" ? "text" : "password";
     btn.textContent = input.type === "password" ? "Göster" : "Gizle";
@@ -860,37 +797,23 @@ $("registerForm").addEventListener("submit", async (e) => {
   e.preventDefault();
 
   const payload = collectPayload();
-  if (!validatePayload(payload)) return;
+  if(!validatePayload(payload)) return;
 
-  const backendResult = await tryBackendRegister(payload);
+  try{
+    const result = await registerToBackend(payload);
 
-  if (!backendResult) {
-    return; // demo kayda düşmesin
+    localStorage.setItem("token", result.token);
+    localStorage.setItem("user", JSON.stringify(result.user));
+
+    toast("Kayıt başarılı. Giriş sayfasına yönlendiriliyorsun...");
+
+    setTimeout(() => {
+      window.location.href = "login.html";
+    }, 900);
+
+  }catch(err){
+    toast(err.message);
   }
-
-  pendingAccount = {
-    ...payload,
-    id: backendResult.user?.id,
-    verified: true
-  };
-
-  localStorage.setItem("token", backendResult.token);
-  localStorage.setItem("user", JSON.stringify(backendResult.user));
-
-  toast("Kayıt başarılı. Giriş sayfasına yönlendiriliyorsun...");
-
-  setTimeout(() => {
-    window.location.href = "login.html";
-  }, 800);
-});
-
-$("verifyBtn").addEventListener("click",()=>{
-  if($("verifyCode").value.trim() !== DEMO_CODE){
-    toast("Doğrulama kodu hatalı.");
-    return;
-  }
-
-  finishRegister();
 });
 
 setRole("customer");
