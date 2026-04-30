@@ -763,25 +763,27 @@
       try{
         const result = await loginWithEmail(email,password);
 
-        if(result.token){
-          localStorage.setItem("token",result.token);
-        }
+ if(result.token){
+  localStorage.setItem("token", result.token);
+}
 
-        const savedSeller = {
-          ...(sellerProfile || {}),
-          ...(result.user || {}),
-          accountType:"seller",
-          email
-        };
+const savedSeller = {
+  ...(sellerProfile || {}),
+  ...(result.user || {}),
+  accountType: "seller",
+  email
+};
 
-        localStorage.setItem("seller",JSON.stringify(savedSeller));
-        localStorage.setItem("user",JSON.stringify(savedSeller));
+localStorage.setItem("akRole", "seller");
+localStorage.setItem("akUser", JSON.stringify(savedSeller));
+localStorage.setItem("seller", JSON.stringify(savedSeller));
+localStorage.setItem("user", JSON.stringify(savedSeller));
 
-        toast("Giriş başarılı. Satıcı paneline yönlendiriliyorsun...");
+toast("Giriş başarılı. Satıcı paneline yönlendiriliyorsun...");
 
-        setTimeout(()=>{
-          window.location.href = "seller/dashboard.html";
-        },700);
+setTimeout(() => {
+  window.location.href = "seller/dashboard.html";
+}, 700);
 
       }catch(error){
         toast(error.message);

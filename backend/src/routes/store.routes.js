@@ -1,22 +1,16 @@
 const express = require("express");
 const router = express.Router();
 
-const {
-  createStore,
-  getPendingStores,
-  approveStore,
-  getStores,
-  getStoreById
-} = require("../controllers/store.controller");
-
+const storeController = require("../controllers/store.controller");
 const { protect } = require("../middlewares/auth.middleware");
-const { allowRoles } = require("../middlewares/role.middleware");
 
-router.post("/", protect, createStore);
+router.get("/my", protect, storeController.getMyStores);
 
-router.get("/", getStores);
-router.get("/pending", protect, allowRoles("admin"), getPendingStores);
-router.put("/approve/:id", protect, allowRoles("admin"), approveStore);
-router.get("/:id", getStoreById);
+router.post("/", protect, storeController.createStore);
+router.get("/", storeController.getStores);
+
+router.get("/:id", storeController.getStoreById);
+router.put("/:id", protect, storeController.updateStore);
+router.delete("/:id", protect, storeController.deleteStore);
 
 module.exports = router;

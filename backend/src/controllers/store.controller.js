@@ -114,3 +114,32 @@ exports.getStoreById = async (req, res) => {
     res.status(500).json({ message: "Sunucu hatası" });
   }
 };
+exports.getMyStores = async (req, res) => {
+  try {
+    const stores = await prisma.store.findMany({
+      where: {
+        ownerId: req.user.id
+      },
+      include: {
+        owner: {
+          select: {
+            id: true,
+            name: true,
+            email: true
+          }
+        },
+        products: true
+      },
+      orderBy: {
+        createdAt: "desc"
+      }
+    });
+
+    return res.json({ stores });
+  } catch (error) {
+    console.error("getMyStores error:", error);
+    return res.status(500).json({
+      message: "Mağazalar getirilemedi"
+    });
+  }
+};
