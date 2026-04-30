@@ -856,33 +856,32 @@ document.querySelectorAll(".show-pass").forEach(btn=>{
   });
 });
 
-$("registerForm").addEventListener("submit",async(e)=>{
+$("registerForm").addEventListener("submit", async (e) => {
   e.preventDefault();
 
   const payload = collectPayload();
-  if(!validatePayload(payload)) return;
+  if (!validatePayload(payload)) return;
 
   const backendResult = await tryBackendRegister(payload);
 
-  if(backendResult){
-    pendingAccount = {
-      ...payload,
-      id:backendResult.user?.id || backendResult.id || Date.now(),
-      verified:false
-    };
-  }else{
-    const saved = saveDemoAccount(payload);
-    if(!saved) return;
-
-    pendingAccount = {
-      ...payload,
-      id:Date.now(),
-      verified:false
-    };
+  if (!backendResult) {
+    return; // demo kayda düşmesin
   }
 
-  $("verifyBox").classList.add("show");
-  toast("Doğrulama kodu gönderildi. Demo kod: 123456");
+  pendingAccount = {
+    ...payload,
+    id: backendResult.user?.id,
+    verified: true
+  };
+
+  localStorage.setItem("token", backendResult.token);
+  localStorage.setItem("user", JSON.stringify(backendResult.user));
+
+  toast("Kayıt başarılı. Giriş sayfasına yönlendiriliyorsun...");
+
+  setTimeout(() => {
+    window.location.href = "login.html";
+  }, 800);
 });
 
 $("verifyBtn").addEventListener("click",()=>{
