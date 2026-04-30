@@ -690,11 +690,11 @@ function requireValue(value,message){
 
 async function tryBackendLogin(payload){
   try{
-    const res = await fetch(`${API_BASE}/api/auth/login`,{
-      method:"POST",
-      headers:{"Content-Type":"application/json"},
-      body:JSON.stringify(payload)
-    });
+const res = await fetch(`${API_BASE}/api/auth/login`, {
+  method: "POST",
+  headers: { "Content-Type": "application/json" },
+  body: JSON.stringify(payload)
+});
 
     if(!res.ok) return null;
 
@@ -831,13 +831,10 @@ $("loginForm").addEventListener("submit",async(e)=>{
   if(currentMethod === "phone" && !requireValue(phone,"Telefon numarası zorunlu.")) return;
   if(!requireValue(password,"Şifre zorunlu.")) return;
 
-  const payload = {
-    role:currentRole,
-    method:currentMethod,
-    email,
-    phone,
-    password
-  };
+const payload = {
+  email: document.getElementById("email").value.trim().toLowerCase(),
+  password: document.getElementById("password").value
+};
 
   const backendResult = await tryBackendLogin(payload);
   const result = backendResult || demoLogin(payload);
