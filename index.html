@@ -1111,6 +1111,40 @@
       .grid,.recent-list,.stores{grid-template-columns:1fr}
       .city-grid,.search-grid{grid-template-columns:1fr}
     }
+    /* MOBİL FİLTRE ÜSTTE KALMA SORUNU FIX */
+@media(max-width:760px){
+  .market-toolbar,
+  .toolbar{
+    position:relative!important;
+    top:auto!important;
+    z-index:1!important;
+    margin-top:14px!important;
+    margin-left:0!important;
+    margin-right:0!important;
+    padding:12px 0!important;
+    background:transparent!important;
+    backdrop-filter:none!important;
+    border-bottom:0!important;
+  }
+
+  .listing-layout,
+  .layout{
+    margin-top:14px!important;
+  }
+
+  .filter-toggle{
+    width:100%!important;
+  }
+
+  .listing-tools,
+  .market-sort{
+    width:100%!important;
+  }
+
+  .mobile-bottom-nav{
+    z-index:999!important;
+  }
+}
   </style>
 </head>
 

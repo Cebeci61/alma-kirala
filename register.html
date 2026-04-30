@@ -3,822 +3,540 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
   <title>Hesap Aç | Alma Kirala</title>
 
   <style>
-    :root{
-      --dark:#07142f;
-      --blue:#064db5;
-      --yellow:#ffcc00;
-      --orange:#ff9f1c;
-      --bg:#f4f6fb;
-      --line:#e5e7eb;
-      --muted:#64748b;
-      --green:#16a34a;
-      --red:#dc2626;
-      --shadow:0 18px 45px rgba(15,23,42,.12);
-    }
-
     *{box-sizing:border-box}
     body{
       margin:0;
       font-family:Inter,Arial,sans-serif;
-      background:
-        radial-gradient(circle at 100% 0%,rgba(255,204,0,.18),transparent 32%),
-        radial-gradient(circle at 0 100%,rgba(6,77,181,.10),transparent 35%),
-        var(--bg);
-      color:var(--dark);
-      min-height:100vh;
+      background:#f4f6fb;
+      color:#07142f;
     }
     a{text-decoration:none;color:inherit}
-    button,input,select,textarea{font-family:inherit}
+    button,input{font-family:inherit}
     button{cursor:pointer}
 
     .page{
       min-height:100vh;
       display:grid;
-      grid-template-columns:.92fr 1.08fr;
+      grid-template-columns:1fr 1.15fr;
     }
 
     .brand-side{
-      background:
-        radial-gradient(circle at 85% 10%,rgba(255,204,0,.35),transparent 32%),
-        linear-gradient(135deg,#07142f,#14396f);
-      color:#fff;
+      background:linear-gradient(135deg,#07142f,#14396f);
+      color:white;
       padding:44px;
       display:flex;
       flex-direction:column;
       justify-content:space-between;
-      overflow:hidden;
-      position:relative;
-    }
-
-    .brand-side:after{
-      content:"";
-      position:absolute;
-      right:-120px;
-      bottom:-130px;
-      width:380px;
-      height:380px;
-      border-radius:50%;
-      background:rgba(255,255,255,.08);
     }
 
     .logo{
       display:flex;
       align-items:center;
-      gap:12px;
+      gap:14px;
       font-size:30px;
       font-weight:1000;
-      position:relative;
-      z-index:2;
     }
 
-    .logo-icon{
-      width:54px;
-      height:54px;
+    .logo-mark{
+      width:56px;
+      height:56px;
       border-radius:18px;
       background:linear-gradient(135deg,#ffcc00,#ff9f1c);
-      position:relative;
-      box-shadow:0 18px 34px rgba(255,204,0,.25);
-    }
-
-    .logo-icon:before{
-      content:"";
-      position:absolute;
-      width:22px;
-      height:58px;
-      background:#07142f;
-      transform:rotate(28deg);
-      left:16px;
-      top:5px;
-      border-radius:999px;
-    }
-
-    .logo-icon:after{
-      content:"";
-      position:absolute;
-      width:18px;
-      height:18px;
-      background:#fff;
-      border-radius:50%;
-      right:8px;
-      bottom:8px;
-    }
-
-    .hero-copy{
-      position:relative;
-      z-index:2;
-      max-width:560px;
-    }
-
-    .hero-copy span{
-      display:inline-flex;
-      background:#fff3bf;
-      color:#8a5b00;
-      padding:8px 12px;
-      border-radius:999px;
+      color:#07142f;
+      display:grid;
+      place-items:center;
       font-weight:1000;
-      font-size:13px;
-      margin-bottom:14px;
+      font-size:24px;
     }
 
-    .hero-copy h1{
-      font-family:Georgia,"Times New Roman",serif;
+    .brand-copy h1{
+      font-family:Georgia,serif;
       font-size:46px;
-      line-height:1.04;
-      letter-spacing:-1.6px;
-      margin:0;
+      line-height:1.05;
+      margin:0 0 18px;
     }
 
-    .hero-copy p{
+    .brand-copy p{
       color:#dbe7ff;
+      font-weight:800;
       line-height:1.7;
-      font-size:16px;
-      font-weight:750;
+      max-width:520px;
     }
 
     .steps{
       display:grid;
       gap:12px;
-      position:relative;
-      z-index:2;
+      max-width:520px;
     }
 
     .step{
-      background:rgba(255,255,255,.08);
-      border:1px solid rgba(255,255,255,.13);
-      border-radius:20px;
+      background:rgba(255,255,255,.09);
+      border:1px solid rgba(255,255,255,.14);
+      border-radius:18px;
       padding:16px;
-      backdrop-filter:blur(12px);
     }
 
     .step strong{
       display:block;
       color:#ffcc00;
       font-size:18px;
+      margin-bottom:4px;
     }
 
     .step span{
-      color:#cbd5e1;
+      color:#dbe7ff;
+      font-weight:800;
       font-size:13px;
-      font-weight:850;
-      line-height:1.5;
     }
 
     .form-side{
-      padding:28px;
+      min-height:100vh;
       display:grid;
       place-items:center;
+      padding:28px;
+      background:
+        radial-gradient(circle at top right,rgba(255,204,0,.18),transparent 35%),
+        #f4f6fb;
     }
 
-    .auth-card{
-      width:min(720px,100%);
-      background:#fff;
-      border:1px solid var(--line);
+    .card{
+      width:min(680px,100%);
+      background:white;
       border-radius:30px;
-      box-shadow:var(--shadow);
-      padding:24px;
-      animation:show .28s ease both;
+      padding:28px;
+      box-shadow:0 18px 45px rgba(15,23,42,.12);
+      border:1px solid #e5e7eb;
     }
 
-    .card-head{
+    .head{
       display:flex;
-      align-items:flex-start;
       justify-content:space-between;
-      gap:16px;
+      gap:18px;
       margin-bottom:18px;
     }
 
-    .card-head h2{
+    .head h2{
       margin:0;
-      font-family:Georgia,"Times New Roman",serif;
-      font-size:32px;
-      letter-spacing:-.6px;
+      font-family:Georgia,serif;
+      font-size:34px;
     }
 
-    .card-head p{
+    .head p{
       margin:6px 0 0;
-      color:var(--muted);
-      font-weight:750;
+      color:#64748b;
+      font-weight:800;
       line-height:1.5;
     }
 
-    .home-link{
+    .home{
       background:#f1f5f9;
+      padding:12px 14px;
       border-radius:14px;
-      padding:11px 13px;
       font-weight:1000;
-      white-space:nowrap;
+      height:max-content;
     }
 
-    .role-tabs{
+    .tabs{
       display:grid;
       grid-template-columns:1fr 1fr;
-      gap:7px;
       background:#f1f5f9;
       padding:6px;
       border-radius:18px;
-      margin-bottom:16px;
+      margin-bottom:14px;
     }
 
-    .role-tab{
+    .tab{
       border:0;
       background:transparent;
+      padding:14px;
       border-radius:14px;
-      padding:13px 8px;
       font-weight:1000;
       color:#334155;
     }
 
-    .role-tab.active{
+    .tab.active{
       background:#07142f;
-      color:#fff;
-      box-shadow:0 10px 24px rgba(7,20,47,.16);
+      color:white;
     }
 
-    .register-method{
+    .methods{
       display:grid;
       grid-template-columns:1fr 1fr;
       gap:8px;
       margin-bottom:14px;
     }
 
-    .method-btn{
+    .method{
       border:1px solid #dbe3ef;
-      background:#fff;
-      border-radius:15px;
-      padding:11px;
+      background:white;
+      padding:13px;
+      border-radius:14px;
       font-weight:1000;
     }
 
-    .method-btn.active{
-      background:#fff8db;
+    .method.active{
       border-color:#ffcc00;
+      background:#fff8db;
     }
 
-    .form-grid{
+    .grid{
       display:grid;
       grid-template-columns:1fr 1fr;
       gap:12px;
     }
 
-    .field.full{
-      grid-column:1/-1;
-    }
+    .field.full{grid-column:1/-1}
 
-    .field label{
+    label{
       display:block;
       font-size:13px;
       font-weight:1000;
       margin-bottom:7px;
-      color:#1e293b;
     }
 
-    .field input,
-    .field select,
-    .field textarea{
+    input{
       width:100%;
       border:1px solid #dbe3ef;
-      background:#fff;
-      border-radius:16px;
-      padding:14px;
-      outline:0;
+      border-radius:15px;
+      padding:15px 14px;
       font-size:15px;
-      font-weight:850;
+      font-weight:800;
+      outline:none;
+      background:white;
     }
 
-    .field textarea{
-      min-height:90px;
-      resize:vertical;
-    }
-
-    .field input:focus,
-    .field select:focus,
-    .field textarea:focus{
+    input:focus{
       border-color:#ffcc00;
       box-shadow:0 0 0 4px rgba(255,204,0,.16);
     }
 
-    .seller-fields{
-      display:none;
-      grid-column:1/-1;
-      grid-template-columns:1fr 1fr;
-      gap:12px;
-      background:#f8fafc;
-      border:1px solid #e2e8f0;
-      border-radius:20px;
-      padding:14px;
-    }
-
-    .seller-fields.show{
-      display:grid;
-    }
-
-    .password-row{
+    .pass-wrap{
       position:relative;
+    }
+
+    .pass-wrap input{
+      padding-right:86px;
     }
 
     .show-pass{
       position:absolute;
       right:8px;
-      top:50%;
-      transform:translateY(-50%);
+      top:8px;
+      height:34px;
       border:0;
-      background:#f1f5f9;
       border-radius:12px;
-      padding:8px 10px;
+      padding:0 12px;
       font-weight:1000;
+      background:#f1f5f9;
+      color:#07142f;
     }
 
     .terms{
+      grid-column:1/-1;
+      display:flex;
+      align-items:flex-start;
+      gap:10px;
       background:#f8fafc;
-      border:1px solid #e2e8f0;
-      border-radius:18px;
+      border:1px solid #e5e7eb;
+      border-radius:16px;
       padding:13px;
-      margin:14px 0;
-      color:#334155;
+      font-weight:900;
       font-size:13px;
-      font-weight:850;
-      line-height:1.55;
+      line-height:1.5;
     }
 
-    .terms a{
-      color:var(--blue);
-      font-weight:1000;
+    .terms input{
+      width:auto;
+      margin-top:2px;
     }
 
-    .submit-btn{
-      width:100%;
+    .submit{
+      grid-column:1/-1;
       border:0;
+      border-radius:16px;
+      padding:16px;
+      font-size:16px;
+      font-weight:1000;
       background:linear-gradient(135deg,#ffcc00,#ff9f1c);
       color:#07142f;
-      border-radius:17px;
-      padding:15px;
-      font-weight:1000;
-      font-size:16px;
-      box-shadow:0 14px 30px rgba(255,204,0,.24);
+      margin-top:4px;
     }
 
-    .login-box{
-      margin-top:16px;
-      background:#f8fafc;
-      border:1px solid #e2e8f0;
-      border-radius:18px;
-      padding:14px;
+    .login-link{
+      grid-column:1/-1;
       text-align:center;
-      font-weight:850;
-      color:#334155;
-      line-height:1.5;
-    }
-
-    .login-box a{
-      color:var(--blue);
+      background:#f8fafc;
+      border:1px solid #e5e7eb;
+      border-radius:16px;
+      padding:14px;
       font-weight:1000;
+      margin-top:8px;
     }
 
-    .verify-box{
-      display:none;
-      background:#fff8db;
-      border:1px solid #ffe08a;
-      border-radius:18px;
-      padding:13px;
-      color:#7c4a11;
-      font-size:13px;
-      font-weight:850;
-      line-height:1.5;
-      margin-top:14px;
-    }
-
-    .verify-box.show{
-      display:block;
-    }
-
-    .verify-grid{
-      display:grid;
-      grid-template-columns:1fr auto;
-      gap:8px;
-      margin-top:10px;
-    }
-
-    .verify-grid input{
-      border:1px solid #dbe3ef;
-      border-radius:14px;
-      padding:12px;
-      font-weight:900;
-      outline:0;
-    }
-
-    .verify-grid button{
-      border:0;
-      background:#07142f;
-      color:#fff;
-      border-radius:14px;
-      padding:0 12px;
-      font-weight:1000;
+    .login-link a{
+      color:#064db5;
     }
 
     .toast{
       position:fixed;
-      right:18px;
-      bottom:18px;
-      background:#07142f;
-      color:#fff;
-      padding:14px 16px;
-      border-radius:18px;
-      box-shadow:var(--shadow);
-      font-weight:900;
-      display:none;
-      z-index:20;
+      right:24px;
+      bottom:24px;
       max-width:360px;
-      line-height:1.45;
+      background:#07142f;
+      color:white;
+      padding:16px 18px;
+      border-radius:18px;
+      font-weight:900;
+      box-shadow:0 18px 40px rgba(0,0,0,.25);
+      opacity:0;
+      transform:translateY(12px);
+      pointer-events:none;
+      transition:.2s;
+      z-index:99;
     }
 
-    .toast.show{display:block}
-
-    @keyframes show{
-      from{opacity:0;transform:translateY(12px)}
-      to{opacity:1;transform:translateY(0)}
+    .toast.show{
+      opacity:1;
+      transform:translateY(0);
     }
 
-    @media(max-width:980px){
-      .page{
-        grid-template-columns:1fr;
-      }
-      .brand-side{
-        padding:28px;
-      }
-      .hero-copy h1{
-        font-size:36px;
-      }
+    @media(max-width:950px){
+      .page{grid-template-columns:1fr}
+      .brand-side{display:none}
+      .form-side{min-height:100vh}
     }
 
     @media(max-width:620px){
-      .form-side{
-        padding:14px;
-      }
-      .brand-side{
-        padding:22px 18px;
-      }
-      .logo{
-        font-size:24px;
-      }
-      .hero-copy h1{
-        font-size:30px;
-      }
-      .auth-card{
-        border-radius:24px;
-        padding:18px;
-      }
-      .card-head{
-        flex-direction:column;
-      }
-      .home-link{
-        width:100%;
-        text-align:center;
-      }
-      .form-grid,
-      .seller-fields,
-      .role-tabs,
-      .register-method{
-        grid-template-columns:1fr;
-      }
+      .grid{grid-template-columns:1fr}
+      .head{flex-direction:column}
     }
   </style>
 </head>
 
 <body>
+  <main class="page">
+    <section class="brand-side">
+      <div class="logo">
+        <div class="logo-mark">AK</div>
+        <div>Alma Kirala</div>
+      </div>
 
-<main class="page">
+      <div class="brand-copy">
+        <h1>Güvenilir kiralama için önce hesabını oluştur.</h1>
+        <p>Müşteri hesabı için temel bilgiler alınır. Kayıt gerçek backend üzerinden Supabase veritabanına kaydedilir.</p>
+      </div>
 
-  <section class="brand-side">
-    <a href="index.html" class="logo">
-      <span class="logo-icon"></span>
-      Alma Kirala
-    </a>
-
-    <div class="hero-copy">
-      <span>Kayıt + doğrulama zorunlu</span>
-      <h1>Güvenilir kiralama için önce hesabını doğrula.</h1>
-      <p>Müşteri hesabı için kimlik bilgileri ve iletişim alınır. Mağaza hesabı için şirket, vergi ve iletişim bilgileri zorunludur.</p>
-    </div>
-
-    <div class="steps">
-      <div class="step"><strong>1. Bilgilerini gir</strong><span>Ad soyad, doğum tarihi, mail veya telefon ve şifre.</span></div>
-      <div class="step"><strong>2. Doğrula</strong><span>Mail veya telefon doğrulama kodu ile hesabını aktif et.</span></div>
-      <div class="step"><strong>3. Güvenli kullan</strong><span>Kirala, mesajlaş, takip et veya mağaza yönet.</span></div>
-    </div>
-  </section>
-
-  <section class="form-side">
-    <div class="auth-card">
-      <div class="card-head">
-        <div>
-          <h2>Hesap Aç</h2>
-          <p id="roleDescription">Müşteri hesabı oluştur. Kiralama ve mesajlaşma için doğrulama gerekir.</p>
+      <div class="steps">
+        <div class="step">
+          <strong>1. Bilgilerini gir</strong>
+          <span>Ad, soyad, e-mail ve şifre.</span>
         </div>
-        <a class="home-link" href="index.html">Ana Sayfa</a>
+        <div class="step">
+          <strong>2. Kayıt ol</strong>
+          <span>Backend’e gerçek kayıt gönderilir.</span>
+        </div>
+        <div class="step">
+          <strong>3. Giriş yap</strong>
+          <span>Token ile müşteri paneline geçilir.</span>
+        </div>
       </div>
+    </section>
 
-      <div class="role-tabs">
-        <button class="role-tab active" data-role="customer" type="button">Müşteri Hesabı</button>
-        <button class="role-tab" data-role="seller" type="button">Mağaza Hesabı</button>
-      </div>
+    <section class="form-side">
+      <div class="card">
+        <div class="head">
+          <div>
+            <h2>Hesap Aç</h2>
+            <p>Müşteri hesabı oluştur. Kayıt sonrası giriş sayfasına yönlendirilirsin.</p>
+          </div>
+          <a class="home" href="index.html">Ana Sayfa</a>
+        </div>
 
-      <div class="register-method">
-        <button class="method-btn active" data-method="email" type="button">E-mail ile kayıt</button>
-        <button class="method-btn" data-method="phone" type="button">Telefon ile kayıt</button>
-      </div>
+        <div class="tabs">
+          <button class="tab active" type="button">Müşteri Hesabı</button>
+          <button class="tab" type="button" disabled>Mağaza Hesabı</button>
+        </div>
 
-      <form id="registerForm">
-        <div class="form-grid">
+        <div class="methods">
+          <button class="method active" type="button">E-mail ile kayıt</button>
+          <button class="method" type="button" disabled>Telefon ile kayıt</button>
+        </div>
+
+        <form id="registerForm" class="grid">
           <div class="field">
             <label for="firstName">Ad</label>
-            <input id="firstName" type="text" placeholder="Adın">
+            <input id="firstName" name="firstName" type="text" placeholder="Adın">
           </div>
 
           <div class="field">
             <label for="lastName">Soyad</label>
-            <input id="lastName" type="text" placeholder="Soyadın">
+            <input id="lastName" name="lastName" type="text" placeholder="Soyadın">
           </div>
 
           <div class="field">
             <label for="birthDate">Doğum tarihi</label>
-            <input id="birthDate" type="date">
+            <input id="birthDate" name="birthDate" type="text" placeholder="11.12.1990">
           </div>
 
           <div class="field">
             <label for="city">Şehir</label>
-            <input id="city" type="text" placeholder="İstanbul">
+            <input id="city" name="city" type="text" placeholder="Trabzon">
           </div>
 
-          <div class="field" id="emailField">
+          <div class="field">
             <label for="email">E-mail adresi</label>
-            <input id="email" type="email" placeholder="ornek@mail.com">
-          </div>
-
-          <div class="field" id="phoneField" style="display:none">
-            <label for="phone">Telefon numarası</label>
-            <input id="phone" type="tel" placeholder="05xx xxx xx xx">
+            <input id="email" name="email" type="email" placeholder="ornek@mail.com" autocomplete="email">
           </div>
 
           <div class="field">
             <label for="password">Şifre belirle</label>
-            <div class="password-row">
-              <input id="password" type="password" placeholder="En az 6 karakter">
+            <div class="pass-wrap">
+              <input id="password" name="password" type="password" placeholder="En az 6 karakter" autocomplete="new-password">
               <button class="show-pass" type="button" data-target="password">Göster</button>
             </div>
           </div>
 
           <div class="field">
             <label for="password2">Şifre tekrar</label>
-            <div class="password-row">
-              <input id="password2" type="password" placeholder="Şifreni tekrar gir">
+            <div class="pass-wrap">
+              <input id="password2" name="password2" type="password" placeholder="Şifre tekrar" autocomplete="new-password">
               <button class="show-pass" type="button" data-target="password2">Göster</button>
             </div>
           </div>
 
-          <div class="seller-fields" id="sellerFields">
-            <div class="field">
-              <label for="companyName">Şirket / mağaza ismi</label>
-              <input id="companyName" type="text" placeholder="Örn: Kamera Dünyam">
-            </div>
-
-            <div class="field">
-              <label for="taxOffice">Vergi dairesi</label>
-              <input id="taxOffice" type="text" placeholder="Vergi dairesi">
-            </div>
-
-            <div class="field">
-              <label for="taxNumber">Vergi numarası</label>
-              <input id="taxNumber" type="text" placeholder="Vergi / TCKN numarası">
-            </div>
-
-            <div class="field">
-              <label for="businessPhone">İşletme telefonu</label>
-              <input id="businessPhone" type="tel" placeholder="05xx xxx xx xx">
-            </div>
-
-            <div class="field">
-              <label for="businessEmail">İşletme e-mail</label>
-              <input id="businessEmail" type="email" placeholder="magaza@mail.com">
-            </div>
-
-            <div class="field">
-              <label for="website">Web sitesi</label>
-              <input id="website" type="url" placeholder="https://...">
-            </div>
-
-            <div class="field full">
-              <label for="storeDescription">Mağaza açıklaması</label>
-              <textarea id="storeDescription" placeholder="Mağazan ne kiralıyor, hangi şehirde hizmet veriyor?"></textarea>
-            </div>
-          </div>
-        </div>
-
-        <div class="terms">
-          <label>
-            <input id="terms" type="checkbox">
-            Kullanım şartlarını, gizlilik politikasını ve doğrulama sürecini kabul ediyorum.
+          <label class="terms">
+            <input id="terms" type="checkbox" checked>
+            <span>Kullanım şartlarını, gizlilik politikasını ve doğrulama sürecini kabul ediyorum.</span>
           </label>
-        </div>
 
-        <button class="submit-btn" type="submit">Kayıt Ol ve Doğrula</button>
+          <button class="submit" type="submit">Kayıt Ol</button>
 
-        <div class="verify-box" id="verifyBox">
-          Doğrulama kodu gönderildi. Demo kod: <b>123456</b>
-          <div class="verify-grid">
-            <input id="verifyCode" type="text" placeholder="Doğrulama kodu">
-            <button id="verifyBtn" type="button">Doğrula</button>
+          <div class="login-link">
+            Zaten hesabın var mı? <a href="login.html">Giriş yap</a>
           </div>
-        </div>
-      </form>
-
-      <div class="login-box">
-        Zaten hesabın var mı?
-        <a href="login.html">Giriş yap</a>
+        </form>
       </div>
-    </div>
-  </section>
+    </section>
+  </main>
 
-</main>
+  <div class="toast" id="toast"></div>
 
-<div class="toast" id="toast"></div>
+  <script>
+    const API_BASE = "https://alma-kirala-api.onrender.com";
 
-<script>
-const API_BASE = "https://alma-kirala-api.onrender.com";
+    const $ = (id) => document.getElementById(id);
 
-let currentRole = "customer";
-let currentMethod = "email";
+    function toast(message){
+      const el = $("toast");
+      el.textContent = message;
+      el.classList.add("show");
+      setTimeout(() => el.classList.remove("show"), 3500);
+    }
 
-function $(id){ return document.getElementById(id); }
+    function requireValue(value, message){
+      if(!String(value || "").trim()){
+        toast(message);
+        return false;
+      }
+      return true;
+    }
 
-function toast(message){
-  $("toast").textContent = message;
-  $("toast").classList.add("show");
-  setTimeout(() => $("toast").classList.remove("show"), 3500);
-}
+    function getPayload(){
+      return {
+        firstName: $("firstName").value.trim(),
+        lastName: $("lastName").value.trim(),
+        birthDate: $("birthDate").value.trim(),
+        city: $("city").value.trim(),
+        email: $("email").value.trim().toLowerCase(),
+        password: $("password").value,
+        password2: $("password2").value
+      };
+    }
 
-function setRole(role){
-  currentRole = role;
+    function validatePayload(payload){
+      if(!requireValue(payload.firstName, "Ad zorunlu.")) return false;
+      if(!requireValue(payload.lastName, "Soyad zorunlu.")) return false;
+      if(!requireValue(payload.birthDate, "Doğum tarihi zorunlu.")) return false;
+      if(!requireValue(payload.city, "Şehir zorunlu.")) return false;
+      if(!requireValue(payload.email, "E-mail adresi zorunlu.")) return false;
+      if(!requireValue(payload.password, "Şifre zorunlu.")) return false;
 
-  document.querySelectorAll(".role-tab").forEach(btn => {
-    btn.classList.toggle("active", btn.dataset.role === role);
-  });
+      if(payload.password.length < 6){
+        toast("Şifre en az 6 karakter olmalı.");
+        return false;
+      }
 
-  $("sellerFields").classList.toggle("show", role === "seller");
+      if(payload.password !== payload.password2){
+        toast("Şifreler eşleşmiyor.");
+        return false;
+      }
 
-  $("roleDescription").textContent = role === "seller"
-    ? "Mağaza hesabı oluştur. Şirket, vergi, iletişim ve mağaza bilgileri zorunludur."
-    : "Müşteri hesabı oluştur. Kiralama ve mesajlaşma için doğrulama gerekir.";
-}
+      if(!$("terms").checked){
+        toast("Kullanım şartlarını kabul etmelisin.");
+        return false;
+      }
 
-function setMethod(method){
-  currentMethod = method;
+      return true;
+    }
 
-  document.querySelectorAll(".method-btn").forEach(btn => {
-    btn.classList.toggle("active", btn.dataset.method === method);
-  });
+    async function registerUser(payload){
+      const apiPayload = {
+        name: `${payload.firstName} ${payload.lastName}`.trim(),
+        email: payload.email,
+        password: payload.password
+      };
 
-  $("emailField").style.display = method === "email" ? "block" : "none";
-  $("phoneField").style.display = method === "phone" ? "block" : "none";
-}
+      const res = await fetch(`${API_BASE}/api/auth/register`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(apiPayload)
+      });
 
-function requireValue(value, message){
-  if(!String(value || "").trim()){
-    toast(message);
-    return false;
-  }
-  return true;
-}
+      const data = await res.json();
 
-function collectPayload(){
-  return {
-    role: currentRole,
-    method: currentMethod,
-    firstName: $("firstName").value.trim(),
-    lastName: $("lastName").value.trim(),
-    birthDate: $("birthDate").value,
-    city: $("city").value.trim(),
-    email: $("email").value.trim().toLowerCase(),
-    phone: $("phone").value.trim(),
-    password: $("password").value,
-    password2: $("password2").value,
-    companyName: $("companyName").value.trim(),
-    taxOffice: $("taxOffice").value.trim(),
-    taxNumber: $("taxNumber").value.trim(),
-    businessPhone: $("businessPhone").value.trim(),
-    businessEmail: $("businessEmail").value.trim(),
-    storeDescription: $("storeDescription").value.trim()
-  };
-}
+      if(!res.ok){
+        throw new Error(data.message || "Kayıt başarısız.");
+      }
 
-function validatePayload(payload){
-  if(!requireValue(payload.firstName, "Ad zorunlu.")) return false;
-  if(!requireValue(payload.lastName, "Soyad zorunlu.")) return false;
-  if(!requireValue(payload.birthDate, "Doğum tarihi zorunlu.")) return false;
-  if(!requireValue(payload.city, "Şehir zorunlu.")) return false;
+      return data;
+    }
 
-  if(payload.method !== "email"){
-    toast("Şimdilik gerçek backend kaydı sadece e-mail ile çalışıyor.");
-    return false;
-  }
+    $("registerForm").addEventListener("submit", async (e) => {
+      e.preventDefault();
 
-  if(!requireValue(payload.email, "E-mail adresi zorunlu.")) return false;
-  if(!requireValue(payload.password, "Şifre zorunlu.")) return false;
+      const payload = getPayload();
 
-  if(payload.password.length < 6){
-    toast("Şifre en az 6 karakter olmalı.");
-    return false;
-  }
+      if(!validatePayload(payload)) return;
 
-  if(payload.password !== payload.password2){
-    toast("Şifreler eşleşmiyor.");
-    return false;
-  }
+      try{
+        const result = await registerUser(payload);
 
-  if(payload.role === "seller"){
-    if(!requireValue(payload.companyName, "Şirket / mağaza ismi zorunlu.")) return false;
-    if(!requireValue(payload.taxOffice, "Vergi dairesi zorunlu.")) return false;
-    if(!requireValue(payload.taxNumber, "Vergi numarası zorunlu.")) return false;
-    if(!requireValue(payload.businessPhone, "İşletme telefonu zorunlu.")) return false;
-    if(!requireValue(payload.businessEmail, "İşletme e-mail adresi zorunlu.")) return false;
-    if(!requireValue(payload.storeDescription, "Mağaza açıklaması zorunlu.")) return false;
-  }
+        localStorage.setItem("token", result.token);
+        localStorage.setItem("user", JSON.stringify(result.user));
 
-  if(!$("terms").checked){
-    toast("Kullanım şartlarını kabul etmelisin.");
-    return false;
-  }
+        toast("Kayıt başarılı. Giriş sayfasına yönlendiriliyorsun...");
 
-  return true;
-}
+        setTimeout(() => {
+          window.location.href = "login.html";
+        }, 900);
 
-async function registerToBackend(payload){
-  const apiPayload = {
-    name: `${payload.firstName} ${payload.lastName}`.trim(),
-    email: payload.email,
-    password: payload.password
-  };
+      }catch(error){
+        toast(error.message);
+      }
+    });
 
-  const res = await fetch(`${API_BASE}/api/auth/register`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(apiPayload)
-  });
-
-  const data = await res.json();
-
-  if(!res.ok){
-    throw new Error(data.message || "Kayıt başarısız.");
-  }
-
-  return data;
-}
-
-document.querySelectorAll(".role-tab").forEach(btn => {
-  btn.addEventListener("click", () => setRole(btn.dataset.role));
-});
-
-document.querySelectorAll(".method-btn").forEach(btn => {
-  btn.addEventListener("click", () => setMethod(btn.dataset.method));
-});
-
-document.querySelectorAll(".show-pass").forEach(btn => {
-  btn.addEventListener("click", () => {
-    const input = $(btn.dataset.target);
-    input.type = input.type === "password" ? "text" : "password";
-    btn.textContent = input.type === "password" ? "Göster" : "Gizle";
-  });
-});
-
-$("registerForm").addEventListener("submit", async (e) => {
-  e.preventDefault();
-
-  const payload = collectPayload();
-  if(!validatePayload(payload)) return;
-
-  try{
-    const result = await registerToBackend(payload);
-
-    localStorage.setItem("token", result.token);
-    localStorage.setItem("user", JSON.stringify(result.user));
-
-    toast("Kayıt başarılı. Giriş sayfasına yönlendiriliyorsun...");
-
-    setTimeout(() => {
-      window.location.href = "login.html";
-    }, 900);
-
-  }catch(err){
-    toast(err.message);
-  }
-});
-
-setRole("customer");
-setMethod("email");
-</script>
-
+    document.querySelectorAll(".show-pass").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const input = $(btn.dataset.target);
+        input.type = input.type === "password" ? "text" : "password";
+        btn.textContent = input.type === "password" ? "Göster" : "Gizle";
+      });
+    });
+  </script>
 </body>
 </html>
