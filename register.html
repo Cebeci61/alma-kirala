@@ -6,30 +6,65 @@
   <title>Hesap Aç | Alma Kirala</title>
 
   <style>
+    :root{
+      --dark:#07142f;
+      --blue:#064db5;
+      --yellow:#ffcc00;
+      --orange:#ff9f1c;
+      --bg:#f4f6fb;
+      --text:#07142f;
+      --muted:#64748b;
+      --line:#e5e7eb;
+      --soft:#eef4ff;
+      --red:#dc2626;
+      --green:#16a34a;
+      --shadow:0 20px 55px rgba(15,23,42,.13);
+      --shadow2:0 10px 28px rgba(15,23,42,.08);
+    }
+
     *{box-sizing:border-box}
     body{
       margin:0;
       font-family:Inter,Arial,sans-serif;
-      background:#f4f6fb;
-      color:#07142f;
+      background:
+        radial-gradient(circle at 100% 0%,rgba(255,204,0,.18),transparent 32%),
+        radial-gradient(circle at 0% 20%,rgba(6,77,181,.10),transparent 30%),
+        var(--bg);
+      color:var(--text);
     }
     a{text-decoration:none;color:inherit}
-    button,input{font-family:inherit}
+    button,input,select{font-family:inherit}
     button{cursor:pointer}
 
     .page{
       min-height:100vh;
       display:grid;
-      grid-template-columns:1fr 1.15fr;
+      grid-template-columns:1fr 1.18fr;
     }
 
     .brand-side{
-      background:linear-gradient(135deg,#07142f,#14396f);
-      color:white;
+      background:
+        radial-gradient(circle at 80% 10%,rgba(255,204,0,.22),transparent 34%),
+        linear-gradient(135deg,#07142f,#14396f);
+      color:#fff;
       padding:44px;
       display:flex;
       flex-direction:column;
       justify-content:space-between;
+      gap:32px;
+      position:relative;
+      overflow:hidden;
+    }
+
+    .brand-side:after{
+      content:"";
+      position:absolute;
+      width:300px;
+      height:300px;
+      border-radius:50%;
+      right:-120px;
+      bottom:-110px;
+      background:rgba(255,204,0,.12);
     }
 
     .logo{
@@ -38,58 +73,93 @@
       gap:14px;
       font-size:30px;
       font-weight:1000;
+      position:relative;
+      z-index:1;
     }
 
     .logo-mark{
-      width:56px;
-      height:56px;
-      border-radius:18px;
+      width:58px;
+      height:58px;
+      border-radius:19px;
       background:linear-gradient(135deg,#ffcc00,#ff9f1c);
-      color:#07142f;
-      display:grid;
-      place-items:center;
-      font-weight:1000;
-      font-size:24px;
+      position:relative;
+      overflow:hidden;
+      box-shadow:0 16px 32px rgba(255,204,0,.28);
+    }
+
+    .logo-mark:before{
+      content:"";
+      position:absolute;
+      width:23px;
+      height:62px;
+      background:#07142f;
+      transform:rotate(28deg);
+      left:14px;
+      top:5px;
+      border-radius:999px;
+    }
+
+    .logo-mark:after{
+      content:"";
+      position:absolute;
+      width:19px;
+      height:19px;
+      background:#fff;
+      border-radius:50%;
+      right:9px;
+      bottom:9px;
+    }
+
+    .brand-copy{
+      position:relative;
+      z-index:1;
     }
 
     .brand-copy h1{
-      font-family:Georgia,serif;
-      font-size:46px;
-      line-height:1.05;
+      font-family:Georgia,"Times New Roman",serif;
+      font-size:50px;
+      line-height:1.04;
       margin:0 0 18px;
+      letter-spacing:-1.2px;
+      max-width:620px;
     }
 
     .brand-copy p{
       color:#dbe7ff;
       font-weight:800;
       line-height:1.7;
-      max-width:520px;
+      max-width:560px;
+      font-size:17px;
     }
 
     .steps{
       display:grid;
       gap:12px;
-      max-width:520px;
+      max-width:560px;
+      position:relative;
+      z-index:1;
     }
 
     .step{
       background:rgba(255,255,255,.09);
-      border:1px solid rgba(255,255,255,.14);
-      border-radius:18px;
-      padding:16px;
+      border:1px solid rgba(255,255,255,.15);
+      border-radius:20px;
+      padding:17px;
+      backdrop-filter:blur(10px);
     }
 
     .step strong{
       display:block;
       color:#ffcc00;
-      font-size:18px;
-      margin-bottom:4px;
+      font-size:19px;
+      margin-bottom:5px;
     }
 
     .step span{
       color:#dbe7ff;
       font-weight:800;
       font-size:13px;
+      line-height:1.45;
     }
 
     .form-side{
@@ -97,18 +167,15 @@
       display:grid;
       place-items:center;
       padding:28px;
-      background:
-        radial-gradient(circle at top right,rgba(255,204,0,.18),transparent 35%),
-        #f4f6fb;
     }
 
     .card{
-      width:min(680px,100%);
-      background:white;
-      border-radius:30px;
-      padding:28px;
-      box-shadow:0 18px 45px rgba(15,23,42,.12);
-      border:1px solid #e5e7eb;
+      width:min(760px,100%);
+      background:rgba(255,255,255,.96);
+      border-radius:34px;
+      padding:30px;
+      box-shadow:var(--shadow);
+      border:1px solid rgba(226,232,240,.95);
     }
 
     .head{
@@ -116,27 +183,31 @@
       justify-content:space-between;
       gap:18px;
       margin-bottom:18px;
+      align-items:flex-start;
     }
 
     .head h2{
       margin:0;
-      font-family:Georgia,serif;
-      font-size:34px;
+      font-family:Georgia,"Times New Roman",serif;
+      font-size:38px;
+      letter-spacing:-.8px;
     }
 
     .head p{
-      margin:6px 0 0;
-      color:#64748b;
-      font-weight:800;
+      margin:7px 0 0;
+      color:var(--muted);
+      font-weight:850;
       line-height:1.5;
     }
 
     .home{
       background:#f1f5f9;
       padding:12px 14px;
-      border-radius:14px;
+      border-radius:15px;
       font-weight:1000;
       height:max-content;
+      border:1px solid #e2e8f0;
+      white-space:nowrap;
     }
 
     .tabs{
@@ -144,37 +215,40 @@
       grid-template-columns:1fr 1fr;
       background:#f1f5f9;
       padding:6px;
-      border-radius:18px;
+      border-radius:20px;
       margin-bottom:14px;
+      gap:6px;
     }
 
     .tab{
       border:0;
       background:transparent;
-      padding:14px;
-      border-radius:14px;
+      padding:15px;
+      border-radius:15px;
       font-weight:1000;
       color:#334155;
     }
 
     .tab.active{
       background:#07142f;
-      color:white;
+      color:#fff;
+      box-shadow:0 10px 24px rgba(7,20,47,.18);
     }
 
     .methods{
       display:grid;
       grid-template-columns:1fr 1fr;
-      gap:8px;
-      margin-bottom:14px;
+      gap:9px;
+      margin-bottom:16px;
     }
 
     .method{
       border:1px solid #dbe3ef;
-      background:white;
-      padding:13px;
-      border-radius:14px;
+      background:#fff;
+      padding:14px;
+      border-radius:16px;
       font-weight:1000;
+      color:#07142f;
     }
 
     .method.active{
@@ -182,10 +256,15 @@
       background:#fff8db;
     }
 
+    .method.disabled{
+      opacity:.55;
+      cursor:not-allowed;
+    }
+
     .grid{
       display:grid;
       grid-template-columns:1fr 1fr;
-      gap:12px;
+      gap:13px;
     }
 
     .field.full{grid-column:1/-1}
@@ -197,20 +276,28 @@
       margin-bottom:7px;
     }
 
-    input{
+    input,select{
       width:100%;
       border:1px solid #dbe3ef;
-      border-radius:15px;
+      border-radius:16px;
       padding:15px 14px;
       font-size:15px;
-      font-weight:800;
+      font-weight:850;
       outline:none;
-      background:white;
+      background:#fff;
+      color:#07142f;
     }
 
-    input:focus{
+    input:focus,select:focus{
       border-color:#ffcc00;
       box-shadow:0 0 0 4px rgba(255,204,0,.16);
+    }
+
+    .hint{
+      margin-top:6px;
+      color:#64748b;
+      font-size:12px;
+      font-weight:800;
     }
 
     .pass-wrap{
@@ -218,16 +305,16 @@
     }
 
     .pass-wrap input{
-      padding-right:86px;
+      padding-right:88px;
     }
 
     .show-pass{
       position:absolute;
       right:8px;
       top:8px;
-      height:34px;
+      height:36px;
       border:0;
-      border-radius:12px;
+      border-radius:13px;
       padding:0 12px;
       font-weight:1000;
       background:#f1f5f9;
@@ -238,11 +325,11 @@
       grid-column:1/-1;
       display:flex;
       align-items:flex-start;
-      gap:10px;
+      gap:11px;
       background:#f8fafc;
       border:1px solid #e5e7eb;
-      border-radius:16px;
-      padding:13px;
+      border-radius:18px;
+      padding:14px;
       font-weight:900;
       font-size:13px;
       line-height:1.5;
@@ -251,18 +338,25 @@
     .terms input{
       width:auto;
       margin-top:2px;
+      accent-color:#064db5;
     }
 
     .submit{
       grid-column:1/-1;
       border:0;
-      border-radius:16px;
-      padding:16px;
-      font-size:16px;
+      border-radius:18px;
+      padding:17px;
+      font-size:17px;
       font-weight:1000;
       background:linear-gradient(135deg,#ffcc00,#ff9f1c);
       color:#07142f;
       margin-top:4px;
+      box-shadow:0 16px 32px rgba(255,204,0,.24);
+    }
+
+    .submit:disabled{
+      opacity:.65;
+      cursor:not-allowed;
     }
 
     .login-link{
@@ -270,8 +364,8 @@
       text-align:center;
       background:#f8fafc;
       border:1px solid #e5e7eb;
-      border-radius:16px;
-      padding:14px;
+      border-radius:18px;
+      padding:15px;
       font-weight:1000;
       margin-top:8px;
     }
@@ -284,9 +378,9 @@
       position:fixed;
       right:24px;
       bottom:24px;
-      max-width:360px;
+      max-width:390px;
       background:#07142f;
-      color:white;
+      color:#fff;
       padding:16px 18px;
       border-radius:18px;
       font-weight:900;
@@ -296,6 +390,7 @@
       pointer-events:none;
       transition:.2s;
       z-index:99;
+      line-height:1.45;
     }
 
     .toast.show{
@@ -303,15 +398,20 @@
       transform:translateY(0);
     }
 
-    @media(max-width:950px){
+    @media(max-width:980px){
       .page{grid-template-columns:1fr}
       .brand-side{display:none}
       .form-side{min-height:100vh}
     }
 
-    @media(max-width:620px){
-      .grid{grid-template-columns:1fr}
+    @media(max-width:650px){
+      .form-side{padding:16px}
+      .card{padding:20px;border-radius:26px}
       .head{flex-direction:column}
+      .head h2{font-size:32px}
+      .grid{grid-template-columns:1fr}
+      .methods{grid-template-columns:1fr}
+      .tabs{grid-template-columns:1fr}
     }
   </style>
 </head>
@@ -319,28 +419,28 @@
 <body>
   <main class="page">
     <section class="brand-side">
-      <div class="logo">
-        <div class="logo-mark">AK</div>
-        <div>Alma Kirala</div>
-      </div>
+      <a class="logo" href="index.html">
+        <span class="logo-mark"></span>
+        <span>Alma Kirala</span>
+      </a>
 
       <div class="brand-copy">
-        <h1>Güvenilir kiralama için önce hesabını oluştur.</h1>
-        <p>Müşteri hesabı için temel bilgiler alınır. Kayıt gerçek backend üzerinden Supabase veritabanına kaydedilir.</p>
+        <h1>Güvenilir kiralama için hesabını oluştur.</h1>
+        <p>Ürünleri incele, favorilerine ekle ve kiralama adımında güvenli hesap yapısıyla devam et.</p>
       </div>
 
       <div class="steps">
         <div class="step">
           <strong>1. Bilgilerini gir</strong>
-          <span>Ad, soyad, e-mail ve şifre.</span>
+          <span>Ad, soyad, telefon, şehir ve e-mail bilgilerini tamamla.</span>
         </div>
         <div class="step">
           <strong>2. Kayıt ol</strong>
-          <span>Backend’e gerçek kayıt gönderilir.</span>
+          <span>Backend’e gerçek kayıt gönderilir. Supabase veritabanına kullanıcı oluşturulur.</span>
         </div>
         <div class="step">
           <strong>3. Giriş yap</strong>
-          <span>Token ile müşteri paneline geçilir.</span>
+          <span>Kayıt sonrası giriş sayfasına yönlendirilirsin.</span>
         </div>
       </div>
     </section>
@@ -356,37 +456,47 @@
         </div>
 
         <div class="tabs">
-          <button class="tab active" type="button">Müşteri Hesabı</button>
-          <button class="tab" type="button" disabled>Mağaza Hesabı</button>
+          <button class="tab active" id="customerTab" type="button">Müşteri Hesabı</button>
+          <button class="tab" id="sellerTab" type="button">Mağaza Hesabı</button>
         </div>
 
         <div class="methods">
-          <button class="method active" type="button">E-mail ile kayıt</button>
-          <button class="method" type="button" disabled>Telefon ile kayıt</button>
+          <button class="method active" id="emailMethod" type="button">E-mail ile kayıt</button>
+          <button class="method disabled" id="phoneMethod" type="button">Telefon doğrulama yakında</button>
         </div>
 
         <form id="registerForm" class="grid">
           <div class="field">
             <label for="firstName">Ad</label>
-            <input id="firstName" name="firstName" type="text" placeholder="Adın">
+            <input id="firstName" name="firstName" type="text" placeholder="Adın" autocomplete="given-name">
           </div>
 
           <div class="field">
             <label for="lastName">Soyad</label>
-            <input id="lastName" name="lastName" type="text" placeholder="Soyadın">
+            <input id="lastName" name="lastName" type="text" placeholder="Soyadın" autocomplete="family-name">
+          </div>
+
+          <div class="field">
+            <label for="phone">Telefon</label>
+            <input id="phone" name="phone" type="tel" placeholder="05xx xxx xx xx" autocomplete="tel">
           </div>
 
           <div class="field">
             <label for="birthDate">Doğum tarihi</label>
-            <input id="birthDate" name="birthDate" type="text" placeholder="11.12.1990">
+            <input id="birthDate" name="birthDate" type="date">
           </div>
 
           <div class="field">
             <label for="city">Şehir</label>
-            <input id="city" name="city" type="text" placeholder="Trabzon">
+            <input id="city" name="city" type="text" placeholder="Trabzon" autocomplete="address-level1">
           </div>
 
           <div class="field">
+            <label for="district">İlçe</label>
+            <input id="district" name="district" type="text" placeholder="Ortahisar" autocomplete="address-level2">
+          </div>
+
+          <div class="field full">
             <label for="email">E-mail adresi</label>
             <input id="email" name="email" type="email" placeholder="ornek@mail.com" autocomplete="email">
           </div>
@@ -412,7 +522,7 @@
             <span>Kullanım şartlarını, gizlilik politikasını ve doğrulama sürecini kabul ediyorum.</span>
           </label>
 
-          <button class="submit" type="submit">Kayıt Ol</button>
+          <button class="submit" id="submitBtn" type="submit">Kayıt Ol</button>
 
           <div class="login-link">
             Zaten hesabın var mı? <a href="login.html">Giriş yap</a>
@@ -444,12 +554,18 @@
       return true;
     }
 
+    function normalizePhone(value){
+      return String(value || "").replace(/\D/g, "");
+    }
+
     function getPayload(){
       return {
         firstName: $("firstName").value.trim(),
         lastName: $("lastName").value.trim(),
+        phone: $("phone").value.trim(),
         birthDate: $("birthDate").value.trim(),
         city: $("city").value.trim(),
+        district: $("district").value.trim(),
         email: $("email").value.trim().toLowerCase(),
         password: $("password").value,
         password2: $("password2").value
@@ -459,10 +575,23 @@
     function validatePayload(payload){
       if(!requireValue(payload.firstName, "Ad zorunlu.")) return false;
       if(!requireValue(payload.lastName, "Soyad zorunlu.")) return false;
+      if(!requireValue(payload.phone, "Telefon numarası zorunlu.")) return false;
       if(!requireValue(payload.birthDate, "Doğum tarihi zorunlu.")) return false;
       if(!requireValue(payload.city, "Şehir zorunlu.")) return false;
+      if(!requireValue(payload.district, "İlçe zorunlu.")) return false;
       if(!requireValue(payload.email, "E-mail adresi zorunlu.")) return false;
       if(!requireValue(payload.password, "Şifre zorunlu.")) return false;
+
+      const phoneDigits = normalizePhone(payload.phone);
+      if(phoneDigits.length < 10){
+        toast("Telefon numarası geçerli değil.");
+        return false;
+      }
+
+      if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(payload.email)){
+        toast("Geçerli bir e-mail adresi gir.");
+        return false;
+      }
 
       if(payload.password.length < 6){
         toast("Şifre en az 6 karakter olmalı.");
@@ -497,7 +626,7 @@
         body: JSON.stringify(apiPayload)
       });
 
-      const data = await res.json();
+      const data = await res.json().catch(() => ({}));
 
       if(!res.ok){
         throw new Error(data.message || "Kayıt başarısız.");
@@ -510,14 +639,31 @@
       e.preventDefault();
 
       const payload = getPayload();
-
       if(!validatePayload(payload)) return;
+
+      const submitBtn = $("submitBtn");
+      submitBtn.disabled = true;
+      submitBtn.textContent = "Kayıt oluşturuluyor...";
 
       try{
         const result = await registerUser(payload);
 
-        localStorage.setItem("token", result.token);
-        localStorage.setItem("user", JSON.stringify(result.user));
+        if(result.token){
+          localStorage.setItem("token", result.token);
+        }
+
+        if(result.user){
+          const enrichedUser = {
+            ...result.user,
+            firstName: payload.firstName,
+            lastName: payload.lastName,
+            phone: payload.phone,
+            birthDate: payload.birthDate,
+            city: payload.city,
+            district: payload.district
+          };
+          localStorage.setItem("user", JSON.stringify(enrichedUser));
+        }
 
         toast("Kayıt başarılı. Giriş sayfasına yönlendiriliyorsun...");
 
@@ -527,6 +673,9 @@
 
       }catch(error){
         toast(error.message);
+      }finally{
+        submitBtn.disabled = false;
+        submitBtn.textContent = "Kayıt Ol";
       }
     });
 
@@ -536,6 +685,18 @@
         input.type = input.type === "password" ? "text" : "password";
         btn.textContent = input.type === "password" ? "Göster" : "Gizle";
       });
+    });
+
+    $("sellerTab").addEventListener("click", () => {
+      window.location.href = "seller-register.html";
+    });
+
+    $("phoneMethod").addEventListener("click", () => {
+      toast("Telefon ile doğrulamalı kayıt yakında aktif olacak.");
+    });
+
+    $("emailMethod").addEventListener("click", () => {
+      toast("E-mail ile kayıt aktif.");
     });
   </script>
 </body>
