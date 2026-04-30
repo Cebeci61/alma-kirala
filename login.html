@@ -690,16 +690,22 @@ function requireValue(value,message){
 
 async function tryBackendLogin(payload){
   try{
-const res = await fetch(`${API_BASE}/api/auth/login`, {
-  method: "POST",
-  headers: { "Content-Type": "application/json" },
-  body: JSON.stringify(payload)
-});
+    const res = await fetch(`${API_BASE}/api/auth/login`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload)
+    });
 
-    if(!res.ok) return null;
+    const data = await res.json();
 
-    return await res.json();
+    if(!res.ok){
+      toast(data.message || "Giriş başarısız.");
+      return null;
+    }
+
+    return data;
   }catch(err){
+    toast("Backend bağlantı hatası.");
     return null;
   }
 }
@@ -832,12 +838,19 @@ $("loginForm").addEventListener("submit",async(e)=>{
   if(!requireValue(password,"Şifre zorunlu.")) return;
 
 const payload = {
-  email: document.getElementById("email").value.trim().toLowerCase(),
-  password: document.getElementById("password").value
+  role: currentRole,
+  method: currentMethod,
+  email: email.trim().toLowerCase(),
+  phone,
+  password
 };
 
-  const backendResult = await tryBackendLogin(payload);
-  const result = backendResult || demoLogin(payload);
+const backendResult = await tryBackendLogin({
+  email: payload.email,
+  password: payload.password
+});
+
+const result = backendResult || demoLogin(payload);
 
   if(!result){
     toast("Hesap bulunamadı veya şifre hatalı. Kayıt olmadan giriş yapılamaz.");
