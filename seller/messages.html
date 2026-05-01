@@ -90,137 +90,139 @@
 
 <nav class="mobile-bottom-nav"><a href="dashboard.html">Panel</a><a href="products.html">Ürün</a><a href="rental-requests.html">Talep</a><a class="active" href="messages.html">Mesaj</a><a href="finance.html">Gelir</a></nav>
 <div class="toast" id="toast"></div>
-
 <script>
-const API_BASE = "https://alma-kirala-api.onrender.com";const STORE_ENDPOINT=`${API_BASE}/api/stores`;
-const MESSAGE_ENDPOINT=`${API_BASE}/api/messages`;
-const token=localStorage.getItem("token");
-const akRole=localStorage.getItem("akRole");
+const API_BASE = "https://alma-kirala-api.onrender.com";
+const STORE_ENDPOINT = `${API_BASE}/api/stores`;
+const PRODUCT_ENDPOINT = `${API_BASE}/api/products`;
 
-let stores=[],threads=[],activeStore=null,activeThread=null;
+const token = localStorage.getItem("token");
+const akRole = localStorage.getItem("akRole");
 
-const demoStores=[{id:1,name:"Kamera Dünyam",logoText:"KD",plan:"Plus"},{id:2,name:"Event Pro",logoText:"EP",plan:"Premium"}];
-const demoThreads=[
-{id:1,storeId:1,storeName:"Kamera Dünyam",productId:1,productTitle:"Sony A7 IV Kamera Seti",productIcon:"📷",customerName:"Ahmet Yılmaz",customerPhone:"0555 123 45 67",customerEmail:"ahmet@mail.com",unread:true,hot:true,type:"product",lastAt:"Bugün 14:20",messages:[
-{from:"customer",text:"Merhaba, Sony A7 IV kamera seti 2-5 Mayıs arası müsait mi?",time:"14:12"},
-{from:"seller",text:"Merhaba, kontrol ediyorum. Hangi teslimat bölgesi olacak?",time:"14:14"},
-{from:"customer",text:"Kadıköy teslim alabilirim. Depozito ne kadar?",time:"14:20"}]},
-{id:2,storeId:1,storeName:"Kamera Dünyam",productId:2,productTitle:"Canon EOS R6",productIcon:"📷",customerName:"Zeynep Kaya",customerPhone:"0532 444 22 11",customerEmail:"zeynep@mail.com",unread:false,hot:true,type:"product",lastAt:"Bugün 11:05",messages:[
-{from:"customer",text:"Canon EOS R6 için kurye teslimat var mı?",time:"10:58"},
-{from:"seller",text:"Evet, bulunduğunuz bölgeye göre kurye ayarlayabiliriz.",time:"11:05"}]},
-{id:3,storeId:1,storeName:"Kamera Dünyam",productId:3,productTitle:"Işık Seti Kiralama",productIcon:"💡",customerName:"Mert Demir",customerPhone:"0541 222 10 90",customerEmail:"mert@mail.com",unread:true,hot:false,type:"product",lastAt:"Dün 18:30",messages:[
-{from:"customer",text:"Işık setinde kaç adet led panel var?",time:"Dün 18:30"}]},
-{id:4,storeId:2,storeName:"Event Pro",productId:9,productTitle:"Sahne Işık Paketi",productIcon:"🎭",customerName:"Can Öztürk",customerPhone:"0530 111 22 33",customerEmail:"can@mail.com",unread:true,hot:true,type:"product",lastAt:"Bugün 15:10",messages:[
-{from:"customer",text:"Festival için sahne ışık paketi istiyoruz. Kurulum dahil mi?",time:"15:10"}]}
-];
+let stores = [];
+let products = [];
+let activeStore = null;
+let currentView = "card";
 
 function $(id){return document.getElementById(id)}
-function toast(msg){$("toast").textContent=msg;$("toast").classList.add("show");setTimeout(()=>$("toast").classList.remove("show"),3000)}
-function authGuard(){if(!token||akRole!=="seller"){toast("Mesajlar için mağaza hesabıyla giriş yapmalısın.");setTimeout(()=>location.href="../seller-login.html",700);return false}return true}
-function authHeader(){return token?{"Authorization":`Bearer ${token}`}:{}} 
-async function fetchJson(url){try{const r=await fetch(url,{headers:{...authHeader()}});if(!r.ok)throw new Error();return await r.json()}catch{return null}}
-function waLink(phone){const n=String(phone||"").replace(/\D/g,"").replace(/^0/,"");return `https://wa.me/90${n}`}
+function money(v){return "₺"+Number(v||0).toLocaleString("tr-TR")}
+function toast(msg){
+  $("toast").textContent = msg;
+  $("toast").classList.add("show");
+  setTimeout(()=>$("toast").classList.remove("show"),3000);
+}
+
+function authGuard(){
+  if(!token || akRole !== "seller"){
+    toast("Giriş yapmalısın");
+    setTimeout(()=>location.href="../seller-login.html",700);
+    return false;
+  }
+  return true;
+}
+
+function authHeader(){
+  return token ? {"Authorization":`Bearer ${token}`} : {};
+}
+
+async function fetchJson(url){
+  try{
+    const r = await fetch(url,{headers:{...authHeader()}});
+    if(!r.ok) return null;
+    return await r.json();
+  }catch{
+    return null;
+  }
+}
+
+/* ---------------- STORES ---------------- */
 
 async function loadStores(){
- const data=await fetchJson(`${STORE_ENDPOINT}/my`);
- const raw=data?.stores||data?.data||data?.items||data;
- stores=Array.isArray(raw)&&raw.length?raw.map(s=>({id:s.id||s._id,name:s.name||s.storeName||"Mağaza",logoText:s.logoText||s.logo||(s.name||"AK").slice(0,2).toUpperCase(),plan:s.plan||s.packageName||"Standart"})):demoStores;
- const saved=localStorage.getItem("akActiveStoreId");
- activeStore=stores.find(s=>String(s.id)===String(saved))||stores[0];
- localStorage.setItem("akActiveStoreId",activeStore.id);
- renderStoreInfo();
+  const data = await fetchJson(`${STORE_ENDPOINT}/my`);
+  const raw = data?.stores || data?.data || data;
+
+  stores = Array.isArray(raw) ? raw : [];
+
+  if(!stores.length){
+    toast("Mağaza yok. Önce mağaza oluştur.");
+    setTimeout(()=>location.href="create-store.html",800);
+    return;
+  }
+
+  const saved = localStorage.getItem("akActiveStoreId");
+  activeStore = stores.find(s=>String(s.id)===saved) || stores[0];
+
+  localStorage.setItem("akActiveStoreId", activeStore.id);
+
+  $("storeSwitch").innerHTML = stores.map(s=>`
+    <option value="${s.id}" ${s.id===activeStore.id?"selected":""}>
+      ${s.name}
+    </option>
+  `).join("");
+
+  $("sideStoreName").textContent = activeStore.name;
 }
-async function loadThreads(){
- const data=await fetchJson(`${MESSAGE_ENDPOINT}/store?storeId=${encodeURIComponent(activeStore.id)}`);
- const raw=data?.threads||data?.messages||data?.data||data?.items||data;
- threads=Array.isArray(raw)&&raw.length?raw.map(normalizeThread):demoThreads.filter(t=>String(t.storeId)===String(activeStore.id));
- const customerQuery=new URLSearchParams(location.search).get("customer");
- activeThread=(customerQuery&&threads.find(t=>t.customerName.toLowerCase().includes(customerQuery.toLowerCase())))||threads[0]||null;
+
+/* ---------------- PRODUCTS ---------------- */
+
+async function loadProducts(){
+  const data = await fetchJson(`${PRODUCT_ENDPOINT}?storeId=${activeStore.id}`);
+  const raw = data?.products || data?.data || data;
+
+  products = Array.isArray(raw) ? raw : [];
 }
-function normalizeThread(t){
- return {id:t.id||t._id,storeId:t.storeId||t.store?.id||activeStore.id,storeName:t.storeName||t.store?.name||activeStore.name,productId:t.productId||t.product?.id,productTitle:t.productTitle||t.product?.title||"Ürün",productIcon:t.productIcon||"📦",customerName:t.customerName||t.user?.name||"Müşteri",customerPhone:t.customerPhone||t.user?.phone||"",customerEmail:t.customerEmail||t.user?.email||"",unread:!!t.unread,hot:!!t.hot,type:t.type||"product",lastAt:t.lastAt||"",messages:t.messages||[]}
-}
-function renderStoreInfo(){
- $("storeSwitch").innerHTML=stores.map(s=>`<option value="${s.id}" ${String(s.id)===String(activeStore.id)?"selected":""}>${s.name}</option>`).join("");
- $("sideStoreLogo").textContent=activeStore.logoText||"AK";$("sideStoreName").textContent=activeStore.name;$("sideStorePlan").textContent=activeStore.plan+" Paket";
-}
-function filtered(){
- const q=$("searchInput").value.trim().toLowerCase(), f=$("filterSwitch").value;
- return threads.filter(t=>{
-  const text=`${t.customerName} ${t.customerPhone} ${t.customerEmail} ${t.productTitle} ${t.storeName}`.toLowerCase().includes(q);
-  const filter=f==="all"||(f==="unread"&&t.unread)||(f==="hot"&&t.hot)||(f==="product"&&t.type==="product");
-  return text&&filter;
- });
-}
+
+/* ---------------- RENDER ---------------- */
+
 function renderStats(){
- $("totalThreads").textContent=threads.length;
- $("unreadCount").textContent=threads.filter(t=>t.unread).length;
- $("todayCount").textContent=threads.filter(t=>String(t.lastAt).includes("Bugün")).length;
- $("hotCount").textContent=threads.filter(t=>t.hot).length;
- $("navUnread").textContent=threads.filter(t=>t.unread).length;
+  $("totalProducts").textContent = products.length;
+  $("activeProducts").textContent = products.filter(p=>p.status==="active").length;
 }
-function renderThreads(){
- const list=filtered();
- $("emptyState").classList.toggle("show",list.length===0);
- $("threadList").innerHTML=list.map(t=>`
-  <article class="thread ${activeThread&&String(activeThread.id)===String(t.id)?"active":""} ${t.unread?"unread":""}" data-thread="${t.id}">
-    <div class="thread-top"><div class="avatar">${t.customerName.slice(0,1).toUpperCase()}</div><div><b>${t.customerName}</b><small>${t.lastAt} • ${t.storeName}</small></div></div>
-    <p class="last">${t.messages[t.messages.length-1]?.text||"Mesaj yok"}</p>
-    <div class="thread-tags"><span class="tag">${t.productIcon} ${t.productTitle}</span>${t.hot?'<span class="tag">Talebe yakın</span>':''}${t.unread?'<span class="tag">Okunmadı</span>':''}</div>
-  </article>`).join("");
- document.querySelectorAll("[data-thread]").forEach(el=>el.addEventListener("click",()=>{activeThread=threads.find(t=>String(t.id)===String(el.dataset.thread));if(activeThread)activeThread.unread=false;renderAll()}));
+
+function renderProducts(){
+  const list = products;
+
+  $("emptyState").classList.toggle("show", list.length===0);
+
+  $("productGrid").innerHTML = list.map(p=>`
+    <div class="product-card">
+      <div class="product-img">📦</div>
+      <div class="product-body">
+        <h3>${p.title}</h3>
+        <div class="price">${money(p.price)}</div>
+      </div>
+    </div>
+  `).join("");
 }
-function renderChat(){
- if(!activeThread){
-  $("chatName").textContent="Konuşma yok";$("chatSub").textContent="Filtreleri temizleyebilir veya yeni mesaj bekleyebilirsin.";$("messagesBox").innerHTML="";$("infoBox").innerHTML="";return;
- }
- $("chatName").textContent=activeThread.customerName;
- $("chatSub").textContent=`${activeThread.storeName} • ${activeThread.productTitle}`;
- $("callBtn").href=`tel:${activeThread.customerPhone.replaceAll(" ","")}`;
- $("waBtn").href=waLink(activeThread.customerPhone);
- $("requestBtn").href=`rental-requests.html?customer=${encodeURIComponent(activeThread.customerName)}`;
- $("messagesBox").innerHTML=activeThread.messages.map(m=>`<div class="bubble ${m.from==="seller"?"seller-b":"customer-b"}">${m.text}<small>${m.time||""}</small></div>`).join("");
- $("messagesBox").scrollTop=$("messagesBox").scrollHeight;
- $("infoBox").innerHTML=`
- <div class="product-card"><strong>${activeThread.productIcon} ${activeThread.productTitle}</strong><p>Bu konuşma bu ürün için açılmış.</p></div>
- <div class="info-box">
-  <div class="info-row"><span>Mağaza</span><b>${activeThread.storeName}</b></div>
-  <div class="info-row"><span>Müşteri</span><b>${activeThread.customerName}</b></div>
-  <div class="info-row"><span>Telefon</span><b>${activeThread.customerPhone||"-"}</b></div>
-  <div class="info-row"><span>E-mail</span><b>${activeThread.customerEmail||"-"}</b></div>
-  <div class="info-row"><span>Durum</span><b>${activeThread.hot?"Talebe yakın":"Bilgi sorusu"}</b></div>
- </div>
- <a class="btn y" style="width:100%;margin-bottom:8px" href="rental-requests.html?customer=${encodeURIComponent(activeThread.customerName)}">Kiralama Talebine Git</a>
- <a class="btn light" style="width:100%" href="edit-product.html?id=${activeThread.productId}">Ürünü Kontrol Et</a>`;
-}
-async function sendMessage(){
- if(!activeThread)return toast("Önce konuşma seç.");
- const text=$("replyText").value.trim();
- if(!text)return toast("Mesaj boş olamaz.");
- try{
-  await fetch(MESSAGE_ENDPOINT,{method:"POST",headers:{"Content-Type":"application/json",...authHeader()},body:JSON.stringify({threadId:activeThread.id,storeId:activeThread.storeId,customerName:activeThread.customerName,message:text})});
- }catch{}
- activeThread.messages.push({from:"seller",text,time:new Date().toLocaleTimeString("tr-TR",{hour:"2-digit",minute:"2-digit"})});
- activeThread.lastAt="Şimdi";
- activeThread.hot=true;
- $("replyText").value="";
- toast("Mesaj gönderildi.");
- renderAll();
-}
-function renderAll(){renderStats();renderThreads();renderChat()}
+
+/* ---------------- EVENTS ---------------- */
+
 function bindEvents(){
- $("mobileMenu").addEventListener("click",()=>$("sidebar").classList.toggle("open"));
- document.addEventListener("click",e=>{if(innerWidth<=900){const s=$("sidebar"),m=$("mobileMenu");if(s.classList.contains("open")&&!s.contains(e.target)&&e.target!==m)s.classList.remove("open")}});
- $("storeSwitch").addEventListener("change",async()=>{activeStore=stores.find(s=>String(s.id)===$("storeSwitch").value)||activeStore;localStorage.setItem("akActiveStoreId",activeStore.id);renderStoreInfo();await loadThreads();renderAll();toast("Mağaza mesajları yüklendi.")});
- ["searchInput","filterSwitch"].forEach(id=>$(id).addEventListener("input",renderAll));
- $("clearBtn").addEventListener("click",()=>{$("searchInput").value="";$("filterSwitch").value="all";renderAll()});
- $("refreshBtn").addEventListener("click",async()=>{await loadThreads();renderAll();toast("Mesajlar yenilendi.")});
- $("sendBtn").addEventListener("click",sendMessage);
- $("replyText").addEventListener("keydown",e=>{if(e.key==="Enter"&&!e.shiftKey){e.preventDefault();sendMessage()}});
- document.querySelectorAll("[data-reply]").forEach(btn=>btn.addEventListener("click",()=>{$("replyText").value=btn.dataset.reply;$("replyText").focus()}));
- $("logoutBtn").addEventListener("click",()=>{localStorage.removeItem("token");localStorage.removeItem("akRole");localStorage.removeItem("akUser");toast("Çıkış yapıldı.");setTimeout(()=>location.href="../seller-login.html",600)});
+  $("storeSwitch").addEventListener("change", async()=>{
+    activeStore = stores.find(s=>String(s.id)===$("storeSwitch").value);
+    localStorage.setItem("akActiveStoreId", activeStore.id);
+    await loadProducts();
+    renderAll();
+  });
 }
-async function init(){if(!authGuard())return;await loadStores();await loadThreads();bindEvents();renderAll()}init();
+
+/* ---------------- INIT ---------------- */
+
+function renderAll(){
+  renderStats();
+  renderProducts();
+}
+
+async function init(){
+  if(!authGuard()) return;
+
+  await loadStores();
+  await loadProducts();
+
+  bindEvents();
+  renderAll();
+}
+
+init();
 </script>
 </body>
 </html>
