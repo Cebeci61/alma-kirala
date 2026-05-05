@@ -1366,76 +1366,7 @@ body{
 </div>
 
 <script>
-  const stores = [
-    {
-      id:1,
-      name:"Kamera Dünyam",
-      logo:"KD",
-      city:"İstanbul",
-      district:"Kadıköy",
-      category:"Kamera",
-      rating:4.9,
-      plan:"Plus",
-      products:86,
-      rentals:1240,
-      response:"8 dk",
-      followers:3260,
-      since:"2023",
-      trustScore:98,
-      phone:"905555555555",
-      whatsapp:"905555555555",
-      description:"Profesyonel kamera, lens, ışık ve çekim ekipmanlarında güvenilir kiralama mağazası.",
-      about:"Kamera Dünyam; fotoğraf, video, reklam, etkinlik ve sosyal medya projeleri için profesyonel kamera ekipmanları sunar. Tüm ekipmanlar teslim öncesi kontrol edilir, temizlenir ve kullanıma hazır şekilde teslim edilir. Hızlı yanıt, güvenli teslimat ve açıklayıcı ürün bilgisi mağazanın temel çalışma prensibidir.",
-      badges:["Doğrulanmış Mağaza","Hızlı Yanıt","Belgeli Satıcı","Yüksek Puan","Güvenli Teslimat"],
-      items:[
-        {id:1,title:"Sony A7 IV Kamera Seti",category:"Kamera",price:450,rating:4.8,badge:"Bugün Müsait",premium:true,views:2450,requests:38},
-        {id:2,title:"Canon EOS R6 Profesyonel Kamera",category:"Kamera",price:600,rating:4.9,badge:"Depozitosuz",premium:false,views:1840,requests:29},
-        {id:4,title:"GoPro Hero Aksiyon Kamera",category:"Kamera",price:280,rating:4.5,badge:"Popüler",premium:false,views:920,requests:14},
-        {id:11,title:"Profesyonel Işık Seti",category:"Işık",price:320,rating:4.7,badge:"Kampanyalı",premium:true,views:760,requests:12},
-        {id:12,title:"Tripod Seti",category:"Kamera",price:90,rating:4.6,badge:"Bugün Müsait",premium:false,views:420,requests:8},
-        {id:13,title:"Kablosuz Mikrofon Seti",category:"Ses",price:210,rating:4.8,badge:"Popüler",premium:true,views:1100,requests:21},
-        {id:14,title:"Softbox Işık Takımı",category:"Işık",price:160,rating:4.5,badge:"Uygun Fiyat",premium:false,views:640,requests:10},
-        {id:15,title:"Video Monitor Kiralama",category:"Kamera",price:260,rating:4.7,badge:"Premium",premium:true,views:830,requests:15},
-        {id:16,title:"Kamera Slider",category:"Kamera",price:190,rating:4.4,badge:"Müsaitlik Sor",premium:false,views:370,requests:6},
-        {id:17,title:"Led Panel Işık",category:"Işık",price:130,rating:4.6,badge:"Bugün Müsait",premium:false,views:510,requests:9},
-        {id:18,title:"Gimbal Pro Set",category:"Kamera",price:240,rating:4.8,badge:"Çok Talep",premium:true,views:990,requests:19}
-      ],
-      reviews:[
-        ["Mert K.","Ürünler temiz ve teslimat çok hızlıydı.",5],
-        ["Ayşe D.","Satıcı çok ilgiliydi, tekrar kiralarım.",5],
-        ["Burak S.","Profesyonel bir mağaza deneyimi.",4]
-      ]
-    },
-    {
-      id:2,
-      name:"Event Pro",
-      logo:"EP",
-      city:"Antalya",
-      district:"Muratpaşa",
-      category:"Etkinlik",
-      rating:4.8,
-      plan:"Premium",
-      products:64,
-      rentals:890,
-      response:"12 dk",
-      followers:2140,
-      since:"2022",
-      trustScore:96,
-      phone:"905555555555",
-      whatsapp:"905555555555",
-      description:"Etkinlik, organizasyon ve sahne ekipmanları için premium kiralama mağazası.",
-      about:"Event Pro; düğün, toplantı, lansman, konser ve özel organizasyonlar için ses, ışık, sahne ve etkinlik ekipmanları sağlar.",
-      badges:["Premium Mağaza","Kurumsal Satıcı","Hızlı Yanıt","Yüksek Puan"],
-      items:[
-        {id:7,title:"Etkinlik Ses Sistemi",category:"Etkinlik",price:650,rating:4.5,badge:"Sponsorlu",premium:true,views:1520,requests:25},
-        {id:9,title:"Organizasyon Işık Sistemi",category:"Etkinlik",price:520,rating:4.3,badge:"Bugün Müsait",premium:false,views:980,requests:18}
-      ],
-      reviews:[
-        ["Selin A.","Organizasyonumuz sorunsuz geçti.",5],
-        ["Emre T.","Ekipmanlar zamanında teslim edildi.",4]
-      ]
-    }
-  ];
+
 
   const params = new URLSearchParams(location.search);
   const storeId = Number(params.get("id")) || 1;

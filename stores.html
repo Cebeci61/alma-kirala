@@ -592,27 +592,7 @@ const cityPositions = {
   "Trabzon": {x:76,y:38}
 };
 
-const demoStores = [
-  {id:1,name:"Kamera Dünyam",logo:"KD",city:"İstanbul",district:"Kadıköy",category:"Kamera",productsText:"kamera lens ışık seti sony canon",rating:4.9,reviews:312,plan:"Plus",products:86,rentals:1240,response:"8 dk",distance:2.1,verified:true,fast:true,badge:"Belgeli Satıcı",cover:"kamera",phone:"+905551112233",whatsapp:"+905551112233",description:"Kamera, lens, ışık seti ve profesyonel çekim ekipmanları kiralayan doğrulanmış mağaza. Hızlı yanıt, temiz ürün ve güvenilir teslimat anlayışıyla çalışır.",badges:["Doğrulanmış Mağaza","Hızlı Yanıt","Belgeli Satıcı","Premium Hizmet"]},
-  {id:2,name:"Event Pro",logo:"EP",city:"Antalya",district:"Muratpaşa",category:"Etkinlik",productsText:"ses sistemi ışık masa sandalye organizasyon",rating:4.8,reviews:240,plan:"Premium",products:64,rentals:890,response:"12 dk",distance:5.4,verified:true,fast:true,badge:"Kurumsal Mağaza",cover:"event",phone:"+905552223344",whatsapp:"+905552223344",description:"Etkinlik, ses, ışık ve organizasyon ürünlerinde güçlü kiralama mağazası.",badges:["Kurumsal Mağaza","Premium","Hızlı Yanıt"]},
-  {id:3,name:"Moda Vitrini",logo:"MV",city:"İzmir",district:"Konak",category:"Özel Gün",productsText:"gelinlik nişan elbisesi takım aksesuar",rating:4.7,reviews:155,plan:"Standart",products:42,rentals:510,response:"25 dk",distance:7.8,verified:true,fast:false,badge:"Popüler",cover:"fashion",phone:"+905553334455",whatsapp:"+905553334455",description:"Özel günler için gelinlik, nişan elbisesi ve aksesuar kiralama mağazası.",badges:["Doğrulanmış","Popüler"]},
-  {id:4,name:"Drone Market",logo:"DM",city:"Ankara",district:"Çankaya",category:"Drone",productsText:"drone dji kamera havadan çekim",rating:4.9,reviews:288,plan:"Premium",products:38,rentals:760,response:"6 dk",distance:3.6,verified:true,fast:true,badge:"Hızlı Yanıt",cover:"drone",phone:"+905554445566",whatsapp:"+905554445566",description:"Drone ve havadan çekim ekipmanlarında uzman kiralama mağazası.",badges:["Belgeli","Hızlı Yanıt","Premium"]},
-  {id:5,name:"Trabzon Teknik",logo:"TT",city:"Trabzon",district:"Ortahisar",category:"Yapı & Tamir",productsText:"matkap temizlik makinesi bahçe el aleti",rating:4.6,reviews:98,plan:"Plus",products:57,rentals:430,response:"18 dk",distance:1.2,verified:false,fast:true,badge:"Uygun Fiyat",cover:"tools",phone:"+905555556677",whatsapp:"+905555556677",description:"Yapı, tamir, bahçe ve teknik ekipman kiralamada uygun fiyatlı mağaza.",badges:["Uygun Fiyat","Hızlı Yanıt"]},
-  {id:6,name:"Organizasyon Plus",logo:"OP",city:"İstanbul",district:"Şişli",category:"Etkinlik",productsText:"sahne ses ışık çadır stand",rating:4.8,reviews:201,plan:"Premium",products:91,rentals:1320,response:"10 dk",distance:4.2,verified:true,fast:true,badge:"Çok Satan",cover:"event",phone:"+905556667788",whatsapp:"+905556667788",description:"Sahne, ses, ışık ve etkinlik organizasyonu için güçlü mağaza.",badges:["Çok Satan","Kurumsal","Premium"]},
-  {id:7,name:"Lens Kirala",logo:"LK",city:"İstanbul",district:"Beşiktaş",category:"Kamera",productsText:"lens kamera canon sony gimbal",rating:4.5,reviews:77,plan:"Standart",products:24,rentals:210,response:"30 dk",distance:6.1,verified:true,fast:false,badge:"Yeni",cover:"kamera",phone:"+905557778899",whatsapp:"+905557778899",description:"Kamera, lens ve gimbal kiralama mağazası.",badges:["Yeni","Doğrulanmış"]},
-  {id:8,name:"Ankara Sahne",logo:"AS",city:"Ankara",district:"Çankaya",category:"Etkinlik",productsText:"sahne ses ışık organizasyon",rating:4.7,reviews:134,plan:"Plus",products:49,rentals:540,response:"15 dk",distance:8.6,verified:true,fast:true,badge:"Sahne",cover:"event",phone:"+905558889900",whatsapp:"+905558889900",description:"Ankara’da sahne ve etkinlik ekipmanları kiralama mağazası.",badges:["Sahne","Hızlı Yanıt"]}
-];
 
-const demoProducts = [
-  {id:1,storeId:1,title:"Sony A7 IV Kamera Seti",category:"kamera",city:"İstanbul",district:"Kadıköy",price:450,available:true,popular:true,icon:"📷"},
-  {id:2,storeId:1,title:"Canon EOS R6 Profesyonel",category:"kamera",city:"İstanbul",district:"Kadıköy",price:600,available:true,popular:true,icon:"📷"},
-  {id:3,storeId:1,title:"Işık Seti Kiralama",category:"kamera",city:"İstanbul",district:"Kadıköy",price:220,available:true,popular:false,icon:"💡"},
-  {id:4,storeId:1,title:"Gimbal Stabilizer",category:"kamera",city:"İstanbul",district:"Kadıköy",price:180,available:false,popular:false,icon:"🎥"},
-  {id:5,storeId:2,title:"Etkinlik Ses Sistemi",category:"etkinlik",city:"Antalya",district:"Muratpaşa",price:650,available:true,popular:true,icon:"🎉"},
-  {id:6,storeId:4,title:"DJI Mini 4 Pro Drone",category:"drone",city:"Ankara",district:"Çankaya",price:750,available:false,popular:true,icon:"🚁"},
-  {id:7,storeId:5,title:"Profesyonel Matkap Seti",category:"tamir",city:"Trabzon",district:"Ortahisar",price:180,available:true,popular:false,icon:"🛠️"},
-  {id:8,storeId:3,title:"Premium Gelinlik Kiralama",category:"moda",city:"İzmir",district:"Konak",price:900,available:true,popular:true,icon:"👗"}
-];
 
 let stores = [];
 let products = [];

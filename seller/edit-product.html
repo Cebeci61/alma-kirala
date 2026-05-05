@@ -152,12 +152,7 @@ const token=localStorage.getItem("token");
 const akRole=localStorage.getItem("akRole");
 let stores=[],products=[],activeProduct=null,selectedTag="Premium",photos=[null,null,null,null,null];
 
-const demoStores=[{id:1,name:"Kamera Dünyam",logoText:"KD",plan:"Plus"},{id:2,name:"Event Pro",logoText:"EP",plan:"Premium"}];
-const demoProducts=[
-{id:1,storeId:1,title:"Sony A7 IV Kamera Seti",shortDescription:"Profesyonel çekimler için kamera seti.",description:"Profesyonel çekimler için kamera, lens ve batarya dahil set.",tag:"Premium",price:450,deposit:1000,status:"active",availability:"Bugün müsait",category:"Kamera",minRentalDay:1,deliveryType:"Mağazadan teslim",photos:["📷","🔋","🎒","🔌","📦"],views:2410,requests:47},
-{id:2,storeId:1,title:"Canon EOS R6",shortDescription:"Düğün ve etkinlik çekimi için güçlü kamera.",description:"Düğün, etkinlik ve ürün çekimi için yüksek performanslı kamera.",tag:"Bugün Müsait",price:600,deposit:1500,status:"active",availability:"Bugün müsait",category:"Kamera",minRentalDay:1,deliveryType:"Mağaza + kurye",photos:["📷","📷","🔋"],views:1840,requests:31},
-{id:3,storeId:1,title:"Işık Seti Kiralama",shortDescription:"Softbox ve led panel seti.",description:"Softbox ve led panel içeren taşınabilir ışık seti.",tag:"Kampanyalı",price:220,deposit:500,status:"pending",availability:"Müsaitlik sor",category:"Işık",minRentalDay:1,deliveryType:"Mağazadan teslim",photos:["💡","💡"],views:890,requests:16}
-];
+
 
 function $(id){return document.getElementById(id)}
 function money(v){return "₺"+Number(v||0).toLocaleString("tr-TR")}

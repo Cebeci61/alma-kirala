@@ -137,7 +137,6 @@ const token=localStorage.getItem("token");
 const akRole=localStorage.getItem("akRole");
 let stores=[],selectedTag="Premium",photos=[null,null,null,null,null];
 
-const demoStores=[{id:1,name:"Kamera Dünyam",logoText:"KD",plan:"Plus"},{id:2,name:"Event Pro",logoText:"EP",plan:"Premium"}];
 
 function $(id){return document.getElementById(id)}
 function money(v){return "₺"+Number(v||0).toLocaleString("tr-TR")}
@@ -147,15 +146,32 @@ function authHeader(){return token?{"Authorization":`Bearer ${token}`}:{}}
 async function fetchJson(url){try{const r=await fetch(url,{headers:{...authHeader()}});if(!r.ok)throw new Error();return await r.json()}catch{return null}}
 
 async function loadStores(){
- const data=await fetchJson(`${STORE_ENDPOINT}/my`);
- const raw=data?.stores||data?.data||data?.items||data;
- stores=Array.isArray(raw)&&raw.length?raw.map(s=>({id:s.id||s._id,name:s.name||s.storeName||"Mağaza",logoText:s.logoText||s.logo||(s.name||"AK").slice(0,2).toUpperCase(),plan:s.plan||s.packageName||"Standart"})):demoStores;
- const saved=localStorage.getItem("akActiveStoreId");
- const active=stores.find(s=>String(s.id)===String(saved))||stores[0];
- $("storeId").innerHTML=stores.map(s=>`<option value="${s.id}" ${String(s.id)===String(active.id)?"selected":""}>${s.name}</option>`).join("");
- $("sideStoreLogo").textContent=active.logoText||"AK";
- $("sideStoreName").textContent=active.name;
- $("sideStorePlan").textContent=active.plan+" Paket";
+ const data = await fetchJson(`${STORE_ENDPOINT}/my`);
+ const raw = data?.stores || data?.data || data?.items || data;
+
+ stores = Array.isArray(raw) ? raw.map(s => ({
+   id:s.id || s._id,
+   name:s.name || s.storeName || "Mağaza",
+   logoText:s.logoText || s.logo || (s.name || "AK").slice(0,2).toUpperCase(),
+   plan:s.plan || s.packageName || "Standart"
+ })) : [];
+
+ if(!stores.length){
+   toast("Önce gerçek mağaza oluşturmalısın.");
+   setTimeout(() => location.href = "create-store.html", 900);
+   return;
+ }
+
+ const saved = localStorage.getItem("akActiveStoreId");
+ const active = stores.find(s => String(s.id) === String(saved)) || stores[0];
+
+ $("storeId").innerHTML = stores.map(s =>
+   `<option value="${s.id}" ${String(s.id)===String(active.id)?"selected":""}>${s.name}</option>`
+ ).join("");
+
+ $("sideStoreLogo").textContent = active.logoText || "AK";
+ $("sideStoreName").textContent = active.name;
+ $("sideStorePlan").textContent = active.plan + " Paket";
 }
 
 function renderPhotoSlots(){
@@ -235,12 +251,10 @@ async function saveProduct(){
  try{
   const res=await fetch(PRODUCT_ENDPOINT,{method:"POST",headers:{"Content-Type":"application/json",...authHeader()},body:JSON.stringify(payload)});
   if(!res.ok) throw new Error();
- }catch{
-  const key="akDemoProducts";
-  const saved=JSON.parse(localStorage.getItem(key)||"[]");
-  saved.push({...payload,id:Date.now(),views:0,requests:0,createdAt:new Date().toISOString()});
-  localStorage.setItem(key,JSON.stringify(saved));
- }
+}catch(error){
+  toast("Ürün backend'e kaydedilemedi. Lütfen mağaza ve giriş bilgilerini kontrol et.");
+  return;
+}
  toast("Ürün kaydedildi. Ürünler sayfasına yönlendiriliyorsun.");
  setTimeout(()=>location.href="products.html",900);
 }

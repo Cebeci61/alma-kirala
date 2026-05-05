@@ -233,111 +233,159 @@
 <div class="toast" id="toast"></div>
 
 <script>
-const API_BASE = "https://alma-kirala-api.onrender.com";const STORE_ENDPOINT = `${API_BASE}/api/stores`;
+const API_BASE = "https://alma-kirala-api.onrender.com";
+const STORE_ENDPOINT = `${API_BASE}/api/stores`;
 const PRODUCT_ENDPOINT = `${API_BASE}/api/products`;
 
 const token = localStorage.getItem("token");
 const akRole = localStorage.getItem("akRole");
+const akUser = JSON.parse(localStorage.getItem("akUser") || localStorage.getItem("user") || "{}");
 
 let stores = [];
 let products = [];
-let pendingAction = null;
-
-const demoStores = [
-  {id:1,name:"Kamera Dünyam",logo:"KD",city:"İstanbul",district:"Kadıköy",category:"Kamera",plan:"Plus",status:"active",verified:true,products:8,productLimit:10,rating:4.9,reviews:312,requests:90,revenue:12450,adActive:true},
-  {id:2,name:"Event Pro",logo:"EP",city:"Antalya",district:"Muratpaşa",category:"Etkinlik",plan:"Premium",status:"active",verified:true,products:18,productLimit:30,rating:4.8,reviews:240,requests:74,revenue:22100,adActive:true},
-  {id:3,name:"Moda Vitrini",logo:"MV",city:"İzmir",district:"Konak",category:"Özel Gün",plan:"Standart",status:"pending",verified:false,products:3,productLimit:5,rating:4.5,reviews:24,requests:12,revenue:3200,adActive:false}
-];
-
-const demoProducts = [
-  {id:1,storeId:1},{id:2,storeId:1},{id:3,storeId:1},{id:4,storeId:1},{id:5,storeId:1},{id:6,storeId:1},{id:7,storeId:1},{id:8,storeId:1},
-  {id:9,storeId:2},{id:10,storeId:2},{id:11,storeId:2},{id:12,storeId:2},{id:13,storeId:2},
-  {id:14,storeId:3},{id:15,storeId:3},{id:16,storeId:3}
-];
 
 function $(id){return document.getElementById(id)}
-function toast(msg){$("toast").textContent=msg;$("toast").classList.add("show");setTimeout(()=>$("toast").classList.remove("show"),3000)}
-function money(v){return "₺"+Number(v||0).toLocaleString("tr-TR")}
-function authGuard(){if(!token||akRole!=="seller"){toast("Mağazalarım için mağaza hesabıyla giriş yapmalısın.");setTimeout(()=>location.href="../seller-login.html",700);return false}return true}
-function authHeader(){return token?{"Authorization":`Bearer ${token}`}:{}} 
-async function fetchJson(url){try{const r=await fetch(url,{headers:{...authHeader()}});if(!r.ok)throw new Error();return await r.json()}catch{return null}}
+function toast(msg){
+  $("toast").textContent = msg;
+  $("toast").classList.add("show");
+  setTimeout(() => $("toast").classList.remove("show"), 3000);
+}
+function money(v){
+  return "₺" + Number(v || 0).toLocaleString("tr-TR");
+}
+function authHeader(){
+  return token ? { "Authorization": `Bearer ${token}` } : {};
+}
+function authGuard(){
+  const userType = akUser.accountType || akUser.role;
+  if(!token || (akRole !== "seller" && userType !== "seller")){
+    toast("Mağazalarım için mağaza hesabıyla giriş yapmalısın.");
+    setTimeout(() => location.href = "../seller-login.html", 700);
+    return false;
+  }
+  return true;
+}
+async function fetchJson(url){
+  try{
+    const res = await fetch(url, { headers:{ ...authHeader() } });
+    if(!res.ok) return null;
+    return await res.json();
+  }catch{
+    return null;
+  }
+}
+
+function normalizeStore(s){
+  return {
+    id: s.id || s._id,
+    name: s.name || s.storeName || "İsimsiz Mağaza",
+    logo: (s.logoText || s.logo || s.name || "AK").slice(0,2).toUpperCase(),
+    city: s.city || "",
+    district: s.district || "",
+    category: s.category || "Kiralama",
+    plan: s.plan || s.packageName || "Standart",
+    status: s.status || "active",
+    verified: s.verified ?? false,
+    productLimit: Number(s.productLimit || s.planLimit || 10),
+    rating: Number(s.rating || s.averageRating || 0),
+    reviews: Number(s.reviews || s.reviewCount || 0),
+    requests: Number(s.requests || s.requestCount || 0),
+    revenue: Number(s.revenue || s.monthlyRevenue || 0),
+    adActive: s.adActive ?? false
+  };
+}
+
+function normalizeProduct(p){
+  return {
+    id: p.id || p._id,
+    storeId: p.storeId || p.store?.id,
+    title: p.title || p.name || "Ürün",
+    status: p.status || "active"
+  };
+}
 
 async function loadStores(){
   const data = await fetchJson(`${STORE_ENDPOINT}/my`);
   const raw = data?.stores || data?.data || data?.items || data;
-  stores = Array.isArray(raw) && raw.length ? raw.map(normalizeStore) : demoStores;
+  stores = Array.isArray(raw) ? raw.map(normalizeStore) : [];
 }
+
 async function loadProducts(){
   const data = await fetchJson(`${PRODUCT_ENDPOINT}`);
   const raw = data?.products || data?.data || data?.items || data?.results || data;
-  products = Array.isArray(raw) && raw.length ? raw : demoProducts;
+  products = Array.isArray(raw) ? raw.map(normalizeProduct) : [];
 }
-function normalizeStore(s){
-  return {
-    id:s.id||s._id,
-    name:s.name||s.storeName||"Mağaza",
-    logo:s.logoText||s.logo||(s.name||"AK").slice(0,2).toUpperCase(),
-    city:s.city||"",
-    district:s.district||"",
-    category:s.category||"Kiralama",
-    plan:s.plan||s.packageName||"Standart",
-    status:s.status||"active",
-    verified:s.verified??true,
-    products:Number(s.products||s.productCount||0),
-    productLimit:Number(s.productLimit||s.planLimit||10),
-    rating:Number(s.rating||s.averageRating||4.7),
-    reviews:Number(s.reviews||s.reviewCount||0),
-    requests:Number(s.requests||s.requestCount||0),
-    revenue:Number(s.revenue||s.monthlyRevenue||0),
-    adActive:s.adActive??false
-  }
+
+function storeProductCount(storeId){
+  return products.filter(p => String(p.storeId) === String(storeId)).length;
 }
+
 function filteredStores(){
-  const q=$("searchInput").value.trim().toLowerCase();
-  const status=$("statusFilter").value;
-  const plan=$("planFilter").value;
-  return stores.filter(s=>{
-    const matchText = `${s.name} ${s.city} ${s.district} ${s.category}`.toLowerCase().includes(q);
-    const matchStatus = status==="all" || s.status===status;
-    const matchPlan = plan==="all" || s.plan===plan;
+  const q = $("searchInput").value.trim().toLowerCase();
+  const status = $("statusFilter").value;
+  const plan = $("planFilter").value;
+
+  return stores.filter(s => {
+    const text = `${s.name} ${s.city} ${s.district} ${s.category}`.toLowerCase();
+    const matchText = text.includes(q);
+    const matchStatus = status === "all" || s.status === status;
+    const matchPlan = plan === "all" || s.plan === plan;
     return matchText && matchStatus && matchPlan;
   });
 }
+
 function statusText(status){
-  if(status==="active") return ["Aktif","green"];
-  if(status==="pending") return ["Onay bekliyor","yellow"];
-  return ["Pasif",""];
+  if(status === "active") return ["Aktif", "green"];
+  if(status === "pending") return ["Onay bekliyor", "yellow"];
+  return ["Pasif", ""];
 }
+
+function storeHealth(s){
+  const productCount = storeProductCount(s.id);
+  const productScore = s.productLimit ? Math.min(100, Math.round((productCount / s.productLimit) * 100)) : 0;
+  const trust = s.verified ? 100 : 45;
+  const rating = s.rating ? Math.round((s.rating / 5) * 100) : 0;
+  const ad = s.adActive ? 90 : 35;
+  return Math.round((productScore + trust + rating + ad) / 4);
+}
+
 function renderStores(){
-  const list=filteredStores();
-  $("emptyState").classList.toggle("show",list.length===0);
-  $("storeGrid").innerHTML=list.map(store=>{
-    const [st,cls]=statusText(store.status);
-    const isActive=String(localStorage.getItem("akActiveStoreId"))===String(store.id);
+  const list = filteredStores();
+  $("emptyState").classList.toggle("show", list.length === 0);
+
+  $("storeGrid").innerHTML = list.map(store => {
+    const [st] = statusText(store.status);
+    const isActive = String(localStorage.getItem("akActiveStoreId")) === String(store.id);
+    const productCount = storeProductCount(store.id);
     const health = storeHealth(store);
+
     return `
-      <article class="store-card ${isActive?"active":""}">
+      <article class="store-card ${isActive ? "active" : ""}">
         <div class="cover">
           <span class="plan">${store.plan} Paket</span>
           <span class="status">${st}</span>
           <div class="logo-big">${store.logo}</div>
         </div>
+
         <div class="store-body">
           <h2>${store.name}</h2>
-          <p>${store.city}${store.district?" / "+store.district:""} • ${store.category} • ★ ${store.rating.toFixed(1)} (${store.reviews} yorum)</p>
+          <p>${store.city || "Şehir yok"}${store.district ? " / " + store.district : ""} • ${store.category} • ★ ${store.rating.toFixed(1)} (${store.reviews} yorum)</p>
+
           <div class="badges">
-            <span class="badge ${store.verified?"green":"yellow"}">${store.verified?"Doğrulanmış":"Doğrulama bekliyor"}</span>
-            <span class="badge">${store.products}/${store.productLimit} ürün</span>
-            <span class="badge ${store.adActive?"green":"yellow"}">${store.adActive?"Reklam aktif":"Reklam yok"}</span>
+            <span class="badge ${store.verified ? "green" : "yellow"}">${store.verified ? "Doğrulanmış" : "Doğrulama bekliyor"}</span>
+            <span class="badge">${productCount}/${store.productLimit} ürün</span>
+            <span class="badge ${store.adActive ? "green" : "yellow"}">${store.adActive ? "Reklam aktif" : "Reklam yok"}</span>
           </div>
+
           <div class="store-stats">
-            <div><strong>${store.products}</strong><span>Ürün</span></div>
+            <div><strong>${productCount}</strong><span>Ürün</span></div>
             <div><strong>${store.requests}</strong><span>Talep</span></div>
             <div><strong>${health}%</strong><span>Sağlık</span></div>
             <div><strong>${money(store.revenue)}</strong><span>Gelir</span></div>
           </div>
+
           <div class="store-actions">
-            <button class="yellow" data-active="${store.id}" type="button">${isActive?"Aktif":"Aktif Yap"}</button>
+            <button class="yellow" data-active="${store.id}" type="button">${isActive ? "Aktif" : "Aktif Yap"}</button>
             <a class="dark" href="store-settings.html?id=${store.id}">Ayarlar</a>
             <a href="../store-detail.html?id=${store.id}" target="_blank">Görüntüle</a>
           </div>
@@ -346,72 +394,146 @@ function renderStores(){
     `;
   }).join("");
 
-  document.querySelectorAll("[data-active]").forEach(btn=>{
-    btn.addEventListener("click",()=>{
-      localStorage.setItem("akActiveStoreId",btn.dataset.active);
+  document.querySelectorAll("[data-active]").forEach(btn => {
+    btn.addEventListener("click", () => {
+      localStorage.setItem("akActiveStoreId", btn.dataset.active);
       toast("Aktif mağaza değiştirildi.");
       renderAll();
     });
   });
 }
-function storeHealth(s){
-  const productScore=Math.min(100,Math.round((s.products/s.productLimit)*100));
-  const trust=s.verified?100:55;
-  const rating=Math.round((s.rating/5)*100);
-  const ad=s.adActive?90:40;
-  return Math.round((productScore+trust+rating+ad)/4);
-}
+
 function renderStats(){
-  const active=stores.filter(s=>s.status==="active").length;
-  const totalProducts=stores.reduce((a,s)=>a+s.products,0);
-  const avg=stores.length?stores.reduce((a,s)=>a+s.rating,0)/stores.length:0;
-  $("totalStores").textContent=stores.length;
-  $("activeStores").textContent=active;
-  $("totalProducts").textContent=totalProducts;
-  $("avgRating").textContent=avg.toFixed(1);
-  $("navStoreCount").textContent=stores.length;
-  const activeStore=stores.find(s=>String(s.id)===String(localStorage.getItem("akActiveStoreId")))||stores[0];
+  const active = stores.filter(s => s.status === "active").length;
+  const totalProducts = stores.reduce((sum, s) => sum + storeProductCount(s.id), 0);
+  const avg = stores.length ? stores.reduce((sum, s) => sum + Number(s.rating || 0), 0) / stores.length : 0;
+
+  $("totalStores").textContent = stores.length;
+  $("activeStores").textContent = active;
+  $("totalProducts").textContent = totalProducts;
+  $("avgRating").textContent = avg.toFixed(1);
+  $("navStoreCount").textContent = stores.length;
+
+  const activeStore = stores.find(s => String(s.id) === String(localStorage.getItem("akActiveStoreId"))) || stores[0];
+
   if(activeStore){
-    $("sideStoreLogo").textContent=activeStore.logo;
-    $("sideStoreName").textContent=activeStore.name;
-    $("sideStorePlan").textContent=`${activeStore.plan} Paket`;
+    $("sideStoreLogo").textContent = activeStore.logo;
+    $("sideStoreName").textContent = activeStore.name;
+    $("sideStorePlan").textContent = `${activeStore.plan} Paket`;
+  }else{
+    $("sideStoreLogo").textContent = "AK";
+    $("sideStoreName").textContent = "Mağaza yok";
+    $("sideStorePlan").textContent = "Önce mağaza oluştur";
   }
 }
+
 function renderHealth(){
-  const score=stores.length?Math.round(stores.reduce((a,s)=>a+storeHealth(s),0)/stores.length):0;
-  $("healthScore").textContent=score+"%";
-  $("healthText").textContent=score>=80?"Güçlü portföy":score>=60?"Geliştirilebilir":"Dikkat gerekli";
-  $("healthProgress").style.width=score+"%";
+  const score = stores.length ? Math.round(stores.reduce((sum, s) => sum + storeHealth(s), 0) / stores.length) : 0;
+
+  $("healthScore").textContent = score + "%";
+  $("healthText").textContent = score >= 80 ? "Güçlü portföy" : score >= 60 ? "Geliştirilebilir" : "Başlangıç aşaması";
+  $("healthProgress").style.width = score + "%";
 }
+
 function renderTodos(){
-  const todos=[];
-  const pending=stores.filter(s=>s.status==="pending").length;
-  const noAds=stores.filter(s=>!s.adActive).length;
-  const lowProducts=stores.filter(s=>s.products<s.productLimit).length;
-  if(pending) todos.push(["Onay bekleyen mağazaları tamamla",`${pending} mağazada doğrulama / onay bekliyor`]);
-  if(noAds) todos.push(["Reklam aktif et",`${noAds} mağazada reklam yok, görünürlük artırılabilir`]);
-  if(lowProducts) todos.push(["Ürün kapasitesini doldur",`${lowProducts} mağazada boş ürün hakkı var`]);
-  todos.push(["Mağaza sayfasını kontrol et","Müşterinin gördüğü mağaza profilini düzenli incele"]);
-  $("todoList").innerHTML=todos.map(t=>`<div class="todo"><strong>${t[0]}</strong><span>${t[1]}</span></div>`).join("");
+  const todos = [];
+
+  if(!stores.length){
+    todos.push(["İlk mağazanı oluştur", "Canlı sistemde mağaza açmadan ürün ekleyemezsin."]);
+  }
+
+  const pending = stores.filter(s => s.status === "pending").length;
+  const noAds = stores.filter(s => !s.adActive).length;
+  const emptyStores = stores.filter(s => storeProductCount(s.id) === 0).length;
+
+  if(pending) todos.push(["Onay bekleyen mağazaları tamamla", `${pending} mağazada doğrulama / onay bekliyor.`]);
+  if(emptyStores) todos.push(["Ürün ekle", `${emptyStores} mağazada henüz ürün yok.`]);
+  if(noAds && stores.length) todos.push(["Reklam fırsatlarını değerlendir", `${noAds} mağazada reklam aktif değil.`]);
+
+  if(!todos.length){
+    todos.push(["Portföy hazır", "Mağaza portföyün canlı verilerle düzenli görünüyor."]);
+  }
+
+  $("todoList").innerHTML = todos.map(t => `
+    <div class="todo">
+      <strong>${t[0]}</strong>
+      <span>${t[1]}</span>
+    </div>
+  `).join("");
 }
-function renderAll(){renderStats();renderStores();renderHealth();renderTodos()}
+
+function renderAll(){
+  renderStats();
+  renderStores();
+  renderHealth();
+  renderTodos();
+}
+
 function bindEvents(){
-  $("mobileMenu").addEventListener("click",()=>$("sidebar").classList.toggle("open"));
-  document.addEventListener("click",(e)=>{if(innerWidth<=900){const s=$("sidebar"),m=$("mobileMenu");if(s.classList.contains("open")&&!s.contains(e.target)&&e.target!==m)s.classList.remove("open")}});
-  ["searchInput","statusFilter","planFilter"].forEach(id=>$(id).addEventListener("input",renderStores));
-  $("clearBtn").addEventListener("click",()=>{$("searchInput").value="";$("statusFilter").value="all";$("planFilter").value="all";renderStores()});
-  $("refreshBtn").addEventListener("click",async()=>{await loadStores();await loadProducts();renderAll();toast("Mağazalar yenilendi.")});
-  $("logoutBtn").addEventListener("click",()=>{localStorage.removeItem("token");localStorage.removeItem("akRole");localStorage.removeItem("akUser");toast("Çıkış yapıldı.");setTimeout(()=>location.href="../seller-login.html",600)});
-  document.querySelectorAll("[data-close]").forEach(b=>b.addEventListener("click",()=>$(b.dataset.close).classList.remove("open")));
+  $("mobileMenu").addEventListener("click", () => $("sidebar").classList.toggle("open"));
+
+  document.addEventListener("click", e => {
+    if(innerWidth <= 900){
+      const s = $("sidebar");
+      const m = $("mobileMenu");
+      if(s.classList.contains("open") && !s.contains(e.target) && e.target !== m){
+        s.classList.remove("open");
+      }
+    }
+  });
+
+  ["searchInput","statusFilter","planFilter"].forEach(id => {
+    $(id).addEventListener("input", renderStores);
+    $(id).addEventListener("change", renderStores);
+  });
+
+  $("clearBtn").addEventListener("click", () => {
+    $("searchInput").value = "";
+    $("statusFilter").value = "all";
+    $("planFilter").value = "all";
+    renderStores();
+  });
+
+  $("refreshBtn").addEventListener("click", async () => {
+    await loadStores();
+    await loadProducts();
+    if(!localStorage.getItem("akActiveStoreId") && stores[0]){
+      localStorage.setItem("akActiveStoreId", stores[0].id);
+    }
+    renderAll();
+    toast("Canlı veriler yenilendi.");
+  });
+
+  $("logoutBtn").addEventListener("click", () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("akRole");
+    localStorage.removeItem("akUser");
+    localStorage.removeItem("seller");
+    localStorage.removeItem("user");
+    toast("Çıkış yapıldı.");
+    setTimeout(() => location.href = "../seller-login.html", 600);
+  });
+
+  document.querySelectorAll("[data-close]").forEach(b => {
+    b.addEventListener("click", () => $(b.dataset.close).classList.remove("open"));
+  });
 }
+
 async function init(){
-  if(!authGuard())return;
+  if(!authGuard()) return;
+
   bindEvents();
+
   await loadStores();
   await loadProducts();
-  if(!localStorage.getItem("akActiveStoreId") && stores[0]) localStorage.setItem("akActiveStoreId",stores[0].id);
+
+  if(!localStorage.getItem("akActiveStoreId") && stores[0]){
+    localStorage.setItem("akActiveStoreId", stores[0].id);
+  }
+
   renderAll();
 }
+
 init();
 </script>
 

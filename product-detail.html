@@ -1513,46 +1513,7 @@ let currentImageIndex = 0;
 
 const favorites = JSON.parse(localStorage.getItem("akFavorites") || "[]");
 
-const demoProducts = [
-  {
-    id:1,
-    title:"Sony A7 IV Kamera Seti",
-    category:"kamera",
-    city:"Trabzon",
-    district:"Ortahisar",
-    price:450,
-    deposit:1500,
-    stock:2,
-    available:true,
-    sponsored:true,
-    verified:true,
-    rating:4.9,
-    reviewCount:18,
-    views:2410,
-    requestCount:47,
-    contactCount:32,
-    favoriteCount:128,
-    description:"Profesyonel video ve fotoğraf çekimleri için Sony A7 IV kamera seti. Düğün, reklam, sosyal medya, etkinlik ve marka çekimleri için uygundur. Ürün tesliminde temel kullanım bilgisi mağaza tarafından paylaşılır.",
-    icon:"📷",
-    images:[],
-    features:{Marka:"Sony", Model:"A7 IV", Lens:"28-70mm", Teslimat:"Mağazadan teslim", Depozito:"Var", Kullanım:"Profesyonel"},
-    rules:["Kimlik doğrulaması istenebilir.","Ürün tesliminde kontrol yapılır.","Geç teslimde ek günlük ücret uygulanabilir."],
-    seller:{id:1,name:"Kamera Dünyam",logo:"KD",city:"Trabzon",district:"Ortahisar",rating:4.9,products:86,rentals:214,phone:"+905551112233",whatsapp:"+905551112233",badges:["Hızlı Yanıt","Doğrulanmış","Belgeli Satıcı"]},
-    comments:[
-      {name:"Ahmet Y.",rating:5,text:"Ürün çok temizdi, teslimat hızlıydı. Çekim için sorunsuz kullandım."},
-      {name:"Elif K.",rating:5,text:"Mağaza çok ilgiliydi. Kamera seti eksiksiz teslim edildi."}
-    ]
-  },
-  {
-    id:2,title:"Canon EOS R6 Profesyonel",category:"kamera",city:"İstanbul",district:"Kadıköy",price:600,deposit:2000,stock:1,available:true,sponsored:false,verified:true,rating:4.8,reviewCount:12,views:1840,requestCount:31,contactCount:22,favoriteCount:97,description:"Canon EOS R6 profesyonel kamera. Etkinlik, portre ve video çekimleri için idealdir.",icon:"📷",images:[],features:{Marka:"Canon",Model:"EOS R6",Teslimat:"Kadıköy",Depozito:"Var"},rules:["Teslimde kontrol yapılır.","Gecikmede ek ücret alınır."],seller:{id:2,name:"FotoKöşk",logo:"FK",city:"İstanbul",district:"Kadıköy",rating:4.8,products:42,rentals:119,phone:"+905552223344",whatsapp:"+905552223344",badges:["Doğrulanmış","Premium"]},comments:[{name:"Mert A.",rating:5,text:"Gayet temiz ürün, tavsiye ederim."}]
-  },
-  {
-    id:3,title:"DJI Mini 4 Pro Drone",category:"drone",city:"Ankara",district:"Çankaya",price:750,deposit:2500,stock:1,available:false,sponsored:true,verified:true,rating:4.9,reviewCount:25,views:3140,requestCount:62,contactCount:44,favoriteCount:142,description:"DJI Mini 4 Pro drone. Tanıtım, emlak, etkinlik ve açık alan çekimleri için uygundur.",icon:"🚁",images:[],features:{Marka:"DJI",Model:"Mini 4 Pro",Batarya:"3 adet",Teslimat:"Çankaya"},rules:["Uçuş sorumluluğu kiracıya aittir.","Hasar durumunda depozito değerlendirilir."],seller:{id:3,name:"Drone Market",logo:"DM",city:"Ankara",district:"Çankaya",rating:4.9,products:38,rentals:156,phone:"+905553334455",whatsapp:"+905553334455",badges:["Belgeli","Hızlı Yanıt"]},comments:[{name:"Can D.",rating:5,text:"Çekim kalitesi çok iyiydi."}]
-  },
-  {
-    id:5,title:"Premium Gelinlik Kiralama",category:"moda",city:"İzmir",district:"Konak",price:900,deposit:3000,stock:3,available:true,sponsored:true,verified:true,rating:4.7,reviewCount:9,views:1190,requestCount:21,contactCount:17,favoriteCount:76,description:"Özel günler için premium gelinlik kiralama. Prova ve teslim detayları mağaza tarafından planlanır.",icon:"👗",images:[],features:{Kategori:"Gelinlik",Beden:"S/M/L",Prova:"Var",Teslimat:"Mağaza"},rules:["Prova randevusu alınmalıdır.","Temizlik bedeli mağaza şartına bağlıdır."],seller:{id:4,name:"Özel Gün",logo:"ÖG",city:"İzmir",district:"Konak",rating:4.7,products:24,rentals:88,phone:"+905554445566",whatsapp:"+905554445566",badges:["Premium","Doğrulanmış"]},comments:[{name:"Derya S.",rating:5,text:"Çok zarif ve temizdi."}]
-  }
-];
+
 
 function safeText(value, fallback=""){
   return String(value ?? fallback).replace(/[&<>"']/g, m=>({

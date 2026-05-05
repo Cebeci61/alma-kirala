@@ -88,14 +88,7 @@ const akRole=localStorage.getItem("akRole");
 
 let stores=[],requests=[],activeStore=null;
 
-const demoStores=[{id:1,name:"Kamera Dünyam",logoText:"KD",plan:"Plus"},{id:2,name:"Event Pro",logoText:"EP",plan:"Premium"}];
-const demoRequests=[
-{id:1,storeId:1,storeName:"Kamera Dünyam",productId:1,productTitle:"Sony A7 IV Kamera Seti",productIcon:"📷",customerName:"Ahmet Yılmaz",customerPhone:"0555 123 45 67",customerEmail:"ahmet@mail.com",startDate:"2026-05-02",endDate:"2026-05-05",days:3,total:1350,deposit:1000,status:"pending",note:"Düğün çekimi için teslim almak istiyorum.",createdAt:"2026-04-28"},
-{id:2,storeId:1,storeName:"Kamera Dünyam",productId:2,productTitle:"Canon EOS R6",productIcon:"📷",customerName:"Zeynep Kaya",customerPhone:"0532 444 22 11",customerEmail:"zeynep@mail.com",startDate:"2026-05-08",endDate:"2026-05-10",days:2,total:1200,deposit:1500,status:"approved",note:"Kurye ile teslim mümkün mü?",createdAt:"2026-04-27"},
-{id:3,storeId:1,storeName:"Kamera Dünyam",productId:3,productTitle:"Işık Seti Kiralama",productIcon:"💡",customerName:"Mert Demir",customerPhone:"0541 222 10 90",customerEmail:"mert@mail.com",startDate:"2026-05-01",endDate:"2026-05-02",days:1,total:220,deposit:500,status:"rejected",note:"Akşam teslim alacağım.",createdAt:"2026-04-25"},
-{id:4,storeId:1,storeName:"Kamera Dünyam",productId:5,productTitle:"Kablosuz Mikrofon Seti",productIcon:"🎙️",customerName:"Elif Arslan",customerPhone:"0507 777 88 99",customerEmail:"elif@mail.com",startDate:"2026-04-20",endDate:"2026-04-22",days:2,total:420,deposit:500,status:"completed",note:"Etkinlik için kullanıldı.",createdAt:"2026-04-18"},
-{id:5,storeId:2,storeName:"Event Pro",productId:9,productTitle:"Sahne Işık Paketi",productIcon:"🎭",customerName:"Can Öztürk",customerPhone:"0530 111 22 33",customerEmail:"can@mail.com",startDate:"2026-05-12",endDate:"2026-05-15",days:3,total:3000,deposit:2000,status:"pending",note:"Festival alanına kurulum gerekiyor.",createdAt:"2026-04-28"}
-];
+
 
 function $(id){return document.getElementById(id)}
 function money(v){return "₺"+Number(v||0).toLocaleString("tr-TR")}

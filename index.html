@@ -1809,43 +1809,9 @@ const pageSize = 8;
 const favorites = JSON.parse(localStorage.getItem("akFavorites") || "[]");
 const viewed = JSON.parse(localStorage.getItem("akViewed") || "[]");
 
-const demoProducts = [
-  {id:1,title:"Sony A7 IV Kamera Seti",category:"kamera",city:"Trabzon",district:"Ortahisar",price:450,badge:"Bugün Müsait",available:true,popular:true,sponsored:true,premium:true,campaign:false,discount:false,likes:128,views:2410,date:"2026-04-25",storeName:"Kamera Dünyam",icon:"📷"},
-  {id:2,title:"Canon EOS R6 Profesyonel",category:"kamera",city:"İstanbul",district:"Kadıköy",price:600,badge:"Doğrulanmış",available:true,popular:true,sponsored:false,premium:true,campaign:true,discount:true,likes:97,views:1840,date:"2026-04-24",storeName:"FotoKöşk",icon:"📷"},
-  {id:3,title:"DJI Mini 4 Pro Drone",category:"drone",city:"Ankara",district:"Çankaya",price:750,badge:"Sponsorlu",available:false,popular:true,sponsored:true,premium:false,campaign:false,discount:false,likes:142,views:3140,date:"2026-04-23",storeName:"Drone Market",icon:"🚁"},
-  {id:4,title:"GoPro Hero Aksiyon Kamera",category:"kamera",city:"Antalya",district:"Muratpaşa",price:280,badge:"Uygun Fiyat",available:true,popular:false,sponsored:false,premium:false,campaign:true,discount:true,likes:41,views:860,date:"2026-04-22",storeName:"Outdoor Dünya",icon:"🎥"},
-  {id:5,title:"Premium Gelinlik Kiralama",category:"moda",city:"İzmir",district:"Konak",price:900,badge:"Premium",available:true,popular:true,sponsored:true,premium:true,campaign:false,discount:false,likes:76,views:1190,date:"2026-04-21",storeName:"Özel Gün",icon:"👗"},
-  {id:6,title:"Profesyonel Matkap Seti",category:"tamir",city:"Antalya",district:"Muratpaşa",price:180,badge:"Depozitosuz",available:true,popular:false,sponsored:false,premium:false,campaign:false,discount:false,likes:24,views:530,date:"2026-04-20",storeName:"Trabzon Teknik",icon:"🛠️"},
-  {id:7,title:"Etkinlik Ses Sistemi",category:"etkinlik",city:"Trabzon",district:"Ortahisar",price:650,badge:"Etkinlik",available:false,popular:true,sponsored:true,premium:false,campaign:true,discount:true,likes:88,views:1670,date:"2026-04-19",storeName:"Event Pro",icon:"🎉"},
-  {id:8,title:"Organizasyon Işık Sistemi",category:"etkinlik",city:"Ankara",district:"Çankaya",price:520,badge:"Bugün",available:true,popular:false,sponsored:false,premium:true,campaign:false,discount:false,likes:55,views:920,date:"2026-04-18",storeName:"Event Pro",icon:"💡"},
-  {id:9,title:"Nişan Elbisesi Kiralama",category:"moda",city:"İstanbul",district:"Beşiktaş",price:420,badge:"Yeni",available:true,popular:true,sponsored:false,premium:false,campaign:true,discount:true,likes:61,views:1040,date:"2026-04-17",storeName:"Moda Kirala",icon:"👗"},
-  {id:10,title:"Bahçe Temizlik Makinesi",category:"tamir",city:"Trabzon",district:"Akçaabat",price:240,badge:"Ekonomik",available:true,popular:false,sponsored:false,premium:false,campaign:false,discount:false,likes:19,views:410,date:"2026-04-16",storeName:"Trabzon Teknik",icon:"🧰"}
-];
 
-const demoStores = [
-  {id:1,name:"Kamera Dünyam",logo:"KD",city:"İstanbul",category:"Kamera",rating:4.9,products:86,badges:["Sponsorlu","Doğrulanmış"]},
-  {id:2,name:"Event Pro",logo:"EP",city:"Antalya",category:"Etkinlik",rating:4.8,products:64,badges:["Premium","Kurumsal"]},
-  {id:3,name:"Drone Market",logo:"DM",city:"Ankara",category:"Drone",rating:4.9,products:38,badges:["Hızlı Yanıt","Belgeli"]},
-  {id:4,name:"Trabzon Teknik",logo:"TT",city:"Trabzon",category:"Yapı & Tamir",rating:4.6,products:57,badges:["Plus","Uygun Fiyat"]}
-];
 
-const popularSearches = [
-  ["Canon kamera", "Kamera ekipmanı"],
-  ["DJI drone", "Havadan çekim"],
-  ["Gelinlik kiralama", "Özel gün"],
-  ["Ses sistemi", "Etkinlik"],
-  ["Matkap seti", "Yapı & tamir"],
-  ["Trabzon kamera", "Şehir bazlı"]
-];
 
-const cities = [
-  ["İstanbul", "Kadıköy, Beşiktaş, Şişli"],
-  ["Ankara", "Çankaya, Keçiören"],
-  ["İzmir", "Konak, Karşıyaka"],
-  ["Trabzon", "Ortahisar, Akçaabat"],
-  ["Antalya", "Muratpaşa, Konyaaltı"],
-  ["Bursa", "Nilüfer, Osmangazi"]
-];
 
 function safeText(value, fallback=""){
   return String(value ?? fallback).replace(/[&<>"']/g, m=>({

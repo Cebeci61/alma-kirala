@@ -109,14 +109,8 @@
 <script>
 const token=localStorage.getItem("token");
 const akRole=localStorage.getItem("akRole");
-const demoStores=[{id:1,name:"Kamera Dünyam",logoText:"KD",plan:"Plus"},{id:2,name:"Event Pro",logoText:"EP",plan:"Premium"}];
 
-const demoRentals=[
-{id:1,date:"2026-04-28",storeId:1,storeName:"Kamera Dünyam",product:"Sony A7 IV Kamera Seti",customer:"Ahmet Yılmaz",type:"income",title:"Kiralama tahsilatı",gross:1350,commission:135,expense:0,deposit:1000,status:"paid",invoice:"AK-FTR-1001"},
-{id:2,date:"2026-04-27",storeId:1,storeName:"Kamera Dünyam",product:"Canon EOS R6",customer:"Zeynep Kaya",type:"income",title:"Kiralama tahsilatı",gross:1200,commission:120,expense:0,deposit:1500,status:"paid",invoice:"AK-FTR-1002"},
-{id:3,date:"2026-04-22",storeId:1,storeName:"Kamera Dünyam",product:"Kablosuz Mikrofon Seti",customer:"Elif Arslan",type:"income",title:"Kiralama tahsilatı",gross:420,commission:42,expense:0,deposit:500,status:"pending",invoice:"AK-FTR-1003"},
-{id:4,date:"2026-04-20",storeId:1,storeName:"Kamera Dünyam",product:"Işık Seti Kiralama",customer:"Mert Demir",type:"income",title:"Kiralama tahsilatı",gross:880,commission:88,expense:0,deposit:500,status:"paid",invoice:"AK-FTR-1004"}
-];
+
 
 function $(id){return document.getElementById(id)}
 function money(v){return "₺"+Number(v||0).toLocaleString("tr-TR")}

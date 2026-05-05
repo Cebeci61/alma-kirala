@@ -81,105 +81,138 @@
 <div class="toast" id="toast"></div>
 
 <script>
-const API_BASE = "https://alma-kirala-api.onrender.com";const STORE_ENDPOINT=`${API_BASE}/api/stores`;
-const PRODUCT_ENDPOINT=`${API_BASE}/api/products`;
-const token=localStorage.getItem("token");
-const akRole=localStorage.getItem("akRole");
-let stores=[],products=[],activeStore=null,currentView="card";
+const API_BASE = "https://alma-kirala-api.onrender.com";
+const STORE_ENDPOINT = `${API_BASE}/api/stores`;
+const PRODUCT_ENDPOINT = `${API_BASE}/api/products`;
 
-const demoStores=[{id:1,name:"Kamera Dünyam",logoText:"KD",plan:"Plus"},{id:2,name:"Event Pro",logoText:"EP",plan:"Premium"}];
-const demoProducts=[
-{id:1,storeId:1,title:"Sony A7 IV Kamera Seti",description:"Profesyonel çekimler için kamera, lens ve batarya dahil set.",tag:"Premium",price:450,status:"active",category:"Kamera",photos:["📷","🔋","🎒","🔌","📦"],views:2410,requests:47},
-{id:2,storeId:1,title:"Canon EOS R6",description:"Düğün, etkinlik ve ürün çekimi için yüksek performanslı kamera.",tag:"Bugün Müsait",price:600,status:"active",category:"Kamera",photos:["📷","📷","🔋"],views:1840,requests:31},
-{id:3,storeId:1,title:"Işık Seti Kiralama",description:"Softbox ve led panel içeren taşınabilir ışık seti.",tag:"Kampanyalı",price:220,status:"pending",category:"Işık",photos:["💡","💡"],views:890,requests:16},
-{id:4,storeId:1,title:"Gimbal Stabilizer",description:"Akıcı video çekimleri için profesyonel gimbal.",tag:"Yeni",price:180,status:"active",category:"Kamera",photos:["🎥"],views:760,requests:12},
-{id:5,storeId:1,title:"Kablosuz Mikrofon Seti",description:"Röportaj ve etkinlik çekimleri için çiftli kablosuz mikrofon.",tag:"Sponsorlu",price:210,status:"passive",category:"Ses",photos:["🎙️","🎧","📦","🔋","🔌"],views:1100,requests:21}
-];
+const token = localStorage.getItem("token");
+const akRole = localStorage.getItem("akRole");
+
+let stores = [];
+let products = [];
+let activeStore = null;
+let currentView = "card";
 
 function $(id){return document.getElementById(id)}
 function money(v){return "₺"+Number(v||0).toLocaleString("tr-TR")}
-function toast(msg){$("toast").textContent=msg;$("toast").classList.add("show");setTimeout(()=>$("toast").classList.remove("show"),3000)}
-function authGuard(){if(!token||akRole!=="seller"){toast("Ürünleri görmek için mağaza hesabıyla giriş yapmalısın.");setTimeout(()=>location.href="../seller-login.html",700);return false}return true}
-function authHeader(){return token?{"Authorization":`Bearer ${token}`}:{}} 
-async function fetchJson(url){try{const r=await fetch(url,{headers:{...authHeader()}});if(!r.ok)throw new Error();return await r.json()}catch{return null}}
+function toast(msg){
+  $("toast").textContent = msg;
+  $("toast").classList.add("show");
+  setTimeout(()=>$("toast").classList.remove("show"),3000);
+}
+
+function authGuard(){
+  if(!token || akRole !== "seller"){
+    toast("Giriş yapmalısın");
+    setTimeout(()=>location.href="../seller-login.html",700);
+    return false;
+  }
+  return true;
+}
+
+function authHeader(){
+  return token ? {"Authorization":`Bearer ${token}`} : {};
+}
+
+async function fetchJson(url){
+  try{
+    const r = await fetch(url,{headers:{...authHeader()}});
+    if(!r.ok) return null;
+    return await r.json();
+  }catch{
+    return null;
+  }
+}
+
+/* ---------------- STORES ---------------- */
 
 async function loadStores(){
- const data=await fetchJson(`${STORE_ENDPOINT}/my`);
- const raw=data?.stores||data?.data||data?.items||data;
- stores=Array.isArray(raw)&&raw.length?raw.map(s=>({id:s.id||s._id,name:s.name||s.storeName||"Mağaza",logoText:s.logoText||s.logo||(s.name||"AK").slice(0,2).toUpperCase(),plan:s.plan||s.packageName||"Standart"})):demoStores;
- const saved=localStorage.getItem("akActiveStoreId");
- activeStore=stores.find(s=>String(s.id)===String(saved))||stores[0];
- localStorage.setItem("akActiveStoreId",activeStore.id);
+  const data = await fetchJson(`${STORE_ENDPOINT}/my`);
+  const raw = data?.stores || data?.data || data;
+
+  stores = Array.isArray(raw) ? raw : [];
+
+  if(!stores.length){
+    toast("Mağaza yok. Önce mağaza oluştur.");
+    setTimeout(()=>location.href="create-store.html",800);
+    return;
+  }
+
+  const saved = localStorage.getItem("akActiveStoreId");
+  activeStore = stores.find(s=>String(s.id)===saved) || stores[0];
+
+  localStorage.setItem("akActiveStoreId", activeStore.id);
+
+  $("storeSwitch").innerHTML = stores.map(s=>`
+    <option value="${s.id}" ${s.id===activeStore.id?"selected":""}>
+      ${s.name}
+    </option>
+  `).join("");
+
+  $("sideStoreName").textContent = activeStore.name;
 }
+
+/* ---------------- PRODUCTS ---------------- */
+
 async function loadProducts(){
- const data=await fetchJson(`${PRODUCT_ENDPOINT}?storeId=${encodeURIComponent(activeStore.id)}`);
- const raw=data?.products||data?.data||data?.items||data?.results||data;
- products=Array.isArray(raw)&&raw.length?raw.map(normalizeProduct):demoProducts.filter(p=>String(p.storeId)===String(activeStore.id));
+  const data = await fetchJson(`${PRODUCT_ENDPOINT}?storeId=${activeStore.id}`);
+  const raw = data?.products || data?.data || data;
+
+  products = Array.isArray(raw) ? raw : [];
 }
-function normalizeProduct(p){
- return {id:p.id||p._id,storeId:p.storeId||p.store?.id||activeStore.id,title:p.title||p.name||"Ürün",description:p.description||"",tag:p.tag||p.badge||"Standart",price:Number(p.price||p.dailyPrice||0),status:p.status||"active",category:p.category||"Genel",photos:p.photos||p.images||[],views:Number(p.views||0),requests:Number(p.requests||0)}
-}
-function renderStores(){
- $("storeSwitch").innerHTML=stores.map(s=>`<option value="${s.id}" ${String(s.id)===String(activeStore.id)?"selected":""}>${s.name}</option>`).join("");
- $("sideStoreLogo").textContent=activeStore.logoText||"AK";$("sideStoreName").textContent=activeStore.name;$("sideStorePlan").textContent=activeStore.plan+" Paket";
-}
-function filtered(){
- const q=$("searchInput").value.trim().toLowerCase(),st=$("statusFilter").value,tag=$("tagFilter").value;
- return products.filter(p=>{
-  const matchText=`${p.title} ${p.description} ${p.tag} ${p.category}`.toLowerCase().includes(q);
-  const matchStatus=st==="all"||p.status===st;
-  const matchTag=tag==="all"||p.tag===tag;
-  return matchText&&matchStatus&&matchTag;
- });
-}
-function statusLabel(s){if(s==="active")return["Aktif","active-s"];if(s==="pending")return["Onay bekliyor","pending-s"];return["Pasif","passive-s"]}
+
+/* ---------------- RENDER ---------------- */
+
 function renderStats(){
- const total=products.length,active=products.filter(p=>p.status==="active").length,missing=products.filter(p=>(p.photos||[]).length<5).length,avg=total?products.reduce((a,p)=>a+p.price,0)/total:0;
- $("totalProducts").textContent=total;$("activeProducts").textContent=active;$("missingPhotos").textContent=missing;$("avgPrice").textContent=money(Math.round(avg));$("navProductCount").textContent=total;
+  $("totalProducts").textContent = products.length;
+  $("activeProducts").textContent = products.filter(p=>p.status==="active").length;
 }
+
 function renderProducts(){
- const list=filtered();$("emptyState").classList.toggle("show",list.length===0);
- $("productGrid").style.display=currentView==="card"?"grid":"none";$("tableWrap").style.display=currentView==="table"?"block":"none";
- $("productGrid").innerHTML=list.map(cardHtml).join("");
- $("productTable").innerHTML=list.map(rowHtml).join("");
- bindProductButtons();
+  const list = products;
+
+  $("emptyState").classList.toggle("show", list.length===0);
+
+  $("productGrid").innerHTML = list.map(p=>`
+    <div class="product-card">
+      <div class="product-img">📦</div>
+      <div class="product-body">
+        <h3>${p.title}</h3>
+        <div class="price">${money(p.price)}</div>
+      </div>
+    </div>
+  `).join("");
 }
-function cardHtml(p){
- const [text,cls]=statusLabel(p.status);const photos=(p.photos||[]).slice(0,5);
- return `<article class="product-card"><div class="product-img"><span class="product-badge">${p.tag}</span><span class="product-status">${text}</span>${photos[0]||"📦"}<div class="thumbs">${[0,1,2,3,4].map(i=>`<span>${photos[i]||"+"}</span>`).join("")}</div></div><div class="product-body"><h3>${p.title}</h3><p class="desc">${p.description||"Açıklama eklenmemiş."}</p><div class="meta"><span>${p.category}</span><span>${photos.length}/5 fotoğraf</span><span>${p.views} görüntülenme</span><span>${p.requests} talep</span></div><div class="price">${money(p.price)} / gün</div><div class="actions"><button class="yellow" data-detail="${p.id}">İncele</button><a class="dark" href="edit-product.html?id=${p.id}">Düzenle</a><button class="light" data-toggle="${p.id}">${p.status==="active"?"Pasifleştir":"Aktifleştir"}</button></div></div></article>`;
-}
-function rowHtml(p){
- const [text,cls]=statusLabel(p.status);
- return `<tr><td><div class="row-product"><div class="mini-img">${(p.photos||[])[0]||"📦"}</div><div><b>${p.title}</b><br><small>${p.description.slice(0,70)}</small></div></div></td><td>${p.tag}</td><td>${money(p.price)}/gün</td><td>${(p.photos||[]).length}/5</td><td><span class="status ${cls}">${text}</span></td><td><button class="btn light" data-detail="${p.id}">İncele</button></td></tr>`
-}
-function bindProductButtons(){
- document.querySelectorAll("[data-detail]").forEach(btn=>btn.addEventListener("click",()=>openDetail(btn.dataset.detail)));
- document.querySelectorAll("[data-toggle]").forEach(btn=>btn.addEventListener("click",()=>toggleProduct(btn.dataset.toggle)));
-}
-function openDetail(id){
- const p=products.find(x=>String(x.id)===String(id));if(!p)return;
- $("modalTitle").textContent=p.title;
- $("modalBody").innerHTML=`<div class="detail-grid"><div class="detail-gallery"><div class="big-photo">${(p.photos||[])[0]||"📦"}</div><div class="photo-list">${[0,1,2,3,4].map(i=>`<span>${(p.photos||[])[i]||"+"}</span>`).join("")}</div></div><div><h3 style="font-family:Georgia,serif;font-size:26px;margin:0">${p.title}</h3><p style="color:#64748b;font-weight:750;line-height:1.6">${p.description}</p><p><b>Etiket:</b> ${p.tag}</p><p><b>Kategori:</b> ${p.category}</p><p><b>Fiyat:</b> ${money(p.price)} / gün</p><p><b>Fotoğraf:</b> ${(p.photos||[]).length}/5</p><p><b>Performans:</b> ${p.views} görüntülenme • ${p.requests} talep</p><br><a class="btn y" href="edit-product.html?id=${p.id}">Ürünü Düzenle</a></div></div>`;
- $("detailModal").classList.add("open");
-}
-async function toggleProduct(id){
- const p=products.find(x=>String(x.id)===String(id));if(!p)return;
- const next=p.status==="active"?"passive":"active";
- try{await fetch(`${PRODUCT_ENDPOINT}/${id}`,{method:"PATCH",headers:{"Content-Type":"application/json",...authHeader()},body:JSON.stringify({status:next})})}catch{}
- p.status=next;toast("Ürün durumu güncellendi.");renderStats();renderProducts();
-}
+
+/* ---------------- EVENTS ---------------- */
+
 function bindEvents(){
- $("mobileMenu").addEventListener("click",()=>$("sidebar").classList.toggle("open"));
- document.addEventListener("click",e=>{if(innerWidth<=900){const s=$("sidebar"),m=$("mobileMenu");if(s.classList.contains("open")&&!s.contains(e.target)&&e.target!==m)s.classList.remove("open")}});
- $("storeSwitch").addEventListener("change",async()=>{activeStore=stores.find(s=>String(s.id)===$("storeSwitch").value)||activeStore;localStorage.setItem("akActiveStoreId",activeStore.id);await loadProducts();renderStores();renderStats();renderProducts();toast("Mağaza ürünleri yüklendi.")});
- ["searchInput","statusFilter","tagFilter"].forEach(id=>$(id).addEventListener("input",renderProducts));
- $("clearBtn").addEventListener("click",()=>{$("searchInput").value="";$("statusFilter").value="all";$("tagFilter").value="all";renderProducts()});
- document.querySelectorAll("[data-view]").forEach(btn=>btn.addEventListener("click",()=>{document.querySelectorAll("[data-view]").forEach(b=>b.classList.remove("active"));btn.classList.add("active");currentView=btn.dataset.view;renderProducts()}));
- document.querySelectorAll("[data-close]").forEach(btn=>btn.addEventListener("click",()=>$(btn.dataset.close).classList.remove("open")));
- document.querySelectorAll(".modal").forEach(m=>m.addEventListener("click",e=>{if(e.target.classList.contains("modal"))m.classList.remove("open")}));
- $("logoutBtn").addEventListener("click",()=>{localStorage.removeItem("token");localStorage.removeItem("akRole");localStorage.removeItem("akUser");toast("Çıkış yapıldı.");setTimeout(()=>location.href="../seller-login.html",600)});
+  $("storeSwitch").addEventListener("change", async()=>{
+    activeStore = stores.find(s=>String(s.id)===$("storeSwitch").value);
+    localStorage.setItem("akActiveStoreId", activeStore.id);
+    await loadProducts();
+    renderAll();
+  });
 }
-async function init(){if(!authGuard())return;await loadStores();renderStores();await loadProducts();bindEvents();renderStats();renderProducts()}init();
+
+/* ---------------- INIT ---------------- */
+
+function renderAll(){
+  renderStats();
+  renderProducts();
+}
+
+async function init(){
+  if(!authGuard()) return;
+
+  await loadStores();
+  await loadProducts();
+
+  bindEvents();
+  renderAll();
+}
+
+init();
 </script>
 </body>
 </html>

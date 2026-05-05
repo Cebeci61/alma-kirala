@@ -112,25 +112,6 @@ const akRole=localStorage.getItem("akRole");
 
 let stores=[],products=[],reservations=[],activeStore=null;
 
-const demoStores=[{id:1,name:"Kamera Dünyam",logoText:"KD",plan:"Plus"},{id:2,name:"Event Pro",logoText:"EP",plan:"Premium"}];
-const demoProducts=[
-{id:1,storeId:1,title:"Sony A7 IV Kamera Seti",price:450,views:2410,requests:47,listedDays:38,photos:["📷"],category:"Kamera"},
-{id:2,storeId:1,title:"Canon EOS R6",price:600,views:1840,requests:31,listedDays:28,photos:["📷"],category:"Kamera"},
-{id:3,storeId:1,title:"Işık Seti Kiralama",price:220,views:890,requests:16,listedDays:44,photos:["💡"],category:"Işık"},
-{id:4,storeId:1,title:"Gimbal Stabilizer",price:180,views:760,requests:12,listedDays:22,photos:["🎥"],category:"Kamera"},
-{id:5,storeId:1,title:"Kablosuz Mikrofon Seti",price:210,views:1100,requests:21,listedDays:31,photos:["🎙️"],category:"Ses"}
-];
-const demoReservations=[
-{id:1,storeId:1,productId:1,days:3,total:1350,status:"completed",dateOffset:1},
-{id:2,storeId:1,productId:1,days:2,total:900,status:"completed",dateOffset:4},
-{id:3,storeId:1,productId:2,days:3,total:1800,status:"completed",dateOffset:6},
-{id:4,storeId:1,productId:2,days:1,total:600,status:"completed",dateOffset:9},
-{id:5,storeId:1,productId:3,days:4,total:880,status:"completed",dateOffset:11},
-{id:6,storeId:1,productId:5,days:2,total:420,status:"completed",dateOffset:14},
-{id:7,storeId:1,productId:1,days:1,total:450,status:"completed",dateOffset:18},
-{id:8,storeId:1,productId:4,days:2,total:360,status:"completed",dateOffset:23},
-{id:9,storeId:1,productId:1,days:5,total:2250,status:"pending",dateOffset:25}
-];
 
 function $(id){return document.getElementById(id)}
 function money(v){return "₺"+Number(v||0).toLocaleString("tr-TR")}

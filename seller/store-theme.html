@@ -119,8 +119,6 @@ const themes=[
 {id:"dark",name:"Siyah Pro",class:"dark",effect:"Teknolojik, güçlü ve profesyonel bir izlenim bırakır.",fit:"Drone, kamera, ses, sahne ekipmanı.",features:["Koyu vitrin","Pro his","Güçlü kontrast"]}
 ];
 
-const demoStores=[{id:1,name:"Kamera Dünyam",logoText:"KD",shortDescription:"Profesyonel kamera ve ekipman kiralama mağazası.",theme:"premium",coverIntensity:"strong",cardStyle:"rounded",buttonStyle:"yellow",badgeStyle:"trust"}];
-
 function $(id){return document.getElementById(id)}
 function toast(msg){$("toast").textContent=msg;$("toast").classList.add("show");setTimeout(()=>$("toast").classList.remove("show"),3000)}
 function authGuard(){if(!token||akRole!=="seller"){toast("Tema için mağaza hesabıyla giriş yapmalısın.");setTimeout(()=>location.href="../seller-login.html",700);return false}return true}

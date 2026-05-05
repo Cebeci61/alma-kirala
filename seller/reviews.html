@@ -104,15 +104,7 @@ const token=localStorage.getItem("token");
 const akRole=localStorage.getItem("akRole");
 let stores=[],reviews=[],activeStore=null,activeReview=null;
 
-const demoStores=[{id:1,name:"Kamera Dünyam",logoText:"KD",plan:"Plus"},{id:2,name:"Event Pro",logoText:"EP",plan:"Premium"}];
-const demoReviews=[
-{id:1,storeId:1,storeName:"Kamera Dünyam",productId:1,productTitle:"Sony A7 IV Kamera Seti",customerName:"Ahmet Yılmaz",memberSince:"2023",rating:5,text:"Ürün tertemizdi, bataryalar doluydu. Teslimat hızlı ve satıcı çok ilgiliydi.",date:"2026-04-20",visible:true,featured:true,reply:"Güzel yorumunuz için teşekkür ederiz. Tekrar bekleriz."},
-{id:2,storeId:1,storeName:"Kamera Dünyam",productId:2,productTitle:"Canon EOS R6",customerName:"Zeynep Kaya",memberSince:"2024",rating:4,text:"Kamera kalitesi çok iyiydi. Kurye biraz geç geldi ama iletişim iyiydi.",date:"2026-04-18",visible:true,featured:false,reply:"Geri bildiriminiz için teşekkür ederiz, teslimat sürecimizi iyileştiriyoruz."},
-{id:3,storeId:1,storeName:"Kamera Dünyam",productId:3,productTitle:"Işık Seti Kiralama",customerName:"Mert Demir",memberSince:"2022",rating:3,text:"Ürün işimi gördü fakat açıklamada yazan bir aparat eksikti.",date:"2026-04-15",visible:true,featured:false,reply:""},
-{id:4,storeId:1,storeName:"Kamera Dünyam",productId:5,productTitle:"Kablosuz Mikrofon Seti",customerName:"Elif Arslan",memberSince:"2021",rating:5,text:"Ses çok temizdi. Etkinlik için sorunsuz kullandık.",date:"2026-04-10",visible:true,featured:true,reply:"Memnuniyetiniz bizi çok sevindirdi."},
-{id:5,storeId:1,storeName:"Kamera Dünyam",productId:4,productTitle:"Gimbal Stabilizer",customerName:"Can Öztürk",memberSince:"2025",rating:2,text:"Cihaz çalıştı ama kutu içeriği eksikti. Daha dikkatli olunmalı.",date:"2026-04-08",visible:true,featured:false,reply:""},
-{id:6,storeId:2,storeName:"Event Pro",productId:9,productTitle:"Sahne Işık Paketi",customerName:"Seda Akın",memberSince:"2020",rating:5,text:"Kurulum ekibi çok profesyoneldi. Organizasyonu kurtardılar.",date:"2026-04-17",visible:true,featured:true,reply:""}
-];
+
 
 function $(id){return document.getElementById(id)}
 function toast(msg){$("toast").textContent=msg;$("toast").classList.add("show");setTimeout(()=>$("toast").classList.remove("show"),3000)}

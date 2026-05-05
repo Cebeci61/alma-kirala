@@ -4,47 +4,81 @@ exports.createProduct = async (req, res) => {
   try {
     const { title, description, price, storeId } = req.body;
 
-    if (!title || !price || !storeId) {
-      return res.status(400).json({ message: "Ürün adı, fiyat ve mağaza zorunlu" });
+    const cleanTitle = String(title || "").trim();
+    const cleanDescription = String(description || "").trim();
+    const cleanPrice = Number(price);
+    const cleanStoreId = Number(storeId);
+
+    if (!cleanTitle || !cleanDescription || !cleanPrice || !cleanStoreId) {
+      return res.status(400).json({
+        message: "Ürün adı, açıklama, fiyat ve mağaza zorunlu"
+      });
     }
 
-    if (Number(price) <= 0) {
-      return res.status(400).json({ message: "Fiyat 0'dan büyük olmalı" });
+    if (cleanPrice <= 0) {
+      return res.status(400).json({
+        message: "Fiyat 0'dan büyük olmalı"
+      });
     }
 
     const store = await prisma.store.findUnique({
-      where: { id: Number(storeId) }
+      where: {
+        id: cleanStoreId
+      }
     });
 
-    if (!store) return res.status(404).json({ message: "Mağaza bulunamadı" });
-    if (store.ownerId !== req.user.id) return res.status(403).json({ message: "Bu mağaza sana ait değil" });
-    if (store.status !== "active") return res.status(400).json({ message: "Mağaza aktif değil" });
+    if (!store) {
+      return res.status(404).json({
+        message: "Mağaza bulunamadı"
+      });
+    }
+
+    if (store.ownerId !== req.user.id) {
+      return res.status(403).json({
+        message: "Bu mağaza sana ait değil"
+      });
+    }
+
+    // Geçici güvenli çözüm:
+    // status alanı yoksa veya boşsa ürün eklemeyi engelleme.
+    if (store.status && store.status !== "active") {
+      return res.status(400).json({
+        message: "Mağaza aktif değil"
+      });
+    }
 
     const productCount = await prisma.product.count({
-      where: { storeId: Number(storeId) }
+      where: {
+        storeId: cleanStoreId
+      }
     });
 
     if (productCount >= 10) {
-      return res.status(400).json({ message: "Bir mağaza en fazla 10 ürün ekleyebilir" });
+      return res.status(400).json({
+        message: "Bir mağaza en fazla 10 ürün ekleyebilir"
+      });
     }
 
     const product = await prisma.product.create({
       data: {
-        title,
-        description,
-        price: Number(price),
-        storeId: Number(storeId)
+        title: cleanTitle,
+        description: cleanDescription,
+        price: cleanPrice,
+        storeId: cleanStoreId
       }
     });
 
-    res.json({
+    return res.status(201).json({
       message: "Ürün başarıyla eklendi",
       product
     });
 
   } catch (error) {
-    console.log(error);
-    res.status(500).json({ message: "Sunucu hatası" });
+    console.error("createProduct error:", error);
+    return res.status(500).json({
+      message: "Ürün eklenirken sunucu hatası oluştu",
+      error: error.message
+    });
   }
 };
 
@@ -52,11 +86,7 @@ exports.getProducts = async (req, res) => {
   try {
     const { search, minPrice, maxPrice, page = 1, limit = 10 } = req.query;
 
-    const where = {
-      store: {
-        status: "active"
-      }
-    };
+    const where = {};
 
     if (search) {
       where.OR = [
@@ -84,7 +114,7 @@ exports.getProducts = async (req, res) => {
       prisma.product.count({ where })
     ]);
 
-    res.json({
+    return res.json({
       products,
       pagination: {
         total,
@@ -95,8 +125,11 @@ exports.getProducts = async (req, res) => {
     });
 
   } catch (error) {
-    console.log(error);
-    res.status(500).json({ message: "Sunucu hatası" });
+    console.error("getProducts error:", error);
+    return res.status(500).json({
+      message: "Ürünler getirilemedi",
+      error: error.message
+    });
   }
 };
 
@@ -104,19 +137,30 @@ exports.getProductById = async (req, res) => {
   try {
     const id = Number(req.params.id);
 
+    if (!id) {
+      return res.status(400).json({
+        message: "Geçersiz ürün id"
+      });
+    }
+
     const product = await prisma.product.findUnique({
       where: { id },
       include: { store: true }
     });
 
     if (!product) {
-      return res.status(404).json({ message: "Ürün bulunamadı" });
+      return res.status(404).json({
+        message: "Ürün bulunamadı"
+      });
     }
 
-    res.json(product);
+    return res.json(product);
 
   } catch (error) {
-    console.log(error);
-    res.status(500).json({ message: "Sunucu hatası" });
+    console.error("getProductById error:", error);
+    return res.status(500).json({
+      message: "Ürün detayı getirilemedi",
+      error: error.message
+    });
   }
 };
